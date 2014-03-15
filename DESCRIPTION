@@ -1,0 +1,17 @@
+Package: esoo
+Type: Package
+Title: Evolutionary Single Objective Optimization in R.
+Version: 0.1
+Date: 2014-03-15
+Author: Jakob Bossek <jakob.bossek@tu-dortmund.de>
+Maintainer: Jakob Bossek <jakob.bossek@tu-dortmund.de>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+Suggests:
+    testthat,
+    soobench
+Depends:
+    BBmisc,
+    helpr
+Imports:
+    ggplot2
