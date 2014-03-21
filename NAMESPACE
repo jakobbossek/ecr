@@ -1,1 +1,2 @@
 export(esoo)
+export(getBestIndividual)
