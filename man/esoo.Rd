@@ -23,9 +23,11 @@ Takes a function and searches for global optimum with an
 evolutionary approach.
 }
 \examples{
+\dontrun{
 library(soobench)
 f = generate_sphere_function(2)
 res = esoo(f, max.iter = 50, pop.size = 10)
 print(res$best.value)
+}
 }
 
