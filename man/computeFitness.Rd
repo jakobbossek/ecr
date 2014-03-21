@@ -1,0 +1,22 @@
+\name{computeFitness}
+\alias{computeFitness}
+\title{Computes the fitness values for each member of a given population.}
+\usage{
+computeFitness(setOfIndividuals, fitness.fun)
+}
+\arguments{
+  \item{setOfIndividuals}{[\code{setOfIndividuals}]\cr Set
+  of individuals.}
+
+  \item{fitness.fun}{[\code{function}]\cr Fitness
+  function.}
+}
+\value{
+[\code{setOfIndividuals}].
+}
+\description{
+This function gets a \code{setOfIndividuals}, computes the
+fitness and extends the set of individuals (a list) with
+the fitness element.
+}
+
