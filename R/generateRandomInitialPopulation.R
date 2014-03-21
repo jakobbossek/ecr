@@ -21,6 +21,7 @@ generateRandomInitialPopulation = function(size, n.params, lower.bounds, upper.b
 }
 
 # Helper function for wrapping individuals in a 'setOfIndividuals'.
+#
 # @param [\code{matrix}]\cr
 #   Matrix of individuals.
 # @param [\code{numeric}]\cr
@@ -34,4 +35,16 @@ makePopulation = function(individuals, fitness) {
   structure(
     res,
     class = c("esooPopulation", "setOfIndividuals"))
+}
+
+# Helper for merging populations.
+#
+# @param individuals1, individuals2 [\code{setOfIndividuals}]\cr
+#  The source sets of individuals.
+# @return [\code{setOfIndividuals}]
+mergePopulations = function(individuals1, individuals2) {
+  makePopulation(
+    individuals = rbind(individuals1$population, individuals2$population),
+    fitness = c(individuals1$fitness, individuals2$fitness)
+    )
 }
