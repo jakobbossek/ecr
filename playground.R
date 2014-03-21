@@ -17,7 +17,7 @@ library(ggplot2)
 # - think about the best programmatical interface solution for the user. It should be as simple as
 #   possible to extend the functionality and write propriatary mutation, selection ... funs.
 # - at all costs follow the "DRY" principle, i.e., "don't repeat yourself"
-# - 
+# -
 
 # IDEAS
 # - allow chaining of mutators, i. e., allow to apply more than one mutator to the offspring
@@ -97,14 +97,6 @@ isTerminiationCriterionFullfilled = function(current.iter, max.iter) {
   current.iter > max.iter
 }
 
-parentSelection = function(setOfIndividuals, number.of.parents, strategy = "best") {
-  stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))
-  individuals = setOfIndividuals$population 
-  fitness = setOfIndividuals$fitness
-  to.keep = order(fitness)[seq(number.of.parents)]
-  makePopulation(individuals = individuals[to.keep, ], fitness = fitness[to.keep])
-}
-
 recombinate = function(individuals, type = "intermediate", params = list(weight = 0.5)) {
   #FIXME: weight not considered until now
 
@@ -120,7 +112,7 @@ gaussMutation = function(setOfIndividuals, prob = 0.1) {
   for (i in seq(n)) {
     mutation.bool = (runif(n.params) <= 0.1)
     mutation = ifelse(mutation.bool, rnorm(1, mean = 0, sd = 0.2), 0)
-    setOfIndividuals$population[i, ] = setOfIndividuals$population[i, ] + mutation
+    setOfIndividual s$population[i, ] = setOfIndividuals$population[i, ] + mutation
   }
   return(setOfIndividuals)
 }
@@ -133,19 +125,6 @@ selectForSurvival = function(setOfIndividuals, pop.size, strategy = "mupluslambd
     individuals = individuals[to.survive, ],
     fitness = fitness[to.survive]
     )
-}
-
-correctBounds = function(individuals, lower.bounds, upper.bounds) {
-  for (i in 1:nrow(individuals$population)) {
-    for (j in 1:ncol(individuals$population)) {
-      if (individuals$population[i, j] < lower.bounds[j]) {
-        individuals$population[i, j] = lower.bounds[j]
-      } else if (individuals$population[i, j] > upper.bounds[j]) {
-        individuals$population[i, j] = upper.bounds[j]
-      }
-    }
-  }
-  return(individuals)
 }
 
 esoo = function(f, max.iter, mu) {
