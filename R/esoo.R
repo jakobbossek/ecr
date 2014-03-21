@@ -24,7 +24,8 @@
 #' }
 #' @export
 esoo = function(f, max.iter, pop.size) {
-  # maybe make use of Bernds makeOptPathDf and ParamHelpers for this.
+  #FIXME: add sanity checks
+  #FIXME: add esooControl object
 
   n = number_of_parameters(f)
   population = generateRandomInitialPopulation(pop.size, n, lower_bounds(f), upper_bounds(f))
@@ -36,8 +37,11 @@ esoo = function(f, max.iter, pop.size) {
 
   i = 1L
   while (!isTerminiationCriterionFullfilled(i, max.iter)) {
+    #FIXME: add show.info to allow the used (de)activation of messages
+    #FIXME: maybe add something like 'show.info.stepsize' to control in 
+    #       which iteration we get additional output
     cat(".")
-    parents = parentSelection(population, number.of.parents = 2, strategy = "best")
+    parents = parentSelection(population, number.of.parents = 2)
     #FIXME: how to add crossover params
     #FIXME: until now only one child generated
     children = recombinate(parents, type = "intermediate")
@@ -58,6 +62,8 @@ esoo = function(f, max.iter, pop.size) {
       #stopf("debug")
   }
   catf("\nEA finished!")
+  #FIXME: add S3 plot function for trace
+  #FIXME: add print method for esooResult 
   return(
     structure(list(
       best.param = best$individual,
