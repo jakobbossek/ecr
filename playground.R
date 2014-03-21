@@ -22,7 +22,6 @@ library(ggplot2)
 # IDEAS
 # - allow chaining of mutators, i. e., allow to apply more than one mutator to the offspring
 
-
 makeTrace = function(n.params, param.names, target.name) {
   # this stuff sucks
   if (missing(param.names)) {
@@ -51,16 +50,34 @@ addToTrace = function(trace, individual, generation) {
   return(trace)
 }
 
-
-generateRandomInitialPopulation = function(size, n.params, lower.bounds, upper.bounds) {
-  design = matrix(0, nrow = size, ncol = n.params)
-  for (i in seq(n.params)) {
-    design[, i] = runif(size, min = lower.bounds[i], max = upper.bounds[i])
-  }
-  return(design)
+makePopulation = function(individuals, fitness) {
+  res = list(population = individuals)
+  if (!missing(fitness))
+    res$fitness = fitness
+  structure(
+    res,
+    class = c("esooPopulation", "setOfIndividuals"))
 }
 
-getBestIndividual = function(population, population.fitness) {
+mergePopulations = function(individuals1, individuals2) {
+  makePopulation(
+    individuals = rbind(individuals1$population, individuals2$population),
+    fitness = c(individuals1$fitness, individuals2$fitness)
+    )
+}
+
+generateRandomInitialPopulation = function(size, n.params, lower.bounds, upper.bounds) {
+  population = matrix(0, nrow = size, ncol = n.params)
+  for (i in seq(n.params)) {
+    population[, i] = runif(size, min = lower.bounds[i], max = upper.bounds[i])
+  }
+  makePopulation(population)
+}
+
+getBestIndividual = function(setOfIndividuals) {
+  stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))
+  population = setOfIndividuals$population
+  population.fitness = setOfIndividuals$fitness
   best.idx = which.min(population.fitness)
   best.fitness = population.fitness[best.idx]
   best.individual = population[best.idx, ]
@@ -69,58 +86,62 @@ getBestIndividual = function(population, population.fitness) {
     class = "esooIndividual"))
 }
 
-computeFitness = function(individuals, fitness.fun) {
-  apply(individuals, 1, fitness.fun)
+computeFitness = function(setOfIndividuals, fitness.fun) {
+  stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))
+  fitness.values = apply(setOfIndividuals$population, 1, fitness.fun)
+  setOfIndividuals$fitness = fitness.values
+  return(setOfIndividuals)
 }
 
-terminiationCriterionFullfilled = function(current.iter, max.iter) {
+isTerminiationCriterionFullfilled = function(current.iter, max.iter) {
   current.iter > max.iter
 }
 
-parentSelection = function(individuals, fitness, number.of.parents, strategy = "best") {
-  idx = order(fitness)[seq(number.of.parents)]
-  return(individuals[idx, , drop = FALSE])
+parentSelection = function(setOfIndividuals, number.of.parents, strategy = "best") {
+  stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))
+  individuals = setOfIndividuals$population 
+  fitness = setOfIndividuals$fitness
+  to.keep = order(fitness)[seq(number.of.parents)]
+  makePopulation(individuals = individuals[to.keep, ], fitness = fitness[to.keep])
 }
 
 recombinate = function(individuals, type = "intermediate", params = list(weight = 0.5)) {
   #FIXME: weight not considered until now
-  child = apply(individuals, 2, sum) / 2
-  return(t(as.matrix(child)))
+
+  child = apply(individuals$population, 2, sum) / 2
+  makePopulation(t(as.matrix(child)))
 }
 
 
 # Mutation operators for real-valued vectors
-gaussMutation = function(individuals, prob = 0.1) {
-  n.params = ncol(individuals)
-  n = nrow(individuals)
+gaussMutation = function(setOfIndividuals, prob = 0.1) {
+  n.params = ncol(setOfIndividuals$population)
+  n = nrow(setOfIndividuals$population)
   for (i in seq(n)) {
     mutation.bool = (runif(n.params) <= 0.1)
-    mutation = ifelse(mutation.bool, rnorm(1, mean = 0, sd = 0.1), 0)
-    # catf("Mutation")
-    # print(mutation)
-    individuals[i, ] = individuals[i, ] + mutation
+    mutation = ifelse(mutation.bool, rnorm(1, mean = 0, sd = 0.2), 0)
+    setOfIndividuals$population[i, ] = setOfIndividuals$population[i, ] + mutation
   }
-  return(individuals)
+  return(setOfIndividuals)
 }
 
-survivalSelection = function(parents, children, parents.fitness, children.fitness, strategy = "mupluslambda") {
-  source.population = rbind(parents, children)
-  source.fitness = c(parents.fitness, children.fitness)
-  size = nrow(parents)
-  to.survive = order(source.fitness)[seq(size)]
-  return(list(
-    population = source.population[to.survive, ],
-    fitness = source.fitness[to.survive]
-    ))
+selectForSurvival = function(setOfIndividuals, pop.size, strategy = "mupluslambda") {
+  individuals = setOfIndividuals$population
+  fitness = setOfIndividuals$fitness
+  to.survive = order(fitness)[seq(pop.size)]
+  makePopulation(
+    individuals = individuals[to.survive, ],
+    fitness = fitness[to.survive]
+    )
 }
 
 correctBounds = function(individuals, lower.bounds, upper.bounds) {
-  for (i in 1:nrow(individuals)) {
-    for (j in 1:ncol(individuals)) {
-      if (individuals[i, j] < lower.bounds[j]) {
-        individuals[i, j] = lower.bounds[j]
-      } else if (individuals[i, j] > upper.bounds[j]) {
-        individuals[i, j] = upper.bounds[j]
+  for (i in 1:nrow(individuals$population)) {
+    for (j in 1:ncol(individuals$population)) {
+      if (individuals$population[i, j] < lower.bounds[j]) {
+        individuals$population[i, j] = lower.bounds[j]
+      } else if (individuals$population[i, j] > upper.bounds[j]) {
+        individuals$population[i, j] = upper.bounds[j]
       }
     }
   }
@@ -133,43 +154,35 @@ esoo = function(f, max.iter, mu) {
   n = number_of_parameters(f)
   population = generateRandomInitialPopulation(mu, n, lower_bounds(f), upper_bounds(f))
   catf("Initial Population generated.")
-  print(population)
-  population.fitness = computeFitness(population, f)
-  best = getBestIndividual(population, population.fitness)
+  population = computeFitness(population, f)
+  best = getBestIndividual(population)
   trace = makeTrace(n)
   trace = addToTrace(trace, best, 0)
 
-  catf("Fitness of start population:")
-  print(population.fitness)
   i = 1L
-  while (!terminiationCriterionFullfilled(i, max.iter)) {
-    catf("Beginning iteration %i", i)
-    parents = parentSelection(population, population.fitness, number.of.parents = 2, strategy = "best")
-    catf("Selected parents:")
-    print(parents)
+  while (!isTerminiationCriterionFullfilled(i, max.iter)) {
+    cat(".")
+    parents = parentSelection(population, number.of.parents = 2, strategy = "best")
     #FIXME: how to add crossover params
     #FIXME: until now only one child generated
     children = recombinate(parents, type = "intermediate")
     children = gaussMutation(children)
     children = correctBounds(children, lower_bounds(f), upper_bounds(f))
 
-    catf("Generated children:")
-    children.fitness = computeFitness(children, f)
-    tmp = cbind(as.data.frame(children), data.frame(fitness = children.fitness))
-    print(tmp)
+    children = computeFitness(children, f)
+    population = mergePopulations(population, children)
 
     # FIXME: elitism, survival of the fittest if (mu, lambda) strategy is used
-    res = survivalSelection(population, children, population.fitness, children.fitness, strategy = "mupluslambda")
-    population = res$population
-    population.fitness = res$fitness
+    population = selectForSurvival(population, mu, strategy = "mupluslambda")
 
-    best = getBestIndividual(population, population.fitness)
+    best = getBestIndividual(population)
     trace = addToTrace(trace, best, i)
 
     i = i + 1
     #if (i == 3)
       #stopf("debug")
   }
+  catf("\nEA finished!")
   return(
     structure(list(
       best.param = best$individual,
@@ -190,7 +203,7 @@ plotTrace = function(trace) {
 
 sphere_fun = generate_sphere_function(2)
 
-res = esoo(sphere_fun, 50, 200)
+res = esoo(sphere_fun, 100, 50)
 plotTrace(res$trace)
 
 
