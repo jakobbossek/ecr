@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Rbuildignore
-JBmisc.Rcheck
-JBmisc.Rproj
+esoo.Rcheck
+esoo.Rproj
 playground.R
 test_specific.R
