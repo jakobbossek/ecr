@@ -8,6 +8,7 @@
 #   Vector of upper bounds for each dimension.
 # @return [\code{setOfIndividuals}].
 correctBounds = function(individuals, lower.bounds, upper.bounds) {
+  #FIXME: This is very ugly!
   for (i in 1:nrow(individuals$population)) {
     for (j in 1:ncol(individuals$population)) {
       if (individuals$population[i, j] < lower.bounds[j]) {

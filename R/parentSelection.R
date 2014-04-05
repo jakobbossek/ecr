@@ -7,8 +7,8 @@
 # @return [\code{setOfIndividuals}]
 parentSelection = function(setOfIndividuals, number.of.parents) {
   #FIXME: maybe better call this 'createMatingPool' or so
-  #FIXME: until now we select just the n elements with the lowest fitness values
-  #       add fitness-proportional selection (rhoulette-wheel-selection), rang based
+  #FIXME: until now we select just the n elements with the lowest fitness values!
+  #       Add fitness-proportional selection (rhoulette-wheel-selection), rang based
   #       selection procedures and more, i.e., write a closure which generates the selection function
   #       to keep the esoo function simple.
   stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))

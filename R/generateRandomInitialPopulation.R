@@ -31,7 +31,8 @@ makePopulation = function(individuals, fitness) {
   res = list(population = individuals)
   if (!missing(fitness))
     res$fitness = fitness
-  #FIXME: do we really ne both esooPopulation and setOfIndividuals?
+  #FIXME: do we really need both esooPopulation and setOfIndividuals? Do we need it at all?
+  #       Yes, it is OOP-like, but maybe it is to much overhead?
   structure(
     res,
     class = c("esooPopulation", "setOfIndividuals"))

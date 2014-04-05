@@ -25,25 +25,32 @@
 #' @export
 esoo = function(f, max.iter, pop.size) {
   #FIXME: add sanity checks
-  #FIXME: add esooControl object
+  #FIXME: add esooControl object. This object should be responsable to extensively sanity check
+  #       all the input parameters and check the parameter combinations for validity
 
+  #FIXME: until now only soobnech funs are supported. Force the user to offer a special type of
+  #       funs (esoo_fitness_function)?
   n = number_of_parameters(f)
+  #FIXME: generation of initial population is based on the type of parameters
   population = generateRandomInitialPopulation(pop.size, n, lower_bounds(f), upper_bounds(f))
+  #FIXME: add show.info/monitoring option to allow the used (de)activation of messages
+  #       Look for a logging package in R
   catf("Initial Population generated.")
   population = computeFitness(population, f)
   best = getBestIndividual(population)
+  #FIXME: maybe use ParamHelpers::makeOptPathDF for that?
   trace = makeTrace(n)
   trace = addToTrace(trace, best, 0)
 
   i = 1L
   while (!isTerminiationCriterionFullfilled(i, max.iter)) {
-    #FIXME: add show.info to allow the used (de)activation of messages
-    #FIXME: maybe add something like 'show.info.stepsize' to control in 
+    #FIXME: maybe add something like 'show.info.stepsize' to control in
     #       which iteration we get additional output
     cat(".")
     parents = parentSelection(population, number.of.parents = 2)
-    #FIXME: how to add crossover params
+    #FIXME: how to add crossover params?
     #FIXME: until now only one child generated
+    #FIXME: recombination, mutation and so on are all based on the representation of the individuals
     children = recombinate(parents, type = "intermediate")
     children = gaussMutation(children)
     children = correctBounds(children, lower_bounds(f), upper_bounds(f))
@@ -51,7 +58,7 @@ esoo = function(f, max.iter, pop.size) {
     children = computeFitness(children, f)
     population = mergePopulations(population, children)
 
-    # FIXME: elitism, survival of the fittest if (mu, lambda) strategy is used
+    #FIXME: elitism, survival of the fittest if (mu, lambda) strategy is used
     population = selectForSurvival(population, pop.size, strategy = "mupluslambda")
 
     best = getBestIndividual(population)
@@ -63,7 +70,7 @@ esoo = function(f, max.iter, pop.size) {
   }
   catf("\nEA finished!")
   #FIXME: add S3 plot function for trace
-  #FIXME: add print method for esooResult 
+  #FIXME: add print method for esooResult
   return(
     structure(list(
       best.param = best$individual,
