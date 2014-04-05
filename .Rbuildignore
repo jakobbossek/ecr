@@ -6,6 +6,7 @@
 .gitmodules
 Makefile
 README.md
+TODO.md
 test_all.R
 test_specific.R
 playground.R

@@ -3,25 +3,6 @@ library(JBmisc)
 library(BBmisc)
 library(ggplot2)
 
-# TODO
-# - think about genral structure of function
-# - think about what type of elements should be wrapped in S3 classes:
-#   population (has size, individuals), individual (has fitness value, date of birth, param values)
-#   optimization trace (data frame with best individuals of each iteration)
-# - what types of traget funs should be supported? Just funs with numeric-only parameters like the
-#   soobnech funs or allow discrete params as well?
-# - check Bernds ParamHelpers package thorougly. Maybe makeOptPath, all the make...Param funs can
-#   be used in this package.
-# - research for common (and not so common) mutation, selection and recombination operators
-# - investigate existing R packages for evolutionary optimization (RFreak, GA, ...)
-# - think about the best programmatical interface solution for the user. It should be as simple as
-#   possible to extend the functionality and write propriatary mutation, selection ... funs.
-# - at all costs follow the "DRY" principle, i.e., "don't repeat yourself"
-# -
-
-# IDEAS
-# - allow chaining of mutators, i. e., allow to apply more than one mutator to the offspring
-
 makeTrace = function(n.params, param.names, target.name) {
   # this stuff sucks
   if (missing(param.names)) {
