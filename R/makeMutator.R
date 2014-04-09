@@ -20,7 +20,7 @@ makeMutator = function(mutator, name, supported = getAvailableRepresentations())
   attr(mutator, "name") = name
   attr(mutator, "supported") = supported
   #FIXME: in BBmisc addClasses should have an option not to add already existent classes
-  mutator = addClasses(mutator, "esoo_mutator")
+  mutator = addClasses(mutator, c("esoo_mutator", "esoo_operator"))
   return(mutator)
 }
 
