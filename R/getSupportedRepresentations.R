@@ -4,6 +4,6 @@ getSupportedRepresentations = function(operator) {
 }
 
 #' @S3method getSupportedRepresentations esoo_operator
-getSupportedRepresentations = function(operator) {
+getSupportedRepresentations.esoo_operator = function(operator) {
   attr(operator, "supported")
 }
