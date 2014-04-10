@@ -8,6 +8,7 @@
 esoo.control = function(
   population.size,
   offspring.size,
+  representation,
   n.targets = 1L,
   max.iter = 100L,
   show.info = TRUE) {
@@ -15,6 +16,7 @@ esoo.control = function(
   #FIXME: Allow (1+1) EA or not?
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
+  checkArg(representation, choices = getAvailableRepresentations())
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   #FIXME: add monitoring option and different monitoring funs
@@ -23,6 +25,7 @@ esoo.control = function(
   structure(list(
     population.size = population.size,
     offspring.size = offspring.size,
+    representation = representation,
     n.targets = n.targets,
     max.iter = max.iter,
     show.info = show.info), class = "esoo_control")
