@@ -4,6 +4,23 @@
 #' a lot of customization options. The control object is a simple but powerful
 #' wrapper for all these options and sets convenient default options.
 #'
+#' @param population.size [\code{integer(1)}]\cr
+#'   Number of individuals in the population.
+#' @param offspring.size [\code{integer(1)}]\cr
+#'   Number of idividuals generated in each generation.
+#' @param representation [\code{character(1)}]\cr
+#'   Genotype representation of the parameters. Available are binary, real, integer and
+#'   permutation.
+#' @param n.targets [\code{integer(1)}]\cr
+#'   Number of target functions. Default is \code{1}. For bicriteria fitness functions
+#'   this should therefore be set to \code{2}.
+#' @param max.iter [\code{integer(1)}]\cr
+#'   Maximum number of generations. This is one possible stopping criterion.
+#' @param show.info [\code{logical(1)}]\cr
+#'   Logical flag indicating whether helpful information should be printed during the
+#'   evolutionary process.
+#' @return
+#'   S3 object of type \code{esoo.control}.
 #' @export
 esoo.control = function(
   population.size,
