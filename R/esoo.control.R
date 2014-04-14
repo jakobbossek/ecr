@@ -56,6 +56,9 @@ esoo.control = function(
   if (!inherits(mutator, "esoo_mutator")) {
     stopf("Mutator must be of class esoo_mutator, not %s", paste(attr(mutator, "class")))
   }
+  if (!is.supported(mutator, representation)) {
+    stop(paste("Mutator'", getOperatorName(mutator), "' is not compatible with representation '", representation, "'!"))
+  }
 
   structure(list(
     population.size = population.size,
