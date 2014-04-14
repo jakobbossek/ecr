@@ -4,7 +4,7 @@
 \usage{
 esoo.control(population.size, offspring.size, representation, n.params,
   n.targets = 1L, max.iter = 100L, show.info = TRUE,
-  mutator = makeGaussMutator(),
+  show.info.stepsize = 1L, mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05)
 }
@@ -32,6 +32,10 @@ esoo.control(population.size, offspring.size, representation, n.params,
   \item{show.info}{[\code{logical(1)}]\cr Logical flag
   indicating whether helpful information should be printed
   during the evolutionary process.}
+
+  \item{show.info.stepsize}{[\code{integer(1)}]\cr This
+  positive value indicates after which iterations output
+  shall be presented.}
 
   \item{mutator}{[\code{esoo_mutator}]\cr Mutation operator
   of type \code{esoo_mutator}.}

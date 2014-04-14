@@ -18,12 +18,13 @@ esoo = function(f, control) {
   n = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
+  show.info = control$show.info
+  show.info.stepsize = control$show.info.stepsize
 
   mutator = control$mutator
   recombinator = control$recombinator
 
   population = generateRandomInitialPopulation(population.size, n, lower_bounds(f), upper_bounds(f))
-  catf("Initial Population generated.")
   population = computeFitness(population, f)
   best = getBestIndividual(population)
   trace = makeTrace(n)
@@ -31,7 +32,11 @@ esoo = function(f, control) {
 
   i = 1L
   while (!isTerminiationCriterionFullfilled(i, max.iter)) {
-    cat(".")
+    if (show.info) {
+      if (i %% show.info.stepsize == 0L) {
+        cat(".")
+      }
+    }
     parents = parentSelection(population, number.of.parents = 2)
     children = recombinator(parents)
     children = mutator(children, control)
@@ -46,17 +51,14 @@ esoo = function(f, control) {
     trace = addToTrace(trace, best, i)
 
     i = i + 1
-    #if (i == 3)
-      #stopf("debug")
   }
   catf("\nEA finished!")
-  #FIXME: add S3 plot function for trace
-  #FIXME: add print method for esooResult
+
   return(
     structure(list(
       best.param = best$individual,
       best.value = best$fitness,
       trace = trace
-      ), class = "esooResult")
+      ), class = "esoo_result")
   )
 }

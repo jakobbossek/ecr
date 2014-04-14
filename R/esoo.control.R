@@ -21,6 +21,8 @@
 #' @param show.info [\code{logical(1)}]\cr
 #'   Logical flag indicating whether helpful information should be printed during the
 #'   evolutionary process.
+#' @param show.info.stepsize [\code{integer(1)}]\cr
+#'   This positive value indicates after which iterations output shall be presented.
 #' @param mutator [\code{esoo_mutator}]\cr
 #'   Mutation operator of type \code{esoo_mutator}.
 #' @param recombinator [\code{esoo_recombinator}]\cr
@@ -40,6 +42,7 @@ esoo.control = function(
   n.targets = 1L,
   max.iter = 100L,
   show.info = TRUE,
+  show.info.stepsize = 1L,
   mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(),
   mutator.gauss.prob = 1,
@@ -51,6 +54,7 @@ esoo.control = function(
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
+  checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
   checkArg(mutator.gauss.prob, cl = "numeric", len = 1L, lower = 0, upper = 1, na.ok = FALSE)
   checkArg(mutator.gauss.sd, cl = "numeric", len = 1L, lower = 0.0001, na.ok = FALSE)
   if (!inherits(mutator, "esoo_mutator")) {
@@ -74,7 +78,8 @@ esoo.control = function(
     recombinator = recombinator,
     mutator.gauss.prob = mutator.gauss.prob,
     mutator.gauss.sd = mutator.gauss.sd,
-    show.info = show.info), class = "esoo_control")
+    show.info = show.info,
+    show.info.stepsize = show.info.stepsize), class = "esoo_control")
 }
 
 #' Print esoo control object.
@@ -89,13 +94,13 @@ print.esoo_control = function(x, ...) {
   catf("[ESOO CONTROL OBJECT]\n")
 
   catf("Objective function:")
-  if (control$n.targets == 1L) {
+  if (x$n.targets == 1L) {
     catf("Optimizing mono-criteria objective function.")
   } else {
-    catf("Optimizing multi-criteria objective function (%i targets).", control$n.targets)
+    catf("Optimizing multi-criteria objective function (%i targets).", x$n.targets)
   }
   catf("Number of parameters         : %i", x$n.params)
-  if (control$n.targets > 1L) {
+  if (x$n.targets > 1L) {
     catf("Number of targets            : %i", x$n.targets)
   }
   catf("")
