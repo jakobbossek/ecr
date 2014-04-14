@@ -1,11 +1,12 @@
-# Generator of the Gauss mutation operator.
-#
-# Default Gauss mutation operator known from Evolutionary Algorithms.
-#
-# @param control [\code{list}]\cr
-#   Control object of type \code{esoo_control}.
-# @return [\code{esso_mutator}]
-#   Gaussian mutation operator.
+#' Generator of the Gauss mutation operator.
+#'
+#' Default Gauss mutation operator known from Evolutionary Algorithms.
+#'
+#' @param control [\code{list}]\cr
+#'   Control object of type \code{esoo_control}.
+#' @return [\code{esso_mutator}]
+#'   Gaussian mutation operator.
+#' @export
 makeGaussMutator = function() {
   gaussMutator = function(setOfIndividuals, control = list(mutator.gauss.prob = 1, mutator.gauss.sd = 0.05)) {
     n.params = ncol(setOfIndividuals$population)
