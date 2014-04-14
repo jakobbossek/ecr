@@ -76,3 +76,38 @@ esoo.control = function(
     mutator.gauss.sd = mutator.gauss.sd,
     show.info = show.info), class = "esoo_control")
 }
+
+#' Print esoo control object.
+#'
+#' @param x [\code{esoo_control}]\cr
+#'   Control object.
+#' @param ... [any]\cr
+#'   Not used.
+#'
+#' @method print esoo_control
+print.esoo_control = function(x, ...) {
+  catf("[ESOO CONTROL OBJECT]\n")
+
+  catf("Objective function:")
+  if (control$n.targets == 1L) {
+    catf("Optimizing mono-criteria objective function.")
+  } else {
+    catf("Optimizing multi-criteria objective function (%i targets).", control$n.targets)
+  }
+  catf("Number of parameters         : %i", x$n.params)
+  if (control$n.targets > 1L) {
+    catf("Number of targets            : %i", x$n.targets)
+  }
+  catf("")
+
+  catf("Evolutionary parameters:")
+  catf("Population size              : %i", x$population.size)
+  catf("Offspring size               : %i", x$offspring.size)
+  catf("Representation               : %s", x$representation)
+
+  catf("")
+  catf("Evolutionary operators:")
+  catf("Mutation operator:           : %s", getOperatorName(x$mutator))
+  catf("Recombination operator:      : %s", getOperatorName(x$recombinator))
+  #FIXME: need to print the correct operator params without sick if-else messup
+}
