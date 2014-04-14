@@ -26,9 +26,11 @@ esoo.control = function(
   population.size,
   offspring.size,
   representation,
+  n.params,
   n.targets = 1L,
   max.iter = 100L,
   show.info = TRUE,
+  mutator = makeGaussMutator(),
   mutator.gauss.prob = 1,
   mutator.guass.sd = 0.05) {
   #FIXME: add further options regarding the default operators, representations and so on
@@ -42,6 +44,9 @@ esoo.control = function(
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
   checkArg(mutator.gauss.prob, cl = "numeric", len = 1L, lower = 0, upper = 1, na.ok = FALSE)
   checkArg(mutator.gauss.sd, cl = "numeric", len = 1L, lower = 0.0001, na.ok = FALSE)
+  if (!inherits(mutator, "esoo_mutator")) {
+    stopf("Mutator must be of class esoo_mutator, not %s", paste(attr(mutator, "class")))
+  }
 
   structure(list(
     population.size = population.size,
