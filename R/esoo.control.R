@@ -32,12 +32,13 @@ esoo.control = function(
   show.info = TRUE,
   mutator = makeGaussMutator(),
   mutator.gauss.prob = 1,
-  mutator.guass.sd = 0.05) {
+  mutator.gauss.sd = 0.05) {
   #FIXME: add further options regarding the default operators, representations and so on
   #FIXME: Allow (1+1) EA or not?
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(representation, choices = getAvailableRepresentations())
+  checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   #FIXME: add monitoring option and different monitoring funs
@@ -52,8 +53,10 @@ esoo.control = function(
     population.size = population.size,
     offspring.size = offspring.size,
     representation = representation,
+    n.params = n.params,
     n.targets = n.targets,
     max.iter = max.iter,
+    mutator = mutator,
     mutator.gauss.prob = mutator.gauss.prob,
     mutator.gauss.sd = mutator.gauss.sd,
     show.info = show.info), class = "esoo_control")
