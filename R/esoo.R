@@ -15,8 +15,6 @@
 #'   }
 #' @export
 esoo = function(f, control) {
-  #FIXME: until now only soobnech funs are supported. Force the user to offer a special type of
-  #       funs (esoo_fitness_function)?
   n = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
@@ -24,26 +22,17 @@ esoo = function(f, control) {
   mutator = control$mutator
   recombinator = control$recombinator
 
-  #FIXME: generation of initial population is based on the type of parameters
   population = generateRandomInitialPopulation(population.size, n, lower_bounds(f), upper_bounds(f))
-  #FIXME: add show.info/monitoring option to allow the used (de)activation of messages
-  #       Look for a logging package in R
   catf("Initial Population generated.")
   population = computeFitness(population, f)
   best = getBestIndividual(population)
-  #FIXME: maybe use ParamHelpers::makeOptPathDF for that?
   trace = makeTrace(n)
   trace = addToTrace(trace, best, 0)
 
   i = 1L
   while (!isTerminiationCriterionFullfilled(i, max.iter)) {
-    #FIXME: maybe add something like 'show.info.stepsize' to control in
-    #       which iteration we get additional output
     cat(".")
     parents = parentSelection(population, number.of.parents = 2)
-    #FIXME: how to add crossover params?
-    #FIXME: until now only one child generated
-    #FIXME: recombination, mutation and so on are all based on the representation of the individuals
     children = recombinator(parents)
     children = mutator(children, control)
     children = correctBounds(children, lower_bounds(f), upper_bounds(f))
@@ -51,7 +40,6 @@ esoo = function(f, control) {
     children = computeFitness(children, f)
     population = mergePopulations(population, children)
 
-    #FIXME: elitism, survival of the fittest if (mu, lambda) strategy is used
     population = selectForSurvival(population, population.size, strategy = "mupluslambda")
 
     best = getBestIndividual(population)

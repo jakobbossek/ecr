@@ -44,15 +44,12 @@ esoo.control = function(
   recombinator = makeIntermediateRecombinator(),
   mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05) {
-  #FIXME: add further options regarding the default operators, representations and so on
-  #FIXME: Allow (1+1) EA or not?
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(representation, choices = getAvailableRepresentations())
   checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
-  #FIXME: add monitoring option and different monitoring funs
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
   checkArg(mutator.gauss.prob, cl = "numeric", len = 1L, lower = 0, upper = 1, na.ok = FALSE)
   checkArg(mutator.gauss.sd, cl = "numeric", len = 1L, lower = 0.0001, na.ok = FALSE)

@@ -14,11 +14,6 @@
 #   Default is \code{mupluslambda}. Another is not implemented yet.
 # @return [\code{setOfIndividuals}]
 selectForSurvival = function(setOfIndividuals, pop.size, strategy = "mupluslambda") {
-  #FIXME: (mu, lambda) is missing
-  #FIXME: 'merging' population and offspring makes it impossible to determine
-  #       from which individuals to choose in the (mu, lambda) strategy. Rethink this!
-  #FIXME: elitism is missing ((mu + lambda) always lets the fittest survive, but for (mu, lambda)
-  #       this should be kept in mind)
   individuals = setOfIndividuals$population
   fitness = setOfIndividuals$fitness
   to.survive = order(fitness)[seq(pop.size)]
