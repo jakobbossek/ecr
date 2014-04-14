@@ -23,6 +23,8 @@
 #'   evolutionary process.
 #' @param mutator [\code{esoo_mutator}]\cr
 #'   Mutation operator of type \code{esoo_mutator}.
+#' @param recombinator [\code{esoo_recombinator}]\cr
+#'   Recombination operator of type \code{esoo_recombinator}.
 #' @param mutator.gauss.prob [\code{numeric(1)}]\cr
 #'   Probability of mutation for the gauss mutation operator.
 #' @param mutator.gauss.sd [\code{numeric(1)}]\cr
@@ -39,6 +41,7 @@ esoo.control = function(
   max.iter = 100L,
   show.info = TRUE,
   mutator = makeGaussMutator(),
+  recombinator = makeIntermediateRecombinator(),
   mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05) {
   #FIXME: add further options regarding the default operators, representations and so on
@@ -56,6 +59,9 @@ esoo.control = function(
   if (!inherits(mutator, "esoo_mutator")) {
     stopf("Mutator must be of class esoo_mutator, not %s", paste(attr(mutator, "class")))
   }
+  if (!inherits(recombinator, "esoo_recombinator")) {
+    stopf("Recombinator must be of class esoo_recombinator, not %s", paste(attr(mutator, "class")))
+  }
   if (!is.supported(mutator, representation)) {
     stop(paste("Mutator'", getOperatorName(mutator), "' is not compatible with representation '", representation, "'!"))
   }
@@ -68,6 +74,7 @@ esoo.control = function(
     n.targets = n.targets,
     max.iter = max.iter,
     mutator = mutator,
+    recombinator = recombinator,
     mutator.gauss.prob = mutator.gauss.prob,
     mutator.gauss.sd = mutator.gauss.sd,
     show.info = show.info), class = "esoo_control")

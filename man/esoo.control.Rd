@@ -4,7 +4,8 @@
 \usage{
 esoo.control(population.size, offspring.size, representation, n.params,
   n.targets = 1L, max.iter = 100L, show.info = TRUE,
-  mutator = makeGaussMutator(), mutator.gauss.prob = 1,
+  mutator = makeGaussMutator(),
+  recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05)
 }
 \arguments{
@@ -34,6 +35,9 @@ esoo.control(population.size, offspring.size, representation, n.params,
 
   \item{mutator}{[\code{esoo_mutator}]\cr Mutation operator
   of type \code{esoo_mutator}.}
+
+  \item{recombinator}{[\code{esoo_recombinator}]\cr
+  Recombination operator of type \code{esoo_recombinator}.}
 
   \item{mutator.gauss.prob}{[\code{numeric(1)}]\cr
   Probability of mutation for the gauss mutation operator.}

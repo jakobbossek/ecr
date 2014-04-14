@@ -20,6 +20,10 @@ esoo = function(f, control) {
   n = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
+
+  mutator = control$mutator
+  recombinator = control$recombinator
+
   #FIXME: generation of initial population is based on the type of parameters
   population = generateRandomInitialPopulation(population.size, n, lower_bounds(f), upper_bounds(f))
   #FIXME: add show.info/monitoring option to allow the used (de)activation of messages
@@ -40,8 +44,8 @@ esoo = function(f, control) {
     #FIXME: how to add crossover params?
     #FIXME: until now only one child generated
     #FIXME: recombination, mutation and so on are all based on the representation of the individuals
-    children = recombinate(parents, type = "intermediate")
-    children = control$mutator(children, control)
+    children = recombinator(parents)
+    children = mutator(children, control)
     children = correctBounds(children, lower_bounds(f), upper_bounds(f))
 
     children = computeFitness(children, f)

@@ -23,8 +23,9 @@ makeIntermediateRecombinator = function() {
     makePopulation(t(as.matrix(child)))
   }
 
-  makeMutator(
-    mutator = intermediateRecombinator,
+  makeRecombinator(
+    recombinator = intermediateRecombinator,
     name = "Intermediate recombinator",
-    supported = c("float"))
+    supported = c("float"),
+    n.parents = 10L)
 }
