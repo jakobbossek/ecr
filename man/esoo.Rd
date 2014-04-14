@@ -2,15 +2,18 @@
 \alias{esoo}
 \title{Working horse of the esoo package.}
 \usage{
-esoo(f, control)
+esoo(f, control, global.optimum = NA)
 }
 \arguments{
   \item{f}{[\code{function}]\cr Target function.}
 
-  \item{control}{[\code{esoo.control}]\cr Control object.
-  return [\code{esooResult}] Object of type
-  \code{esooResult} containing a list: \itemize{
-  \item{best.param \code{numeric}}{Best parameter
+  \item{control}{[\code{esoo.control}]\cr Control object.}
+
+  \item{global.optimum}{[\code{global.optimum}]\cr
+  Parameter combination of the global optimum of the fun.
+  This parameter is optional. return [\code{esooResult}]
+  Object of type \code{esooResult} containing a list:
+  \itemize{ \item{best.param \code{numeric}}{Best parameter
   combination.} \item{best.value \code{numeric(1)}}{Best
   reached value.} \item{trace
   \code{esooTrace}}{Optimization path.} }}

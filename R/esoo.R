@@ -6,6 +6,8 @@
 #'   Target function.
 #' @param control [\code{esoo.control}]\cr
 #'   Control object.
+#' @param global.optimum [\code{global.optimum}]\cr
+#'   Parameter combination of the global optimum of the fun. This parameter is optional.
 #' return [\code{esooResult}]
 #'   Object of type \code{esooResult} containing a list:
 #'   \itemize{
@@ -14,12 +16,19 @@
 #'    \item{trace \code{esooTrace}}{Optimization path.}
 #'   }
 #' @export
-esoo = function(f, control) {
+esoo = function(f, control, global.optimum = NA) {
   n = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
   show.info = control$show.info
   show.info.stepsize = control$show.info.stepsize
+
+  if (!any(is.na(global.optimum))) {
+    if (length(global.optimum) != control$n.params) {
+      stopf("Given global optimum %s suggests %i parameters, but objective function has %i parameters.",
+        paste("(", strImplode(global.optimum, sep = ","), ")", sep=""), length(global.optimum), control$n.params)
+    }
+  }
 
   mutator = control$mutator
   recombinator = control$recombinator
