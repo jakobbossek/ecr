@@ -22,6 +22,7 @@ esoo = function(f, control, global.optimum = NA) {
   population.size = control$population.size
   show.info = control$show.info
   show.info.stepsize = control$show.info.stepsize
+  termination.eps = control$termination.eps
 
   if (!any(is.na(global.optimum))) {
     if (length(global.optimum) != control$n.params) {
@@ -40,7 +41,7 @@ esoo = function(f, control, global.optimum = NA) {
   trace = addToTrace(trace, best, 0)
 
   i = 1L
-  while (!isTerminiationCriterionFullfilled(i, max.iter)) {
+  while (!isTerminiationCriterionFullfilled(i, max.iter, global.optimum, best, termination.eps)) {
     if (show.info) {
       if (i %% show.info.stepsize == 0L) {
         cat(".")

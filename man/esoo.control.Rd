@@ -3,8 +3,8 @@
 \title{Generates control object.}
 \usage{
 esoo.control(population.size, offspring.size, representation, n.params,
-  n.targets = 1L, max.iter = 100L, show.info = TRUE,
-  show.info.stepsize = 1L, mutator = makeGaussMutator(),
+  n.targets = 1L, max.iter = 100L, termination.eps = 10^-1,
+  show.info = TRUE, show.info.stepsize = 1L, mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05)
 }
@@ -28,6 +28,11 @@ esoo.control(population.size, offspring.size, representation, n.params,
 
   \item{max.iter}{[\code{integer(1)}]\cr Maximum number of
   generations. This is one possible stopping criterion.}
+
+  \item{termination.eps}{[\code{numeric(1)}]\cr The
+  optimization process will stop if the gap between known
+  optimum and current best individual falls below this
+  threshold value.}
 
   \item{show.info}{[\code{logical(1)}]\cr Logical flag
   indicating whether helpful information should be printed

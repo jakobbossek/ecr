@@ -18,6 +18,9 @@
 #'   this should therefore be set to \code{2}.
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximum number of generations. This is one possible stopping criterion.
+#' @param termination.eps [\code{numeric(1)}]\cr
+#'   The optimization process will stop if the gap between known optimum and current
+#'   best individual falls below this threshold value.
 #' @param show.info [\code{logical(1)}]\cr
 #'   Logical flag indicating whether helpful information should be printed during the
 #'   evolutionary process.
@@ -41,6 +44,7 @@ esoo.control = function(
   n.params,
   n.targets = 1L,
   max.iter = 100L,
+  termination.eps = 10^-1,
   show.info = TRUE,
   show.info.stepsize = 1L,
   mutator = makeGaussMutator(),
@@ -52,7 +56,10 @@ esoo.control = function(
   checkArg(representation, choices = getAvailableRepresentations())
   checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
+
   checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
+  checkArg(termination.eps, cl = "numeric", len = 1L, lower = 0, na.ok = FALSE)
+
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
   checkArg(mutator.gauss.prob, cl = "numeric", len = 1L, lower = 0, upper = 1, na.ok = FALSE)
@@ -74,6 +81,7 @@ esoo.control = function(
     n.params = n.params,
     n.targets = n.targets,
     max.iter = max.iter,
+    termination.eps = termination.eps,
     mutator = mutator,
     recombinator = recombinator,
     mutator.gauss.prob = mutator.gauss.prob,
