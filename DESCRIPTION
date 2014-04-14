@@ -12,7 +12,6 @@ Suggests:
     soobench
 Depends:
     BBmisc,
-    helpr,
     JBmisc
 Imports:
     ggplot2
