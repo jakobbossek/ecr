@@ -1,3 +1,9 @@
+#' Determine the name of a given operator.
+#'
+#' @param operator [\code{esoo_operator}]\cr
+#'   Operator object.
+#' @return [\code{character(1)}]
+#'   Name of the operator.
 #' @export
 getOperatorName = function(operator) {
   UseMethod("getOperatorName")

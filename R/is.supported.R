@@ -1,8 +1,8 @@
 #' Helper function to check if esoo operator supports given representation.
 #'
-#' @param [\code{esoo_operator}]\cr
+#' @param operator [\code{esoo_operator}]\cr
 #'   Object of type \code{esoo_operator}.
-#' @param [\code{character(1)}]\cr
+#' @param representation [\code{character(1)}]\cr
 #'   Representation as a string.
 #' @return [\code{logical(1)}]
 #'   \code{TRUE}, if operator supports the representation type.

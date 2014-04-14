@@ -2,8 +2,6 @@
 #'
 #' Default Gauss mutation operator known from Evolutionary Algorithms.
 #'
-#' @param control [\code{list}]\cr
-#'   Control object of type \code{esoo_control}.
 #' @return [\code{esso_mutator}]
 #'   Gaussian mutation operator.
 #' @export

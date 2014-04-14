@@ -21,8 +21,6 @@ esoo = function(f, control) {
   max.iter = control$max.iter
   population.size = control$population.size
   #FIXME: generation of initial population is based on the type of parameters
-  print(n)
-  print(population.size)
   population = generateRandomInitialPopulation(population.size, n, lower_bounds(f), upper_bounds(f))
   #FIXME: add show.info/monitoring option to allow the used (de)activation of messages
   #       Look for a logging package in R

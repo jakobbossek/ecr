@@ -11,6 +11,8 @@
 #' @param representation [\code{character(1)}]\cr
 #'   Genotype representation of the parameters. Available are binary, real, integer and
 #'   permutation.
+#' @param n.params [\code{integer(1)}]\cr
+#'   Number of parameters of the objective function.
 #' @param n.targets [\code{integer(1)}]\cr
 #'   Number of target functions. Default is \code{1}. For bicriteria fitness functions
 #'   this should therefore be set to \code{2}.
@@ -19,6 +21,12 @@
 #' @param show.info [\code{logical(1)}]\cr
 #'   Logical flag indicating whether helpful information should be printed during the
 #'   evolutionary process.
+#' @param mutator [\code{esoo_mutator}]\cr
+#'   Mutation operator of type \code{esoo_mutator}.
+#' @param mutator.gauss.prob [\code{numeric(1)}]\cr
+#'   Probability of mutation for the gauss mutation operator.
+#' @param mutator.gauss.sd [\code{numeric(1)}]\cr
+#'   Standard deviance of the Gauss mutation, i. e., the mutation strength.
 #' @return
 #'   S3 object of type \code{esoo.control}.
 #' @export
