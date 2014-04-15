@@ -128,7 +128,8 @@ print.esoo_control = function(x, ...) {
 
   catf("")
   catf("Evolutionary operators:")
-  catf("Mutation operator:           : %s", getOperatorName(x$mutator))
-  catf("Recombination operator:      : %s", getOperatorName(x$recombinator))
+  catf("Generator object             : %s", getOperatorName(x$generator))
+  catf("Mutation operator            : %s", getOperatorName(x$mutator))
+  catf("Recombination operator       : %s", getOperatorName(x$recombinator))
   #FIXME: need to print the correct operator params without sick if-else messup
 }

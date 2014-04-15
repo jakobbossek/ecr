@@ -6,8 +6,14 @@
 #'   Target function.
 #' @param control [\code{esoo.control}]\cr
 #'   Control object.
-#' @param global.optimum [\code{global.optimum}]\cr
+#' @param global.optimum [\code{numeric}]\cr
 #'   Parameter combination of the global optimum of the fun. This parameter is optional.
+#' @param lower [\code{numeric}]\cr
+#'   Lower box constraints for the parameters. These are needed, if representation type is set
+#'   to 'float'.
+#' @param upper [\code{numeric}]\cr
+#'   Upper box constraints for the parameters. These are needed, if representation type is set
+#'   to 'float'.
 #' return [\code{esooResult}]
 #'   Object of type \code{esooResult} containing a list:
 #'   \itemize{
@@ -16,7 +22,7 @@
 #'    \item{trace \code{esooTrace}}{Optimization path.}
 #'   }
 #' @export
-esoo = function(f, control, global.optimum = NA) {
+esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
   n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
@@ -24,6 +30,7 @@ esoo = function(f, control, global.optimum = NA) {
   show.info.stepsize = control$show.info.stepsize
   termination.eps = control$termination.eps
 
+  #FIXME: maybe better outsource the sanity checks to dedicated function
   if (!any(is.na(global.optimum))) {
     if (length(global.optimum) != control$n.params) {
       stopf("Given global optimum %s suggests %i parameters, but objective function has %i parameters.",
@@ -31,11 +38,20 @@ esoo = function(f, control, global.optimum = NA) {
     }
   }
 
+  if (is.na(lower) && is.na(upper) && is_soo_function(f)) {
+    lower = lower_bounds(f)
+    upper = upper_bounds(f)
+  }
+
+  if ((is.na(lower) || is.na(upper)) && control$representation %in% c("float")) {
+    stopf("Lower and upper box constraints needed for representation type 'float'.")
+  }
+
   generator = control$generator
   mutator = control$mutator
   recombinator = control$recombinator
 
-  population = generator(population.size, n.params, lower_bounds(f), upper_bounds(f))
+  population = generator(population.size, n.params, lower, upper)
   population = computeFitness(population, f)
   best = getBestIndividual(population)
   trace = makeTrace(n.params)
