@@ -40,7 +40,7 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
     }
   }
 
-  if (is.na(lower) && is.na(upper) && is_soo_function(f)) {
+  if (is.na(lower) && is.na(upper) && is_soo_function(objective.fun)) {
     lower = lower_bounds(objective.fun)
     upper = upper_bounds(objective.fun)
   }
