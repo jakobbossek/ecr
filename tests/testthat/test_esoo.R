@@ -8,7 +8,8 @@ test_that("esoo works with simple soo function", {
     offspring.size = 2L,
     max.iter = 100L,
     n.params = 2L,
-    representation = "float")
+    representation = "float",
+    show.info = FALSE)
   res = esoo(objective.fun, control)
   expect_false(is.null(res))
 })

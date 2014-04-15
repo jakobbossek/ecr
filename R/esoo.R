@@ -77,7 +77,6 @@ esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
 
     i = i + 1
   }
-  catf("\nEA finished!")
 
   return(
     structure(list(
