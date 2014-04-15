@@ -2,7 +2,7 @@
 #'
 #' Takes a function and searches for global optimum with an evolutionary approach.
 #'
-#' @param f [\code{function}]\cr
+#' @param objective.fun [\code{function}]\cr
 #'   Target function.
 #' @param control [\code{esoo.control}]\cr
 #'   Control object.
@@ -22,7 +22,7 @@
 #'    \item{trace \code{esooTrace}}{Optimization path.}
 #'   }
 #' @export
-esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
+esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper = NA) {
   n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
@@ -39,8 +39,8 @@ esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
   }
 
   if (is.na(lower) && is.na(upper) && is_soo_function(f)) {
-    lower = lower_bounds(f)
-    upper = upper_bounds(f)
+    lower = lower_bounds(objective.fun)
+    upper = upper_bounds(objective.fun)
   }
 
   if ((is.na(lower) || is.na(upper)) && control$representation %in% c("float")) {
@@ -52,7 +52,7 @@ esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
   recombinator = control$recombinator
 
   population = generator(population.size, n.params, lower, upper)
-  population = computeFitness(population, f)
+  population = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
   trace = makeTrace(n.params)
   trace = addToTrace(trace, best, 0)
@@ -67,7 +67,7 @@ esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
     children = mutator(children, control)
     children = correctBounds(children, lower, upper)
 
-    children = computeFitness(children, f)
+    children = computeFitness(children, objective.fun)
     population = mergePopulations(population, children)
 
     population = selectForSurvival(population, population.size, strategy = "mupluslambda")

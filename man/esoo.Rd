@@ -2,10 +2,11 @@
 \alias{esoo}
 \title{Working horse of the esoo package.}
 \usage{
-esoo(f, control, global.optimum = NA, lower = NA, upper = NA)
+esoo(objective.fun, control, global.optimum = NA, lower = NA, upper = NA)
 }
 \arguments{
-  \item{f}{[\code{function}]\cr Target function.}
+  \item{objective.fun}{[\code{function}]\cr Target
+  function.}
 
   \item{control}{[\code{esoo.control}]\cr Control object.}
 
