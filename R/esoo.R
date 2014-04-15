@@ -17,7 +17,7 @@
 #'   }
 #' @export
 esoo = function(f, control, global.optimum = NA) {
-  n = control$n.params
+  n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
   show.info = control$show.info
@@ -31,13 +31,14 @@ esoo = function(f, control, global.optimum = NA) {
     }
   }
 
+  generator = control$generator
   mutator = control$mutator
   recombinator = control$recombinator
 
-  population = generateRandomInitialPopulation(population.size, n, lower_bounds(f), upper_bounds(f))
+  population = generator(population.size, n.params, lower_bounds(f), upper_bounds(f))
   population = computeFitness(population, f)
   best = getBestIndividual(population)
-  trace = makeTrace(n)
+  trace = makeTrace(n.params)
   trace = addToTrace(trace, best, 0)
 
   i = 1L

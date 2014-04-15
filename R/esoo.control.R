@@ -26,6 +26,9 @@
 #'   evolutionary process.
 #' @param show.info.stepsize [\code{integer(1)}]\cr
 #'   This positive value indicates after which iterations output shall be presented.
+#' @param generator [\code{esoo_generator}]\cr
+#'   Generator operator of type \code{esoo_generator} for the generation of the initial
+#'   population.
 #' @param mutator [\code{esoo_mutator}]\cr
 #'   Mutation operator of type \code{esoo_mutator}.
 #' @param recombinator [\code{esoo_recombinator}]\cr
@@ -47,6 +50,7 @@ esoo.control = function(
   termination.eps = 10^-1,
   show.info = TRUE,
   show.info.stepsize = 1L,
+  generator = makeUniformGenerator(),
   mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(),
   mutator.gauss.prob = 1,
@@ -67,6 +71,9 @@ esoo.control = function(
   if (!inherits(mutator, "esoo_mutator")) {
     stopf("Mutator must be of class esoo_mutator, not %s", paste(attr(mutator, "class")))
   }
+  if (!inherits(generator, "esoo_generator")) {
+    stopf("Generator must be of class esoo_generatorm, not %s", paste(attr(generator, "class")))
+  }
   if (!inherits(recombinator, "esoo_recombinator")) {
     stopf("Recombinator must be of class esoo_recombinator, not %s", paste(attr(mutator, "class")))
   }
@@ -82,6 +89,7 @@ esoo.control = function(
     n.targets = n.targets,
     max.iter = max.iter,
     termination.eps = termination.eps,
+    generator = generator,
     mutator = mutator,
     recombinator = recombinator,
     mutator.gauss.prob = mutator.gauss.prob,

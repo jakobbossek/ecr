@@ -4,7 +4,8 @@
 \usage{
 esoo.control(population.size, offspring.size, representation, n.params,
   n.targets = 1L, max.iter = 100L, termination.eps = 10^-1,
-  show.info = TRUE, show.info.stepsize = 1L, mutator = makeGaussMutator(),
+  show.info = TRUE, show.info.stepsize = 1L,
+  generator = makeUniformGenerator(), mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05)
 }
@@ -41,6 +42,10 @@ esoo.control(population.size, offspring.size, representation, n.params,
   \item{show.info.stepsize}{[\code{integer(1)}]\cr This
   positive value indicates after which iterations output
   shall be presented.}
+
+  \item{generator}{[\code{esoo_generator}]\cr Generator
+  operator of type \code{esoo_generator} for the generation
+  of the initial population.}
 
   \item{mutator}{[\code{esoo_mutator}]\cr Mutation operator
   of type \code{esoo_mutator}.}
