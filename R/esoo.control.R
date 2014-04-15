@@ -7,7 +7,10 @@
 #' @param population.size [\code{integer(1)}]\cr
 #'   Number of individuals in the population.
 #' @param offspring.size [\code{integer(1)}]\cr
-#'   Number of idividuals generated in each generation.
+#'   Number of individuals generated in each generation.
+#' @param mating.pool.size [\code{integer(1)}]\cr
+#'   Number of individuals which can potentially participate in the
+#'   generation of offspring. Default is half of the population size.
 #' @param representation [\code{character(1)}]\cr
 #'   Genotype representation of the parameters. Available are binary, real, integer and
 #'   permutation.
@@ -26,6 +29,9 @@
 #'   evolutionary process.
 #' @param show.info.stepsize [\code{integer(1)}]\cr
 #'   This positive value indicates after which iterations output shall be presented.
+#' @param mating.pool.generator [\code{function}]\cr
+#'   Generator operator which implements a procedure to copy individuals from a
+#'   given population to the mating pool, i. e., allow them to become parents.
 #' @param generator [\code{esoo_generator}]\cr
 #'   Generator operator of type \code{esoo_generator} for the generation of the initial
 #'   population.

@@ -16,7 +16,12 @@ esoo.control(population.size, offspring.size,
   individuals in the population.}
 
   \item{offspring.size}{[\code{integer(1)}]\cr Number of
-  idividuals generated in each generation.}
+  individuals generated in each generation.}
+
+  \item{mating.pool.size}{[\code{integer(1)}]\cr Number of
+  individuals which can potentially participate in the
+  generation of offspring. Default is half of the
+  population size.}
 
   \item{representation}{[\code{character(1)}]\cr Genotype
   representation of the parameters. Available are binary,
@@ -44,6 +49,11 @@ esoo.control(population.size, offspring.size,
   \item{show.info.stepsize}{[\code{integer(1)}]\cr This
   positive value indicates after which iterations output
   shall be presented.}
+
+  \item{mating.pool.generator}{[\code{function}]\cr
+  Generator operator which implements a procedure to copy
+  individuals from a given population to the mating pool,
+  i. e., allow them to become parents.}
 
   \item{generator}{[\code{esoo_generator}]\cr Generator
   operator of type \code{esoo_generator} for the generation
