@@ -2,9 +2,11 @@
 \alias{esoo.control}
 \title{Generates control object.}
 \usage{
-esoo.control(population.size, offspring.size, representation, n.params,
+esoo.control(population.size, offspring.size,
+  mating.pool.size = floor(population.size/2), representation, n.params,
   n.targets = 1L, max.iter = 100L, termination.eps = 10^-1,
   show.info = TRUE, show.info.stepsize = 1L,
+  mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(), mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05)

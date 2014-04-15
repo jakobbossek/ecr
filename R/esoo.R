@@ -26,6 +26,8 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
   n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
+  mating.pool.size = control$mating.pool.size
+  offspring.size = control$offspring.size
   show.info = control$show.info
   show.info.stepsize = control$show.info.stepsize
   termination.eps = control$termination.eps
@@ -47,11 +49,10 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
     stopf("Lower and upper box constraints needed for representation type 'float'.")
   }
 
-  generator = control$generator
-  mutator = control$mutator
-  recombinator = control$recombinator
+  populationGenerator = control$generator
+  matingPoolGenerator = control$mating.pool.generator
 
-  population = generator(population.size, n.params, lower, upper)
+  population = populationGenerator(population.size, n.params, lower, upper)
   population = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
   trace = makeTrace(n.params)
@@ -62,17 +63,14 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
     if (show.info && (i %% show.info.stepsize == 0L)) {
       cat(".")
     }
-    parents = parentSelection(population, number.of.parents = 2)
-    children = recombinator(parents)
-    children = mutator(children, control)
-    children = correctBounds(children, lower, upper)
+    parents = matingPoolGenerator(population, mating.pool.size)
+    offspring = generateOffspring(parents, objective.fun, control)
 
-    children = computeFitness(children, objective.fun)
-    population = mergePopulations(population, children)
-
+    population = mergePopulations(population, offspring)
     population = selectForSurvival(population, population.size, strategy = "mupluslambda")
 
     best = getBestIndividual(population)
+
     trace = addToTrace(trace, best, i)
 
     i = i + 1

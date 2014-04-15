@@ -43,6 +43,7 @@
 esoo.control = function(
   population.size,
   offspring.size,
+  mating.pool.size = floor(population.size / 2),
   representation,
   n.params,
   n.targets = 1L,
@@ -50,6 +51,8 @@ esoo.control = function(
   termination.eps = 10^-1,
   show.info = TRUE,
   show.info.stepsize = 1L,
+  #FIXME: this should be of type 'esoo_operator' respectively 'esoo_generator'
+  mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(),
   mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(),
@@ -57,6 +60,9 @@ esoo.control = function(
   mutator.gauss.sd = 0.05) {
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
+  #FIXME: think about mating.pool.size
+  mating.pool.size = convertInteger(mating.pool.size)
+  checkArg(mating.pool.size, cl = "integer", len = 1L, lower = 2L, na.ok = FALSE)
   checkArg(representation, choices = getAvailableRepresentations())
   checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
@@ -84,11 +90,13 @@ esoo.control = function(
   structure(list(
     population.size = population.size,
     offspring.size = offspring.size,
+    mating.pool.size = mating.pool.size,
     representation = representation,
     n.params = n.params,
     n.targets = n.targets,
     max.iter = max.iter,
     termination.eps = termination.eps,
+    mating.pool.generator = mating.pool.generator,
     generator = generator,
     mutator = mutator,
     recombinator = recombinator,
@@ -124,6 +132,7 @@ print.esoo_control = function(x, ...) {
   catf("Evolutionary parameters:")
   catf("Population size              : %i", x$population.size)
   catf("Offspring size               : %i", x$offspring.size)
+  catf("Mating pool size             : %i", x$mating.pool.size)
   catf("Representation               : %s", x$representation)
 
   catf("")
