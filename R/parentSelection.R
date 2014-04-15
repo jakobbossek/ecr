@@ -10,5 +10,5 @@ parentSelection = function(setOfIndividuals, number.of.parents) {
   individuals = setOfIndividuals$population
   fitness = setOfIndividuals$fitness
   to.keep = order(fitness)[seq(number.of.parents)]
-  makePopulation(individuals = individuals[to.keep, ], fitness = fitness[to.keep])
+  makePopulation(individuals = individuals[to.keep, , drop = FALSE], fitness = fitness[to.keep])
 }

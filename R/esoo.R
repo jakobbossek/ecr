@@ -65,7 +65,7 @@ esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
     parents = parentSelection(population, number.of.parents = 2)
     children = recombinator(parents)
     children = mutator(children, control)
-    children = correctBounds(children, lower_bounds(f), upper_bounds(f))
+    children = correctBounds(children, lower, upper)
 
     children = computeFitness(children, f)
     population = mergePopulations(population, children)

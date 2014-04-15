@@ -18,7 +18,7 @@ selectForSurvival = function(setOfIndividuals, pop.size, strategy = "mupluslambd
   fitness = setOfIndividuals$fitness
   to.survive = order(fitness)[seq(pop.size)]
   makePopulation(
-    individuals = individuals[to.survive, ],
+    individuals = individuals[to.survive, , drop = FALSE],
     fitness = fitness[to.survive]
     )
 }
