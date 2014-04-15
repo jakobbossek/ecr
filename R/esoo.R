@@ -59,10 +59,8 @@ esoo = function(f, control, global.optimum = NA, lower = NA, upper = NA) {
 
   i = 1L
   while (!isTerminiationCriterionFullfilled(i, max.iter, global.optimum, best, termination.eps)) {
-    if (show.info) {
-      if (i %% show.info.stepsize == 0L) {
-        cat(".")
-      }
+    if (show.info && (i %% show.info.stepsize == 0L)) {
+      cat(".")
     }
     parents = parentSelection(population, number.of.parents = 2)
     children = recombinator(parents)
