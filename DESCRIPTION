@@ -1,11 +1,19 @@
 Package: ecr
 Type: Package
-Title: Evolutionary Single Objective Optimization in R.
+Title: Evolutionary Computing in R.
+Description: This R package provides a powerful framework for Evolutionary
+    Computing in R. The user can solve his objective functions using predefined
+    evolutionary operators, i. e., operators for mutation, recombination and so
+    on for several common representations, with only a few lines of code.
+    Extending the framework with own operators is also possible. Additionaly
+    there are various control options such as the survival strategy elitism,
+    which allow maximal flexibility. This package is much work in progress at
+    the moment. In future releases, multi-objective evolutionary optimization
+    will be possible as well.
 Version: 0.1
 Date: 2014-03-15
-Author: Jakob Bossek <jakob.bossek@tu-dortmund.de>
-Maintainer: Jakob Bossek <jakob.bossek@tu-dortmund.de>
-Description: More about what it does (maybe more than one line)
+Author: Jakob Bossek <j.bossek@gmail.com>
+Maintainer: Jakob Bossek <j.bossek@gmail.com>
 License: What license is it under?
 Suggests:
     testthat,
