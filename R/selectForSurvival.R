@@ -14,18 +14,44 @@
 #     \item{comma}{A classical (mu, lambda) strategy.}
 #   }
 #   Default is \code{plus}. Another is not implemented yet.
+# @param elite.size [\code{integer(1)}]\cr
+#   Number of fittest individuals of the current generation that shall be copied to the
+#   next generation without changing. Default is 0.
 # @return [\code{setOfIndividuals}]
-selectForSurvival = function(population, offspring, population.size, strategy = "plus", elitism = 0L) {
+selectForSurvival = function(population, offspring, population.size, strategy = "plus", elite.size = 0L) {
+  elite = NA
+
+  #FIXME: currently the individuals/candidates with minimal absolute fitness values
+  #       survive. We need other survival selection algorithms.
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
-  } else {
+    source.individuals = source.population$population
+    source.fitness = source.population$fitness
+    to.survive = order(source.fitness)[seq(population.size)]
+  } else if (strategy == "comma") {
     source.population = offspring
+    source.individuals = source.population$population
+    source.fitness = source.population$fitness
+    if (elite.size > 0L) {
+      parent.individuals = population$population
+      parent.fitness = population$fitness
+      to.be.elite = order(parent.fitness)[seq(elite.size)]
+      # Adapt number of individuals taken from the offspring
+      population.size = population.size - elite.size
+      elite = makePopulation(
+        individuals = parent.individuals[to.be.elite, , drop = FALSE],
+        fitness = parent.fitness[to.be.elite]
+      )
+    }
+    to.survive = order(source.fitness)[seq(population.size)]
   }
-  individuals = source.population$population
-  fitness = source.population$fitness
-  to.survive = order(fitness)[seq(population.size)]
-  return(makePopulation(
-    individuals = individuals[to.survive, , drop = FALSE],
-    fitness = fitness[to.survive]
-  ))
+
+  population2 = makePopulation(
+    individuals = source.individuals[to.survive, , drop = FALSE],
+    fitness = source.fitness[to.survive]
+  )
+  if (!is.na(elite)) {
+    population2 = mergePopulations(population2, elite)
+  }
+  return(population2)
 }

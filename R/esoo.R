@@ -71,7 +71,7 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
       offspring,
       population.size,
       strategy = control$survival.strategy,
-      elitism = 0L)
+      elite.size = control$elite.size)
 
     best = getBestIndividual(population)
 
