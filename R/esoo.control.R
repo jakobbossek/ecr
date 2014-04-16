@@ -164,6 +164,9 @@ print.esoo_control = function(x, ...) {
   catf("Mating pool size             : %i", x$mating.pool.size)
   catf("Representation               : %s", x$representation)
   catf("Survival strategy            : %s", if (x$survival.strategy == "plus") "(mu + lambda)" else "(mu, lambda)")
+  if (x$elite.size > 0L && x$survival.strategy == "comma") {
+    catf("(Using elitism with elite count %i, i.e., %.2g%% of the fittest candidates in each generation will survive)", x$elite.size, as.numeric(x$elite.size)/x$population.size)
+  }
 
   catf("")
   catf("Evolutionary operators:")
