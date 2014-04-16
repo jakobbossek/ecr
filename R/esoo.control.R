@@ -14,6 +14,9 @@
 #' @param representation [\code{character(1)}]\cr
 #'   Genotype representation of the parameters. Available are binary, real, integer and
 #'   permutation.
+#' @param survival.strategy [\code{character(1)}]\cr
+#'   Determines the survival strategy used by the EA. Possible are 'plus' for a classical
+#'   (mu + lambda) strategy and 'comma' for (mu, lambda).
 #' @param n.params [\code{integer(1)}]\cr
 #'   Number of parameters of the objective function.
 #' @param n.targets [\code{integer(1)}]\cr
@@ -51,6 +54,7 @@ esoo.control = function(
   offspring.size,
   mating.pool.size = floor(population.size / 2),
   representation,
+  survival.strategy = "plus",
   n.params,
   n.targets = 1L,
   max.iter = 100L,
@@ -70,6 +74,7 @@ esoo.control = function(
   mating.pool.size = convertInteger(mating.pool.size)
   checkArg(mating.pool.size, cl = "integer", len = 1L, lower = 2L, na.ok = FALSE)
   checkArg(representation, choices = getAvailableRepresentations())
+  checkArg(survival.strategy, choices = c("plus", "comma"))
   checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
 
@@ -98,6 +103,7 @@ esoo.control = function(
     offspring.size = offspring.size,
     mating.pool.size = mating.pool.size,
     representation = representation,
+    survival.strategy = survival.strategy,
     n.params = n.params,
     n.targets = n.targets,
     max.iter = max.iter,

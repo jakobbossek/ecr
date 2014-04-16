@@ -3,9 +3,9 @@
 \title{Generates control object.}
 \usage{
 esoo.control(population.size, offspring.size,
-  mating.pool.size = floor(population.size/2), representation, n.params,
-  n.targets = 1L, max.iter = 100L, termination.eps = 10^-1,
-  show.info = TRUE, show.info.stepsize = 1L,
+  mating.pool.size = floor(population.size/2), representation,
+  survival.strategy = "plus", n.params, n.targets = 1L, max.iter = 100L,
+  termination.eps = 10^-1, show.info = TRUE, show.info.stepsize = 1L,
   mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(), mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
@@ -26,6 +26,11 @@ esoo.control(population.size, offspring.size,
   \item{representation}{[\code{character(1)}]\cr Genotype
   representation of the parameters. Available are binary,
   real, integer and permutation.}
+
+  \item{survival.strategy}{[\code{character(1)}]\cr
+  Determines the survival strategy used by the EA. Possible
+  are 'plus' for a classical (mu + lambda) strategy and
+  'comma' for (mu, lambda).}
 
   \item{n.params}{[\code{integer(1)}]\cr Number of
   parameters of the objective function.}

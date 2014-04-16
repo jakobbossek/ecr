@@ -66,8 +66,12 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
     parents = matingPoolGenerator(population, mating.pool.size)
     offspring = generateOffspring(parents, objective.fun, control)
 
-    population = mergePopulations(population, offspring)
-    population = selectForSurvival(population, population.size, strategy = "mupluslambda")
+    population = selectForSurvival(
+      population,
+      offspring,
+      population.size,
+      strategy = control$survival.strategy,
+      elitism = 0L)
 
     best = getBestIndividual(population)
 
