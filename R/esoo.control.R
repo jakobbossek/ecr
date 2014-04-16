@@ -142,7 +142,7 @@ esoo.control = function(
 #' @param ... [any]\cr
 #'   Not used.
 #'
-#' @method print esoo_control
+#' @S3method print esoo_control
 print.esoo_control = function(x, ...) {
   catf("[ESOO CONTROL OBJECT]\n")
 
