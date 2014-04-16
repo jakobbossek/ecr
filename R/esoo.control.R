@@ -97,6 +97,12 @@ esoo.control = function(
   if (!is.supported(mutator, representation)) {
     stop(paste("Mutator'", getOperatorName(mutator), "' is not compatible with representation '", representation, "'!"))
   }
+  # If the survival strategy is (mu + lambda), than the number of generated offspring in each iteration
+  # must greater or equal to the population size
+  if (survival.strategy == "comma" && offspring.size < population.size) {
+    stopf("The (mu, lambda) survival strategy requires the number of generated offspring in each generation
+      to be greater or equal to the population size, but %i < %i", offspring.size, population.size)
+  }
 
   structure(list(
     population.size = population.size,
