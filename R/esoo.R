@@ -80,6 +80,10 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
     i = i + 1
   }
 
+  if (show.info) {
+    catf("\nEA terminated.")
+  }
+
   return(
     structure(list(
       best.param = best$individual,
