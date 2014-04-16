@@ -4,9 +4,9 @@
 \usage{
 esoo.control(population.size, offspring.size,
   mating.pool.size = floor(population.size/2), representation,
-  survival.strategy = "plus", n.params, n.targets = 1L, max.iter = 100L,
-  termination.eps = 10^-1, show.info = TRUE, show.info.stepsize = 1L,
-  mating.pool.generator = parentSelection,
+  survival.strategy = "plus", elite.size = 0L, n.params, n.targets = 1L,
+  max.iter = 100L, termination.eps = 10^-1, show.info = TRUE,
+  show.info.stepsize = 1L, mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(), mutator = makeGaussMutator(),
   recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
   mutator.gauss.sd = 0.05)
@@ -31,6 +31,13 @@ esoo.control(population.size, offspring.size,
   Determines the survival strategy used by the EA. Possible
   are 'plus' for a classical (mu + lambda) strategy and
   'comma' for (mu, lambda).}
+
+  \item{elite.size}{[\code{integer(1)}]\cr Number of
+  fittest individuals of the current generation that shall
+  be copied to the next generation without changing.
+  Default is 0. Keep in mind, that the algorithm does not
+  care about this option if the \code{survival.strategy} is
+  set to 'plus'.}
 
   \item{n.params}{[\code{integer(1)}]\cr Number of
   parameters of the objective function.}

@@ -17,6 +17,10 @@
 #' @param survival.strategy [\code{character(1)}]\cr
 #'   Determines the survival strategy used by the EA. Possible are 'plus' for a classical
 #'   (mu + lambda) strategy and 'comma' for (mu, lambda).
+#' @param elite.size [\code{integer(1)}]\cr
+#'   Number of fittest individuals of the current generation that shall be copied to the
+#'   next generation without changing. Default is 0. Keep in mind, that the algorithm
+#'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
 #' @param n.params [\code{integer(1)}]\cr
 #'   Number of parameters of the objective function.
 #' @param n.targets [\code{integer(1)}]\cr
@@ -55,6 +59,7 @@ esoo.control = function(
   mating.pool.size = floor(population.size / 2),
   representation,
   survival.strategy = "plus",
+  elite.size = 0L,
   n.params,
   n.targets = 1L,
   max.iter = 100L,
@@ -75,6 +80,7 @@ esoo.control = function(
   checkArg(mating.pool.size, cl = "integer", len = 1L, lower = 2L, na.ok = FALSE)
   checkArg(representation, choices = getAvailableRepresentations())
   checkArg(survival.strategy, choices = c("plus", "comma"))
+  checkArg(elite.size, cl = "integer", len = 1L, lower = 0L, na.ok = FALSE)
   checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
 
@@ -110,6 +116,7 @@ esoo.control = function(
     mating.pool.size = mating.pool.size,
     representation = representation,
     survival.strategy = survival.strategy,
+    elite.size = elite.size,
     n.params = n.params,
     n.targets = n.targets,
     max.iter = max.iter,
@@ -152,6 +159,7 @@ print.esoo_control = function(x, ...) {
   catf("Offspring size               : %i", x$offspring.size)
   catf("Mating pool size             : %i", x$mating.pool.size)
   catf("Representation               : %s", x$representation)
+  catf("Survival strategy            : %s", if (x$survival.strategy == "plus") "(mu + lambda)" else "(mu, lambda)")
 
   catf("")
   catf("Evolutionary operators:")
