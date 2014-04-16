@@ -6,7 +6,7 @@
 #   Maximum number of iterations.
 # @param global.optimum [\code{numeric}]\cr
 #   Parameter values of global optimum or NA.
-# @param best [\code{esooIndividual}]\cr
+# @param best [\code{ecrIndividual}]\cr
 #   Current best individual.
 # @param termination.eps [\code{numeric(1)}]\cr
 #   Maximal gap between best individual so far and the global optimum.

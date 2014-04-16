@@ -14,5 +14,5 @@ getBestIndividual = function(setOfIndividuals) {
   best.individual = population[best.idx, ]
   return(structure(
     list(fitness = best.fitness, individual = best.individual),
-    class = "esooIndividual"))
+    class = "ecrIndividual"))
 }

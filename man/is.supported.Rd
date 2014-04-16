@@ -1,12 +1,12 @@
 \name{is.supported}
 \alias{is.supported}
-\title{Helper function to check if esoo operator supports given representation.}
+\title{Helper function to check if ecr operator supports given representation.}
 \usage{
 is.supported(operator, representation)
 }
 \arguments{
-  \item{operator}{[\code{esoo_operator}]\cr Object of type
-  \code{esoo_operator}.}
+  \item{operator}{[\code{ecr_operator}]\cr Object of type
+  \code{ecr_operator}.}
 
   \item{representation}{[\code{character(1)}]\cr
   Representation as a string.}
@@ -16,7 +16,7 @@ is.supported(operator, representation)
 representation type.
 }
 \description{
-Helper function to check if esoo operator supports given
+Helper function to check if ecr operator supports given
 representation.
 }
 

@@ -1,10 +1,10 @@
-#' Working horse of the esoo package.
+#' Working horse of the ecr package.
 #'
 #' Takes a function and searches for global optimum with an evolutionary approach.
 #'
 #' @param objective.fun [\code{function}]\cr
 #'   Target function.
-#' @param control [\code{esoo.control}]\cr
+#' @param control [\code{ecr.control}]\cr
 #'   Control object.
 #' @param global.optimum [\code{numeric}]\cr
 #'   Parameter combination of the global optimum of the fun. This parameter is optional.
@@ -14,15 +14,15 @@
 #' @param upper [\code{numeric}]\cr
 #'   Upper box constraints for the parameters. These are needed, if representation type is set
 #'   to 'float'.
-#' return [\code{esooResult}]
-#'   Object of type \code{esooResult} containing a list:
+#' return [\code{ecrResult}]
+#'   Object of type \code{ecrResult} containing a list:
 #'   \itemize{
 #'    \item{best.param \code{numeric}}{Best parameter combination.}
 #'    \item{best.value \code{numeric(1)}}{Best reached value.}
-#'    \item{trace \code{esooTrace}}{Optimization path.}
+#'    \item{trace \code{ecrTrace}}{Optimization path.}
 #'   }
 #' @export
-esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper = NA) {
+ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = NA) {
   n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
@@ -89,6 +89,6 @@ esoo = function(objective.fun, control, global.optimum = NA, lower = NA, upper =
       best.param = best$individual,
       best.value = best$fitness,
       trace = trace
-      ), class = "esoo_result")
+      ), class = "ecr_result")
   )
 }

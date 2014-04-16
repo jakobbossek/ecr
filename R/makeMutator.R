@@ -7,11 +7,11 @@
 # @param supported [\code{character}]\cr
 #   Vector of strings/names of supported parameter representations. For example
 #   'permutation', 'float', 'binary'.
-# @return [\code{esoo_mutator}]
+# @return [\code{ecr_mutator}]
 #   Mutator object.
 makeMutator = function(mutator, name, supported = getAvailableRepresentations()) {
   mutator = makeOperator(mutator, name, supported)
-  mutator = addClasses(mutator, c("esoo_mutator"))
+  mutator = addClasses(mutator, c("ecr_mutator"))
   return(mutator)
 }
 

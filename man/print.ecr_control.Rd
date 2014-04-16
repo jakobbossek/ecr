@@ -1,0 +1,15 @@
+\name{print.ecr_control}
+\alias{print.ecr_control}
+\title{Print ecr control object.}
+\usage{
+\method{print}{ecr_control}(x, ...)
+}
+\arguments{
+  \item{x}{[\code{ecr_control}]\cr Control object.}
+
+  \item{...}{[any]\cr Not used.}
+}
+\description{
+Print ecr control object.
+}
+

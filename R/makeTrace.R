@@ -29,7 +29,7 @@ makeTrace = function(n.params, param.names, target.name) {
       target.name = target.name,
       size = 1L
       ),
-    class = "esooTrace"))
+    class = "ecrTrace"))
 }
 
 

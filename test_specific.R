@@ -5,8 +5,19 @@ library(soobench)
 
 load_all(".")
 
-f = generate_sphere_function(2)
-plot(f)
+fn = generate_ackley_function(1)
 
-res = esoo(f, 1000, 5)
-print(res)
+control = ecr.control(
+  population.size = 20L,
+  offspring.size = 50L,
+  representation = "float",
+  survival.strategy = "plus",
+  elite.size = 1L,
+  n.params = 1L,
+  n.targets = 1L,
+  show.info = TRUE,
+  termination.eps = 0.0001,
+  max.iter = 200L,
+  show.info.stepsize = 5L)
+
+res = ecr(fn, control, global.optimum = 0L)

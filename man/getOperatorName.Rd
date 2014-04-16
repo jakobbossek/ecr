@@ -5,7 +5,7 @@
 getOperatorName(operator)
 }
 \arguments{
-  \item{operator}{[\code{esoo_operator}]\cr Operator
+  \item{operator}{[\code{ecr_operator}]\cr Operator
   object.}
 }
 \value{

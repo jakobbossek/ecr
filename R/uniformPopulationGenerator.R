@@ -1,6 +1,6 @@
 #' Generates a generator object for the initial population.
 #'
-#' @return [\code{esoo_opeator}]
+#' @return [\code{ecr_opeator}]
 #' @export
 makeUniformGenerator = function() {
   # Generates an initial population.
@@ -29,7 +29,7 @@ makeUniformGenerator = function() {
     name = "Uniform generator",
     supported = c("float")
   )
-  #FIXME: do we really need 'esoo_generator' objects and 'makeGenerator'?
-  operator = addClasses(operator, c("esoo_generator"))
+  #FIXME: do we really need 'ecr_generator' objects and 'makeGenerator'?
+  operator = addClasses(operator, c("ecr_generator"))
   return(operator)
 }

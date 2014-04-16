@@ -1,4 +1,4 @@
-Package: esoo
+Package: ecr
 Type: Package
 Title: Evolutionary Single Objective Optimization in R.
 Version: 0.1

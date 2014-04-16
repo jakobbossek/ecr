@@ -4,7 +4,7 @@
 #   Set of parents to choose from.
 # @param objective.fun [\code{function}]\cr
 #   Target fun.
-# @param control [\code{esoo_control}]\cr
+# @param control [\code{ecr_control}]\cr
 #   Control object containing alle the operators and further parameters.
 # @return [\code{setOfIndividuals}]
 #   Generated offspring.
@@ -25,7 +25,7 @@ generateOffspring = function(matingPool, objective.fun, control) {
 
   offspring = list()
   #FIXME: make this better. We can work with the apply family here. But I think
-  #       we must give up the 'setOfIndividuals/esoo_population' types for this.
+  #       we must give up the 'setOfIndividuals/ecr_population' types for this.
   #       Moreover this might be really helpful because all the wrapping and un-
   #       wrapping sucks hard!
   for (i in 1:offspring.size) {

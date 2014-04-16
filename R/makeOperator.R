@@ -7,7 +7,7 @@
 # @param supported [\code{character}]\cr
 #   Vector of names of supported parameter representations. For example
 #   'permutation', 'float', 'binary'.
-# @return [\code{esoo_operator}]
+# @return [\code{ecr_operator}]
 #   Operator object.
 makeOperator = function(operator, name, supported = getAvailableRepresentations()) {
   checkArg(name, cl = "character", len = 1L, na.ok = FALSE)
@@ -21,6 +21,6 @@ makeOperator = function(operator, name, supported = getAvailableRepresentations(
   attr(operator, "supported") = supported
 
   #FIXME: in BBmisc addClasses should have an option not to add already existent classes
-  operator = addClasses(operator, c("esoo_operator"))
+  operator = addClasses(operator, c("ecr_operator"))
   return(operator)
 }

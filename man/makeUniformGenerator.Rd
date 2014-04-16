@@ -5,7 +5,7 @@
 makeUniformGenerator()
 }
 \value{
-[\code{esoo_opeator}]
+[\code{ecr_opeator}]
 }
 \description{
 Generates a generator object for the initial population.

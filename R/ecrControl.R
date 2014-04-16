@@ -1,6 +1,6 @@
 #' Generates control object.
 #'
-#' The esoo package offers a framework for evolutionary computing and therefore offers
+#' The ecr package offers a framework for evolutionary computing and therefore offers
 #' a lot of customization options. The control object is a simple but powerful
 #' wrapper for all these options and sets convenient default options.
 #'
@@ -39,21 +39,21 @@
 #' @param mating.pool.generator [\code{function}]\cr
 #'   Generator operator which implements a procedure to copy individuals from a
 #'   given population to the mating pool, i. e., allow them to become parents.
-#' @param generator [\code{esoo_generator}]\cr
-#'   Generator operator of type \code{esoo_generator} for the generation of the initial
+#' @param generator [\code{ecr_generator}]\cr
+#'   Generator operator of type \code{ecr_generator} for the generation of the initial
 #'   population.
-#' @param mutator [\code{esoo_mutator}]\cr
-#'   Mutation operator of type \code{esoo_mutator}.
-#' @param recombinator [\code{esoo_recombinator}]\cr
-#'   Recombination operator of type \code{esoo_recombinator}.
+#' @param mutator [\code{ecr_mutator}]\cr
+#'   Mutation operator of type \code{ecr_mutator}.
+#' @param recombinator [\code{ecr_recombinator}]\cr
+#'   Recombination operator of type \code{ecr_recombinator}.
 #' @param mutator.gauss.prob [\code{numeric(1)}]\cr
 #'   Probability of mutation for the gauss mutation operator.
 #' @param mutator.gauss.sd [\code{numeric(1)}]\cr
 #'   Standard deviance of the Gauss mutation, i. e., the mutation strength.
 #' @return
-#'   S3 object of type \code{esoo.control}.
+#'   S3 object of type \code{ecr.control}.
 #' @export
-esoo.control = function(
+ecr.control = function(
   population.size,
   offspring.size,
   mating.pool.size = floor(population.size / 2),
@@ -66,7 +66,7 @@ esoo.control = function(
   termination.eps = 10^-1,
   show.info = TRUE,
   show.info.stepsize = 1L,
-  #FIXME: this should be of type 'esoo_operator' respectively 'esoo_generator'
+  #FIXME: this should be of type 'ecr_operator' respectively 'ecr_generator'
   mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(),
   mutator = makeGaussMutator(),
@@ -91,14 +91,14 @@ esoo.control = function(
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
   checkArg(mutator.gauss.prob, cl = "numeric", len = 1L, lower = 0, upper = 1, na.ok = FALSE)
   checkArg(mutator.gauss.sd, cl = "numeric", len = 1L, lower = 0.0001, na.ok = FALSE)
-  if (!inherits(mutator, "esoo_mutator")) {
-    stopf("Mutator must be of class esoo_mutator, not %s", paste(attr(mutator, "class")))
+  if (!inherits(mutator, "ecr_mutator")) {
+    stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
   }
-  if (!inherits(generator, "esoo_generator")) {
-    stopf("Generator must be of class esoo_generatorm, not %s", paste(attr(generator, "class")))
+  if (!inherits(generator, "ecr_generator")) {
+    stopf("Generator must be of class ecr_generatorm, not %s", paste(attr(generator, "class")))
   }
-  if (!inherits(recombinator, "esoo_recombinator")) {
-    stopf("Recombinator must be of class esoo_recombinator, not %s", paste(attr(mutator, "class")))
+  if (!inherits(recombinator, "ecr_recombinator")) {
+    stopf("Recombinator must be of class ecr_recombinator, not %s", paste(attr(mutator, "class")))
   }
   if (!is.supported(mutator, representation)) {
     stop(paste("Mutator'", getOperatorName(mutator), "' is not compatible with representation '", representation, "'!"))
@@ -132,19 +132,19 @@ esoo.control = function(
     mutator.gauss.prob = mutator.gauss.prob,
     mutator.gauss.sd = mutator.gauss.sd,
     show.info = show.info,
-    show.info.stepsize = show.info.stepsize), class = "esoo_control")
+    show.info.stepsize = show.info.stepsize), class = "ecr_control")
 }
 
-#' Print esoo control object.
+#' Print ecr control object.
 #'
-#' @param x [\code{esoo_control}]\cr
+#' @param x [\code{ecr_control}]\cr
 #'   Control object.
 #' @param ... [any]\cr
 #'   Not used.
 #'
-#' @S3method print esoo_control
-print.esoo_control = function(x, ...) {
-  catf("[ESOO CONTROL OBJECT]\n")
+#' @S3method print ecr_control
+print.ecr_control = function(x, ...) {
+  catf("[ecr CONTROL OBJECT]\n")
 
   catf("Objective function:")
   if (x$n.targets == 1L) {

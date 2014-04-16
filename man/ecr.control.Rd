@@ -1,8 +1,8 @@
-\name{esoo.control}
-\alias{esoo.control}
+\name{ecr.control}
+\alias{ecr.control}
 \title{Generates control object.}
 \usage{
-esoo.control(population.size, offspring.size,
+ecr.control(population.size, offspring.size,
   mating.pool.size = floor(population.size/2), representation,
   survival.strategy = "plus", elite.size = 0L, n.params, n.targets = 1L,
   max.iter = 100L, termination.eps = 10^-1, show.info = TRUE,
@@ -67,15 +67,15 @@ esoo.control(population.size, offspring.size,
   individuals from a given population to the mating pool,
   i. e., allow them to become parents.}
 
-  \item{generator}{[\code{esoo_generator}]\cr Generator
-  operator of type \code{esoo_generator} for the generation
+  \item{generator}{[\code{ecr_generator}]\cr Generator
+  operator of type \code{ecr_generator} for the generation
   of the initial population.}
 
-  \item{mutator}{[\code{esoo_mutator}]\cr Mutation operator
-  of type \code{esoo_mutator}.}
+  \item{mutator}{[\code{ecr_mutator}]\cr Mutation operator
+  of type \code{ecr_mutator}.}
 
-  \item{recombinator}{[\code{esoo_recombinator}]\cr
-  Recombination operator of type \code{esoo_recombinator}.}
+  \item{recombinator}{[\code{ecr_recombinator}]\cr
+  Recombination operator of type \code{ecr_recombinator}.}
 
   \item{mutator.gauss.prob}{[\code{numeric(1)}]\cr
   Probability of mutation for the gauss mutation operator.}
@@ -85,10 +85,10 @@ esoo.control(population.size, offspring.size,
   strength.}
 }
 \value{
-S3 object of type \code{esoo.control}.
+S3 object of type \code{ecr.control}.
 }
 \description{
-The esoo package offers a framework for evolutionary
+The ecr package offers a framework for evolutionary
 computing and therefore offers a lot of customization
 options. The control object is a simple but powerful
 wrapper for all these options and sets convenient default

@@ -1,3 +1,3 @@
 library(testthat)
-test_check("esoo")
+test_check("ecr")
 

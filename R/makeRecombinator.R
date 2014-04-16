@@ -9,7 +9,7 @@
 #   'permutation', 'float', 'binary'.
 # @param n.parents [\code{integer(1)}]\cr
 #   Number of parents supported.
-# @return [\code{esoo_recombinator}]
+# @return [\code{ecr_recombinator}]
 #   Recombinator object.
 makeRecombinator = function(
   recombinator, name,
@@ -18,6 +18,6 @@ makeRecombinator = function(
   checkArg(n.parents, cl = "integer", len = 1L, lower = 2L, na.ok = FALSE)
   recombinator = makeOperator(recombinator, name, supported)
   attr(recombinator, "n.parents") = n.parents
-  recombinator = addClasses(recombinator, c("esoo_recombinator"))
+  recombinator = addClasses(recombinator, c("ecr_recombinator"))
   return(recombinator)
 }
