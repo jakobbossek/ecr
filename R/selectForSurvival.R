@@ -22,7 +22,7 @@ selectForSurvival = function(population, offspring, population.size, strategy = 
   elite = NA
 
   #FIXME: currently the individuals/candidates with minimal absolute fitness values
-  #       survive. We need other survival selection algorithms.
+  #       survive. We need other survival selection algorithms!
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
     source.individuals = source.population$population
@@ -33,6 +33,7 @@ selectForSurvival = function(population, offspring, population.size, strategy = 
     source.individuals = source.population$population
     source.fitness = source.population$fitness
     if (elite.size > 0L) {
+      #catf("Elitism with %i candidates out of %i", elite.size, population.size)
       parent.individuals = population$population
       parent.fitness = population$fitness
       to.be.elite = order(parent.fitness)[seq(elite.size)]
@@ -50,7 +51,9 @@ selectForSurvival = function(population, offspring, population.size, strategy = 
     individuals = source.individuals[to.survive, , drop = FALSE],
     fitness = source.fitness[to.survive]
   )
-  if (!is.na(elite)) {
+
+  # merge populations if elitism was used
+  if (inherits(elite, "setOfIndividuals")) {
     population2 = mergePopulations(population2, elite)
   }
   return(population2)

@@ -110,6 +110,10 @@ esoo.control = function(
       to be greater or equal to the population size, but %i < %i", offspring.size, population.size)
   }
 
+  if (survival.strategy == "comma" && elite.size >= population.size) {
+     stopf("Elite.size must be smaller than population.size! Otherwise each population would be the same.")
+  }
+
   structure(list(
     population.size = population.size,
     offspring.size = offspring.size,
