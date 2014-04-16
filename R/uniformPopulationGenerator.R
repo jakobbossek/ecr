@@ -33,33 +33,3 @@ makeUniformGenerator = function() {
   operator = addClasses(operator, c("esoo_generator"))
   return(operator)
 }
-
-# Helper function for wrapping individuals in a 'setOfIndividuals'.
-#
-# @param [\code{matrix}]\cr
-#   Matrix of individuals.
-# @param [\code{numeric}]\cr
-#   Vector of fitness values for the individuals.
-# @return [\code{setOfIndividuals}]
-makePopulation = function(individuals, fitness) {
-  res = list(population = individuals)
-  if (!missing(fitness))
-    res$fitness = fitness
-  #FIXME: do we really need both esooPopulation and setOfIndividuals? Do we need it at all?
-  #       Yes, it is OOP-like, but maybe it is to much overhead?
-  structure(
-    res,
-    class = c("esooPopulation", "setOfIndividuals"))
-}
-
-# Helper for merging populations.
-#
-# @param individuals1, individuals2 [\code{setOfIndividuals}]\cr
-#  The source sets of individuals.
-# @return [\code{setOfIndividuals}]
-mergePopulations = function(individuals1, individuals2) {
-  makePopulation(
-    individuals = rbind(individuals1$population, individuals2$population),
-    fitness = c(individuals1$fitness, individuals2$fitness)
-    )
-}

@@ -21,6 +21,7 @@ generateOffspring = function(matingPool, objective.fun, control) {
   #parentSelector = control$parentSelector
   parentSelector = simpleUniformSelection
   offspring.size = control$offspring.size
+  n.params = control$n.params
 
   offspring = list()
   #FIXME: make this better. We can work with the apply family here. But I think
