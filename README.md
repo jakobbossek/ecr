@@ -1,7 +1,14 @@
-# ecr
+# ecr: Evolutionary Computing in R
 
-This R package provides a powerful framework for Evolutionary Computing in R. The user can solve his objective functions using predefined evolutionary operators, i. e., operators for mutation, recombination and so on for several common representations, with only a few lines of code. Extending the framework with own operators is also possible. Additionaly there are various control options such as the survival strategy elitism, which allow maximal flexibility.
+The **ecr** package provides a powerful framework for **Evolutionary Computing in R*. The user can solve his objective functions using predefined evolutionary operators, i. e., operators for mutation, recombination and so on for several common representations, with only a few lines of code. Extending the framework with own operators is also possible. Additionaly there are various control options such as the survival strategy elitism, which allow maximal flexibility.
 
+# Installation instructions
+
+The package will be available in a first version at [CRAN](http://cran.r-project.org) soon. If you are interested in trying out and playing around with the current github developer version use the [devtools](https://github.com/hadley/devtools) package and use the following command in R.
+
+```splus
+devtools::install_github("ecr", username="jbossek")
+```
 
 ## Example
 
@@ -37,7 +44,7 @@ print(result)
 
 ## Contact
 
-Please address questions and missing features about the **ecr package** to the author Jakob Bossek <j.bossek@gmail.com>. Found some nasty bugs? Please use the [issue tracker](https://github.com/jbossek/ecr/issues) for this.
+Please address questions and missing features about the **ecr package** to the author Jakob Bossek <j.bossek@gmail.com>. Found some nasty bugs? Please use the [issue tracker](https://github.com/jbossek/ecr/issues) for this. Pay attention to explain the problem as good as possible. At its best you provide an example, so I can reproduce your problem.
 
 
 
