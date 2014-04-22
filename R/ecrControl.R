@@ -94,10 +94,11 @@ ecr.control = function(
   }
 
   # Check arguments of mutator
+  #FIXME: this should be outsourced to a 'performOperatorCheck' function
   mutator.fun.name = deparse(substitute(mutator))
   mutator.checkargs.fun.name = paste(mutator.fun.name, "Check", sep = "")
   mutator.control = insert(attr(mutator, "defaults"), mutator.control)
-  print(mutator.control)
+  mutator.control[setdiff(names(mutator.control), names(attr(mutator, "defaults")))] = NULL
   do.call(mutator.checkargs.fun.name, list(mutator.control))
 
   if (!inherits(generator, "ecr_generator")) {
@@ -176,7 +177,20 @@ print.ecr_control = function(x, ...) {
   catf("")
   catf("Evolutionary operators:")
   catf("Generator object             : %s", getOperatorName(x$generator))
-  catf("Mutation operator            : %s", getOperatorName(x$mutator))
+  catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator), getParametersAsString(x$mutator.control))
   catf("Recombination operator       : %s", getOperatorName(x$recombinator))
   #FIXME: need to print the correct operator params without sick if-else messup
+}
+
+getParametersAsString = function(parameters) {
+  x = ""
+  n = length(parameters)
+  for (i in seq(n)) {
+    name = names(parameters)[i]
+    x = paste(x, " ", name, ": ", parameters[[name]], sep = "")
+    if (i < n) {
+      x = paste(x, ",", sep = "")
+    }
+  }
+  return(x)
 }
