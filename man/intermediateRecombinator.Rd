@@ -5,8 +5,8 @@
 intermediateRecombinator(setOfIndividuals, control = list())
 }
 \arguments{
-  \item{individuals}{[\code{setOfIndividuals}]\cr Set of
-  individuals.}
+  \item{setOfIndividuals}{[\code{setOfIndividuals}]\cr Set
+  of individuals.}
 
   \item{control}{[\code{list}]\cr Empty list. Intermediate
   recombinator has no paramerters.}

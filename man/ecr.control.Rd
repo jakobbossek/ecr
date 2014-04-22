@@ -81,9 +81,14 @@ ecr.control(population.size, offspring.size,
   evolutionary parameters for the corresponding mutation
   operator. See the help pages for the mutation operators
   for the needed values.}
+
+  \item{recombinator.control}{[\code{list}]\cr List of
+  evolutionary parameters for the corresponding
+  recombination operator. See the help pages for the
+  recombination operators for the needed values.}
 }
 \value{
-S3 object of type \code{ecr.control}.
+S3 object of type \code{ecr_control}.
 }
 \description{
 The ecr package offers a framework for evolutionary

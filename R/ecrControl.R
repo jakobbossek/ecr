@@ -49,8 +49,11 @@
 #' @param mutator.control [\code{list}]\cr
 #'   List of evolutionary parameters for the corresponding mutation operator. See the
 #'   help pages for the mutation operators for the needed values.
+#' @param recombinator.control [\code{list}]\cr
+#'   List of evolutionary parameters for the corresponding recombination operator. See the
+#'   help pages for the recombination operators for the needed values.
 #' @return
-#'   S3 object of type \code{ecr.control}.
+#'   S3 object of type \code{ecr_control}.
 #' @export
 ecr.control = function(
   population.size,

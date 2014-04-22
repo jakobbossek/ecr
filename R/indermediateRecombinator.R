@@ -1,6 +1,6 @@
 #' Generator of the indermediate recombination operator.
 #'
-#' @param individuals [\code{setOfIndividuals}]\cr
+#' @param setOfIndividuals [\code{setOfIndividuals}]\cr
 #'   Set of individuals.
 #' @param control [\code{list}]\cr
 #'   Empty list. Intermediate recombinator has no paramerters.
