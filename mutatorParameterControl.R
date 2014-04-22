@@ -4,6 +4,7 @@
 # creation of the ecr control object.
 
 library(BBmisc)
+library(JBmisc)
 
 # Operators like mutators, recombinator have a simple interface. Let's start with mutators, i. e.,
 # mutation operators. They expect a setOfIndividuals and a operator.control parameter, the latter
@@ -41,17 +42,24 @@ attr(xyMutationOperator, "defaults") = list(the.sd = 0.001)
 # define the check arguments function for the mutator
 xyMutationOperatorCheck = function(operator.control) {
   catf("Checking evolutionary parameters for mutator %s", attr(xyMutationOperator, "name"))
-  checkArg(operator.control$the.sd, cl = "numeric", len = 1L, lower = 0L)
+  checkArg(operator.control$the.sd, cl = "numeric", len = 1L, lower = 0L, )
+}
+
+getOperatorDefaultParameters = function(operator) {
+  if (hasAttributes(operator, "defaults")) {
+    return(attr(operator, "defaults"))
+  }
+  NA
 }
 
 # ecr control now only needs to call the corresponding function to validate the parameters.
 ecr.control = function(control = list(), mutator) {
-  operator.control = insert(control, attr(mutator, "defaults"))
+  operator.control = insert(getOperatorDefaultParameters(mutator), control)
   print(operator.control)
   mutator.fun.name = deparse(substitute(mutator))
-  print(mutator.fun.name)
+  #print(mutator.fun.name)
   mutator.checkfun.name = paste(mutator.fun.name, "Check", sep = "")
-  print(mutator.checkfun.name)
+  #print(mutator.checkfun.name)
   do.call(mutator.checkfun.name, list(operator.control = operator.control))
 }
 
