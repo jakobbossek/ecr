@@ -15,6 +15,7 @@
 generateOffspring = function(matingPool, objective.fun, control) {
   generator = control$generator
   mutator = control$mutator
+  mutator.control = control$mutator.control
   recombinator = control$recombinator
   #FIXME: until now we only draw randomly (uniformly!) from the mating pool
   #       We need rhoullette-wheel-selection and other, better algorithms.
@@ -31,7 +32,7 @@ generateOffspring = function(matingPool, objective.fun, control) {
   for (i in 1:offspring.size) {
     parents = parentSelector(matingPool)
     child = recombinator(parents)
-    child = mutator(child, control)
+    child = mutator(child, mutator.control)
     child = computeFitness(child, objective.fun)
     #FIXME: what about all the post-processing funs?
     #child = correctBounds(child, lower, upper)

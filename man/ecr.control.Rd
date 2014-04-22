@@ -7,9 +7,8 @@ ecr.control(population.size, offspring.size,
   survival.strategy = "plus", elite.size = 0L, n.params, n.targets = 1L,
   max.iter = 100L, termination.eps = 10^-1, show.info = TRUE,
   show.info.stepsize = 1L, mating.pool.generator = parentSelection,
-  generator = makeUniformGenerator(), mutator = makeGaussMutator(),
-  recombinator = makeIntermediateRecombinator(), mutator.gauss.prob = 1,
-  mutator.gauss.sd = 0.05)
+  generator = makeUniformGenerator(), mutator = gaussMutator,
+  recombinator = makeIntermediateRecombinator(), mutator.control = list())
 }
 \arguments{
   \item{population.size}{[\code{integer(1)}]\cr Number of
@@ -77,12 +76,10 @@ ecr.control(population.size, offspring.size,
   \item{recombinator}{[\code{ecr_recombinator}]\cr
   Recombination operator of type \code{ecr_recombinator}.}
 
-  \item{mutator.gauss.prob}{[\code{numeric(1)}]\cr
-  Probability of mutation for the gauss mutation operator.}
-
-  \item{mutator.gauss.sd}{[\code{numeric(1)}]\cr Standard
-  deviance of the Gauss mutation, i. e., the mutation
-  strength.}
+  \item{mutator.control}{[\code{list}]\cr List of
+  evolutionary parameters for the corresponding mutation
+  operator. See the help pages for the mutation operators
+  for the needed values.}
 }
 \value{
 S3 object of type \code{ecr.control}.

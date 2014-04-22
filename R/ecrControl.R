@@ -46,10 +46,9 @@
 #'   Mutation operator of type \code{ecr_mutator}.
 #' @param recombinator [\code{ecr_recombinator}]\cr
 #'   Recombination operator of type \code{ecr_recombinator}.
-#' @param mutator.gauss.prob [\code{numeric(1)}]\cr
-#'   Probability of mutation for the gauss mutation operator.
-#' @param mutator.gauss.sd [\code{numeric(1)}]\cr
-#'   Standard deviance of the Gauss mutation, i. e., the mutation strength.
+#' @param mutator.control [\code{list}]\cr
+#'   List of evolutionary parameters for the corresponding mutation operator. See the
+#'   help pages for the mutation operators for the needed values.
 #' @return
 #'   S3 object of type \code{ecr.control}.
 #' @export
@@ -69,10 +68,9 @@ ecr.control = function(
   #FIXME: this should be of type 'ecr_operator' respectively 'ecr_generator'
   mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(),
-  mutator = makeGaussMutator(),
+  mutator = gaussMutator,
   recombinator = makeIntermediateRecombinator(),
-  mutator.gauss.prob = 1,
-  mutator.gauss.sd = 0.05) {
+  mutator.control = list()) {
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   #FIXME: think about mating.pool.size
@@ -89,11 +87,19 @@ ecr.control = function(
 
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
-  checkArg(mutator.gauss.prob, cl = "numeric", len = 1L, lower = 0, upper = 1, na.ok = FALSE)
-  checkArg(mutator.gauss.sd, cl = "numeric", len = 1L, lower = 0.0001, na.ok = FALSE)
+  checkArg(mutator.control, cl = "list", na.ok = FALSE)
+
   if (!inherits(mutator, "ecr_mutator")) {
     stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
   }
+
+  # Check arguments of mutator
+  mutator.fun.name = deparse(substitute(mutator))
+  mutator.checkargs.fun.name = paste(mutator.fun.name, "Check", sep = "")
+  mutator.control = insert(attr(mutator, "defaults"), mutator.control)
+  print(mutator.control)
+  do.call(mutator.checkargs.fun.name, list(mutator.control))
+
   if (!inherits(generator, "ecr_generator")) {
     stopf("Generator must be of class ecr_generatorm, not %s", paste(attr(generator, "class")))
   }
@@ -129,8 +135,7 @@ ecr.control = function(
     generator = generator,
     mutator = mutator,
     recombinator = recombinator,
-    mutator.gauss.prob = mutator.gauss.prob,
-    mutator.gauss.sd = mutator.gauss.sd,
+    mutator.control = mutator.control,
     show.info = show.info,
     show.info.stepsize = show.info.stepsize), class = "ecr_control")
 }
