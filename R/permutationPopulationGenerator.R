@@ -2,7 +2,7 @@
 #'
 #' @return [\code{ecr_opeator}]
 #' @export
-makeUniformGenerator = function() {
+makePermutationGenerator = function() {
   # Generates an initial population.
   #
   # Samples uniformally distributed points in the design space of the target function
@@ -19,17 +19,17 @@ makeUniformGenerator = function() {
   # @param control [\code{ecr_control}]\cr
   #   Control object.
   # @return [\code{setOfIndividuals}]
-  generateUniformPopulation = function(size, n.params, lower.bounds = NA, upper.bounds = NA, control) {
+  generatePermutationPopulation = function(size, n.params, lower.bounds = NA, upper.bounds = NA, control) {
     population = matrix(0, nrow = size, ncol = n.params)
-    for(i in 1:n.params) {
-      population[, i] = runif(size, min = lower.bounds[i], max = upper.bounds[i])
+    for(i in 1:size) {
+      population[i, ] = sample(1:n.params)
     }
     makePopulation(population)
   }
   operator = makeOperator(
-    operator = generateUniformPopulation,
-    name = "Uniform generator",
-    supported = c("float")
+    operator = generatePermutationPopulation,
+    name = "Permutation generator",
+    supported = c("permutation")
   )
   #FIXME: do we really need 'ecr_generator' objects and 'makeGenerator'?
   operator = addClasses(operator, c("ecr_generator"))

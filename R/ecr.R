@@ -53,7 +53,7 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
   populationGenerator = control$generator
   matingPoolGenerator = control$mating.pool.generator
 
-  population = populationGenerator(population.size, n.params, lower, upper)
+  population = populationGenerator(population.size, n.params, lower, upper, control)
   population = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
   trace = makeTrace(n.params)
@@ -65,6 +65,7 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
       monitor(objective.fun, population, trace, i, control)
     }
     parents = matingPoolGenerator(population, mating.pool.size)
+
     offspring = generateOffspring(parents, objective.fun, control)
 
     population = selectForSurvival(
