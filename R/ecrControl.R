@@ -69,8 +69,9 @@ ecr.control = function(
   mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(),
   mutator = gaussMutator,
-  recombinator = makeIntermediateRecombinator(),
-  mutator.control = list()) {
+  recombinator = intermediateRecombinator,
+  mutator.control = list(),
+  recombinator.control = list()) {
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   #FIXME: think about mating.pool.size
@@ -88,25 +89,24 @@ ecr.control = function(
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
   checkArg(mutator.control, cl = "list", na.ok = FALSE)
+  checkArg(recombinator.control, cl = "list", na.ok = FALSE)
 
+  # Check arguments of mutator
   if (!inherits(mutator, "ecr_mutator")) {
     stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
   }
+  mutator.control = prepareOperatorParameters(mutator, deparse(substitute(mutator)), mutator.control)
 
-  # Check arguments of mutator
-  #FIXME: this should be outsourced to a 'performOperatorCheck' function
-  mutator.fun.name = deparse(substitute(mutator))
-  mutator.checkargs.fun.name = paste(mutator.fun.name, "Check", sep = "")
-  mutator.control = insert(getOperatorDefaultParameters(mutator), mutator.control)
-  mutator.control[setdiff(names(mutator.control), names(getOperatorDefaultParameters(mutator)))] = NULL
-  do.call(mutator.checkargs.fun.name, list(mutator.control))
+  # Check arguments of recombinator
+  if (!inherits(recombinator, "ecr_recombinator")) {
+    stopf("Recombinator must be of class ecr_recombinator, not %s", paste(attr(mutator, "class")))
+  }
+  recombinator.control = prepareOperatorParameters(recombinator, deparse(substitute(recombinator)), recombinator.control)
 
   if (!inherits(generator, "ecr_generator")) {
     stopf("Generator must be of class ecr_generatorm, not %s", paste(attr(generator, "class")))
   }
-  if (!inherits(recombinator, "ecr_recombinator")) {
-    stopf("Recombinator must be of class ecr_recombinator, not %s", paste(attr(mutator, "class")))
-  }
+
   if (!is.supported(mutator, representation)) {
     stop(paste("Mutator'", getOperatorName(mutator), "' is not compatible with representation '", representation, "'!"))
   }
@@ -137,8 +137,29 @@ ecr.control = function(
     mutator = mutator,
     recombinator = recombinator,
     mutator.control = mutator.control,
+    recombinator.control = recombinator.control,
     show.info = show.info,
     show.info.stepsize = show.info.stepsize), class = "ecr_control")
+}
+
+
+# Helper function which constructs control object for a given operator
+# and checks the user parameters for validity.
+#
+# @param operator [\code{ecr_operator}]\cr
+#   Operator object.
+# @param operator.name [\code{ecr_operator}]\cr
+#   Name of the operator.
+# @param parameters [\code{list}]\cr
+#   List of parameters provedided by the user for the operator.
+# @return [\code{list}]
+#   List of checked parameters.
+prepareOperatorParameters = function(operator, operator.name, parameters) {
+  operator.checkargs.name = paste(operator.name, "Check", sep = "")
+  parameters = insert(getOperatorDefaultParameters(operator), parameters)
+  parameters[setdiff(names(parameters), names(getOperatorDefaultParameters(operator)))] = NULL
+  do.call(operator.checkargs.name, list(parameters))
+  return(parameters)
 }
 
 #' Print ecr control object.
@@ -178,13 +199,15 @@ print.ecr_control = function(x, ...) {
   catf("Evolutionary operators:")
   catf("Generator object             : %s", getOperatorName(x$generator))
   catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator), getParametersAsString(x$mutator.control))
-  catf("Recombination operator       : %s", getOperatorName(x$recombinator))
-  #FIXME: need to print the correct operator params without sick if-else messup
+  catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator), getParametersAsString(x$recombinator.control))
 }
 
 getParametersAsString = function(parameters) {
   x = ""
   n = length(parameters)
+  if (n == 0) {
+    return("no parameters")
+  }
   for (i in seq(n)) {
     name = names(parameters)[i]
     x = paste(x, " ", name, ": ", parameters[[name]], sep = "")

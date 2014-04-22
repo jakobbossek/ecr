@@ -1,31 +1,22 @@
-# Generator of the indermediate recombination operator.
-#
-# @param individuals [\code{setOfIndividuals}]\cr
-#   Set of individuals.
-# @param type [\code{character(1)}]\cr
-#   String indicating the type of recombination used. Until now only the default value
-#   intermediate is implemented.
-# @param params [\code{list}]\cr
-#   Further arguments for the recombination procedure (for example weights for intermediate recombination).
-# @return [\code{setOfIndividuals}]
-#   Recombined offspring.
-makeIntermediateRecombinator = function() {
-  # Helper function for recombination of individuals.
-  #
-  # @param setOfIndividuals [\code{setOfIndividuals}]\cr
-  #   Set of individuals.
-  # @param control [\code{list}]\cr
-  #   Control object.
-  # @return [\code{setOfIndividuals}]
-  #   Recombined offspring.
-  intermediateRecombinator = function(setOfIndividuals, control=list()) {
-    child = apply(setOfIndividuals$population, 2, sum) / 2
-    makePopulation(t(as.matrix(child)))
-  }
-
-  makeRecombinator(
-    recombinator = intermediateRecombinator,
-    name = "Intermediate recombinator",
-    supported = c("float"),
-    n.parents = 10L)
+#' Generator of the indermediate recombination operator.
+#'
+#' @param individuals [\code{setOfIndividuals}]\cr
+#'   Set of individuals.
+#' @param control [\code{list}]\cr
+#'   Empty list. Intermediate recombinator has no paramerters.
+#' @return [\code{setOfIndividuals}]
+#'   Recombined offspring.
+#' @export
+intermediateRecombinator = function(setOfIndividuals, control=list()) {
+  child = apply(setOfIndividuals$population, 2, sum) / 2
+  makePopulation(t(as.matrix(child)))
 }
+
+attr(intermediateRecombinator, "name") = "Intermediate recombinator"
+attr(intermediateRecombinator, "description") = "No description"
+attr(intermediateRecombinator, "supported") = c("float")
+attr(intermediateRecombinator, "n.parents") = 10L
+attr(intermediateRecombinator, "defaults") = list()
+attr(intermediateRecombinator, "class") = c("ecr_operator", "ecr_recombinator")
+
+intermediateRecombinatorCheck = function(operator.control) {}
