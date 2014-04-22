@@ -31,7 +31,7 @@ mergePopulations = function(...) {
     fitness = c(fitness, populations[[i]]$fitness)
   }
   makePopulation(
-    individuals = individuals,
+    individuals = as.matrix(individuals),
     fitness = fitness
   )
 }
