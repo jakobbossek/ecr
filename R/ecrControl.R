@@ -107,12 +107,15 @@ ecr.control = function(
   recombinator.control = prepareOperatorParameters(recombinator, deparse(substitute(recombinator)), recombinator.control)
 
   if (!inherits(generator, "ecr_generator")) {
-    stopf("Generator must be of class ecr_generatorm, not %s", paste(attr(generator, "class")))
+    stopf("Generator must be of class ecr_generator, not %s", paste(attr(generator, "class")))
   }
 
-  if (!is.supported(mutator, representation)) {
-    stop(paste("Mutator'", getOperatorName(mutator), "' is not compatible with representation '", representation, "'!"))
-  }
+  sapply(c(generator, mutator, recombinator), function(operator) {
+    if (!is.supported(operator, representation)) {
+      stop(paste("Mutator '", getOperatorName(operator), "' is not compatible with representation '", representation, "'!", sep = ""))
+    }
+  })
+
   # If the survival strategy is (mu + lambda), than the number of generated offspring in each iteration
   # must greater or equal to the population size
   if (survival.strategy == "comma" && offspring.size < population.size) {

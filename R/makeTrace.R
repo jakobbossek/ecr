@@ -32,11 +32,13 @@ makeTrace = function(n.params, param.names, target.name) {
     class = "ecrTrace"))
 }
 
-
 addToTrace = function(trace, individual, generation) {
   tmp = c(individual$individual, individual$fitness, generation)
   tmp = as.data.frame(t(tmp))
   colnames(tmp) = trace$col.names
   trace$trace = rbind(trace$trace, tmp)
+  trace$size = trace$size + 1
   return(trace)
 }
+
+

@@ -1,0 +1,20 @@
+\name{getOperatorDefaultParameters}
+\alias{getOperatorDefaultParameters}
+\title{Returns a list with the default parameter values for a given operator.}
+\usage{
+getOperatorDefaultParameters(operator)
+}
+\arguments{
+  \item{operator}{[\code{ecr_operator}]\cr Operator
+  object.}
+}
+\value{
+[\code{list}] Key-value pairs of parameters and default
+values.
+}
+\description{
+Operators can depend on specific evolutionary parameters.
+If you do not provide values for these, specifc defaults
+are used, which can be determined with this function.
+}
+
