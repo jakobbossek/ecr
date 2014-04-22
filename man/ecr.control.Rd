@@ -9,7 +9,7 @@ ecr.control(population.size, offspring.size,
   show.info.stepsize = 1L, mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(), mutator = gaussMutator,
   recombinator = intermediateRecombinator, mutator.control = list(),
-  recombinator.control = list())
+  recombinator.control = list(), monitor = consoleMonitor)
 }
 \arguments{
   \item{population.size}{[\code{integer(1)}]\cr Number of
@@ -86,6 +86,9 @@ ecr.control(population.size, offspring.size,
   evolutionary parameters for the corresponding
   recombination operator. See the help pages for the
   recombination operators for the needed values.}
+
+  \item{monitor}{[\code{function}]\cr Monitoring function.
+  Default is \code{consoleMonitor}.}
 }
 \value{
 S3 object of type \code{ecr_control}.

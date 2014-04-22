@@ -31,6 +31,7 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
   show.info = control$show.info
   show.info.stepsize = control$show.info.stepsize
   termination.eps = control$termination.eps
+  monitor = control$monitor
 
   #FIXME: maybe better outsource the sanity checks to dedicated function
   if (!any(is.na(global.optimum))) {
@@ -61,7 +62,7 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
   i = 1L
   while (!isTerminiationCriterionFullfilled(i, max.iter, global.optimum, best, termination.eps)) {
     if (show.info && (i %% show.info.stepsize == 0L)) {
-      cat(".")
+      monitor(objective.fun, population, trace, i, control)
     }
     parents = matingPoolGenerator(population, mating.pool.size)
     offspring = generateOffspring(parents, objective.fun, control)

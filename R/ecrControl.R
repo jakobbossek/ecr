@@ -52,6 +52,8 @@
 #' @param recombinator.control [\code{list}]\cr
 #'   List of evolutionary parameters for the corresponding recombination operator. See the
 #'   help pages for the recombination operators for the needed values.
+#' @param monitor [\code{function}]\cr
+#'   Monitoring function. Default is \code{consoleMonitor}.
 #' @return
 #'   S3 object of type \code{ecr_control}.
 #' @export
@@ -74,7 +76,8 @@ ecr.control = function(
   mutator = gaussMutator,
   recombinator = intermediateRecombinator,
   mutator.control = list(),
-  recombinator.control = list()) {
+  recombinator.control = list(),
+  monitor = consoleMonitor) {
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   #FIXME: think about mating.pool.size
@@ -93,6 +96,8 @@ ecr.control = function(
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
   checkArg(mutator.control, cl = "list", na.ok = FALSE)
   checkArg(recombinator.control, cl = "list", na.ok = FALSE)
+  #FIXME: check monitor function for validity?
+  #checkArg(monitor, formals = c(""))
 
   # Check arguments of mutator
   if (!inherits(mutator, "ecr_mutator")) {
@@ -145,9 +150,10 @@ ecr.control = function(
     mutator.control = mutator.control,
     recombinator.control = recombinator.control,
     show.info = show.info,
-    show.info.stepsize = show.info.stepsize), class = "ecr_control")
+    show.info.stepsize = show.info.stepsize,
+    monitor = monitor),
+  class = "ecr_control")
 }
-
 
 # Helper function which constructs control object for a given operator
 # and checks the user parameters for validity.

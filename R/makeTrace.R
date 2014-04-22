@@ -29,7 +29,7 @@ makeTrace = function(n.params, param.names, target.name) {
       target.name = target.name,
       size = 1L
       ),
-    class = "ecrTrace"))
+    class = "ecr_trace"))
 }
 
 addToTrace = function(trace, individual, generation) {
@@ -40,5 +40,4 @@ addToTrace = function(trace, individual, generation) {
   trace$size = trace$size + 1
   return(trace)
 }
-
 
