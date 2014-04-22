@@ -96,8 +96,7 @@ ecr.control = function(
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
   checkArg(mutator.control, cl = "list", na.ok = FALSE)
   checkArg(recombinator.control, cl = "list", na.ok = FALSE)
-  #FIXME: check monitor function for validity?
-  #checkArg(monitor, formals = c(""))
+  checkArg(monitor, cl = "function")
 
   # Check arguments of mutator
   if (!inherits(mutator, "ecr_mutator")) {
