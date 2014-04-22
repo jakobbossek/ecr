@@ -97,8 +97,8 @@ ecr.control = function(
   #FIXME: this should be outsourced to a 'performOperatorCheck' function
   mutator.fun.name = deparse(substitute(mutator))
   mutator.checkargs.fun.name = paste(mutator.fun.name, "Check", sep = "")
-  mutator.control = insert(attr(mutator, "defaults"), mutator.control)
-  mutator.control[setdiff(names(mutator.control), names(attr(mutator, "defaults")))] = NULL
+  mutator.control = insert(getOperatorDefaultParameters(mutator), mutator.control)
+  mutator.control[setdiff(names(mutator.control), names(getOperatorDefaultParameters(mutator)))] = NULL
   do.call(mutator.checkargs.fun.name, list(mutator.control))
 
   if (!inherits(generator, "ecr_generator")) {

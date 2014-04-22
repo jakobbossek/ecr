@@ -19,3 +19,10 @@ makeMutator = function(mutator, name, supported = getAvailableRepresentations())
 getAvailableRepresentations = function() {
   c("permutation", "binary", "float", "integer")
 }
+
+getOperatorDefaultParameters = function(operator) {
+  if (hasAttributes(operator, "defaults")) {
+    return(attr(operator, "defaults"))
+  }
+  NA
+}
