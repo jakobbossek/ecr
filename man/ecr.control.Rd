@@ -9,7 +9,7 @@ ecr.control(population.size, offspring.size,
   show.info.stepsize = 1L, mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(), mutator = gaussMutator,
   recombinator = intermediateRecombinator, mutator.control = list(),
-  recombinator.control = list(), monitor = consoleMonitor)
+  recombinator.control = list(), monitor = makeConsoleMonitor())
 }
 \arguments{
   \item{population.size}{[\code{integer(1)}]\cr Number of

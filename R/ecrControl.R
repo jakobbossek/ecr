@@ -77,7 +77,7 @@ ecr.control = function(
   recombinator = intermediateRecombinator,
   mutator.control = list(),
   recombinator.control = list(),
-  monitor = consoleMonitor) {
+  monitor = makeConsoleMonitor()) {
   checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   #FIXME: think about mating.pool.size
