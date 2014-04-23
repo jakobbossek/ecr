@@ -12,7 +12,9 @@ devtools::install_github("ecr", username="jbossek")
 
 ## Example
 
-The [soobench](http://cran.r-project.org/web/packages/soobench/index.html) R package by Olaf Mersmann provides a collection of different single objective test functions commonly used for algorithm benchmarking. As an example we are going to search for the global optimum of the Ackley function. So first at all we import the neccessary packages and call he generater for the one-dimensional Ackley function.
+In this section we want to optimize a one dimensional function with an Evolutionary Algorithm using just the evolutionary operators shipped with the package. A more in-depth introduction will be made available soon.
+
+The [soobench](http://cran.r-project.org/web/packages/soobench/index.html) R package provides a collection of different single objective test functions commonly used in algorithm benchmarking. As an example we are going to search for the global optimum of the one-dimensional Ackley function. So first at all we import the neccessary packages and call the soobench generater for the Ackley function to get our objective function.
 
 ```splus
 library(soobench)
@@ -21,26 +23,30 @@ library(ecr)
 fn = generate_ackley_fun(1)
 ```
 
-As a next step we generate an ecr *control object*, which holds all the neccessary parameters for the evolutionary algorithm. We decide ourself for the natural representation with real-valued numbers as the genotype, a population size of 10 individuals with 30 individuals being created by recombination and mutation in each generation. Further we decide to use a 'comma' survival strategy, i. e., all individuals from the i-th population will be replaced by the generated offspring. Since we want to keep the currently best individual, we set the elitism option to 1. We keep the remaining default parameters.
+As a next step we generate an ecr *control object*, which holds all the neccessary parameters for the evolutionary algorithm. We decide ourself for the natural representation with real-valued numbers as the genotype, a population size of 20 individuals with 5 individuals being created by recombination and mutation in each generation. Furthermore we decide to use a 'plus' survival strategy, i. e., the current population and the offspring will be merged before survival selection takes place. Gauss mutation with a standard deviance of 0.005 serves as the mutation operator and we keep the intermediate recombination operator (which is the default for representation float). Moreover we define a maximal number of 15 generations. 
 
 ```splus
 control = ecr.control(
-  population.size = 10L,
+  population.size = 20L,
   offspring.size = 30L,
   representation = "float",
-  survival.strategy = "comma",
-  elite.size = 1L,
+  survival.strategy = "plus",
   n.params = 1L,
-  n.targets = 1L
-)
+  n.targets = 1L,
+  mutator = gaussMutator,
+  mutator.control = list(mutator.gauss.sd = 0.005),
+  max.iter = 15L)
 ```
 
-Now lets start the optimization process and print the result object.
+Now lets start the optimization process and print the result object, which contains the optimization trace, the best parameters, the best fitness value and some additional information.
 
 ```splus
+set.seed(123)
 result = ecr(fn, control)
 print(result)
 ```
+
+More examples are provided within the package.
 
 ## Contact
 
