@@ -16,10 +16,9 @@ library(BBmisc)
 
 load_all(".", reset=TRUE)
 
-
 # Monitoring function. For details on the expected formal parameters
-# type ?consoleMonitor to the R console.
-myMonitor = function(objective.fun, population, trace, iter, control) {
+# see the help pages for makeMonitor and makeConsoleMonitor.
+myMonitorStep = function(objective.fun, population, trace, iter, control) {
   n.params = control$n.params
   n.targets = control$n.targets
   if (!(n.params == 1 && n.targets == 1)) {
@@ -35,6 +34,8 @@ myMonitor = function(objective.fun, population, trace, iter, control) {
   print(pl)
   pause()
 }
+
+myMonitor = makeMonitor(step = myMonitorStep)
 
 # generate our target function
 objective.fun = generate_ackley_function(1)
@@ -55,3 +56,4 @@ control = ecr.control(
 set.seed(123)
 
 res = ecr(objective.fun, control = control)
+
