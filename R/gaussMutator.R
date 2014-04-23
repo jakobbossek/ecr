@@ -31,7 +31,6 @@ attr(gaussMutator, "class") = c("ecr_operator", "ecr_mutator")
 attr(gaussMutator, "defaults") = list(mutator.gauss.prob = 1, mutator.gauss.sd = 0.05)
 
 gaussMutatorCheck = function(operator.control) {
-  catf("Checking control parameters for mutator '%s'", attr(gaussMutator, "name"))
   checkArg(operator.control$mutator.gauss.prob, "numeric", len = 1L, lower = 0, na.ok = FALSE)
   checkArg(operator.control$mutator.gauss.sd, "numeric", len = 1L, lower = 0, na.ok = FALSE)
 }
