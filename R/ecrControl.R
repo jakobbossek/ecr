@@ -96,7 +96,9 @@ ecr.control = function(
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
   checkArg(mutator.control, cl = "list", na.ok = FALSE)
   checkArg(recombinator.control, cl = "list", na.ok = FALSE)
-  checkArg(monitor, cl = "function")
+  if (!(monitor %is% "ecr_monitor")) {
+    stopf("Currently only monitor of type 'ecr_monitor' supported")
+  }
 
   # Check arguments of mutator
   if (!inherits(mutator, "ecr_mutator")) {

@@ -1,0 +1,25 @@
+\name{makeMonitor}
+\alias{makeMonitor}
+\title{Factory method for monitor objects.}
+\usage{
+makeMonitor(before = NULL, step = NULL, after = NULL, ...)
+}
+\arguments{
+  \item{before}{[\code{function}]\cr Function called one
+  time after initialization of the EA.}
+
+  \item{step}{[\code{function}]\cr Function applied after
+  each iteration of the algorithm.}
+
+  \item{after}{[\code{function}]\cr Function applied after
+  the EA terminated.}
+
+  \item{...}{[\code{any}]\cr Not used.}
+}
+\value{
+[\code{ecr_monitor}] Monitor object.
+}
+\description{
+Factory method for monitor objects.
+}
+

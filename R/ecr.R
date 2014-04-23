@@ -60,10 +60,13 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
   trace = addToTrace(trace, best, 0)
 
   i = 1L
+  if (show.info)
+    monitor$before(objective.fun, population, trace, i, control)
+
   while (!isTerminiationCriterionFullfilled(i, max.iter, global.optimum, best, termination.eps)) {
-    if (show.info && (i %% show.info.stepsize == 0L)) {
-      monitor(objective.fun, population, trace, i, control)
-    }
+    if (show.info && (i %% show.info.stepsize == 0L))
+      monitor$step(objective.fun, population, trace, i, control)
+
     parents = matingPoolGenerator(population, mating.pool.size)
 
     offspring = generateOffspring(parents, objective.fun, control)
@@ -82,9 +85,8 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
     i = i + 1
   }
 
-  if (show.info) {
-    catf("\nEA terminated.")
-  }
+  if (show.info)
+    monitor$after(objective.fun, population, trace, i, control)
 
   return(
     structure(list(
