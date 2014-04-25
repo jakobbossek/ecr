@@ -21,3 +21,13 @@ makeOperator = function(operator, name, supported = getAvailableRepresentations(
   operator = addClasses(operator, c("ecr_operator"))
   return(operator)
 }
+
+#' Checks if given function is an ecr operator.
+#'
+#' @param obj [any]\cr
+#'   Arbitrary R object to check.
+#' @return [\code{logical(1)}]
+#' @export
+isEcrOperator = function(obj) {
+  return(inherits(obj, "ecr_operator"))
+}
