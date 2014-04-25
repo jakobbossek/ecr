@@ -104,12 +104,14 @@ ecr.control = function(
   if (!inherits(mutator, "ecr_mutator")) {
     stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
   }
+  checkMutator(mutator)
   mutator.control = prepareOperatorParameters(mutator, deparse(substitute(mutator)), mutator.control)
 
   # Check arguments of recombinator
   if (!inherits(recombinator, "ecr_recombinator")) {
     stopf("Recombinator must be of class ecr_recombinator, not %s", paste(attr(mutator, "class")))
   }
+  checkRecombinator(recombinator)
   recombinator.control = prepareOperatorParameters(recombinator, deparse(substitute(recombinator)), recombinator.control)
 
   if (!inherits(generator, "ecr_generator")) {
