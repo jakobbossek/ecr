@@ -46,7 +46,7 @@ result = ecr(fn, control)
 print(result)
 ```
 
-More examples are provided within the package.
+More examples are provided are located in inst/examples.
 
 ## Contact
 
