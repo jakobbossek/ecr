@@ -37,7 +37,7 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
   if (!any(is.na(global.optimum))) {
     if (length(global.optimum) != control$n.params) {
       stopf("Given global optimum %s suggests %i parameters, but objective function has %i parameters.",
-        paste("(", strImplode(global.optimum, sep = ","), ")", sep=""), length(global.optimum), control$n.params)
+        paste("(", collapse(global.optimum, sep = ","), ")", sep=""), length(global.optimum), control$n.params)
     }
   }
 

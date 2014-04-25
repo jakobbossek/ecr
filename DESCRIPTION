@@ -19,7 +19,6 @@ Suggests:
     testthat,
     soobench
 Depends:
-    BBmisc,
-    JBmisc
+    BBmisc
 Imports:
     ggplot2

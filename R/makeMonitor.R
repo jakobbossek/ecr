@@ -18,9 +18,9 @@ makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
   dummy = function(...) {}
   structure(
     list(
-      before = fallThrough(before, dummy),
-      step = fallThrough(step, dummy),
-      after = fallThrough(after, dummy)
+      before = coalesce(before, dummy),
+      step = coalesce(step, dummy),
+      after = coalesce(after, dummy)
     ),
     class = "ecr_monitor")
 }
