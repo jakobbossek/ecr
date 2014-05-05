@@ -1,6 +1,6 @@
 # ecr: Evolutionary Computing in R
 
-The **ecr** package provides a powerful framework for **Evolutionary Computing in R*. The user can solve his objective functions using predefined evolutionary operators, i. e., operators for mutation, recombination and so on for several common representations, with only a few lines of code. Extending the framework with own operators is also possible. Additionaly there are various control options such as the survival strategy elitism, which allow maximal flexibility.
+The **ecr** package provides a powerful framework for **Evolutionary Computing in R**. The user can solve his objective functions using predefined evolutionary operators, i. e., operators for mutation, recombination and so on for several common representations, with only a few lines of code. Extending the framework with own operators is also possible. Additionaly there are various control options such as the survival strategy elitism, which allow maximal flexibility.
 
 # Installation instructions
 
