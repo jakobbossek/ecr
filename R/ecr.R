@@ -41,6 +41,10 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
     }
   }
 
+  if (n.params != length(par.set$pars)) {
+    stopf("Number of parameters given by control object and ParamSet do not match: %i != %i", n.params, length(par.set$pars))
+  }
+
   if (control$representation %in% c("float") && !hasFiniteBoxConstraints(par.set)) {
     stopf("Lower and upper box constraints needed for representation type 'float'.")
   }
