@@ -21,8 +21,6 @@
 selectForSurvival = function(population, offspring, population.size, strategy = "plus", elite.size = 0L) {
   elite = NA
 
-  #FIXME: currently the individuals/candidates with minimal absolute fitness values
-  #       survive. We need other survival selection algorithms!
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
     source.individuals = source.population$population

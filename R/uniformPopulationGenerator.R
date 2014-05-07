@@ -31,7 +31,6 @@ makeUniformGenerator = function() {
     name = "Uniform generator",
     supported = c("float")
   )
-  #FIXME: do we really need 'ecr_generator' objects and 'makeGenerator'?
   operator = addClasses(operator, c("ecr_generator"))
   return(operator)
 }

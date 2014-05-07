@@ -18,7 +18,6 @@
 #'    \item{trace \code{ecrTrace}}{Optimization path.}
 #'   }
 #' @export
-#FIXME: move global.optimum to control object?
 ecr = function(objective.fun, par.set, control, global.optimum = NA) {
   n.params = control$n.params
   max.iter = control$max.iter
@@ -32,8 +31,6 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
 
   checkArg(par.set, "ParamSet", na.ok = FALSE)
 
-  #FIXME: maybe better outsource the sanity checks to dedicated function
-  #FIXME: we need more thorough tests!
   if (!any(is.na(global.optimum))) {
     if (length(global.optimum) != control$n.params) {
       stopf("Given global optimum %s suggests %i parameters, but objective function has %i parameters.",
@@ -55,13 +52,10 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
   populationGenerator = control$generator
   matingPoolGenerator = control$mating.pool.generator
 
-  #FIXME: should we always assert, that the generated offspring in fact is a permutation?
-  # this would be time consuming
   population = populationGenerator(population.size, n.params, lower, upper, control)
   population = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
 
-  # FIXME: allow y.name to be set as a parameter in control object
   opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE)
   opt.path = addBestToOptPath(opt.path, par.set, best, 0)
 
@@ -94,7 +88,6 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
     }
 
     best = getBestIndividual(population)
-    #FIXME: the user should have the possibility to log other stuff in opt path beside the y value
     opt.path = addBestToOptPath(opt.path, par.set, best, i)
 
     i = i + 1

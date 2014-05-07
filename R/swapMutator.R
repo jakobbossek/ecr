@@ -10,7 +10,7 @@
 swapMutator = function(setOfIndividuals, control = list()) {
   n.params = ncol(setOfIndividuals$population)
   n = nrow(setOfIndividuals$population)
-  #catf("Number of params: %i", n.params)
+
   for (i in seq(n)) {
     pos = sample(1:n.params, size = 2)
     pos1 = pos[1]

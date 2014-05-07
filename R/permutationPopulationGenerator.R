@@ -31,7 +31,6 @@ makePermutationGenerator = function() {
     name = "Permutation generator",
     supported = c("permutation")
   )
-  #FIXME: do we really need 'ecr_generator' objects and 'makeGenerator'?
   operator = addClasses(operator, c("ecr_generator"))
   return(operator)
 }

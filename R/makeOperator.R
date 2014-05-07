@@ -17,7 +17,6 @@ makeOperator = function(operator, name, supported = getAvailableRepresentations(
   attr(operator, "name") = name
   attr(operator, "supported") = supported
 
-  #FIXME: in BBmisc addClasses should have an option not to add already existent classes
   operator = addClasses(operator, c("ecr_operator"))
   return(operator)
 }
