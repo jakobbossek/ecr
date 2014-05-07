@@ -7,7 +7,7 @@ ecr.control(population.size, offspring.size,
   survival.strategy = "plus", elite.size = 0L, n.params, n.targets = 1L,
   max.iter = 100L, termination.eps = 10^-1, show.info = TRUE,
   show.info.stepsize = 1L, mating.pool.generator = parentSelection,
-  generator = makeUniformGenerator(), mutator = gaussMutator,
+  generator = makeUniformGenerator(), mutator = list(gaussMutator),
   recombinator = intermediateRecombinator, mutator.control = list(),
   recombinator.control = list(), monitor = makeConsoleMonitor())
 }

@@ -32,7 +32,13 @@ generateOffspring = function(matingPool, objective.fun, control) {
   for (i in 1:offspring.size) {
     parents = parentSelector(matingPool)
     child = recombinator(parents)
-    child = mutator(child, mutator.control)
+
+    for (j in 1:control$n.mutators) {
+      mutator.fun = mutator[[j]]
+      mutator.params = mutator.control[[j]]
+      child = mutator.fun(child, mutator.params)
+      # catf("Applying mutator %i of %i", j, control$n.mutators)
+    }
     child = computeFitness(child, objective.fun)
     #FIXME: what about all the post-processing funs?
     #child = correctBounds(child, lower, upper)

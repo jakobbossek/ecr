@@ -73,7 +73,7 @@ ecr.control = function(
   #FIXME: this should be of type 'ecr_operator' respectively 'ecr_generator'
   mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(),
-  mutator = gaussMutator,
+  mutator = list(gaussMutator),
   recombinator = intermediateRecombinator,
   mutator.control = list(),
   recombinator.control = list(),
@@ -94,6 +94,7 @@ ecr.control = function(
 
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
+  checkArg(mutator, cl = "list", na.ok = FALSE)
   checkArg(mutator.control, cl = "list", na.ok = FALSE)
   checkArg(recombinator.control, cl = "list", na.ok = FALSE)
   if (!inherits(monitor, "ecr_monitor")) {
@@ -101,11 +102,20 @@ ecr.control = function(
   }
 
   # Check arguments of mutator
-  if (!inherits(mutator, "ecr_mutator")) {
-    stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
+  n.mutators = length(mutator)
+  if (n.mutators == 0) {
+    stopf("At least one mutator must be provided.")
   }
-  checkMutator(mutator)
-  mutator.control = prepareOperatorParameters(mutator, mutator.control)
+
+  mutator.control2 = vector(mode = "list", length = length(mutator))
+  for (i in 1:n.mutators) {
+    theMutator = mutator[[i]]
+    if (!inherits(theMutator, "ecr_mutator")) {
+      stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(theMutator, "class")))
+    }
+    checkMutator(theMutator)
+    mutator.control2[[i]] = prepareOperatorParameters(theMutator, mutator.control)
+  }
 
   # Check arguments of recombinator
   if (!inherits(recombinator, "ecr_recombinator")) {
@@ -149,8 +159,9 @@ ecr.control = function(
     mating.pool.generator = mating.pool.generator,
     generator = generator,
     mutator = mutator,
+    n.mutators = n.mutators,
     recombinator = recombinator,
-    mutator.control = mutator.control,
+    mutator.control = mutator.control2,
     recombinator.control = recombinator.control,
     show.info = show.info,
     show.info.stepsize = show.info.stepsize,
@@ -211,7 +222,11 @@ print.ecr_control = function(x, ...) {
   catf("")
   catf("Evolutionary operators:")
   catf("Generator object             : %s", getOperatorName(x$generator))
-  catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator), getParametersAsString(x$mutator.control))
+  catf("Mutation operators           : ")
+  # print(x$mutator)
+  # for (mutator in x$mutator[[1]]) {
+  #   catf("  %s (%s)", getOperatorName(x$mutator), getParametersAsString(x$mutator.control))
+  # }
   catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator), getParametersAsString(x$recombinator.control))
 }
 
