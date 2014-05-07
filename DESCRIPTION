@@ -19,7 +19,8 @@ Suggests:
     testthat,
     soobench
 Depends:
-    BBmisc,
-    ParamHelpers
+    ParamHelpers,
+    BBmisc (>= 1.6),
+    parallelMap (>= 1.1)
 Imports:
     ggplot2
