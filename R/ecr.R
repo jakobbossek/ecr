@@ -4,16 +4,12 @@
 #'
 #' @param objective.fun [\code{function}]\cr
 #'   Target function.
+#' @param par.set [\code{\link[ParamHelpers]{ParamSet}}]\cr
+#'   Parameter set of target function.
 #' @param control [\code{ecr.control}]\cr
 #'   Control object.
 #' @param global.optimum [\code{numeric}]\cr
 #'   Parameter combination of the global optimum of the fun. This parameter is optional.
-#' @param lower [\code{numeric}]\cr
-#'   Lower box constraints for the parameters. These are needed, if representation type is set
-#'   to 'float'.
-#' @param upper [\code{numeric}]\cr
-#'   Upper box constraints for the parameters. These are needed, if representation type is set
-#'   to 'float'.
 #' return [\code{ecrResult}]
 #'   Object of type \code{ecrResult} containing a list:
 #'   \itemize{
@@ -22,7 +18,8 @@
 #'    \item{trace \code{ecrTrace}}{Optimization path.}
 #'   }
 #' @export
-ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = NA) {
+#FIXME: move global.optimum to control object?
+ecr = function(objective.fun, par.set, control, global.optimum = NA) {
   n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
@@ -33,7 +30,10 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
   termination.eps = control$termination.eps
   monitor = control$monitor
 
+  checkArg(par.set, "ParamSet", na.ok = FALSE)
+
   #FIXME: maybe better outsource the sanity checks to dedicated function
+  #FIXME: we need more thorough tests!
   if (!any(is.na(global.optimum))) {
     if (length(global.optimum) != control$n.params) {
       stopf("Given global optimum %s suggests %i parameters, but objective function has %i parameters.",
@@ -41,18 +41,18 @@ ecr = function(objective.fun, control, global.optimum = NA, lower = NA, upper = 
     }
   }
 
-  if (is.na(lower) && is.na(upper) && is_soo_function(objective.fun)) {
-    lower = lower_bounds(objective.fun)
-    upper = upper_bounds(objective.fun)
-  }
-
-  if ((is.na(lower) || is.na(upper)) && control$representation %in% c("float")) {
+  if (control$representation %in% c("float") && !hasFiniteBoxConstraints(par.set)) {
     stopf("Lower and upper box constraints needed for representation type 'float'.")
   }
+
+  lower = getLower(par.set)
+  upper = getUpper(par.set)
 
   populationGenerator = control$generator
   matingPoolGenerator = control$mating.pool.generator
 
+  #FIXME: should we always assert, that the generated offspring in fact is a permutation?
+  # this would be time consuming
   population = populationGenerator(population.size, n.params, lower, upper, control)
   population = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
