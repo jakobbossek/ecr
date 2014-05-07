@@ -20,3 +20,5 @@ attr(intermediateRecombinator, "defaults") = list()
 attr(intermediateRecombinator, "class") = c("ecr_operator", "ecr_recombinator")
 
 intermediateRecombinatorCheck = function(operator.control) {}
+
+attr(intermediateRecombinator, "checkFunction") = intermediateRecombinatorCheck

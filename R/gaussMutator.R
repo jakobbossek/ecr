@@ -34,3 +34,5 @@ gaussMutatorCheck = function(operator.control) {
   checkArg(operator.control$mutator.gauss.prob, "numeric", len = 1L, lower = 0, na.ok = FALSE)
   checkArg(operator.control$mutator.gauss.sd, "numeric", len = 1L, lower = 0, na.ok = FALSE)
 }
+
+attr(gaussMutator, "checkFunction") = gaussMutatorCheck

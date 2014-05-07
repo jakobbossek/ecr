@@ -105,14 +105,14 @@ ecr.control = function(
     stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
   }
   checkMutator(mutator)
-  mutator.control = prepareOperatorParameters(mutator, deparse(substitute(mutator)), mutator.control)
+  mutator.control = prepareOperatorParameters(mutator, mutator.control)
 
   # Check arguments of recombinator
   if (!inherits(recombinator, "ecr_recombinator")) {
     stopf("Recombinator must be of class ecr_recombinator, not %s", paste(attr(mutator, "class")))
   }
   checkRecombinator(recombinator)
-  recombinator.control = prepareOperatorParameters(recombinator, deparse(substitute(recombinator)), recombinator.control)
+  recombinator.control = prepareOperatorParameters(recombinator, recombinator.control)
 
   if (!inherits(generator, "ecr_generator")) {
     stopf("Generator must be of class ecr_generator, not %s", paste(attr(generator, "class")))
@@ -163,18 +163,16 @@ ecr.control = function(
 #
 # @param operator [\code{ecr_operator}]\cr
 #   Operator object.
-# @param operator.name [\code{ecr_operator}]\cr
-#   Name of the operator.
 # @param parameters [\code{list}]\cr
 #   List of parameters provedided by the user for the operator.
 # @return [\code{list}]
 #   List of checked parameters.
-prepareOperatorParameters = function(operator, operator.name, parameters) {
-  operator.checkargs.name = paste(operator.name, "Check", sep = "")
-  parameters = insert(getOperatorDefaultParameters(operator), parameters)
-  parameters[setdiff(names(parameters), names(getOperatorDefaultParameters(operator)))] = NULL
-  do.call(operator.checkargs.name, list(parameters))
-  return(parameters)
+prepareOperatorParameters = function(operator, input.params) {
+  defaults = getOperatorDefaultParameters(operator)
+  params = insert(defaults, input.params)
+  params[setdiff(names(params), names(defaults))] = NULL
+  do.call(getOperatorCheckFunction(operator), list(params))
+  return(params)
 }
 
 #' Print ecr control object.
