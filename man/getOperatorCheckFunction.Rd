@@ -1,0 +1,17 @@
+\name{getOperatorCheckFunction}
+\alias{getOperatorCheckFunction}
+\title{Returns the parameter check function of a given operator.}
+\usage{
+getOperatorCheckFunction(operator)
+}
+\arguments{
+  \item{operator}{[\code{ecr_operator}]\cr Operator
+  object.}
+}
+\value{
+[\code{character(1)}] Function for parameter check.
+}
+\description{
+Returns the parameter check function of a given operator.
+}
+
