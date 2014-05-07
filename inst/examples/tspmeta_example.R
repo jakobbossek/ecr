@@ -16,9 +16,11 @@ set.seed(352)
 inst = random_instance(size = 10L)
 
 # The target fun is the length of a given tour
-fn = function(tour) {
+obj.fun = function(tour) {
   tour_length(x = inst, order = as.integer(tour))
 }
+
+par.set = makeNumericParamSet(len = 10, id = "c", lower = 1, upper = 10, vector = FALSE)
 
 # Here we make use of mutations only! The nullRecombinator
 # does nothing.
@@ -32,9 +34,9 @@ control = ecr.control(
   n.params = tspmeta:::number_of_cities(inst),
   n.targets = 1L,
   generator = makePermutationGenerator(),
-  mutator = swapMutator,
+  mutator = list(swapMutator),
   recombinator = nullRecombinator
 )
 print(control)
 
-res = ecr(fn, control)
+res = ecr(obj.fun, par.set = par.set, control = control)
