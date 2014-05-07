@@ -30,3 +30,5 @@ attr(swapMutator, "class") = c("ecr_operator", "ecr_mutator")
 attr(swapMutator, "defaults") = list()
 
 swapMutatorCheck = function(operator.control) {}
+
+attr(swapMutator, "checkFunction") = swapMutatorCheck
