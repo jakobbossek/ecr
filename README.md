@@ -20,7 +20,8 @@ The [soobench](http://cran.r-project.org/web/packages/soobench/index.html) R pac
 library(soobench)
 library(ecr)
 
-fn = generate_ackley_fun(1)
+obj.fun = generate_ackley_fun(1)
+par.set = extractParamSetFromSOOFunction(obj.fun)
 ```
 
 As a next step we generate an ecr *control object*, which holds all the neccessary parameters for the evolutionary algorithm. We decide ourself for the natural representation with real-valued numbers as the genotype, a population size of 20 individuals with 5 individuals being created by recombination and mutation in each generation. Furthermore we decide to use a 'plus' survival strategy, i. e., the current population and the offspring will be merged before survival selection takes place. Gauss mutation with a standard deviance of 0.005 serves as the mutation operator and we keep the intermediate recombination operator (which is the default for representation float). Moreover we define a maximal number of 15 generations. 
@@ -33,7 +34,7 @@ control = ecr.control(
   survival.strategy = "plus",
   n.params = 1L,
   n.targets = 1L,
-  mutator = gaussMutator,
+  mutator = list(gaussMutator),
   mutator.control = list(mutator.gauss.sd = 0.005),
   max.iter = 15L)
 ```
@@ -42,7 +43,7 @@ Now lets start the optimization process and print the result object, which conta
 
 ```splus
 set.seed(123)
-result = ecr(fn, control)
+result = ecr(obj.fun, par.set = par.set, control = control)
 print(result)
 ```
 
