@@ -92,11 +92,32 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
 
   return(
     structure(list(
-      best.param = best$individual,
+      best.param = setColNames(t(data.frame(best$individual)), getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
       opt.path = opt.path
-      ), class = "ecr_result")
+    ), class = "ecr_result")
   )
+}
+
+#' Print the result of an ecr run.
+#'
+#' @param x [\code{ecr_result}]\cr
+#'   ecr result object.
+#' @param ... [any]\cr
+#'   Not used.
+#' @S3method print ecr_result
+print.ecr_result = function(x, ...) {
+  opt.path = x$opt.path
+  par.set = opt.path$par.set
+  #FIXME: this is ugly! But paramValueAsString does not work for some reason.
+  catf("Parameters: %s", paste(getParamIds(par.set, repeated = TRUE, with.nr = TRUE), "=", x$best.param, sep = "", collapse = ", "))
+  catf("Objective function value: %.3g\n", x$best.value)
+
+  catf("Optimization path:")
+  opt.path = as.data.frame(opt.path)
+  print(head(opt.path, 10))
+  catf("...")
+  print(tail(opt.path, 10))
 }
 
 # Adds the parameter values and the y-value(s) of the best individual to the opt.path.
