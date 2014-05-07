@@ -38,7 +38,7 @@ myMonitorStep = function(objective.fun, population, trace, iter, control) {
 myMonitor = makeMonitor(step = myMonitorStep)
 
 # generate our target function
-obj.fun = generate_ackley_function(1)
+obj.fun = ackley_function(1)
 
 # generate parameter set
 par.set = extractParamSetFromSOOFunction(obj.fun)

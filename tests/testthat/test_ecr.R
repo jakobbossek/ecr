@@ -2,7 +2,7 @@ context("ecr main function")
 
 test_that("ecr works with simple soo function", {
   library(soobench)
-  obj.fun = generate_sphere_function(2)
+  obj.fun = sphere_function(2)
   par.set = extractParamSetFromSOOFunction(obj.fun)
   control = ecr.control(
     population.size = 10L,

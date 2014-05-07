@@ -22,7 +22,7 @@ The [soobench](http://cran.r-project.org/web/packages/soobench/index.html) R pac
 library(soobench)
 library(ecr)
 
-obj.fun = generate_ackley_fun(1)
+obj.fun = ackley_fun(1)
 par.set = extractParamSetFromSOOFunction(obj.fun)
 ```
 

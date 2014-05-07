@@ -17,7 +17,7 @@ Generates ParamSet object out of a given soobench function.
 }
 \examples{
 library(soobench)
-fn = generate_ackley_function(8)
+fn = ackley_function(8)
 par.set = extractParamSetFromSOOFunction(fn)
 print(par.set)
 }
