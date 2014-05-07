@@ -66,6 +66,9 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
   opt.path = addBestToOptPath(opt.path, par.set, best, 0)
 
   population.storage = namedList(control$save.population.at)
+  if (0 %in% control$save.population.at) {
+    population.storage[[as.character(0)]] = population
+  }
 
   i = 1L
   if (show.info)
