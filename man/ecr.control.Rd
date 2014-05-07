@@ -63,6 +63,9 @@ ecr.control(population.size, offspring.size,
   positive value indicates after which iterations output
   shall be presented.}
 
+  \item{save.population.at}{[\code{integer}]\cr Which
+  populations should be saved? Default is none.}
+
   \item{mating.pool.generator}{[\code{function}]\cr
   Generator operator which implements a procedure to copy
   individuals from a given population to the mating pool,

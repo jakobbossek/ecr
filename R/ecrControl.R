@@ -36,6 +36,8 @@
 #'   evolutionary process.
 #' @param show.info.stepsize [\code{integer(1)}]\cr
 #'   This positive value indicates after which iterations output shall be presented.
+#' @param save.population.at [\code{integer}]\cr
+#'   Which populations should be saved? Default is none.
 #' @param mating.pool.generator [\code{function}]\cr
 #'   Generator operator which implements a procedure to copy individuals from a
 #'   given population to the mating pool, i. e., allow them to become parents.
