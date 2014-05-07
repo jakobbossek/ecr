@@ -20,3 +20,5 @@ attr(nullRecombinator, "defaults") = list()
 attr(nullRecombinator, "class") = c("ecr_operator", "ecr_recombinator")
 
 nullRecombinatorCheck = function(operator.control) {}
+
+attr(nullRecombinator, "checkFunction") = nullRecombinatorCheck
