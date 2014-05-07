@@ -70,6 +70,7 @@ ecr.control = function(
   termination.eps = 10^-1,
   show.info = TRUE,
   show.info.stepsize = 1L,
+  save.population.at = integer(0),
   #FIXME: this should be of type 'ecr_operator' respectively 'ecr_generator'
   mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(),
@@ -94,6 +95,11 @@ ecr.control = function(
 
   checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
   checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
+
+  if (length(save.population.at) > 0) {
+    checkArg(save.population.at, cl = "integer", lower = 0L, na.ok = FALSE)
+  }
+
   checkArg(mutator, cl = "list", na.ok = FALSE)
   checkArg(mutator.control, cl = "list", na.ok = FALSE)
   checkArg(recombinator.control, cl = "list", na.ok = FALSE)
@@ -165,6 +171,7 @@ ecr.control = function(
     recombinator.control = recombinator.control,
     show.info = show.info,
     show.info.stepsize = show.info.stepsize,
+    save.population.at = save.population.at,
     monitor = monitor),
   class = "ecr_control")
 }

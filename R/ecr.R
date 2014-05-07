@@ -65,6 +65,8 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
   opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE)
   opt.path = addBestToOptPath(opt.path, par.set, best, 0)
 
+  population.storage = namedList(control$save.population.at)
+
   i = 1L
   if (show.info)
     monitor$before(objective.fun, population, trace, i, control)
@@ -84,6 +86,10 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
       strategy = control$survival.strategy,
       elite.size = control$elite.size)
 
+    if (i %in% control$save.population.at) {
+      population.storage[[as.character(i)]] = population
+    }
+
     best = getBestIndividual(population)
     #FIXME: the user should have the possibility to log other stuff in opt path beside the y value
     opt.path = addBestToOptPath(opt.path, par.set, best, i)
@@ -98,7 +104,8 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
     structure(list(
       best.param = setColNames(t(data.frame(best$individual)), getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
-      opt.path = opt.path
+      opt.path = opt.path,
+      population.storage = population.storage
     ), class = "ecr_result")
   )
 }
