@@ -56,8 +56,10 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
   population = populationGenerator(population.size, n.params, lower, upper, control)
   population = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
-  trace = makeTrace(n.params)
-  trace = addToTrace(trace, best, 0)
+
+  # FIXME: allow y.name to be set as a parameter in control object
+  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE)
+  opt.path = addBestToOptPath(opt.path, par.set, best, 0)
 
   i = 1L
   if (show.info)
@@ -79,8 +81,8 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
       elite.size = control$elite.size)
 
     best = getBestIndividual(population)
-
-    trace = addToTrace(trace, best, i)
+    #FIXME: the user should have the possibility to log other stuff in opt path beside the y value
+    opt.path = addBestToOptPath(opt.path, par.set, best, i)
 
     i = i + 1
   }
@@ -92,7 +94,25 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
     structure(list(
       best.param = best$individual,
       best.value = best$fitness,
-      trace = trace
+      opt.path = opt.path
       ), class = "ecr_result")
   )
+}
+
+# Adds the parameter values and the y-value(s) of the best individual to the opt.path.
+#
+# @param opt.path [\code{\link[ParamHelpers]{OptPathDF}}]\cr
+#   Optimization path.
+# @param par.set [\code{\link[ParamHelpers]{ParamSet}}]\cr
+#   Parameter set.
+# @param best [\code{ecr_individual}]\cr
+#   Best individual in the current generation/iteration.
+# @param generation [\code{integer(1)}]\cr
+#   Current generation.
+# @return [\code{\link[ParamHelpers]{OptPathDF}}]
+addBestToOptPath = function(opt.path, par.set, best, generation) {
+  #FIXME: until now we only consider mono-criteria stuff
+  best.param.values = dfRowToList(data.frame(t(best$individual)), par.set, 1)
+  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation)
+  return(opt.path)
 }
