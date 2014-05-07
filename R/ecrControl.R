@@ -232,10 +232,9 @@ print.ecr_control = function(x, ...) {
   catf("Evolutionary operators:")
   catf("Generator object             : %s", getOperatorName(x$generator))
   catf("Mutation operators           : ")
-  # print(x$mutator)
-  # for (mutator in x$mutator[[1]]) {
-  #   catf("  %s (%s)", getOperatorName(x$mutator), getParametersAsString(x$mutator.control))
-  # }
+  for (i in 1:control$n.mutators) {
+    catf("  %s (%s )", getOperatorName(control$mutator[[i]]), getParametersAsString(control$mutator.control[[i]]), sep = "")
+  }
   catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator), getParametersAsString(x$recombinator.control))
 }
 
