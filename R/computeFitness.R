@@ -10,7 +10,9 @@
 #' @return [\code{setOfIndividuals}].
 computeFitness = function(setOfIndividuals, fitness.fun) {
   stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))
-  fitness.values = apply(setOfIndividuals$population, 1, fitness.fun)
+  #fitness.values = apply(setOfIndividuals$population, 1, fitness.fun)
+  fitness.values = parallelMap(fitness.fun, data.frame(t(setOfIndividuals$population)))
+  fitness.values = unlist(fitness.values)
   setOfIndividuals$fitness = fitness.values
   return(setOfIndividuals)
 }
