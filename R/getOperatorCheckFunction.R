@@ -9,7 +9,7 @@ getOperatorCheckFunction = function(operator) {
   UseMethod("getOperatorCheckFunction")
 }
 
-#' @S3method getOperatorCheckFunction ecr_operator
+#' @export
 getOperatorCheckFunction.ecr_operator = function(operator) {
   attr(operator, "checkFunction")
 }

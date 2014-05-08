@@ -12,7 +12,7 @@ is.supported = function(operator, representation) {
   UseMethod("is.supported")
 }
 
-#' @S3method is.supported ecr_operator
+#' @export
 is.supported.ecr_operator = function(operator, representation) {
   return (representation %in% getSupportedRepresentations(operator))
 }

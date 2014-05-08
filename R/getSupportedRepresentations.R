@@ -12,7 +12,7 @@ getSupportedRepresentations = function(operator) {
   UseMethod("getSupportedRepresentations")
 }
 
-#' @S3method getSupportedRepresentations ecr_operator
+#' @export
 getSupportedRepresentations.ecr_operator = function(operator) {
   attr(operator, "supported")
 }

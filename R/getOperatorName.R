@@ -9,7 +9,7 @@ getOperatorName = function(operator) {
   UseMethod("getOperatorName")
 }
 
-#' @S3method getOperatorName ecr_operator
+#' @export
 getOperatorName.ecr_operator = function(operator) {
   attr(operator, "name")
 }

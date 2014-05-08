@@ -112,7 +112,7 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
 #'   ecr result object.
 #' @param ... [any]\cr
 #'   Not used.
-#' @S3method print ecr_result
+#' @export
 print.ecr_result = function(x, ...) {
   opt.path = x$opt.path
   par.set = opt.path$par.set

@@ -13,7 +13,7 @@ getOperatorDefaultParameters = function(operator) {
   UseMethod("getOperatorDefaultParameters")
 }
 
-#' @S3method getOperatorDefaultParameters ecr_operator
+#' @export
 getOperatorDefaultParameters.ecr_operator = function(operator) {
   if (hasAttributes(operator, "defaults")) {
     return(attr(operator, "defaults"))

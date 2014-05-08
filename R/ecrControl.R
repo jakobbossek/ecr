@@ -215,7 +215,7 @@ prepareOperatorParameters = function(operator, input.params) {
 #' @param ... [any]\cr
 #'   Not used.
 #'
-#' @S3method print ecr_control
+#' @export
 print.ecr_control = function(x, ...) {
   catf("[ecr CONTROL OBJECT]\n")
 
