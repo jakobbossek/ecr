@@ -5,9 +5,9 @@
 ecr.control(population.size, offspring.size,
   mating.pool.size = floor(population.size/2), representation,
   survival.strategy = "plus", elite.size = 0L, n.params, n.targets = 1L,
-  max.iter = 100L, termination.eps = 10^-1, show.info = TRUE,
-  show.info.stepsize = 1L, save.population.at = integer(0),
-  mating.pool.generator = parentSelection,
+  target.names, max.iter = 100L, termination.eps = 10^-1,
+  show.info = TRUE, show.info.stepsize = 1L,
+  save.population.at = integer(0), mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(), mutator = list(gaussMutator),
   recombinator = intermediateRecombinator, mutator.control = list(),
   recombinator.control = list(), monitor = makeConsoleMonitor())
@@ -46,6 +46,11 @@ ecr.control(population.size, offspring.size,
   \item{n.targets}{[\code{integer(1)}]\cr Number of target
   functions. Default is \code{1}. For bicriteria fitness
   functions this should therefore be set to \code{2}.}
+
+  \item{target.names}{[\code{character}]\cr Names for the
+  objective fun values. Must have length n.targets. If
+  missing the names are set to y1, ..., yn where n is
+  n.targets.}
 
   \item{max.iter}{[\code{integer(1)}]\cr Maximum number of
   generations. This is one possible stopping criterion.}
