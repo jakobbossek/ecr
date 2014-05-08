@@ -68,6 +68,7 @@ ecr.control = function(
   elite.size = 0L,
   n.params,
   n.targets = 1L,
+  target.names,
   max.iter = 100L,
   termination.eps = 10^-1,
   show.info = TRUE,
@@ -91,6 +92,12 @@ ecr.control = function(
   checkArg(elite.size, cl = "integer", len = 1L, lower = 0L, na.ok = FALSE)
   checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
+  if (!missing(target.names)) {
+    checkArg(target.names, "character", min.len = 1L, na.ok = FALSE)
+    if (length(target.names) != n.targets) {
+      stopf("NUmber of target.names must be equal to n targets.")
+    }
+  }
 
   checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
   checkArg(termination.eps, cl = "numeric", len = 1L, lower = 0, na.ok = FALSE)
@@ -174,6 +181,7 @@ ecr.control = function(
     show.info = show.info,
     show.info.stepsize = show.info.stepsize,
     save.population.at = save.population.at,
+    target.names = target.names,
     monitor = monitor),
   class = "ecr_control")
 }
