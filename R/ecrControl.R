@@ -26,6 +26,9 @@
 #' @param n.targets [\code{integer(1)}]\cr
 #'   Number of target functions. Default is \code{1}. For bicriteria fitness functions
 #'   this should therefore be set to \code{2}.
+#' @param target.names [\code{character}]\cr
+#'   Names for the objective fun values. Must have length n.targets. If missing the names
+#'   are set to y1, ..., yn where n is n.targets.
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximum number of generations. This is one possible stopping criterion.
 #' @param termination.eps [\code{numeric(1)}]\cr
