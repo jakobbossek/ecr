@@ -118,7 +118,7 @@ print.ecr_result = function(x, ...) {
   par.set = opt.path$par.set
   #FIXME: this is ugly! But paramValueAsString does not work for some reason.
   catf("Parameters: %s", paste(getParamIds(par.set, repeated = TRUE, with.nr = TRUE), "=", x$best.param, sep = "", collapse = ", "))
-  catf("Objective function value: %.3g\n", x$best.value)
+  catf("Objective function value: %s\n", paste(x$target.names, "=", x$best.value, sep ="", collapse = ", "))
 
   catf("Optimization path:")
   opt.path = as.data.frame(opt.path)
