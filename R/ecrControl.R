@@ -100,6 +100,8 @@ ecr.control = function(
     if (length(target.names) != n.targets) {
       stopf("NUmber of target.names must be equal to n targets.")
     }
+  } else {
+    target.names = paste("y", 1:n.targets, sep = "")
   }
 
   checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
