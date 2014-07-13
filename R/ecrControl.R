@@ -85,18 +85,18 @@ ecr.control = function(
   mutator.control = list(),
   recombinator.control = list(),
   monitor = makeConsoleMonitor()) {
-  checkArg(population.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
-  checkArg(offspring.size, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
+  assertCount(population.size, positive = TRUE, na.ok = FALSE)
+  assertCount(offspring.size, positive = TRUE, na.ok = FALSE)
   #FIXME: think about mating.pool.size
   mating.pool.size = convertInteger(mating.pool.size)
-  checkArg(mating.pool.size, cl = "integer", len = 1L, lower = 2L, na.ok = FALSE)
-  checkArg(representation, choices = getAvailableRepresentations())
-  checkArg(survival.strategy, choices = c("plus", "comma"))
-  checkArg(elite.size, cl = "integer", len = 1L, lower = 0L, na.ok = FALSE)
-  checkArg(n.params, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
-  checkArg(n.targets, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
+  assertCount(mating.pool.size, positive = TRUE, na.ok = FALSE)
+  assertChoice(representation, choices = getAvailableRepresentations())
+  assertChoice(survival.strategy, choices = c("plus", "comma"))
+  assertCount(elite.size, na.ok = FALSE)
+  assertCount(n.params, positive = TRUE, na.ok = FALSE)
+  assertCount(n.targets, positive = TRUE, na.ok = FALSE)
   if (!missing(target.names)) {
-    checkArg(target.names, "character", min.len = 1L, na.ok = FALSE)
+    assertCharacter(target.names, min.len = 1L, any.missing = FALSE)
     if (length(target.names) != n.targets) {
       stopf("NUmber of target.names must be equal to n targets.")
     }
@@ -104,19 +104,19 @@ ecr.control = function(
     target.names = paste("y", 1:n.targets, sep = "")
   }
 
-  checkArg(max.iter, cl = "integer", len = 1L, lower = 1L, na.ok = FALSE)
-  checkArg(termination.eps, cl = "numeric", len = 1L, lower = 0, na.ok = FALSE)
+  assertCount(max.iter, positive = TRUE, na.ok = FALSE)
+  assertNumeric(termination.eps, len = 1L, lower = 0, any.missing = FALSE)
 
-  checkArg(show.info, cl = "logical", len = 1L, na.ok = FALSE)
-  checkArg(show.info.stepsize, cl = "integer", len = 1L, lower = 1, na.ok = FALSE)
+  assertFlag(show.info, na.ok = FALSE)
+  assertCount(show.info.stepsize, positive = TRUE, na.ok = FALSE)
 
   if (length(save.population.at) > 0) {
-    checkArg(save.population.at, cl = "integer", lower = 0L, na.ok = FALSE)
+    assertInteger(save.population.at, lower = 0L, any.missing = FALSE)
   }
 
-  checkArg(mutator, cl = "list", na.ok = FALSE)
-  checkArg(mutator.control, cl = "list", na.ok = FALSE)
-  checkArg(recombinator.control, cl = "list", na.ok = FALSE)
+  assertList(mutator, any.missing = FALSE)
+  assertList(mutator.control, any.missing = FALSE)
+  assertList(recombinator.control, any.missing = FALSE)
   if (!inherits(monitor, "ecr_monitor")) {
     stopf("Currently only monitor of type 'ecr_monitor' supported")
   }

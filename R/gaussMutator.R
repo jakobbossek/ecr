@@ -31,8 +31,8 @@ attr(gaussMutator, "class") = c("ecr_operator", "ecr_mutator")
 attr(gaussMutator, "defaults") = list(mutator.gauss.prob = 1, mutator.gauss.sd = 0.05)
 
 gaussMutatorCheck = function(operator.control) {
-  checkArg(operator.control$mutator.gauss.prob, "numeric", len = 1L, lower = 0, na.ok = FALSE)
-  checkArg(operator.control$mutator.gauss.sd, "numeric", len = 1L, lower = 0, na.ok = FALSE)
+  assertNumber(operator.control$mutator.gauss.prob, lower = 0, finite = TRUE, na.ok = FALSE)
+  assertNumber(operator.control$mutator.gauss.sd, lower = 0, finite = TRUE, na.ok = FALSE)
 }
 
 attr(gaussMutator, "checkFunction") = gaussMutatorCheck

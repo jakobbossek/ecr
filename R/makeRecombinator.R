@@ -15,7 +15,7 @@ makeRecombinator = function(
   recombinator, name,
   supported = getAvailableRepresentations(),
   n.parents = 2L) {
-  checkArg(n.parents, cl = "integer", len = 1L, lower = 2L, na.ok = FALSE)
+  assertInteger(n.parents, len = 1L, lower = 2L, any.missing = FALSE)
   recombinator = makeOperator(recombinator, name, supported)
   attr(recombinator, "n.parents") = n.parents
   recombinator = addClasses(recombinator, c("ecr_recombinator"))

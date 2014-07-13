@@ -10,9 +10,9 @@
 # @return [\code{ecr_operator}]
 #   Operator object.
 makeOperator = function(operator, name, supported = getAvailableRepresentations()) {
-  checkArg(operator, cl = "function")
-  checkArg(name, cl = "character", len = 1L, na.ok = FALSE)
-  checkArg(supported, subset = getAvailableRepresentations(), na.ok = FALSE)
+  assertFunction(operator)
+  assertCharacter(name, len = 1L, any.missing = FALSE)
+  assertSubset(supported, choices = getAvailableRepresentations(), empty.ok = FALSE)
 
   attr(operator, "name") = name
   attr(operator, "supported") = supported

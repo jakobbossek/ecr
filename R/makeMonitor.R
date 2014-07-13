@@ -12,9 +12,9 @@
 #'   Monitor object.
 #' @export
 makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
-  if (!is.null(before)) checkArg(before, cl = "function", na.ok = TRUE)
-  if (!is.null(step)) checkArg(step, cl = "function", na.ok = TRUE)
-  if (!is.null(after)) checkArg(after, cl = "function", na.ok = TRUE)
+  if (!is.null(before)) assertFunction(before)
+  if (!is.null(step)) checkArg(step)
+  if (!is.null(after)) checkArg(after)
   dummy = function(...) {}
   structure(
     list(

@@ -29,7 +29,7 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
   termination.eps = control$termination.eps
   monitor = control$monitor
 
-  checkArg(par.set, "ParamSet", na.ok = FALSE)
+  assertClass(par.set, "ParamSet")
 
   if (!any(is.na(global.optimum))) {
     if (length(global.optimum) != control$n.params) {
