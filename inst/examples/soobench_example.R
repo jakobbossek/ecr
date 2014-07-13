@@ -41,7 +41,7 @@ myMonitor = makeMonitor(step = myMonitorStep)
 obj.fun = ackley_function(1)
 
 # generate parameter set
-par.set = extractParamSetFromSOOFunction(obj.fun)
+par.set = extractParamSetFromSooFunction(obj.fun)
 
 # initialize control object
 control = ecr.control(

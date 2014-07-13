@@ -3,7 +3,7 @@ context("ecr main function")
 test_that("ecr works with simple soo function", {
   library(soobench)
   obj.fun = sphere_function(2)
-  par.set = extractParamSetFromSOOFunction(obj.fun)
+  par.set = extractParamSetFromSooFunction(obj.fun)
   control = ecr.control(
     population.size = 10L,
     offspring.size = 2L,
