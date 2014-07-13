@@ -19,7 +19,7 @@ Suggests:
     testthat,
     soobench
 Depends:
-    ParamHelpers,
+    ParamHelpers (>= 1.2),
     BBmisc (>= 1.6),
     parallelMap (>= 1.1)
 Imports:
