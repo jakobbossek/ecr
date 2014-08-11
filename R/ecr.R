@@ -75,7 +75,6 @@ ecr = function(objective.fun, control, global.optimum = NA) {
     parents = matingPoolGenerator(population, mating.pool.size)
 
     offspring = generateOffspring(parents, objective.fun, control)
-    print(offspring)
 
     population = selectForSurvival(
       population,
