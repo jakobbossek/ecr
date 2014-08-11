@@ -31,6 +31,18 @@ getTerminationCode = function(
   	return(-1L)
 }
 
+getTerminationMessage = function(termination.code) {
+	termination.messages = c(
+		"Reached maximal number of iterations.",
+		"Reached tolerence level.",
+		"Time budget exceeded."
+	)
+	if (termination.code %nin% 0:2) {
+		stopf("Unknown terminaton code %i.", termination.code)
+	}
+	return(termination.messages[termination.code + 1])
+}
+
 didReachMaximumIterations = function(current.iter, max.iter) {
 	return(current.iter > max.iter)
 }

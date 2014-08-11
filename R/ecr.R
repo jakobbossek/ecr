@@ -108,7 +108,8 @@ ecr = function(objective.fun, control) {
       best.value = best$fitness,
       opt.path = opt.path,
       population.storage = population.storage,
-      convergence = termination.code
+      convergence = termination.code,
+      message = getTerminationMessage(termination.code)
     ), class = "ecr_result")
   )
 }
