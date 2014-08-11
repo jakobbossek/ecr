@@ -4,8 +4,6 @@
 #'
 #' @param objective.fun [\code{function}]\cr
 #'   Target function.
-#' @param par.set [\code{\link[ParamHelpers]{ParamSet}}]\cr
-#'   Parameter set of target function.
 #' @param control [\code{ecr.control}]\cr
 #'   Control object.
 #' @param global.optimum [\code{numeric}]\cr
@@ -18,7 +16,9 @@
 #'    \item{trace \code{ecrTrace}}{Optimization path.}
 #'   }
 #' @export
-ecr = function(objective.fun, par.set, control, global.optimum = NA) {
+ecr = function(objective.fun, control, global.optimum = NA) {
+  assertClass(objective.fun, "otf_function")
+  par.set = getParamSet(objective.fun)
   n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
@@ -75,6 +75,7 @@ ecr = function(objective.fun, par.set, control, global.optimum = NA) {
     parents = matingPoolGenerator(population, mating.pool.size)
 
     offspring = generateOffspring(parents, objective.fun, control)
+    print(offspring)
 
     population = selectForSurvival(
       population,

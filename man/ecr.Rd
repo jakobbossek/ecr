@@ -3,14 +3,11 @@
 \alias{ecr}
 \title{Working horse of the ecr package.}
 \usage{
-ecr(objective.fun, par.set, control, global.optimum = NA)
+ecr(objective.fun, control, global.optimum = NA)
 }
 \arguments{
 \item{objective.fun}{[\code{function}]\cr
 Target function.}
-
-\item{par.set}{[\code{\link[ParamHelpers]{ParamSet}}]\cr
-Parameter set of target function.}
 
 \item{control}{[\code{ecr.control}]\cr
 Control object.}
