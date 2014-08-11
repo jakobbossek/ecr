@@ -13,8 +13,8 @@
 #' @export
 makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
   if (!is.null(before)) assertFunction(before)
-  if (!is.null(step)) checkArg(step)
-  if (!is.null(after)) checkArg(after)
+  if (!is.null(step)) assertFunction(step)
+  if (!is.null(after)) assertFunction(after)
   dummy = function(...) {}
   structure(
     list(
