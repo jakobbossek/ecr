@@ -1,17 +1,20 @@
 #' Working horse of the ecr package.
 #'
-#' Takes a function and searches for global optimum with an evolutionary approach.
+#' Takes a function and searches for a global optimum with an evolutionary approach.
 #'
-#' @param objective.fun [\code{function}]\cr
-#'   Target function.
+#' @param objective.fun [\code{otf_function}]\cr
+#'   Single objective target function of type \code{otf_function}.
 #' @param control [\code{ecr.control}]\cr
 #'   Control object.
 #' return [\code{ecrResult}]
-#'   Object of type \code{ecrResult} containing a list:
+#'   Object of type \code{ecr_result} containing a list:
 #'   \itemize{
 #'    \item{best.param \code{numeric}}{Best parameter combination.}
 #'    \item{best.value \code{numeric(1)}}{Best reached value.}
-#'    \item{trace \code{ecrTrace}}{Optimization path.}
+#'    \item{opt.path \code{optPath}}{Optimization path.}
+#'    \item{population.storage \code{list}}{List of populations.}
+#'    \item{convergence \code{integer(1)}}{Termination status code.}
+#'    \item{message \code{character(1)}}{Message explaining the reason for termination.}
 #'   }
 #' @export
 ecr = function(objective.fun, control) {
@@ -29,7 +32,6 @@ ecr = function(objective.fun, control) {
   show.info.stepsize = control$show.info.stepsize
   termination.eps = control$termination.eps
   monitor = control$monitor
-
 
   # potentially global optimum
   global.optimum = NULL

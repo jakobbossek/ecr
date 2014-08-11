@@ -6,20 +6,23 @@
 ecr(objective.fun, control)
 }
 \arguments{
-\item{objective.fun}{[\code{function}]\cr
-Target function.}
+\item{objective.fun}{[\code{otf_function}]\cr
+Single objective target function of type \code{otf_function}.}
 
 \item{control}{[\code{ecr.control}]\cr
   Control object.
 return [\code{ecrResult}]
-  Object of type \code{ecrResult} containing a list:
+  Object of type \code{ecr_result} containing a list:
   \itemize{
    \item{best.param \code{numeric}}{Best parameter combination.}
    \item{best.value \code{numeric(1)}}{Best reached value.}
-   \item{trace \code{ecrTrace}}{Optimization path.}
+   \item{opt.path \code{optPath}}{Optimization path.}
+   \item{population.storage \code{list}}{List of populations.}
+   \item{convergence \code{integer(1)}}{Termination status code.}
+   \item{message \code{character(1)}}{Message explaining the reason for termination.}
   }}
 }
 \description{
-Takes a function and searches for global optimum with an evolutionary approach.
+Takes a function and searches for a global optimum with an evolutionary approach.
 }
 
