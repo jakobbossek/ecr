@@ -31,6 +31,8 @@
 #'   are set to y1, ..., yn where n is n.targets.
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximum number of generations. This is one possible stopping criterion.
+#' @param max.time [\code{integer(1)}]\cr
+#'   Time budget in seconds. Default ist \code{Inf}.
 #' @param termination.eps [\code{numeric(1)}]\cr
 #'   The optimization process will stop if the gap between known optimum and current
 #'   best individual falls below this threshold value.
@@ -73,6 +75,7 @@ ecr.control = function(
   n.targets = 1L,
   target.names,
   max.iter = 100L,
+  max.time = NULL,
   termination.eps = 10^-1,
   show.info = TRUE,
   show.info.stepsize = 1L,
@@ -105,6 +108,12 @@ ecr.control = function(
   }
 
   assertCount(max.iter, positive = TRUE, na.ok = FALSE)
+  if (!is.null(max.time)) {
+    assertCount(max.time, positive = TRUE, na.ok = FALSE) 
+  } else {
+    max.time = Inf
+  }
+
   assertNumeric(termination.eps, len = 1L, lower = 0, any.missing = FALSE)
 
   assertFlag(show.info, na.ok = FALSE)
@@ -175,6 +184,7 @@ ecr.control = function(
     n.params = n.params,
     n.targets = n.targets,
     max.iter = max.iter,
+    max.time = max.time,
     termination.eps = termination.eps,
     mating.pool.generator = mating.pool.generator,
     generator = generator,

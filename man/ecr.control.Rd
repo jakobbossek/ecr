@@ -6,7 +6,7 @@
 ecr.control(population.size, offspring.size,
   mating.pool.size = floor(population.size/2), representation,
   survival.strategy = "plus", elite.size = 0L, n.params, n.targets = 1L,
-  target.names, max.iter = 100L, termination.eps = 10^-1,
+  target.names, max.iter = 100L, max.time = NULL, termination.eps = 10^-1,
   show.info = TRUE, show.info.stepsize = 1L,
   save.population.at = integer(0), mating.pool.generator = parentSelection,
   generator = makeUniformGenerator(), mutator = list(gaussMutator),
@@ -50,6 +50,9 @@ are set to y1, ..., yn where n is n.targets.}
 
 \item{max.iter}{[\code{integer(1)}]\cr
 Maximum number of generations. This is one possible stopping criterion.}
+
+\item{max.time}{[\code{integer(1)}]\cr
+Time budget in seconds. Default ist \code{Inf}.}
 
 \item{termination.eps}{[\code{numeric(1)}]\cr
 The optimization process will stop if the gap between known optimum and current

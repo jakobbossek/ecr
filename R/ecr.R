@@ -21,6 +21,7 @@ ecr = function(objective.fun, control) {
 
   n.params = control$n.params
   max.iter = control$max.iter
+  max.time = control$max.time
   population.size = control$population.size
   mating.pool.size = control$mating.pool.size
   offspring.size = control$offspring.size
@@ -31,7 +32,10 @@ ecr = function(objective.fun, control) {
 
 
   # potentially global optimum
-  global.optimum = getGlobalOptimum(objective.fun)$param
+  global.optimum = NULL
+  if (hasGlobalOptimum(objective.fun)) {
+    global.optimum = getGlobalOptimum(objective.fun)$param
+  }
 
   if (n.params != length(par.set$pars)) {
     stopf("Number of parameters given by control object and ParamSet do not match: %i != %i", n.params, length(par.set$pars))
@@ -59,13 +63,15 @@ ecr = function(objective.fun, control) {
     population.storage[[as.character(0)]] = population
   }
 
-  i = 1L
-  if (show.info)
-    monitor$before(objective.fun, population, trace, i, control)
+  iter = 1L
+  start.time = Sys.time()
 
-  while (!isTerminiationCriterionFullfilled(i, max.iter, global.optimum, best, termination.eps)) {
-    if (show.info && (i %% show.info.stepsize == 0L))
-      monitor$step(objective.fun, population, trace, i, control)
+  if (show.info)
+    monitor$before(objective.fun, population, trace, iter, control)
+
+  repeat {
+    if (show.info && (iter %% show.info.stepsize == 0L))
+      monitor$step(objective.fun, population, trace, iter, control)
 
     parents = matingPoolGenerator(population, mating.pool.size)
 
@@ -78,25 +84,31 @@ ecr = function(objective.fun, control) {
       strategy = control$survival.strategy,
       elite.size = control$elite.size)
 
-    if (i %in% control$save.population.at) {
-      population.storage[[as.character(i)]] = population
+    if (iter %in% control$save.population.at) {
+      population.storage[[as.character(iter)]] = population
     }
 
     best = getBestIndividual(population)
-    opt.path = addBestToOptPath(opt.path, par.set, best, i)
+    opt.path = addBestToOptPath(opt.path, par.set, best, iter)
 
-    i = i + 1
+    termination.code = getTerminationCode(iter, max.iter, global.optimum, best, termination.eps, start.time, max.time)
+    if (termination.code >= 0) {
+      break
+    }
+
+    iter = iter + 1
   }
 
   if (show.info)
-    monitor$after(objective.fun, population, trace, i, control)
+    monitor$after(objective.fun, population, trace, iter, control)
 
   return(
     structure(list(
       best.param = setColNames(t(data.frame(best$individual)), getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
       opt.path = opt.path,
-      population.storage = population.storage
+      population.storage = population.storage,
+      convergence = termination.code
     ), class = "ecr_result")
   )
 }
