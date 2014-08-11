@@ -6,8 +6,6 @@
 #'   Target function.
 #' @param control [\code{ecr.control}]\cr
 #'   Control object.
-#' @param global.optimum [\code{numeric}]\cr
-#'   Parameter combination of the global optimum of the fun. This parameter is optional.
 #' return [\code{ecrResult}]
 #'   Object of type \code{ecrResult} containing a list:
 #'   \itemize{
@@ -16,9 +14,11 @@
 #'    \item{trace \code{ecrTrace}}{Optimization path.}
 #'   }
 #' @export
-ecr = function(objective.fun, control, global.optimum = NA) {
+ecr = function(objective.fun, control) {
   assertClass(objective.fun, "otf_function")
   par.set = getParamSet(objective.fun)
+  assertClass(par.set, "ParamSet")
+
   n.params = control$n.params
   max.iter = control$max.iter
   population.size = control$population.size
@@ -29,14 +29,9 @@ ecr = function(objective.fun, control, global.optimum = NA) {
   termination.eps = control$termination.eps
   monitor = control$monitor
 
-  assertClass(par.set, "ParamSet")
 
-  if (!any(is.na(global.optimum))) {
-    if (length(global.optimum) != control$n.params) {
-      stopf("Given global optimum %s suggests %i parameters, but objective function has %i parameters.",
-        paste("(", collapse(global.optimum, sep = ","), ")", sep=""), length(global.optimum), control$n.params)
-    }
-  }
+  # potentially global optimum
+  global.optimum = getGlobalOptimum(objective.fun)$param
 
   if (n.params != length(par.set$pars)) {
     stopf("Number of parameters given by control object and ParamSet do not match: %i != %i", n.params, length(par.set$pars))

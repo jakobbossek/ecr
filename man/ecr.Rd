@@ -3,17 +3,14 @@
 \alias{ecr}
 \title{Working horse of the ecr package.}
 \usage{
-ecr(objective.fun, control, global.optimum = NA)
+ecr(objective.fun, control)
 }
 \arguments{
 \item{objective.fun}{[\code{function}]\cr
 Target function.}
 
 \item{control}{[\code{ecr.control}]\cr
-Control object.}
-
-\item{global.optimum}{[\code{numeric}]\cr
-  Parameter combination of the global optimum of the fun. This parameter is optional.
+  Control object.
 return [\code{ecrResult}]
   Object of type \code{ecrResult} containing a list:
   \itemize{
