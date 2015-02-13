@@ -22,7 +22,8 @@ Depends:
 Imports:
     ggplot2,
     checkmate (>= 1.1),
-    parallelMap (>= 1.1)
+    parallelMap (>= 1.1),
+    reshape2 (>= 1.4.1)
 Suggests:
     testthat,
     soobench

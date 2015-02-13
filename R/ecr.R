@@ -105,6 +105,7 @@ ecr = function(objective.fun, control) {
 
   return(
     structure(list(
+      objective.fun = objective.fun,
       best.param = setColNames(t(data.frame(best$individual)), getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
       opt.path = opt.path,
