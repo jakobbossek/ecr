@@ -3,11 +3,11 @@
 #' @param setOfIndividuals [\code{setOfIndividuals}]\cr
 #'   Set of individuals.
 #' @param control [\code{list}]\cr
-#'   Empty list. Intermediate recombinator has no paramerters.
+#'   Empty list. Intermediate recombinator has no parameters.
 #' @return [\code{setOfIndividuals}]
 #'   Recombined offspring.
 #' @export
-intermediateRecombinator = function(setOfIndividuals, control=list()) {
+intermediateRecombinator = function(setOfIndividuals, control = list()) {
   child = matrix(colSums(setOfIndividuals$individuals) / 2, nrow = 1L)
   makePopulation(child)
 }
