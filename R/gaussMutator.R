@@ -14,12 +14,12 @@
 #'   Set of individuals.
 #' @export
 gaussMutator = function(setOfIndividuals, control = list(mutator.gauss.prob = 1, mutator.gauss.sd = 0.05)) {
-  n.params = ncol(setOfIndividuals$population)
-  n = nrow(setOfIndividuals$population)
+  n.params = ncol(setOfIndividuals$individuals)
+  n = nrow(setOfIndividuals$individuals)
   for (i in seq(n)) {
     mutation.bool = (runif(n.params) <= control$mutator.gauss.prob)
     mutation = ifelse(mutation.bool, rnorm(1, mean = 0, sd = control$mutator.gauss.sd), 0)
-    setOfIndividuals$population[i, ] = setOfIndividuals$population[i, ] + mutation
+    setOfIndividuals$individuals[i, ] = setOfIndividuals$individuals[i, ] + mutation
   }
   return(setOfIndividuals)
 }

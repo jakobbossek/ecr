@@ -1,14 +1,13 @@
 # Helper function for creating a mating pool.
 #
-# @param setOfIndividuals [\code{setOfIndividuals}]\cr
+# @param population [\code{setOfIndividuals}]\cr
 #   Population.
 # @param number.of.parents [\code{integer(1)}]\cr
 #   Number of parents which shall be selected for the mating pool.
 # @return [\code{setOfIndividuals}]
-parentSelection = function(setOfIndividuals, number.of.parents) {
-  stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))
-  individuals = setOfIndividuals$population
-  fitness = setOfIndividuals$fitness
+parentSelection = function(population, number.of.parents) {
+  individuals = population$individuals
+  fitness = population$fitness
   to.keep = order(fitness)[seq(number.of.parents)]
-  makePopulation(individuals = individuals[to.keep, , drop = FALSE], fitness = fitness[to.keep])
+  makePopulation(individuals[to.keep, , drop = FALSE], fitness[to.keep])
 }

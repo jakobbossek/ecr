@@ -8,7 +8,7 @@
 #'   Recombined offspring.
 #' @export
 intermediateRecombinator = function(setOfIndividuals, control=list()) {
-  child = apply(setOfIndividuals$population, 2, sum) / 2
+  child = apply(setOfIndividuals$individuals, 2, sum) / 2
   makePopulation(t(as.matrix(child)))
 }
 

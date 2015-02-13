@@ -54,7 +54,7 @@ ecr = function(objective.fun, control) {
   matingPoolGenerator = control$mating.pool.generator
 
   population = populationGenerator(population.size, n.params, lower, upper, control)
-  population = computeFitness(population, objective.fun)
+  population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
 
   opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE)
@@ -76,7 +76,6 @@ ecr = function(objective.fun, control) {
       monitor$step(objective.fun, population, trace, iter, control)
 
     parents = matingPoolGenerator(population, mating.pool.size)
-
     offspring = generateOffspring(parents, objective.fun, control)
 
     population = selectForSurvival(

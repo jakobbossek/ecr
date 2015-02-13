@@ -109,7 +109,7 @@ ecr.control = function(
 
   assertCount(max.iter, positive = TRUE, na.ok = FALSE)
   if (!is.null(max.time)) {
-    assertCount(max.time, positive = TRUE, na.ok = FALSE) 
+    assertCount(max.time, positive = TRUE, na.ok = FALSE)
   } else {
     max.time = Inf
   }
@@ -242,13 +242,13 @@ print.ecr_control = function(x, ...) {
   catf("")
 
   catf("Evolutionary parameters:")
-  catf("Population size              : %i", x$population.size)
+  catf("Population size              : %i", x$individuals.size)
   catf("Offspring size               : %i", x$offspring.size)
   catf("Mating pool size             : %i", x$mating.pool.size)
   catf("Representation               : %s", x$representation)
   catf("Survival strategy            : %s", if (x$survival.strategy == "plus") "(mu + lambda)" else "(mu, lambda)")
   if (x$elite.size > 0L && x$survival.strategy == "comma") {
-    catf("(Using elitism with elite count %i, i.e., %.2g%% of the fittest candidates in each generation will survive)", x$elite.size, as.numeric(x$elite.size)/x$population.size)
+    catf("(Using elitism with elite count %i, i.e., %.2g%% of the fittest candidates in each generation will survive)", x$elite.size, as.numeric(x$elite.size)/x$individuals.size)
   }
 
   catf("")

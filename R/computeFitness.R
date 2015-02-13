@@ -1,17 +1,14 @@
 #' Computes the fitness values for each member of a given population.
 #'
-#' This function gets a \code{setOfIndividuals}, computes the fitness and
-#' extends the set of individuals (a list) with the fitness element.
+#' This function gets a population computes the fitness and
+#' returns the vector of fitness values.
 #'
-#' @param setOfIndividuals [\code{setOfIndividuals}]\cr
-#'   Set of individuals.
+#' @param population [\code{matrix}]\cr
+#'   Population.
 #' @param fitness.fun [\code{function}]\cr
 #'   Fitness function.
-#' @return [\code{setOfIndividuals}].
-computeFitness = function(setOfIndividuals, fitness.fun) {
-  stopifnot(inherits(setOfIndividuals, "setOfIndividuals"))
-  fitness.values = parallelMap(fitness.fun, data.frame(t(setOfIndividuals$population)))
-  fitness.values = unlist(fitness.values)
-  setOfIndividuals$fitness = fitness.values
-  return(setOfIndividuals)
+#' @return [\code{matrix}].
+computeFitness = function(population, fitness.fun) {
+    fitness = apply(population$individuals, 1, fitness.fun)
+    return(fitness)
 }

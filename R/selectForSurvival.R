@@ -23,16 +23,16 @@ selectForSurvival = function(population, offspring, population.size, strategy = 
 
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
-    source.individuals = source.population$population
+    source.individuals = source.population$individuals
     source.fitness = source.population$fitness
     to.survive = order(source.fitness)[seq(population.size)]
   } else if (strategy == "comma") {
     source.population = offspring
-    source.individuals = source.population$population
+    source.individuals = source.population$individuals
     source.fitness = source.population$fitness
     if (elite.size > 0L) {
       #catf("Elitism with %i candidates out of %i", elite.size, population.size)
-      parent.individuals = population$population
+      parent.individuals = population$individuals
       parent.fitness = population$fitness
       to.be.elite = order(parent.fitness)[seq(elite.size)]
       # Adapt number of individuals taken from the offspring

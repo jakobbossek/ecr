@@ -5,13 +5,14 @@
 # @param [\code{numeric}]\cr
 #   Vector of fitness values for the individuals.
 # @return [\code{setOfIndividuals}]
-makePopulation = function(individuals, fitness) {
-  res = list(population = individuals)
-  if (!missing(fitness))
-    res$fitness = fitness
+makePopulation = function(individuals, fitness = NULL) {
   structure(
-    res,
-    class = c("ecrPopulation", "setOfIndividuals"))
+    list(
+      individuals = individuals,
+      fitness = fitness
+    ),
+    classes = c("ecrPopulation", "setOfIndividuals")
+  )
 }
 
 # Helper for merging populations.
@@ -24,7 +25,7 @@ mergePopulations = function(...) {
   individuals = data.frame()
   fitness = c()
   for (i in 1:length(populations)) {
-    individuals = rbind(individuals, populations[[i]]$population)
+    individuals = rbind(individuals, populations[[i]]$individuals)
     fitness = c(fitness, populations[[i]]$fitness)
   }
   makePopulation(
