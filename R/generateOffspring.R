@@ -18,7 +18,8 @@ generateOffspring = function(matingPool, objective.fun, control) {
   offspring.size = control$offspring.size
   n.params = control$n.params
 
-  offspring = list()
+  #offspring = list()
+  offspring = matrix(NA, ncol = n.params, nrow = offspring.size)
 
   for (i in 1:offspring.size) {
     parents = parentSelector(matingPool)
@@ -29,12 +30,11 @@ generateOffspring = function(matingPool, objective.fun, control) {
       child = mutator.fun(child, mutator.params)
       # catf("Applying mutator %i of %i", j, control$n.mutators)
     }
-    child$fitness = computeFitness(child, objective.fun)
-    offspring[[i]] = child
+    offspring[i, ] = child$individuals
   }
-  offspring = do.call(mergePopulations, offspring)
+  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
-  return(offspring)
+  return(makePopulation(offspring, offspring.fitness))
 }
 
 simpleUniformSelection = function(matingPool) {

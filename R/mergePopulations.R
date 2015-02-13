@@ -9,11 +9,11 @@ mergePopulations = function(...) {
   n.params = ncol(populations[[1]]$individuals)
 
   # summarize over all population sizes
-  n.pop = sum(sapply(populations, function(x) length(x$fitness)))
+  pop.size = sum(sapply(populations, function(x) length(x$fitness)))
 
   # allocate space
-  fitness = numeric(n)
-  individuals = matrix(NA, ncol = m, nrow = n)
+  fitness = numeric(pop.size)
+  individuals = matrix(NA, ncol = n.params, nrow = pop.size)
 
   # now iterate over populations and generate merged population
   #FIXME: maybe better implement this in C++
