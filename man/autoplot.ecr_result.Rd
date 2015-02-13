@@ -4,7 +4,8 @@
 \alias{autoplot.ecr_result}
 \title{Plot optimization trace.}
 \usage{
-\method{autoplot}{ecr_result}(object, xlim = NULL, ylim = NULL, ...)
+\method{autoplot}{ecr_result}(object, xlim = NULL, ylim = NULL,
+  log.fitness = FALSE, ...)
 }
 \arguments{
 \item{object}{[\code{ecr_result}]\cr
@@ -15,6 +16,9 @@ Lower and upper bound for generation. If \code{NULL}, this is set automatically.
 
 \item{ylim}{[\code{numeric(2)} | NULL]\cr
 Lower and upper bound for fitness. If \code{NULL}, this is set automatically.}
+
+\item{log.fitness}{[\code{logical(1)}]\cr
+Log-transform fitness values? Default is \code{FALSE}.}
 
 \item{...}{[any]\cr
 Not used.}
