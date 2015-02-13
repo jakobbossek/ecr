@@ -16,11 +16,13 @@
 gaussMutator = function(setOfIndividuals, control = list(mutator.gauss.prob = 1, mutator.gauss.sd = 0.05)) {
   n.params = ncol(setOfIndividuals$individuals)
   n = nrow(setOfIndividuals$individuals)
-  for (i in seq(n)) {
-    mutation.bool = (runif(n.params) <= control$mutator.gauss.prob)
-    mutation = ifelse(mutation.bool, rnorm(1, mean = 0, sd = control$mutator.gauss.sd), 0)
-    setOfIndividuals$individuals[i, ] = setOfIndividuals$individuals[i, ] + mutation
-  }
+
+  mutation.bool = matrix(runif(n * n.params) < control$mutator.gauss.prob, ncol = n.params)
+  mutation = matrix(0, ncol = n.params, nrow = n)
+  idx = which(mutation.bool)
+  mutation[idx] = rnorm(length(idx), mean = 0, sd = control$mutator.gauss.sd)
+  setOfIndividuals$individuals = setOfIndividuals$individuals + mutation
+
   return(setOfIndividuals)
 }
 

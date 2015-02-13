@@ -8,8 +8,8 @@
 #'   Recombined offspring.
 #' @export
 intermediateRecombinator = function(setOfIndividuals, control=list()) {
-  child = apply(setOfIndividuals$individuals, 2, sum) / 2
-  makePopulation(t(as.matrix(child)))
+  child = matrix(colSums(setOfIndividuals$individuals) / 2, nrow = 1L)
+  makePopulation(child)
 }
 
 attr(intermediateRecombinator, "name") = "Intermediate recombinator"

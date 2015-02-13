@@ -8,8 +8,8 @@
 #'   Recombined offspring.
 #' @export
 nullRecombinator = function(setOfIndividuals, control=list()) {
-  child = setOfIndividuals$individuals[1, ]
-  makePopulation(t(as.matrix(child)))
+  child = setOfIndividuals$individuals[1, , drop = FALSE]
+  makePopulation(child)
 }
 
 attr(nullRecombinator, "name") = "null recombinator"
