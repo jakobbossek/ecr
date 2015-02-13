@@ -14,22 +14,3 @@ makePopulation = function(individuals, fitness = NULL) {
     classes = c("ecrPopulation", "setOfIndividuals")
   )
 }
-
-# Helper for merging populations.
-#
-# @param .. [\code{list}]\cr
-#  List of objects of type \code{setOfIndividuals}.
-# @return [\code{setOfIndividuals}]
-mergePopulations = function(...) {
-  populations = list(...)
-  individuals = data.frame()
-  fitness = c()
-  for (i in 1:length(populations)) {
-    individuals = rbind(individuals, populations[[i]]$individuals)
-    fitness = c(fitness, populations[[i]]$fitness)
-  }
-  makePopulation(
-    individuals = as.matrix(individuals),
-    fitness = fitness
-  )
-}
