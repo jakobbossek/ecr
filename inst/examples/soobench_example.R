@@ -1,4 +1,4 @@
-# Optimization of the famous Ackley function in one dimension
+# Optimization of the famous Rastrigin function in one dimension
 # using a simple Evolutionary Strategy (ES) and a custom
 # monitoring function, which pauses the optimization process
 # after each generation and plots the target fun as well as
@@ -14,7 +14,7 @@ library(soobench)
 library(ggplot2)
 library(BBmisc)
 
-load_all(".", reset=TRUE)
+load_all(".", reset = TRUE)
 
 # Monitoring function. For details on the expected formal parameters
 # see the help pages for makeMonitor and makeConsoleMonitor.
@@ -24,39 +24,39 @@ myMonitorStep = function(objective.fun, population, trace, iter, control) {
   if (!(n.params == 1 && n.targets == 1)) {
     warningf("Monitor cannot handle multidimensional funs.")
   }
-  x = seq(-35, 35, by = 0.05)
+  x = seq(-5, 5, by = 0.05)
   df = data.frame(x = x, y = sapply(x, objective.fun))
   pl = ggplot(data = df, aes(x = x, y = y)) + geom_line()
 
-  population.points = data.frame(x = as.numeric(population$population[, 1]), y = as.numeric(population$fitness))
+  population.points = data.frame(x = as.numeric(population$individuals[, 1]), y = as.numeric(population$fitness))
   pl = pl + geom_point(data = population.points, colour = "tomato", size = 2.2)
   pl = pl + geom_hline(yintercept = min(population$fitness), linetype = "dotted", colour = "tomato")
   print(pl)
-  pause()
+  Sys.sleep(0.3)
 }
 
 myMonitor = makeMonitor(step = myMonitorStep)
 
-# generate our target function
-obj.fun = ackley_function(1)
-
-# generate parameter set
-par.set = extractParamSetFromSooFunction(obj.fun)
+# the soobench generator names changes in the recent dev version
+if (!exists("rastrigin_function", mode = "function")) {
+  rastrigin_function = generate_rastrigin_function
+}
+obj.fun = makeSingleObjectiveFunctionFromSOOFunction("rastrigin", dimensions = 1L)
 
 # initialize control object
 control = ecr.control(
   population.size = 20L,
   offspring.size = 5L,
-  max.iter = 15L,
+  max.iter = 300L,
   survival.strategy = "plus",
   representation = "float",
   n.params = 1L,
   n.targets = 1L,
   mutator.control = list(mutator.gauss.sd = 0.005),
-  monitor = myMonitor)
+  monitor = myMonitor
+)
 
 # do the evolutionary magic
 set.seed(123)
 
-res = ecr(obj.fun, par.set = par.set, control = control)
-
+res = ecr(obj.fun, control = control)

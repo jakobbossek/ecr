@@ -6,31 +6,36 @@
 library(methods)
 library(testthat)
 library(devtools)
-library(soobench)
 library(BBmisc)
 library(tspmeta)
+library(ggplot2)
 
 load_all(".")
 
 set.seed(352)
-inst = random_instance(size = 10L)
+
+# generate instance
+n.nodes = 20L
+inst = random_instance(size = n.nodes)
 
 # The target fun is the length of a given tour
 obj.fun = function(tour) {
   tour_length(x = inst, order = as.integer(tour))
 }
 
-par.set = makeNumericParamSet(len = 10, id = "c", lower = 1, upper = 10, vector = FALSE)
+# now we wrap the objective function with the otf package
+par.set = makeNumericParamSet(len = n.nodes, id = "c", lower = 1, upper = n.nodes, vector = FALSE)
+obj.fun = makeSingleObjectiveFunction(fn = obj.fun, par.set = par.set, name = "Tour")
 
 # Here we make use of mutations only! The nullRecombinator
 # does nothing.
 control = ecr.control(
-  population.size = 10L,
+  population.size = 100L,
   offspring.size = 50L,
   representation = "permutation",
-  survival.strategy = "comma",
+  survival.strategy = "plus",
   elite.size = 1L,
-  max.iter = 30L,
+  max.iter = 200L,
   n.params = tspmeta:::number_of_cities(inst),
   n.targets = 1L,
   generator = makePermutationGenerator(),
@@ -39,4 +44,8 @@ control = ecr.control(
 )
 print(control)
 
-res = ecr(obj.fun, par.set = par.set, control = control)
+res = ecr(obj.fun, control = control)
+print(res)
+
+# plot computed tour
+print(autoplot(inst, opt_tour = res$best.param))
