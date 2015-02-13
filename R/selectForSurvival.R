@@ -19,8 +19,7 @@
 #   next generation without changing. Default is 0.
 # @return [\code{setOfIndividuals}]
 selectForSurvival = function(population, offspring, population.size, strategy = "plus", elite.size = 0L) {
-  elite = NA
-
+  elite = NULL
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
     source.individuals = source.population$individuals
@@ -51,7 +50,7 @@ selectForSurvival = function(population, offspring, population.size, strategy = 
   )
 
   # merge populations if elitism was used
-  if (inherits(elite, "setOfIndividuals")) {
+  if (!is.null(elite)) {
     population2 = mergePopulations(population2, elite)
   }
   return(population2)
