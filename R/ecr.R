@@ -57,8 +57,8 @@ ecr = function(objective.fun, control) {
   population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
 
-  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE)
-  opt.path = addBestToOptPath(opt.path, par.set, best, 0)
+  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE, include.extra = TRUE)
+  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, 0)
 
   population.storage = namedList(control$save.population.at)
   if (0 %in% control$save.population.at) {
@@ -90,7 +90,7 @@ ecr = function(objective.fun, control) {
     }
 
     best = getBestIndividual(population)
-    opt.path = addBestToOptPath(opt.path, par.set, best, iter)
+    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, iter)
 
     termination.code = getTerminationCode(iter, max.iter, global.optimum, best, termination.eps, start.time, max.time)
     if (termination.code >= 0) {
@@ -142,14 +142,22 @@ print.ecr_result = function(x, ...) {
 #   Optimization path.
 # @param par.set [\code{\link[ParamHelpers]{ParamSet}}]\cr
 #   Parameter set.
-# @param best [\code{ecr_individual}]\cr
+# @param best [\code{setOfIndividuals}]\cr
 #   Best individual in the current generation/iteration.
+# @param fitness [\code{numeric}]\cr
+#   Numeric vector of fitness values for the current generation.
 # @param generation [\code{integer(1)}]\cr
 #   Current generation.
 # @return [\code{\link[ParamHelpers]{OptPathDF}}]
-addBestToOptPath = function(opt.path, par.set, best, generation) {
-  #FIXME: until now we only consider mono-criteria stuff
-  best.param.values = dfRowToList(data.frame(t(best$individual)), par.set, 1)
-  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation)
+addBestToOptPath = function(opt.path, par.set, best, fitness, generation) {
+  best.param.values = as.list(best$individual)
+  names(best.param.values) = names(par.set$pars)
+  extras = list(
+    pop.min.fitness = min(fitness),
+    pop.mean.fitness = mean(fitness),
+    pop.median.fitness = median(fitness),
+    pop.max.fitness = max(fitness)
+  )
+  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation, extra = extras)
   return(opt.path)
 }
