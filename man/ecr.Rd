@@ -15,6 +15,7 @@ Single objective target function of type \code{otf_function}.}
 return [\code{ecrResult}]
   Object of type \code{ecr_result} containing a list:
   \itemize{
+   \item{objective.fun \code{otf_function}}{Objective function.}
    \item{best.param \code{numeric}}{Best parameter combination.}
    \item{best.value \code{numeric(1)}}{Best reached value.}
    \item{opt.path \code{optPath}}{Optimization path.}
