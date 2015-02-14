@@ -8,7 +8,7 @@
 makeConsoleMonitor = function() {
   makeMonitor(
     before = function(...) cat("Initialization finished! Starting optimization process ...\n"),
-    step = function(objective.fun, population, trace, iter, control) {
+    step = function(objective.fun, population, opt.path, iter, control) {
       max.iter = control$max.iter
       fitness = population$fitness
       if (control$n.targets == 1L)

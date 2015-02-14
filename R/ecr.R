@@ -70,12 +70,12 @@ ecr = function(objective.fun, control) {
   start.time = Sys.time()
 
   if (show.info)
-    monitor$before(objective.fun, population, trace, iter, control)
+    monitor$before(objective.fun, population, opt.path, iter, control)
 
   repeat {
     #FIXME delegate this if case to the monitor!
     if (show.info && (iter %% show.info.stepsize == 0L))
-      monitor$step(objective.fun, population, trace, iter, control)
+      monitor$step(objective.fun, population, opt.path, iter, control)
 
     parents = matingPoolGenerator(population, mating.pool.size)
     offspring = generateOffspring(parents, objective.fun, control)
@@ -103,7 +103,7 @@ ecr = function(objective.fun, control) {
   }
 
   if (show.info)
-    monitor$after(objective.fun, population, trace, iter, control)
+    monitor$after(objective.fun, population, opt.path, iter, control)
 
   return(
     structure(list(
