@@ -40,9 +40,10 @@ ecr = function(objective.fun, control) {
     global.optimum = getGlobalOptimum(objective.fun)$param
   }
 
-  if (n.params != length(par.set$pars)) {
-    stopf("Number of parameters given by control object and ParamSet do not match: %i != %i", n.params, length(par.set$pars))
-  }
+  #FIXME: if par.set contains a vector param this does fail!
+  # if (n.params != length(par.set$pars)) {
+  #   stopf("Number of parameters given by control object and ParamSet do not match: %i != %i", n.params, length(par.set$pars))
+  # }
 
   if (control$representation %in% c("float") && !hasFiniteBoxConstraints(par.set)) {
     stopf("Lower and upper box constraints needed for representation type 'float'.")
@@ -153,8 +154,13 @@ print.ecr_result = function(x, ...) {
 #   Current generation.
 # @return [\code{\link[ParamHelpers]{OptPathDF}}]
 addBestToOptPath = function(opt.path, par.set, best, fitness, generation) {
-  best.param.values = as.list(best$individual)
-  names(best.param.values) = names(par.set$pars)
+  #FIXME: this is ugly!
+  if (length(par.set$pars) == 1L) {
+    best.param.values = list(best$individual)
+  } else {
+    best.param.values = as.list(best$individual)
+    names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
+  }
   extras = list(
     pop.min.fitness = min(fitness),
     pop.mean.fitness = mean(fitness),
