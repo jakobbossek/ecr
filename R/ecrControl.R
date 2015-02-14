@@ -81,7 +81,7 @@ ecr.control = function(
   show.info.stepsize = 1L,
   save.population.at = integer(0),
   #FIXME: this should be of type 'ecr_operator' respectively 'ecr_generator'
-  mating.pool.generator = parentSelection,
+  mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(),
   mutator = list(gaussMutator),
   recombinator = intermediateRecombinator,

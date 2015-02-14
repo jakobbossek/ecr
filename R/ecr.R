@@ -9,6 +9,7 @@
 #' return [\code{ecrResult}]
 #'   Object of type \code{ecr_result} containing a list:
 #'   \itemize{
+#'    \item{objective.fun \code{otf_function}}{Objective function.}
 #'    \item{best.param \code{numeric}}{Best parameter combination.}
 #'    \item{best.value \code{numeric(1)}}{Best reached value.}
 #'    \item{opt.path \code{optPath}}{Optimization path.}
@@ -72,6 +73,7 @@ ecr = function(objective.fun, control) {
     monitor$before(objective.fun, population, trace, iter, control)
 
   repeat {
+    #FIXME delegate this if case to the monitor!
     if (show.info && (iter %% show.info.stepsize == 0L))
       monitor$step(objective.fun, population, trace, iter, control)
 
