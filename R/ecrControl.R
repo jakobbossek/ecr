@@ -74,7 +74,8 @@ ecr.control = function(
   recombinator = intermediateRecombinator,
   mutator.control = list(),
   recombinator.control = list(),
-  monitor = makeConsoleMonitor()) {
+  monitor = makeConsoleMonitor(),
+  stoppingConditions = list()) {
   assertCount(population.size, positive = TRUE, na.ok = FALSE)
   assertCount(offspring.size, positive = TRUE, na.ok = FALSE)
   mating.pool.size = convertInteger(mating.pool.size)
@@ -170,6 +171,7 @@ ecr.control = function(
     recombinator.control = recombinator.control,
     save.population.at = save.population.at,
     target.name = target.name,
+    stoppingConditions = stoppingConditions,
     monitor = monitor),
   class = "ecr_control")
 }
