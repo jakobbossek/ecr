@@ -85,15 +85,10 @@ ecr = function(objective.fun, control) {
     best = getBestIndividual(population)
     opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, iter)
 
-    stop.object = shouldTerminate(control$stoppingConditions)
+    stop.object = doTerminate(control$stoppingConditions)
     if (length(stop.object) > 0L) {
-      print(stop.object)
       break
     }
-    # termination.code = getTerminationCode(iter, max.iter, global.optimum, best, termination.eps, start.time, max.time)
-    # if (termination.code >= 0) {
-    #   break
-    # }
 
     iter = iter + 1
   }
@@ -107,8 +102,7 @@ ecr = function(objective.fun, control) {
       best.value = best$fitness,
       opt.path = opt.path,
       population.storage = population.storage,
-      convergence = termination.code,
-      message = getTerminationMessage(termination.code)
+      message = stop.object$message
     ), class = "ecr_result")
   )
 }

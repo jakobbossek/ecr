@@ -1,44 +1,22 @@
-doTerminate = function(stopping.funs, envir = parent.frame()) {
-    # if we have not specified any stopping conditions always return false
-    if (!length(stopping.funs)) {
-        return(FALSE)
-    }
-
-    # otherwise iterate over stopping conditions and check
-    stopObject = list()
-    for (stopping.fun in stopping.funs) {
-        shouldStop = stopping.fun(envir = envir)
-        if (shouldStop) {
-            stopObject$name = attr(stopping.fun, "name")
-            stopObject$description = attr(stopping.fun, "description")
-            break
-        }
-    }
-    return(stopObject)
-}
-
-#' Maximum time stopping condition.
+#' Wrap a function within a stopping condition object.
 #'
-#' @param max.time [\code{integer(1)}]\cr
-#'   Time budget in seconds. Default ist \code{Inf}.
-#' @return [\code{function}]
-makeMaximumTimeStoppingCondition = function(max.time) {
-    assertCount(max.time, positive = TRUE, na.ok = FALSE)
-    force(max.time)
-
-    condition.fun = function(envir = parent.frame()) {
-        time =  Sys.time()
-        timediff = difftime(time, envir$start.time, units = "secs")
-        timediff >= max.time
-    }
-
-    makeStoppingCondition(condition.fun, name = "TimeLimit",
-        description = sprintf("Time limit '%s' [secs] reached.", max.time))
-}
-
-makeStoppingCondition = function(condition.fun, name, description) {
+#' @param condition.fun [\code{function}]\cr
+#'   Function which takes an environment \code{envir} as its only parameter and return
+#'   a single logical.
+#' @param name [\code{character(1)}]\cr
+#'   Identifier for the stopping condition.
+#' @param message [\code{character(1)}]\cr
+#'   Message which should be stored in the termination object, if the stopping
+#'   condition is met.
+#' @return [\code{ecr_stoppingCondition}]
+#' @export
+makeStoppingCondition = function(condition.fun, name, message) {
     assertFunction(condition.fun, args = c("envir"))
+    assertCharacter(name, len = 1L, any.missing = FALSE)
+    assertCharacter(message, len = 1L, any.missing = FALSE)
+
     attr(condition.fun, "name") = name
-    attr(condition.fun, "description") = description
+    attr(condition.fun, "message") = message
+    condition.fun = addClasses(condition.fun, "ecr_stoppingCondition")
     return(condition.fun)
 }
