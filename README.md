@@ -33,21 +33,22 @@ As a next step we generate an ecr *control object*, which holds all the neccessa
 ```splus
 control = ecr.control(
   population.size = 20L,
-  offspring.size =5L,
+  offspring.size = 5L,
   representation = "float",
   survival.strategy = "plus",
   n.params = 1L,
   mutator = list(gaussMutator),
   mutator.control = list(mutator.gauss.sd = 0.005),
-  max.iter = 50L)
+  stoppingConditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
 ```
 
 Now lets start the optimization process and print the result object, which contains the optimization trace, the best parameters, the best fitness value and some additional information.
 
 ```splus
 set.seed(123)
-result = ecr(obj.fun, control = control)
-print(result)
+res = ecr(obj.fun, control = control)
+print(res)
+print(autoplot(res))
 ```
 
 Take a glance at the examples in the inst/examples directory.
