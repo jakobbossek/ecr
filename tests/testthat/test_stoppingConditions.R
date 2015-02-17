@@ -18,9 +18,6 @@ test_that("stopping conditions work", {
 		survival.strategy = "plus",
 		elite.size = 1L,
 		representation = "float",
-		max.iter = 100L,
-		max.time = 100,
-		termination.eps = 0.003,
 		monitor = makeNullMonitor()
 	)
 

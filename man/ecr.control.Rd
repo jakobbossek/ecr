@@ -7,8 +7,7 @@
 ecr.control(population.size, offspring.size,
   mating.pool.size = floor(population.size/2), representation,
   survival.strategy = "plus", elite.size = 0L, n.params,
-  target.name = "y", max.iter = 100L, max.time = NULL,
-  termination.eps = 10^-1, save.population.at = integer(0),
+  target.name = "y", save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(), mutator = list(gaussMutator),
   recombinator = intermediateRecombinator, mutator.control = list(),
@@ -45,16 +44,6 @@ Number of parameters of the objective function.}
 \item{target.name}{[\code{character(1)}]\cr
 Name for the objective fun values. Default is \dQuote{y}.}
 
-\item{max.iter}{[\code{integer(1)}]\cr
-Maximum number of generations. This is one possible stopping criterion.}
-
-\item{max.time}{[\code{integer(1)}]\cr
-Time budget in seconds. Default ist \code{Inf}.}
-
-\item{termination.eps}{[\code{numeric(1)}]\cr
-The optimization process will stop if the gap between known optimum and current
-best individual falls below this threshold value.}
-
 \item{save.population.at}{[\code{integer}]\cr
 Which populations should be saved? Default is none.}
 
@@ -82,6 +71,9 @@ help pages for the recombination operators for the needed values.}
 
 \item{monitor}{[\code{function}]\cr
 Monitoring function. Default is \code{consoleMonitor}.}
+
+\item{stoppingConditions}{[\code{list}]\cr
+List of functions of type \code{ecr_stoppingCondition}.}
 }
 \value{
 S3 object of type \code{ecr_control}.

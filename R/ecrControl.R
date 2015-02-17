@@ -25,13 +25,6 @@
 #'   Number of parameters of the objective function.
 #' @param target.name [\code{character(1)}]\cr
 #'   Name for the objective fun values. Default is \dQuote{y}.
-#' @param max.iter [\code{integer(1)}]\cr
-#'   Maximum number of generations. This is one possible stopping criterion.
-#' @param max.time [\code{integer(1)}]\cr
-#'   Time budget in seconds. Default ist \code{Inf}.
-#' @param termination.eps [\code{numeric(1)}]\cr
-#'   The optimization process will stop if the gap between known optimum and current
-#'   best individual falls below this threshold value.
 #' @param save.population.at [\code{integer}]\cr
 #'   Which populations should be saved? Default is none.
 #' @param mating.pool.generator [\code{function}]\cr
@@ -52,6 +45,8 @@
 #'   help pages for the recombination operators for the needed values.
 #' @param monitor [\code{function}]\cr
 #'   Monitoring function. Default is \code{consoleMonitor}.
+#' @param stoppingConditions [\code{list}]\cr
+#'   List of functions of type \code{ecr_stoppingCondition}.
 #' @return
 #'   S3 object of type \code{ecr_control}.
 #' @export
@@ -64,9 +59,6 @@ ecr.control = function(
   elite.size = 0L,
   n.params,
   target.name = "y",
-  max.iter = 100L,
-  max.time = NULL,
-  termination.eps = 10^-1,
   save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(),
@@ -85,15 +77,6 @@ ecr.control = function(
   assertCount(elite.size, na.ok = FALSE)
   assertCount(n.params, positive = TRUE, na.ok = FALSE)
   assertCharacter(target.name, len = 1L, any.missing = FALSE)
-
-  assertCount(max.iter, positive = TRUE, na.ok = FALSE)
-  if (!is.null(max.time)) {
-    assertCount(max.time, positive = TRUE, na.ok = FALSE)
-  } else {
-    max.time = Inf
-  }
-
-  assertNumeric(termination.eps, len = 1L, lower = 0, any.missing = FALSE)
 
   if (length(save.population.at) > 0) {
     assertInteger(save.population.at, lower = 0L, any.missing = FALSE)
@@ -159,9 +142,6 @@ ecr.control = function(
     elite.size = elite.size,
     n.params = n.params,
     n.targets = NULL, # we set this by hand here
-    max.iter = max.iter,
-    max.time = max.time,
-    termination.eps = termination.eps,
     mating.pool.generator = mating.pool.generator,
     generator = generator,
     mutator = mutator,

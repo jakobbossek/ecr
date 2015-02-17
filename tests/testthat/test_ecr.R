@@ -21,7 +21,6 @@ test_that("ecr works with simple soo function", {
     offspring.size = offspring.size,
     survival.strategy = survival.strategy,
     elite.size = elite.size,
-    max.iter = max.iter,
     n.params = 2L,
     representation = "float",
     monitor = makeNullMonitor(),
