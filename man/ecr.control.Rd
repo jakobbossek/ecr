@@ -6,9 +6,9 @@
 \usage{
 ecr.control(population.size, offspring.size,
   mating.pool.size = floor(population.size/2), representation,
-  survival.strategy = "plus", elite.size = 0L, n.params, n.targets = 1L,
-  target.names, max.iter = 100L, max.time = NULL, termination.eps = 10^-1,
-  show.info = TRUE, show.info.stepsize = 1L,
+  survival.strategy = "plus", elite.size = 0L, n.params,
+  target.name = "y", max.iter = 100L, max.time = NULL,
+  termination.eps = 10^-1, show.info = TRUE, show.info.stepsize = 1L,
   save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(), mutator = list(gaussMutator),
@@ -41,14 +41,6 @@ does not care about this option if the \code{survival.strategy} is set to 'plus'
 
 \item{n.params}{[\code{integer(1)}]\cr
 Number of parameters of the objective function.}
-
-\item{n.targets}{[\code{integer(1)}]\cr
-Number of target functions. Default is \code{1}. For bicriteria fitness functions
-this should therefore be set to \code{2}.}
-
-\item{target.names}{[\code{character}]\cr
-Names for the objective fun values. Must have length n.targets. If missing the names
-are set to y1, ..., yn where n is n.targets.}
 
 \item{max.iter}{[\code{integer(1)}]\cr
 Maximum number of generations. This is one possible stopping criterion.}
@@ -94,6 +86,9 @@ help pages for the recombination operators for the needed values.}
 
 \item{monitor}{[\code{function}]\cr
 Monitoring function. Default is \code{consoleMonitor}.}
+
+\item{target.namee}{[\code{character(1)}]\cr
+Name for the objective fun values. Default is \dQuote{y}.}
 }
 \value{
 S3 object of type \code{ecr_control}.

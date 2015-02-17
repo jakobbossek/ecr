@@ -40,11 +40,6 @@ ecr = function(objective.fun, control) {
     global.optimum = getGlobalOptimum(objective.fun)$param
   }
 
-  #FIXME: if par.set contains a vector param this does fail!
-  # if (n.params != length(par.set$pars)) {
-  #   stopf("Number of parameters given by control object and ParamSet do not match: %i != %i", n.params, length(par.set$pars))
-  # }
-
   if (control$representation %in% c("float") && !hasFiniteBoxConstraints(par.set)) {
     stopf("Lower and upper box constraints needed for representation type 'float'.")
   }
@@ -74,7 +69,6 @@ ecr = function(objective.fun, control) {
     monitor$before(objective.fun, population, opt.path, iter, control)
 
   repeat {
-    #FIXME delegate this if case to the monitor!
     if (show.info && (iter %% show.info.stepsize == 0L))
       monitor$step(objective.fun, population, opt.path, iter, control)
 
@@ -129,7 +123,6 @@ ecr = function(objective.fun, control) {
 print.ecr_result = function(x, ...) {
   opt.path = x$opt.path
   par.set = opt.path$par.set
-  #FIXME: this is ugly! But paramValueAsString does not work for some reason.
   catf("Parameters: %s", paste(getParamIds(par.set, repeated = TRUE, with.nr = TRUE), "=", x$best.param, sep = "", collapse = ", "))
   catf("Objective function value: %s\n", paste(x$target.names, "=", x$best.value, sep ="", collapse = ", "))
 
@@ -154,7 +147,6 @@ print.ecr_result = function(x, ...) {
 #   Current generation.
 # @return [\code{\link[ParamHelpers]{OptPathDF}}]
 addBestToOptPath = function(opt.path, par.set, best, fitness, generation) {
-  #FIXME: this is ugly!
   if (length(par.set$pars) == 1L) {
     best.param.values = list(best$individual)
   } else {

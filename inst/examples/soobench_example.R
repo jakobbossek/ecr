@@ -21,7 +21,7 @@ load_all(".", reset = TRUE)
 myMonitorStep = function(objective.fun, population, trace, iter, control) {
   n.params = control$n.params
   n.targets = control$n.targets
-  if (!(n.params == 1 && n.targets == 1)) {
+  if (!(n.params == 1 && is.null(n.targets))) {
     warningf("Monitor cannot handle multidimensional funs.")
   }
   x = seq(-5, 5, by = 0.05)
@@ -51,7 +51,6 @@ control = ecr.control(
   survival.strategy = "plus",
   representation = "float",
   n.params = 1L,
-  n.targets = 1L,
   mutator.control = list(mutator.gauss.sd = 0.005),
   monitor = myMonitor
 )

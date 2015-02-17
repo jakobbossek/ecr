@@ -16,7 +16,6 @@ mergePopulations = function(...) {
   individuals = matrix(NA, ncol = n.params, nrow = pop.size)
 
   # now iterate over populations and generate merged population
-  #FIXME: maybe better implement this in C++
   start = 1L
   for (i in 1:length(populations)) {
     j = nrow(populations[[i]]$individuals)

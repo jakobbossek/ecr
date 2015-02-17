@@ -22,7 +22,6 @@ attr(bitflipMutator, "name") = "Bitplip mutator"
 attr(bitflipMutator, "description") = "Flips each bit of the allele with a specific probability."
 attr(bitflipMutator, "supported") = c("binary")
 attr(bitflipMutator, "class") = c("ecr_operator", "ecr_mutator")
-#FIXME: hmm, this is problematic! We need to set this to 1/n.params by default
 attr(bitflipMutator, "defaults") = list(mutator.flip.prob = 1 / 10)
 
 bitflipMutatorCheck = function(operator.control) {

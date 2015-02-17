@@ -23,12 +23,8 @@
 #'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
 #' @param n.params [\code{integer(1)}]\cr
 #'   Number of parameters of the objective function.
-#' @param n.targets [\code{integer(1)}]\cr
-#'   Number of target functions. Default is \code{1}. For bicriteria fitness functions
-#'   this should therefore be set to \code{2}.
-#' @param target.names [\code{character}]\cr
-#'   Names for the objective fun values. Must have length n.targets. If missing the names
-#'   are set to y1, ..., yn where n is n.targets.
+#' @param target.namee [\code{character(1)}]\cr
+#'   Name for the objective fun values. Default is \dQuote{y}.
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximum number of generations. This is one possible stopping criterion.
 #' @param max.time [\code{integer(1)}]\cr
@@ -72,15 +68,13 @@ ecr.control = function(
   survival.strategy = "plus",
   elite.size = 0L,
   n.params,
-  n.targets = 1L,
-  target.names,
+  target.name = "y",
   max.iter = 100L,
   max.time = NULL,
   termination.eps = 10^-1,
   show.info = TRUE,
   show.info.stepsize = 1L,
   save.population.at = integer(0),
-  #FIXME: this should be of type 'ecr_operator' respectively 'ecr_generator'
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(),
   mutator = list(gaussMutator),
@@ -90,22 +84,13 @@ ecr.control = function(
   monitor = makeConsoleMonitor()) {
   assertCount(population.size, positive = TRUE, na.ok = FALSE)
   assertCount(offspring.size, positive = TRUE, na.ok = FALSE)
-  #FIXME: think about mating.pool.size
   mating.pool.size = convertInteger(mating.pool.size)
   assertCount(mating.pool.size, positive = TRUE, na.ok = FALSE)
   assertChoice(representation, choices = getAvailableRepresentations())
   assertChoice(survival.strategy, choices = c("plus", "comma"))
   assertCount(elite.size, na.ok = FALSE)
   assertCount(n.params, positive = TRUE, na.ok = FALSE)
-  assertCount(n.targets, positive = TRUE, na.ok = FALSE)
-  if (!missing(target.names)) {
-    assertCharacter(target.names, min.len = 1L, any.missing = FALSE)
-    if (length(target.names) != n.targets) {
-      stopf("NUmber of target.names must be equal to n targets.")
-    }
-  } else {
-    target.names = paste("y", 1:n.targets, sep = "")
-  }
+  assertCharacter(target.name, len = 1L, any.missing = FALSE)
 
   assertCount(max.iter, positive = TRUE, na.ok = FALSE)
   if (!is.null(max.time)) {
@@ -182,7 +167,7 @@ ecr.control = function(
     survival.strategy = survival.strategy,
     elite.size = elite.size,
     n.params = n.params,
-    n.targets = n.targets,
+    n.targets = NULL, # we set this by hand here
     max.iter = max.iter,
     max.time = max.time,
     termination.eps = termination.eps,
@@ -196,7 +181,7 @@ ecr.control = function(
     show.info = show.info,
     show.info.stepsize = show.info.stepsize,
     save.population.at = save.population.at,
-    target.names = target.names,
+    target.name = target.name,
     monitor = monitor),
   class = "ecr_control")
 }
@@ -230,13 +215,13 @@ print.ecr_control = function(x, ...) {
   catf("[ecr CONTROL OBJECT]\n")
 
   catf("Objective function:")
-  if (x$n.targets == 1L) {
+  if (is.null(x$n.targets)) {
     catf("Optimizing mono-criteria objective function.")
   } else {
     catf("Optimizing multi-criteria objective function (%i targets).", x$n.targets)
   }
   catf("Number of parameters         : %i", x$n.params)
-  if (x$n.targets > 1L) {
+  if (!is.null(x$n.targets)) {
     catf("Number of targets            : %i", x$n.targets)
   }
   catf("")

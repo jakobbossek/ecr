@@ -24,7 +24,7 @@ getTerminationCode = function(
 	}
   	if (didReachToleranceLevel(global.optimum.param, best, termination.eps)) {
     	return(1L)
-    }	
+    }
     if (didReachMaximumTimeBudget(start.time, max.time)) {
     	return(2L)
     }
@@ -52,7 +52,6 @@ didReachToleranceLevel = function(global.optimum.param, best, termination.eps) {
 		return(FALSE)
 	}
     best.param = best$individual
-    #FIXME: this breaks on mixed functions!
     gap = sqrt(sum((best.param - as.numeric(global.optimum.param))^2))
     return(gap < termination.eps)
 }

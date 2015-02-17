@@ -11,8 +11,7 @@ makeConsoleMonitor = function() {
     step = function(objective.fun, population, opt.path, iter, control) {
       max.iter = control$max.iter
       fitness = population$fitness
-      if (control$n.targets == 1L)
-        catf("Iter %i | y (min: %0.2g, mean: %0.2g, max: %0.2g)", iter, min(fitness), mean(fitness), max(fitness))
+      catf("Iter %i | y (min: %0.2g, mean: %0.2g, max: %0.2g)", iter, min(fitness), mean(fitness), max(fitness))
     },
     after = function(...) cat("Finished!\n")
   )

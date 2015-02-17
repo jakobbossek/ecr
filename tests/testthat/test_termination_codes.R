@@ -11,12 +11,11 @@ test_that("termination codes do work", {
 		global.opt.value = 0
 	)
 
-	makeControlForTestCase = function(max.iter = 100L, max.time = 3600L, termination.eps = 0) {
+	makeControlForTestCase = function(max.iter = 100000L, max.time = 3600L, termination.eps = 0) {
 		ecr.control(
 			population.size = 20L,
 			offspring.size = 20L,
 			n.params = 1L,
-			n.targets = 1L,
 			survival.strategy = "plus",
 			elite.size = 1L,
 			representation = "float",

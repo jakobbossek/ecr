@@ -37,7 +37,6 @@ control = ecr.control(
   representation = "float",
   survival.strategy = "plus",
   n.params = 1L,
-  n.targets = 1L,
   mutator = list(gaussMutator),
   mutator.control = list(mutator.gauss.sd = 0.005),
   max.iter = 50L)
