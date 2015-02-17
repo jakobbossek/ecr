@@ -41,6 +41,10 @@ simpleUniformSelection = function(matingPool) {
   population = matingPool$individuals
   fitness = matingPool$fitness
   n = nrow(population)
-    idx = sample(n, size = 2, replace = FALSE)
+  # if we have only one individual, return it twice
+  if (n == 1) {
+    return(makePopulation(population[c(1, 1), , drop = FALSE], fitness[c(1, 1)]))
+  }
+  idx = sample(n, size = 2, replace = FALSE)
   makePopulation(population[idx, , drop = FALSE], fitness[idx])
 }
