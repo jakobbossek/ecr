@@ -19,10 +19,10 @@ test_that("termination codes do work", {
 			survival.strategy = "plus",
 			elite.size = 1L,
 			representation = "float",
-			show.info = FALSE,
 			max.iter = max.iter,
 			max.time = max.time,
-			termination.eps = termination.eps
+			termination.eps = termination.eps,
+			monitor = makeNullMonitor()
 		)
 	}
 

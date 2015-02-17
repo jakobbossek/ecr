@@ -29,8 +29,6 @@ ecr = function(objective.fun, control) {
   population.size = control$population.size
   mating.pool.size = control$mating.pool.size
   offspring.size = control$offspring.size
-  show.info = control$show.info
-  show.info.stepsize = control$show.info.stepsize
   termination.eps = control$termination.eps
   monitor = control$monitor
 
@@ -65,12 +63,10 @@ ecr = function(objective.fun, control) {
   iter = 1L
   start.time = Sys.time()
 
-  if (show.info)
-    monitor$before(objective.fun, population, opt.path, iter, control)
+  monitor$before()
 
   repeat {
-    if (show.info && (iter %% show.info.stepsize == 0L))
-      monitor$step(objective.fun, population, opt.path, iter, control)
+    monitor$step()
 
     parents = matingPoolGenerator(population, mating.pool.size)
     offspring = generateOffspring(parents, objective.fun, control)
@@ -97,8 +93,7 @@ ecr = function(objective.fun, control) {
     iter = iter + 1
   }
 
-  if (show.info)
-    monitor$after(objective.fun, population, opt.path, iter, control)
+  monitor$after()
 
   return(
     structure(list(

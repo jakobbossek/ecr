@@ -4,7 +4,14 @@
 \alias{makeConsoleMonitor}
 \title{Simple monitoring function.}
 \usage{
-makeConsoleMonitor()
+makeConsoleMonitor(show.info.stepsize = 5L)
+}
+\arguments{
+\item{show.info.stepsize}{[\code{integer(1)}]\cr
+Adjust the stepsize of iterations with informative messages.}
+}
+\value{
+[\code{ecr_monitor}]
 }
 \description{
 This is the default monitoring function used by ecr. It simply outputs

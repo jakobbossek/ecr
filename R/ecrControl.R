@@ -23,7 +23,7 @@
 #'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
 #' @param n.params [\code{integer(1)}]\cr
 #'   Number of parameters of the objective function.
-#' @param target.namee [\code{character(1)}]\cr
+#' @param target.name [\code{character(1)}]\cr
 #'   Name for the objective fun values. Default is \dQuote{y}.
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximum number of generations. This is one possible stopping criterion.
@@ -32,11 +32,6 @@
 #' @param termination.eps [\code{numeric(1)}]\cr
 #'   The optimization process will stop if the gap between known optimum and current
 #'   best individual falls below this threshold value.
-#' @param show.info [\code{logical(1)}]\cr
-#'   Logical flag indicating whether helpful information should be printed during the
-#'   evolutionary process.
-#' @param show.info.stepsize [\code{integer(1)}]\cr
-#'   This positive value indicates after which iterations output shall be presented.
 #' @param save.population.at [\code{integer}]\cr
 #'   Which populations should be saved? Default is none.
 #' @param mating.pool.generator [\code{function}]\cr
@@ -72,8 +67,6 @@ ecr.control = function(
   max.iter = 100L,
   max.time = NULL,
   termination.eps = 10^-1,
-  show.info = TRUE,
-  show.info.stepsize = 1L,
   save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(),
@@ -100,9 +93,6 @@ ecr.control = function(
   }
 
   assertNumeric(termination.eps, len = 1L, lower = 0, any.missing = FALSE)
-
-  assertFlag(show.info, na.ok = FALSE)
-  assertCount(show.info.stepsize, positive = TRUE, na.ok = FALSE)
 
   if (length(save.population.at) > 0) {
     assertInteger(save.population.at, lower = 0L, any.missing = FALSE)
@@ -178,8 +168,6 @@ ecr.control = function(
     recombinator = recombinator,
     mutator.control = mutator.control2,
     recombinator.control = recombinator.control,
-    show.info = show.info,
-    show.info.stepsize = show.info.stepsize,
     save.population.at = save.population.at,
     target.name = target.name,
     monitor = monitor),

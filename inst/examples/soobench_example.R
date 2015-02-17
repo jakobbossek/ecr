@@ -18,14 +18,15 @@ load_all(".", reset = TRUE)
 
 # Monitoring function. For details on the expected formal parameters
 # see the help pages for makeMonitor and makeConsoleMonitor.
-myMonitorStep = function(objective.fun, population, trace, iter, control) {
-  n.params = control$n.params
-  n.targets = control$n.targets
+myMonitorStep = function(envir = parent.frame()) {
+  n.params = envir$control$n.params
+  n.targets = envir$control$n.targets
+  population = envir$population
   if (!(n.params == 1 && is.null(n.targets))) {
     warningf("Monitor cannot handle multidimensional funs.")
   }
   x = seq(-5, 5, by = 0.05)
-  df = data.frame(x = x, y = sapply(x, objective.fun))
+  df = data.frame(x = x, y = sapply(x, envir$objective.fun))
   pl = ggplot(data = df, aes(x = x, y = y)) + geom_line()
 
   population.points = data.frame(x = as.numeric(population$individuals[, 1]), y = as.numeric(population$fitness))

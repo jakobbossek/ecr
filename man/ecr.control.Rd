@@ -8,8 +8,7 @@ ecr.control(population.size, offspring.size,
   mating.pool.size = floor(population.size/2), representation,
   survival.strategy = "plus", elite.size = 0L, n.params,
   target.name = "y", max.iter = 100L, max.time = NULL,
-  termination.eps = 10^-1, show.info = TRUE, show.info.stepsize = 1L,
-  save.population.at = integer(0),
+  termination.eps = 10^-1, save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(), mutator = list(gaussMutator),
   recombinator = intermediateRecombinator, mutator.control = list(),
@@ -42,6 +41,9 @@ does not care about this option if the \code{survival.strategy} is set to 'plus'
 \item{n.params}{[\code{integer(1)}]\cr
 Number of parameters of the objective function.}
 
+\item{target.name}{[\code{character(1)}]\cr
+Name for the objective fun values. Default is \dQuote{y}.}
+
 \item{max.iter}{[\code{integer(1)}]\cr
 Maximum number of generations. This is one possible stopping criterion.}
 
@@ -51,13 +53,6 @@ Time budget in seconds. Default ist \code{Inf}.}
 \item{termination.eps}{[\code{numeric(1)}]\cr
 The optimization process will stop if the gap between known optimum and current
 best individual falls below this threshold value.}
-
-\item{show.info}{[\code{logical(1)}]\cr
-Logical flag indicating whether helpful information should be printed during the
-evolutionary process.}
-
-\item{show.info.stepsize}{[\code{integer(1)}]\cr
-This positive value indicates after which iterations output shall be presented.}
 
 \item{save.population.at}{[\code{integer}]\cr
 Which populations should be saved? Default is none.}
@@ -86,9 +81,6 @@ help pages for the recombination operators for the needed values.}
 
 \item{monitor}{[\code{function}]\cr
 Monitoring function. Default is \code{consoleMonitor}.}
-
-\item{target.namee}{[\code{character(1)}]\cr
-Name for the objective fun values. Default is \dQuote{y}.}
 }
 \value{
 S3 object of type \code{ecr_control}.

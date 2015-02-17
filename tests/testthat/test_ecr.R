@@ -24,7 +24,7 @@ test_that("ecr works with simple soo function", {
     max.iter = max.iter,
     n.params = 2L,
     representation = "float",
-    show.info = FALSE
+    monitor = makeNullMonitor()
   )
   }
 
