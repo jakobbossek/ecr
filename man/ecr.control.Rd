@@ -12,7 +12,8 @@ ecr.control(population.size, offspring.size,
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(), mutator = list(gaussMutator),
   recombinator = intermediateRecombinator, mutator.control = list(),
-  recombinator.control = list(), monitor = makeConsoleMonitor())
+  recombinator.control = list(), monitor = makeConsoleMonitor(),
+  stoppingConditions = list())
 }
 \arguments{
 \item{population.size}{[\code{integer(1)}]\cr
