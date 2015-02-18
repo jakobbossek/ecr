@@ -44,7 +44,7 @@ control = ecr.control(
   recombinator = crossoverRecombinator,
   # see the literature on 1+1 GA for this parameter recommendation
   mutator.control = list(mutator.flip.prob = 1 / n.params),
-  stoppingConditions = list(makeMaximumIterationsStoppingCondition(max.iter = 500L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 500L))
 )
 print(control)
 

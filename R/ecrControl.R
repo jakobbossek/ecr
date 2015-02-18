@@ -45,7 +45,7 @@
 #'   help pages for the recombination operators for the needed values.
 #' @param monitor [\code{function}]\cr
 #'   Monitoring function. Default is \code{consoleMonitor}.
-#' @param stoppingConditions [\code{list}]\cr
+#' @param stopping.conditions [\code{list}]\cr
 #'   List of functions of type \code{ecr_stoppingCondition}.
 #' @return
 #'   S3 object of type \code{ecr_control}.
@@ -67,7 +67,7 @@ ecr.control = function(
   mutator.control = list(),
   recombinator.control = list(),
   monitor = makeConsoleMonitor(),
-  stoppingConditions = list()) {
+  stopping.conditions = list()) {
   assertCount(population.size, positive = TRUE, na.ok = FALSE)
   assertCount(offspring.size, positive = TRUE, na.ok = FALSE)
   mating.pool.size = convertInteger(mating.pool.size)
@@ -151,7 +151,7 @@ ecr.control = function(
     recombinator.control = recombinator.control,
     save.population.at = save.population.at,
     target.name = target.name,
-    stoppingConditions = stoppingConditions,
+    stopping.conditions = stopping.conditions,
     monitor = monitor),
   class = "ecr_control")
 }

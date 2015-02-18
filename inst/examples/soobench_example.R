@@ -53,7 +53,7 @@ control = ecr.control(
   n.params = 1L,
   mutator.control = list(mutator.gauss.sd = 0.005),
   monitor = myMonitor,
-  stoppingConditions = list(makeMaximumIterationsStoppingCondition(max.iter = 25L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 25L))
 )
 
 # do the evolutionary magic

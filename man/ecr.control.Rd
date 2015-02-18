@@ -12,7 +12,7 @@ ecr.control(population.size, offspring.size,
   generator = makeUniformGenerator(), mutator = list(gaussMutator),
   recombinator = intermediateRecombinator, mutator.control = list(),
   recombinator.control = list(), monitor = makeConsoleMonitor(),
-  stoppingConditions = list())
+  stopping.conditions = list())
 }
 \arguments{
 \item{population.size}{[\code{integer(1)}]\cr
@@ -72,7 +72,7 @@ help pages for the recombination operators for the needed values.}
 \item{monitor}{[\code{function}]\cr
 Monitoring function. Default is \code{consoleMonitor}.}
 
-\item{stoppingConditions}{[\code{list}]\cr
+\item{stopping.conditions}{[\code{list}]\cr
 List of functions of type \code{ecr_stoppingCondition}.}
 }
 \value{

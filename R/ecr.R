@@ -85,7 +85,7 @@ ecr = function(objective.fun, control) {
     best = getBestIndividual(population)
     opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, iter)
 
-    stop.object = doTerminate(control$stoppingConditions)
+    stop.object = doTerminate(control$stopping.conditions)
     if (length(stop.object) > 0L) {
       break
     }

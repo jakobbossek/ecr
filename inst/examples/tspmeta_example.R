@@ -39,7 +39,7 @@ control = ecr.control(
   generator = makePermutationGenerator(),
   mutator = list(swapMutator),
   recombinator = nullRecombinator,
-  stoppingConditions = list(makeMaximumIterationsStoppingCondition(max.iter = 200L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 200L))
 )
 print(control)
 

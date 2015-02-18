@@ -39,7 +39,7 @@ control = ecr.control(
   n.params = 1L,
   mutator = list(gaussMutator),
   mutator.control = list(mutator.gauss.sd = 0.005),
-  stoppingConditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
 ```
 
 Now lets start the optimization process and print the result object, which contains the optimization trace, the best parameters, the best fitness value and some additional information.

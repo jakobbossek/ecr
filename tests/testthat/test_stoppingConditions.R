@@ -22,10 +22,10 @@ test_that("stopping conditions work", {
 	)
 
 	# check for max time budget
-	control$stoppingConditions = list(makeMaximumTimeStoppingCondition(max.time = 2))
+	control$stopping.conditions = list(makeMaximumTimeStoppingCondition(max.time = 2))
 	expect_true(grepl("Time limit", ecr(obj.fn, control)$message))
 
 	# check for max iterations
-	control$stoppingConditions = list(makeMaximumIterationsStoppingCondition(max.iter = 10L))
+	control$stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 10L))
 	expect_true(grepl("iterations", ecr(obj.fn, control)$message))
 })

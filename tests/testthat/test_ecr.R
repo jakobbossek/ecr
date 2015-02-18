@@ -24,7 +24,7 @@ test_that("ecr works with simple soo function", {
     n.params = 2L,
     representation = "float",
     monitor = makeNullMonitor(),
-    stoppingConditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
+    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
   )
   }
 
