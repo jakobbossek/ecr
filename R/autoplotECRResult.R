@@ -11,10 +11,34 @@
 #' @param ... [any]\cr
 #'   Not used.
 #' @return [\code{\link[ggplot2]{ggplot}}]
-#' @export
-autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, log.fitness = FALSE, ...) {
-  pl = autoplot(object$opt.path, xlim, ylim, log.fitness, ...)
-  pl = pl + ggtitle(sprintf("Optimization trace for function '%s'", getName(object$objective.fun)))
+# @export
+autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = FALSE, log.fitness = FALSE, ...) {
+  assertFlag(show.process, na.ok = FALSE)
+  obj.fun = object$objective.fun
+  n.params = getNumberOfParameters(obj.fun)
+
+  if (show.process) {
+    if (n.params > 2L || isMultiobjective(obj.fun)) {
+      stopf("Visualization not possible for multi-objective functions or function with greater than 2 parameters.")
+    }
+    pl.fun = autoplot(obj.fun)
+    if (length(object$control$save.population.at)) {
+      population = object$population.storage[["0"]]
+      df.points = data.frame(x = population$individuals, y = population$fitness)
+      pl.fun = pl.fun + geom_point(data = df.points, aes(x = x, y = y), colour = "tomato")
+      pl.fun = pl.fun + geom_hline(yintercept = min(population$fitness), linetype = "dashed", colour = "gray")
+    }
+  }
+
+  pl.trace = autoplot(object$opt.path, xlim, ylim, log.fitness, ...)
+  pl.trace = pl.trace + ggtitle(sprintf("Optimization trace for function '%s'", getName(object$objective.fun)))
+
+  if (show.process) {
+    requirePackages("gridExtra", why = "ecr")
+    pl = do.call(arrangeGrob, list(pl.fun, pl.trace, ncol = 1))
+  } else {
+    pl = pl.trace
+  }
   return (pl)
 }
 
