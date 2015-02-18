@@ -13,7 +13,14 @@
 #' @return [\code{\link[ggplot2]{ggplot}}]
 #' @export
 autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, log.fitness = FALSE, ...) {
-  ggdf = as.data.frame(object$opt.path)
+  pl = autoplot(object$opt.path, xlim, ylim, log.fitness, ...)
+  pl = pl + ggtitle(sprintf("Optimization trace for function '%s'", getName(object$objective.fun)))
+  return (pl)
+}
+
+# autoplot function for opt.path used by ecr
+autoplot.OptPath = function(object, xlim, ylim, log.fitness, ...) {
+  ggdf = as.data.frame(object)
   ggdf = ggdf[c("dob", "pop.min.fitness", "pop.mean.fitness", "pop.median.fitness", "pop.max.fitness")]
 
   xlim = BBmisc::coalesce(xlim, c(0, max(ggdf$dob)))
@@ -31,7 +38,6 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, log.fitness = F
   pl = pl + xlab("Generation") + ylab("Fitness")
   pl = pl + xlim(xlim) + ylim(ylim)
   pl = pl + scale_linetype_discrete(name = "Type")
-  pl = pl + ggtitle(sprintf("Optimization trace for function '%s'", getName(object$objective.fun)))
 
   if (log.fitness) {
     pl = pl + scale_y_log10()
