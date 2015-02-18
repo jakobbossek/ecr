@@ -16,11 +16,11 @@ return [\code{ecrResult}]
   Object of type \code{ecr_result} containing a list:
   \itemize{
    \item{objective.fun \code{otf_function}}{Objective function.}
+   \item{control \code{ect_control}}{Control object.}
    \item{best.param \code{numeric}}{Best parameter combination.}
    \item{best.value \code{numeric(1)}}{Best reached value.}
    \item{opt.path \code{optPath}}{Optimization path.}
    \item{population.storage \code{list}}{List of populations.}
-   \item{convergence \code{integer(1)}}{Termination status code.}
    \item{message \code{character(1)}}{Message explaining the reason for termination.}
   }}
 }

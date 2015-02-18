@@ -10,11 +10,11 @@
 #'   Object of type \code{ecr_result} containing a list:
 #'   \itemize{
 #'    \item{objective.fun \code{otf_function}}{Objective function.}
+#'    \item{control \code{ect_control}}{Control object.}
 #'    \item{best.param \code{numeric}}{Best parameter combination.}
 #'    \item{best.value \code{numeric(1)}}{Best reached value.}
 #'    \item{opt.path \code{optPath}}{Optimization path.}
 #'    \item{population.storage \code{list}}{List of populations.}
-#'    \item{convergence \code{integer(1)}}{Termination status code.}
 #'    \item{message \code{character(1)}}{Message explaining the reason for termination.}
 #'   }
 #' @export
@@ -98,6 +98,7 @@ ecr = function(objective.fun, control) {
   return(
     structure(list(
       objective.fun = objective.fun,
+      control = control,
       best.param = setColNames(t(data.frame(best$individual)), getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
       opt.path = opt.path,
@@ -118,13 +119,7 @@ print.ecr_result = function(x, ...) {
   opt.path = x$opt.path
   par.set = opt.path$par.set
   catf("Parameters: %s", paste(getParamIds(par.set, repeated = TRUE, with.nr = TRUE), "=", x$best.param, sep = "", collapse = ", "))
-  catf("Objective function value: %s\n", paste(x$target.names, "=", x$best.value, sep ="", collapse = ", "))
-
-  catf("Optimization path:")
-  opt.path = as.data.frame(opt.path)
-  print(head(opt.path, 10))
-  catf("...")
-  print(tail(opt.path, 10))
+  catf("Objective function value: %s\n", paste(x$control$target.name, "=", x$best.value, sep ="", collapse = ", "))
 }
 
 # Adds the parameter values and the y-value(s) of the best individual to the opt.path.
