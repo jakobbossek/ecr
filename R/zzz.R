@@ -1,6 +1,6 @@
 #' @import ParamHelpers
 #' @import BBmisc
-#' @import otf
+#' @import smoof
 #' @import ggplot2
 #' @import checkmate
 #' @import parallelMap

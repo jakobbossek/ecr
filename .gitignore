@@ -3,4 +3,5 @@
 .RData
 ecr.Rcheck
 ecr.Rproj
+ecr_*.tar.gz
 playground.R

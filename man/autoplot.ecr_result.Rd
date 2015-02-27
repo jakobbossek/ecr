@@ -5,7 +5,7 @@
 \title{Plot optimization trace.}
 \usage{
 \method{autoplot}{ecr_result}(object, xlim = NULL, ylim = NULL,
-  log.fitness = FALSE, ...)
+  show.process = FALSE, log.fitness = FALSE, ...)
 }
 \arguments{
 \item{object}{[\code{ecr_result}]\cr

@@ -18,7 +18,7 @@ License: BSD_2_clause + file LICENSE
 Depends:
     ParamHelpers (>= 1.3),
     BBmisc (>= 1.6),
-    otf
+    smoof
 Imports:
     ggplot2,
     checkmate (>= 1.1),

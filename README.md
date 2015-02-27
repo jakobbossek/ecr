@@ -17,11 +17,11 @@ devtools::install_github("jakobossek/ecr")
 
 In this section we want to optimize a one dimensional function with an Evolutionary Algorithm using just the evolutionary operators shipped with the package. A more in-depth introduction will be made available soon.
 
-The [soobench](http://cran.r-project.org/web/packages/soobench/index.html) R package provides a collection of different single objective test functions commonly used in algorithm benchmarking. As an example we are going to search for the global optimum of the one-dimensional Rastrigin function. The function definition is located in the soobench package, but *ecr* needs the objective function to be of [otf](https://github.com/jakobbossek/otf) type. Fortunately there is a function which generates an otf function out of a soobench function.
+The [soobench](http://cran.r-project.org/web/packages/soobench/index.html) R package provides a collection of different single objective test functions commonly used in algorithm benchmarking. As an example we are going to search for the global optimum of the one-dimensional Rastrigin function. The function definition is located in the soobench package, but *ecr* needs the objective function to be of [smoof](https://github.com/jakobbossek/smoof) type. Fortunately there is a function which generates an smoof function out of a soobench function.
 
 ```splus
 library(soobench)
-library(otf)
+library(smoof)
 library(ecr)
 
 obj.fun = makeSingleObjectiveFunctionFromSOOFunction("rastrigin", dimensions = 1L)

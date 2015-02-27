@@ -23,7 +23,7 @@ obj.fun = function(tour) {
   tour_length(x = inst, order = as.integer(tour))
 }
 
-# now we wrap the objective function with the otf package
+# now we wrap the objective function with the smoof package
 par.set = makeNumericParamSet(len = n.nodes, id = "c", lower = 1, upper = n.nodes, vector = FALSE)
 obj.fun = makeSingleObjectiveFunction(fn = obj.fun, par.set = par.set, name = "Tour")
 

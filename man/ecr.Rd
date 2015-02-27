@@ -7,15 +7,15 @@
 ecr(objective.fun, control)
 }
 \arguments{
-\item{objective.fun}{[\code{otf_function}]\cr
-Single objective target function of type \code{otf_function}.}
+\item{objective.fun}{[\code{smoof_function}]\cr
+Single objective target function of type \code{smoof_function}.}
 
 \item{control}{[\code{ecr.control}]\cr
   Control object.
 return [\code{ecrResult}]
   Object of type \code{ecr_result} containing a list:
   \itemize{
-   \item{objective.fun \code{otf_function}}{Objective function.}
+   \item{objective.fun \code{smoof_function}}{Objective function.}
    \item{control \code{ect_control}}{Control object.}
    \item{best.param \code{numeric}}{Best parameter combination.}
    \item{best.value \code{numeric(1)}}{Best reached value.}
