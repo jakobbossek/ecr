@@ -10,7 +10,7 @@ The **ecr** package provides a powerful framework for **Evolutionary Computing i
 The package will be available in a first version at [CRAN](http://cran.r-project.org) soon. If you are interested in trying out and playing around with the current github developer version use the [devtools](https://github.com/hadley/devtools) package and use the following command in R.
 
 ```splus
-devtools::install_github("jakobossek/ecr")
+devtools::install_github("jakobbossek/ecr")
 ```
 
 ## Example
