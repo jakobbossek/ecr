@@ -21,7 +21,7 @@ obj.fun = function(x) {
 
 n.params = 50L
 
-# now we wrap the objective function with the otf package
+# now we wrap the objective function with the smoof package
 obj.fun = makeSingleObjectiveFunction(
   fn = obj.fun,
   par.set = makeParamSet(

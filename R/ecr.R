@@ -2,14 +2,14 @@
 #'
 #' Takes a function and searches for a global optimum with an evolutionary approach.
 #'
-#' @param objective.fun [\code{otf_function}]\cr
-#'   Single objective target function of type \code{otf_function}.
+#' @param objective.fun [\code{smoof_function}]\cr
+#'   Single objective target function of type \code{smoof_function}.
 #' @param control [\code{ecr.control}]\cr
 #'   Control object.
 #' return [\code{ecrResult}]
 #'   Object of type \code{ecr_result} containing a list:
 #'   \itemize{
-#'    \item{objective.fun \code{otf_function}}{Objective function.}
+#'    \item{objective.fun \code{smoof_function}}{Objective function.}
 #'    \item{control \code{ect_control}}{Control object.}
 #'    \item{best.param \code{numeric}}{Best parameter combination.}
 #'    \item{best.value \code{numeric(1)}}{Best reached value.}
@@ -19,7 +19,7 @@
 #'   }
 #' @export
 ecr = function(objective.fun, control) {
-  assertClass(objective.fun, "otf_function")
+  assertClass(objective.fun, "smoof_function")
   par.set = getParamSet(objective.fun)
   assertClass(par.set, "ParamSet")
 
