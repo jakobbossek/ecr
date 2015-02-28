@@ -25,5 +25,4 @@ Imports:
     parallelMap (>= 1.1),
     reshape2 (>= 1.4.1)
 Suggests:
-    testthat,
-    soobench
+    testthat

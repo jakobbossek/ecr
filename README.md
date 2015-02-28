@@ -17,15 +17,13 @@ devtools::install_github("jakobbossek/ecr")
 
 In this section we want to optimize a one dimensional function with an Evolutionary Algorithm using just the evolutionary operators shipped with the package. A more in-depth introduction will be made available soon.
 
-The [soobench](http://cran.r-project.org/web/packages/soobench/index.html) R package provides a collection of different single objective test functions commonly used in algorithm benchmarking. As an example we are going to search for the global optimum of the one-dimensional Rastrigin function. The function definition is located in the soobench package, but *ecr* needs the objective function to be of [smoof](https://github.com/jakobbossek/smoof) type. Fortunately there is a function which generates an smoof function out of a soobench function.
+The [smoof](https://github.com/jakobbossek/smoof) R package provides a collection of different single objective test functions commonly used in algorithm benchmarking. As an example we are going to search for the global optimum of the one-dimensional Rastrigin function.
 
 ```splus
-library(soobench)
 library(smoof)
 library(ecr)
 
-obj.fun = makeSingleObjectiveFunctionFromSOOFunction("rastrigin", dimensions = 1L)
-
+obj.fun = makeRastriginFunction(dimensions = 1L)
 ```
 
 As a next step we generate an ecr *control object*, which holds all the neccessary parameters for the evolutionary algorithm. We decide ourself for the natural representation with real-valued numbers as the genotype, a population size of 20 individuals with 5 individuals being created by recombination and mutation in each generation. Furthermore we decide to use a 'plus' survival strategy, i. e., the current population and the offspring will be merged before survival selection takes place. Gauss mutation with a standard deviance of 0.005 serves as the mutation operator and we keep the intermediate recombination operator (which is the default for representation float). Moreover we define a maximal number of 50 generations.

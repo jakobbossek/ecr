@@ -10,7 +10,7 @@
 library(methods)
 library(testthat)
 library(devtools)
-library(soobench)
+library(smoof)
 library(ggplot2)
 library(BBmisc)
 
@@ -38,11 +38,8 @@ myMonitorStep = function(envir = parent.frame()) {
 
 myMonitor = makeMonitor(step = myMonitorStep)
 
-# the soobench generator names changes in the recent dev version
-if (!exists("rastrigin_function", mode = "function")) {
-  rastrigin_function = generate_rastrigin_function
-}
-obj.fun = makeSingleObjectiveFunctionFromSOOFunction("rastrigin", dimensions = 1L)
+# generate objective function
+obj.fun = makeRastriginFunction(dimensions = 1L)
 
 # initialize control object
 control = ecr.control(
@@ -53,7 +50,7 @@ control = ecr.control(
   n.params = 1L,
   mutator.control = list(mutator.gauss.sd = 0.005),
   monitor = myMonitor,
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 25L))
+  stopping.conditions = setupStoppingConditions(max.iter = 25L)
 )
 
 # do the evolutionary magic
