@@ -4,8 +4,12 @@
 #'   Time budget in seconds. Default ist \code{Inf}.
 #' @return [\code{function}]
 #' @export
-makeMaximumTimeStoppingCondition = function(max.time = Inf) {
-    assertCount(max.time, positive = TRUE, na.ok = FALSE)
+makeMaximumTimeStoppingCondition = function(max.time = NULL) {
+    if (!is.null(max.time)) {
+        assertInt(max.time, lower = 1L, na.ok = FALSE)
+    } else {
+        max.time = Inf
+    }
     force(max.time)
 
     condition.fun = function(envir = parent.frame()) {

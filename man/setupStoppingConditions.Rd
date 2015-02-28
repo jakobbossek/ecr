@@ -4,7 +4,7 @@
 \alias{setupStoppingConditions}
 \title{Generator for some frequently used stopping conditions.}
 \usage{
-setupStoppingConditions(max.iter = Inf, max.time = Inf)
+setupStoppingConditions(max.iter = NULL, max.time = NULL)
 }
 \arguments{
 \item{max.iter}{[\code{integer(1)}]\cr

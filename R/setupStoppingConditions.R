@@ -16,8 +16,8 @@
 # The stopping condition generators should have attributes 'checkFunction' and
 # default value (see ecr operators). This way setupStoppingCondition could
 # iterate over all available stopping conditions.
-setupStoppingConditions = function(max.iter = Inf, max.time = Inf) {
-    if (is.infinite(max.iter) && is.infinite(max.time)) {
+setupStoppingConditions = function(max.iter = NULL, max.time = NULL) {
+    if (is.null(max.iter) && is.null(max.time)) {
         stopf("At least max.iter or max.time must be finite.")
     }
     list(

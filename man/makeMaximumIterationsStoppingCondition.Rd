@@ -4,7 +4,7 @@
 \alias{makeMaximumIterationsStoppingCondition}
 \title{Stopping condition: maximum number of iterations.}
 \usage{
-makeMaximumIterationsStoppingCondition(max.iter = Inf)
+makeMaximumIterationsStoppingCondition(max.iter = NULL)
 }
 \arguments{
 \item{max.iter}{[\code{integer(1)}]\cr

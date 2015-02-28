@@ -4,8 +4,12 @@
 #'   Maximal number of iterations. Default ist \code{Inf}.
 #' @return [\code{function}]
 #' @export
-makeMaximumIterationsStoppingCondition = function(max.iter = Inf) {
-    assertCount(max.iter, positive = TRUE, na.ok = FALSE)
+makeMaximumIterationsStoppingCondition = function(max.iter = NULL) {
+    if (!is.null(max.iter)) {
+        assertInt(max.iter, lower = 1L, na.ok = FALSE)
+    } else {
+        max.iter = Inf
+    }
     force(max.iter)
 
     condition.fun = function(envir = parent.frame()) {
