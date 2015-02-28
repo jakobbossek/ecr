@@ -5,3 +5,4 @@ ecr.Rcheck
 ecr.Rproj
 ecr_*.tar.gz
 playground.R
+test_specific.R
