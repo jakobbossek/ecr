@@ -5,4 +5,5 @@
 #' @import checkmate
 #' @import parallelMap
 #' @import reshape2
+#' @importFrom gridExtra arrangeGrob
 NULL
