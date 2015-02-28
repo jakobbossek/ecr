@@ -4,7 +4,7 @@
 #'   Time budget in seconds. Default ist \code{Inf}.
 #' @return [\code{function}]
 #' @export
-makeMaximumTimeStoppingCondition = function(max.time) {
+makeMaximumTimeStoppingCondition = function(max.time = Inf) {
     assertCount(max.time, positive = TRUE, na.ok = FALSE)
     force(max.time)
 

@@ -4,7 +4,7 @@
 \alias{makeMaximumTimeStoppingCondition}
 \title{Stopping condition: time limit.}
 \usage{
-makeMaximumTimeStoppingCondition(max.time)
+makeMaximumTimeStoppingCondition(max.time = Inf)
 }
 \arguments{
 \item{max.time}{[\code{integer(1)}]\cr
