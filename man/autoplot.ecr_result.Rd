@@ -17,6 +17,10 @@ Lower and upper bound for generation. If \code{NULL}, this is set automatically.
 \item{ylim}{[\code{numeric(2)} | NULL]\cr
 Lower and upper bound for fitness. If \code{NULL}, this is set automatically.}
 
+\item{show.process}{[\code{logical(1)}]\cr
+Should the function itself with the population be plotted as well? Default is
+\code{FALSE}.}
+
 \item{log.fitness}{[\code{logical(1)}]\cr
 Log-transform fitness values? Default is \code{FALSE}.}
 
@@ -24,9 +28,10 @@ Log-transform fitness values? Default is \code{FALSE}.}
 Not used.}
 }
 \value{
-[\code{\link[ggplot2]{ggplot}}]
+Nothing.
 }
 \description{
-Plot optimization trace.
+Call this function on the result object of an \code{\link{ecr}} function call
+to visualize the optimization trace.
 }
 

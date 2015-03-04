@@ -18,12 +18,12 @@ License: BSD_2_clause + file LICENSE
 Depends:
     ParamHelpers (>= 1.3),
     BBmisc (>= 1.6),
-    smoof
+    smoof (>= 1.0),
+    ggplot2 (>= 1.0.0)
 Imports:
-    ggplot2,
     checkmate (>= 1.1),
     parallelMap (>= 1.1),
     reshape2 (>= 1.4.1),
     gridExtra (>= 0.9.1)
 Suggests:
-    testthat
+    testthat (>= 0.9.1)
