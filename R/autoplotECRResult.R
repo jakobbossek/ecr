@@ -38,9 +38,16 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
       }
       pl.fun = autoplot(obj.fun)
       population = object$population.storage[[as.character(dob)]]
-      df.points = data.frame(x = population$individuals, y = population$fitness)
-      pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x", y = "y"), colour = "tomato")
-      pl.fun = pl.fun + geom_hline(yintercept = min(population$fitness), linetype = "dashed", colour = "gray")
+      if (n.params == 2L) {
+        df.points = as.data.frame(population$individuals)
+        colnames(df.points) = paste("x", 1:n.params, sep = "")
+        df.points$y = population$fitness
+        pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x1", y = "x2"), colour = "tomato")
+      } else {
+        df.points = data.frame(x = population$individuals, y = population$fitness)
+        pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x", y = "y"), colour = "tomato")
+        pl.fun = pl.fun + geom_hline(yintercept = min(population$fitness), linetype = "dashed", colour = "gray")
+      }
     }
     if (show.process) {
       #FIXME: this seems to fail!
