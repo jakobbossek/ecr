@@ -16,7 +16,7 @@
 #' objecitve optimization formalities here and refer the interested reader to
 #' the literature. For now, let us assume, that we want to optimize a single
 #' criterion, i.e., the task is
-#' \deqn{\min_{\mathbf{x}} f(\mathbf{x})}.
+#' \deqn{\min_{\mathbf{x}} f(\mathbf{x}).}
 #'
 #' However, many functions, which occur in practise of engineering, are hard
 #' to optimize. In this case, evolutionary algorithms frequently get applicated
@@ -34,5 +34,5 @@
 #' different evolutionary operators and/or parametrizations.
 #'
 #' @docType package
-#' @name ecr
+#' @name ecrpackage
 NULL

@@ -6,7 +6,7 @@
 #'   Single objective target function of type \code{smoof_function}.
 #' @param control [\code{ecr.control}]\cr
 #'   Control object.
-#' return [\code{ecrResult}]
+#' @return [\code{ecrResult}]
 #'   Object of type \code{ecr_result} containing a list:
 #'   \itemize{
 #'    \item{objective.fun \code{smoof_function}}{Objective function.}
@@ -17,6 +17,34 @@
 #'    \item{population.storage \code{list}}{List of populations.}
 #'    \item{message \code{character(1)}}{Message explaining the reason for termination.}
 #'   }
+#' @examples
+#' library(smoof)
+#' library(ParamHelpers)
+#' # We want to find the minimum of the function f(x) = x sin(2x) on the intervall
+#' # [0, 2pi]. The optimal value is about -5.5 for x = 5.54.
+#' # First we wrap the function with the smoof package:
+#' obj.fn = makeSingleObjectiveFunction(
+#'   name = "My obj. function",
+#'   fn = function(x) x * sin(2 * x),
+#'   par.set = makeParamSet(makeNumericParam("x", lower = 0, upper = 2 * pi))
+#' )
+#'
+#' # We want to solve this with a (10 + 10) evolutionary strategy based on
+#' # the floating point representation of the input vectors with the default
+#' # operators: intermediate recombinator and Gauss mutation
+#' ctrl = ecr.control(
+#'   population.size = 10L,
+#'   offspring.size = 10L,
+#'   survival.strategy = "plus",
+#'   n.params = 1L,
+#'   representation = "float",
+#'   stopping.conditions = setupStoppingConditions(max.iter = 100L)
+#' )
+#'
+#' res = ecr(obj.fn, control = ctrl)
+#' print(res)
+#'
+#' @seealso \code{\link{ecr.control}}
 #' @export
 ecr = function(objective.fun, control) {
   assertClass(objective.fun, "smoof_function")

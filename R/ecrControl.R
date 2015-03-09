@@ -133,6 +133,17 @@ ecr.control = function(
      stopf("Elite.size must be smaller than population.size! Otherwise each population would be the same.")
   }
 
+  if (length(stopping.conditions) == 0) {
+    stopf("You need to specify at least one stopping condition.")
+  } else {
+    valid = sapply(stopping.conditions, function(condition) {
+      inherits(condition, "ecr_stoppingCondition")
+    })
+    if (any(!valid)) {
+      stopf("All stopping conditions need to have type 'ecr_stoppingCondition'.")
+    }
+  }
+
   structure(list(
     population.size = population.size,
     offspring.size = offspring.size,
