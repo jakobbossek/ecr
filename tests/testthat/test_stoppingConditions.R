@@ -18,7 +18,8 @@ test_that("stopping conditions work", {
 		survival.strategy = "plus",
 		elite.size = 1L,
 		representation = "float",
-		monitor = makeNullMonitor()
+		monitor = makeNullMonitor(),
+    stopping.conditions = setupStoppingConditions(max.iter = 5L)
 	)
 
 	# check for max time budget
