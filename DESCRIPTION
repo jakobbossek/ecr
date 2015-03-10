@@ -27,3 +27,4 @@ Imports:
     gridExtra (>= 0.9.1)
 Suggests:
     testthat (>= 0.9.1)
+ByteCompile: yes
