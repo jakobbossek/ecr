@@ -7,12 +7,12 @@ checkOperator = function(operator) {
   assertCharacter(attr(operator, "name"), len = 1L, any.missing = FALSE)
   assertCharacter(attr(operator, "description"), len = 1L, any.missing = FALSE)
   assertCharacter(attr(operator, "supported"), min.len = 1L, any.missing = FALSE)
+  assertList(attr(operator, "defaults"), any.missing = FALSE)
 }
 
 checkMutator = function(mutator) {
   checkOperator(mutator)
   assertClass(mutator, "ecr_mutator")
-  assertList(attr(mutator, "defaults"), any.missing = FALSE)
 }
 
 checkRecombinator = function(recombinator) {

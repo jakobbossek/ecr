@@ -9,8 +9,8 @@ ecr.control(population.size, offspring.size,
   survival.strategy = "plus", elite.size = 0L, n.params,
   target.name = "y", save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
-  generator = makeUniformGenerator(), mutator = list(gaussMutator),
-  recombinator = intermediateRecombinator, mutator.control = list(),
+  generator = makeUniformGenerator(), mutator = list(makeGaussMutator()),
+  recombinator = makeIntermediateRecombinator(), mutator.control = list(),
   recombinator.control = list(), monitor = makeConsoleMonitor(),
   stopping.conditions = list())
 }

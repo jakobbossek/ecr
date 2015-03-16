@@ -11,5 +11,5 @@ getOperatorCheckFunction = function(operator) {
 
 #' @export
 getOperatorCheckFunction.ecr_operator = function(operator) {
-  attr(operator, "checkFunction")
+  attr(operator, "checker")
 }

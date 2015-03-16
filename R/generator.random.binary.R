@@ -26,6 +26,7 @@ makeBinaryGenerator = function() {
   operator = makeOperator(
     operator = generateBinaryPopulation,
     name = "Binary generator",
+    description = "Samples uniformally distributed 0, 1 values.",
     supported = c("binary")
   )
   operator = addClasses(operator, c("ecr_generator"))

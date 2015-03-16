@@ -29,7 +29,8 @@ makeUniformGenerator = function() {
   operator = makeOperator(
     operator = generateUniformPopulation,
     name = "Uniform generator",
-    supported = c("float")
+    description = "Samples uniformally distributed points in the design space.",
+    supported = "float"
   )
   operator = addClasses(operator, c("ecr_generator"))
   return(operator)

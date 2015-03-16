@@ -12,12 +12,17 @@
 # @return [\code{ecr_recombinator}]
 #   Recombinator object.
 makeRecombinator = function(
-  recombinator, name,
+  recombinator, name, description,
   supported = getAvailableRepresentations(),
-  n.parents = 2L) {
+  n.parents = 2L,
+  defaults = list(),
+  checker = function(operator.control) TRUE) {
+  recombinator = makeOperator(recombinator, name, description, supported, defaults)
+
   assertInteger(n.parents, len = 1L, lower = 2L, any.missing = FALSE)
-  recombinator = makeOperator(recombinator, name, supported)
   attr(recombinator, "n.parents") = n.parents
+
   recombinator = addClasses(recombinator, c("ecr_recombinator"))
+
   return(recombinator)
 }

@@ -4,18 +4,31 @@
 #   Actual mutation operator.
 # @param name [\code{character(1)}]\cr
 #   Name of the operator.
+# @param description [\code{character(1)}]\cr
+#   Short description of how the mutator works.
 # @param supported [\code{character}]\cr
 #   Vector of names of supported parameter representations. For example
 #   'permutation', 'float', 'binary'.
+# @param defaults [\code{list}]\cr
+#   List of default values for the operators strategy parameters.
 # @return [\code{ecr_operator}]
 #   Operator object.
-makeOperator = function(operator, name, supported = getAvailableRepresentations()) {
+makeOperator = function(operator, name, description,
+  supported = getAvailableRepresentations(),
+  defaults = list(),
+  checker = function(operator.control) TRUE) {
   assertFunction(operator)
   assertCharacter(name, len = 1L, any.missing = FALSE)
+  assertCharacter(description, len = 1L, any.missing = FALSE)
   assertSubset(supported, choices = getAvailableRepresentations(), empty.ok = FALSE)
+  assertList(defaults, unique = TRUE, any.missing = FALSE)
+  assertFunction(checker, args = "operator.control")
 
   attr(operator, "name") = name
+  attr(operator, "description") = description
   attr(operator, "supported") = supported
+  attr(operator, "defaults") = defaults
+  attr(operator, "checker") = checker
 
   operator = addClasses(operator, c("ecr_operator"))
   return(operator)

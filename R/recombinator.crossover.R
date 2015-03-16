@@ -1,13 +1,9 @@
 #' Generator of the crossover recombination operator.
 #'
-#' @param setOfIndividuals [\code{setOfIndividuals}]\cr
-#'   Set of individuals.
-#' @param control [\code{list}]\cr
-#'   Empty list. Intermediate recombinator has no parameters.
-#' @return [\code{setOfIndividuals}]
-#'   Recombined offspring.
+#' @return [\code{ecr_recombinator}]
 #' @export
-crossoverRecombinator = function(setOfIndividuals, control = list()) {
+makeCrossoverRecombinator = function() {
+  recombinator = function(setOfIndividuals, control = list()) {
     parents = setOfIndividuals$individuals
     parent1 = parents[1, ]
     parent2 = parents[2, ]
@@ -18,15 +14,13 @@ crossoverRecombinator = function(setOfIndividuals, control = list()) {
     child[idx:n] = parent2[idx:n]
     child = matrix(child, nrow = 1L)
     makePopulation(child)
+  }
+
+  makeRecombinator(
+    recombinator = recombinator,
+    name = "Crossover recombinator",
+    description = "Performs classical crossover",
+    n.parents = 2L,
+    supported = c("float", "binary")
+  )
 }
-
-attr(crossoverRecombinator, "name") = "Crossover recombinator"
-attr(crossoverRecombinator, "description") = "No description"
-attr(crossoverRecombinator, "supported") = c("float", "binary")
-attr(crossoverRecombinator, "n.parents") = 2L
-attr(crossoverRecombinator, "defaults") = list()
-attr(crossoverRecombinator, "class") = c("ecr_operator", "ecr_recombinator")
-
-crossoverRecombinatorCheck = function(operator.control) {}
-
-attr(crossoverRecombinator, "checkFunction") = crossoverRecombinatorCheck

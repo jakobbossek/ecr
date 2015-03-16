@@ -1,24 +1,18 @@
 #' The nullRecombinator does not perform any recombination.
 #'
-#' @param setOfIndividuals [\code{setOfIndividuals}]\cr
-#'   Set of individuals.
-#' @param control [\code{list}]\cr
-#'   Empty list. Intermediate recombinator has no paramerters.
-#' @return [\code{setOfIndividuals}]
-#'   Recombined offspring.
+#' @return [\code{ecr_recombinator}]
 #' @export
-nullRecombinator = function(setOfIndividuals, control=list()) {
-  child = setOfIndividuals$individuals[1, , drop = FALSE]
-  makePopulation(child)
+makeNullRecombinator = function() {
+  recombinator = function(setOfIndividuals, control=list()) {
+    child = setOfIndividuals$individuals[1, , drop = FALSE]
+    makePopulation(child)
+  }
+
+  makeRecombinator(
+    recombinator = recombinator,
+    name = "NULL recombinator",
+    description = "Does not perform any recombination.",
+    supported = getAvailableRepresentations(),
+    n.parents = 10L
+  )
 }
-
-attr(nullRecombinator, "name") = "null recombinator"
-attr(nullRecombinator, "description") = "No description"
-attr(nullRecombinator, "supported") = getAvailableRepresentations()
-attr(nullRecombinator, "n.parents") = 10L
-attr(nullRecombinator, "defaults") = list()
-attr(nullRecombinator, "class") = c("ecr_operator", "ecr_recombinator")
-
-nullRecombinatorCheck = function(operator.control) {}
-
-attr(nullRecombinator, "checkFunction") = nullRecombinatorCheck

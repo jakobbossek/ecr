@@ -37,8 +37,8 @@ control = ecr.control(
   elite.size = 1L,
   n.params = tspmeta:::number_of_cities(inst),
   generator = makePermutationGenerator(),
-  mutator = list(swapMutator),
-  recombinator = nullRecombinator,
+  mutator = list(makeSwapMutator()),
+  recombinator = makeNullRecombinator(),
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 200L))
 )
 print(control)

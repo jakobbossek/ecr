@@ -40,8 +40,8 @@ control = ecr.control(
   survival.strategy = "plus",
   n.params = n.params,
   generator = makeBinaryGenerator(),
-  mutator = list(bitflipMutator),
-  recombinator = crossoverRecombinator,
+  mutator = list(makeBitFlipMutator()),
+  recombinator = makeCrossoverRecombinator(),
   # see the literature on 1+1 GA for this parameter recommendation
   mutator.control = list(mutator.flip.prob = 1 / n.params),
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 500L))

@@ -29,6 +29,7 @@ makePermutationGenerator = function() {
   operator = makeOperator(
     operator = generatePermutationPopulation,
     name = "Permutation generator",
+    description = "Generates random permutations.",
     supported = c("permutation")
   )
   operator = addClasses(operator, c("ecr_generator"))
