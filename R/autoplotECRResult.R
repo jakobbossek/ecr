@@ -65,7 +65,7 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
 plotTrace = function(df, xlim, ylim, log.fitness, ...) {
   ggdf = df[c("dob", "pop.min.fitness", "pop.mean.fitness", "pop.median.fitness", "pop.max.fitness")]
   xlim = BBmisc::coalesce(xlim, c(0, max(ggdf$dob)))
-  ylim = BBmisc::coalesce(ylim, c(0, max(ggdf$pop.max.fitness)))
+  ylim = BBmisc::coalesce(ylim, c(min(ggdf$pop.min.fitness), max(ggdf$pop.max.fitness)))
   assertNumeric(ylim, len = 2L, any.missing = FALSE)
   assertNumeric(xlim, len = 2L, any.missing = FALSE)
   assertFlag(log.fitness)

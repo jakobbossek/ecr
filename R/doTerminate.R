@@ -6,22 +6,22 @@
 # @param envir [environment]
 #   Environment in which to look for some maybe neccessary variables.
 # @return [stopObject]
-doTerminate = function(stopping.funs, envir = parent.frame()) {
-    stopObject = list()
+doTerminate = function(stopping.funs, opt.path) {
+  stopObject = list()
 
     # if we have not specified any stopping conditions always return the empty object
-    if (!length(stopping.funs)) {
-        return(stopObject)
-    }
+  if (!length(stopping.funs)) {
+    return(stopObject)
+  }
 
     # otherwise iterate over stopping conditions and check
-    for (stopping.fun in stopping.funs) {
-        shouldStop = stopping.fun(envir = envir)
-        if (shouldStop) {
-            stopObject$name = attr(stopping.fun, "name")
-            stopObject$message = attr(stopping.fun, "message")
-            break
-        }
+  for (stopping.fun in stopping.funs) {
+    shouldStop = stopping.fun(opt.path = opt.path)
+    if (shouldStop) {
+      stopObject$name = attr(stopping.fun, "name")
+      stopObject$message = attr(stopping.fun, "message")
+      break
     }
-    return(stopObject)
+  }
+  return(stopObject)
 }

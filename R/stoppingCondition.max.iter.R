@@ -5,20 +5,21 @@
 #' @return [\code{function}]
 #' @export
 makeMaximumIterationsStoppingCondition = function(max.iter = NULL) {
-    if (!is.null(max.iter)) {
-        assertInt(max.iter, lower = 1L, na.ok = FALSE)
-    } else {
-        max.iter = Inf
-    }
-    force(max.iter)
+  if (!is.null(max.iter)) {
+    assertInt(max.iter, lower = 1L, na.ok = FALSE)
+  } else {
+    max.iter = Inf
+  }
+  force(max.iter)
 
-    condition.fun = function(envir = parent.frame()) {
-        envir$iter > max.iter
-    }
+  condition.fun = function(opt.path) {
+    iter.vector = getOptPathCol(opt.path, "iter")
+    max(iter.vector) > max.iter
+  }
 
-    makeStoppingCondition(
-        condition.fun,
-        name = "IterLimit",
-        message = sprintf("Maximum number of iterations reached: '%i'", max.iter)
+  makeStoppingCondition(
+    condition.fun,
+    name = "IterLimit",
+    message = sprintf("Maximum number of iterations reached: '%i'", max.iter)
     )
 }

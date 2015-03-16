@@ -80,16 +80,27 @@ ecr = function(objective.fun, control) {
   population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
 
-  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE, include.extra = TRUE)
-  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, 0)
+  buildExtras = function(iter, start.time, fitness) {
+    return(list(
+      past.time = as.numeric(Sys.time() - start.time),
+      iter = iter,
+      pop.min.fitness = min(fitness),
+      pop.mean.fitness = mean(fitness),
+      pop.median.fitness = median(fitness),
+      pop.max.fitness = max(fitness)
+      ))
+  }
+
+  iter = 1L
+  start.time = Sys.time()
+
+  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE, include.extra = TRUE, include.exec.time = TRUE)
+  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, extra = buildExtras(iter, start.time, population$fitness), exec.time = 0.0)
 
   population.storage = namedList(control$save.population.at)
   if (0 %in% control$save.population.at) {
     population.storage[[as.character(0)]] = population
   }
-
-  iter = 1L
-  start.time = Sys.time()
 
   monitor$before()
 
@@ -111,9 +122,9 @@ ecr = function(objective.fun, control) {
     }
 
     best = getBestIndividual(population)
-    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, iter)
+    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, exec.time = 0.0, extra = buildExtras(iter, start.time, population$fitness))
 
-    stop.object = doTerminate(control$stopping.conditions)
+    stop.object = doTerminate(control$stopping.conditions, opt.path)
     if (length(stop.object) > 0L) {
       break
     }
@@ -132,8 +143,8 @@ ecr = function(objective.fun, control) {
       opt.path = opt.path,
       population.storage = population.storage,
       message = stop.object$message
-    ), class = "ecr_result")
-  )
+      ), class = "ecr_result")
+    )
 }
 
 #' Print the result of an ecr run.
@@ -163,19 +174,13 @@ print.ecr_result = function(x, ...) {
 # @param generation [\code{integer(1)}]\cr
 #   Current generation.
 # @return [\code{\link[ParamHelpers]{OptPathDF}}]
-addBestToOptPath = function(opt.path, par.set, best, fitness, generation) {
+addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.time, extra) {
   if (length(par.set$pars) == 1L) {
     best.param.values = list(best$individual)
   } else {
     best.param.values = as.list(best$individual)
     names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
   }
-  extras = list(
-    pop.min.fitness = min(fitness),
-    pop.mean.fitness = mean(fitness),
-    pop.median.fitness = median(fitness),
-    pop.max.fitness = max(fitness)
-  )
-  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation, extra = extras)
+  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation, exec.time = exec.time, extra = extra)
   return(opt.path)
 }

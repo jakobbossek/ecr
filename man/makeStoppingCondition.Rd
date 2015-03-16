@@ -8,8 +8,8 @@ makeStoppingCondition(condition.fun, name, message)
 }
 \arguments{
 \item{condition.fun}{[\code{function}]\cr
-Function which takes an environment \code{envir} as its only parameter and return
-a single logical.}
+Function which takes an environment \code{\link[ParamHelpers]{OptPath}} as its
+only parameter and return a single logical.}
 
 \item{name}{[\code{character(1)}]\cr
 Identifier for the stopping condition.}
