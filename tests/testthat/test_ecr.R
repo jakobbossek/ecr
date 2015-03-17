@@ -1,22 +1,12 @@
 context("ecr main function")
 
-test_that("ecr works with simple soo function", {
-  obj.fun = makeSingleObjectiveFunction(
-    name = "2D Sphere",
-    fn = function(x) sum(x^2),
-    par.set = makeParamSet(
-      makeNumericParam("x1", lower = -2, upper = 2),
-      makeNumericParam("x2", lower = -2, upper = 2)
-    )
-  )
-
-  setUpControlObject = function(population.size,
-    offspring.size,
-    survival.strategy = "plus",
-    elite.size = 1L,
-    mating.pool.size = round(population.size / 2),
-    max.iter = 100L) {
-    ecr.control(
+setUpControlObject = function(population.size,
+  offspring.size,
+  survival.strategy = "plus",
+  elite.size = 1L,
+  mating.pool.size = round(population.size / 2),
+  max.iter = 100L) {
+  ecr.control(
     population.size = population.size,
     offspring.size = offspring.size,
     survival.strategy = survival.strategy,
@@ -25,8 +15,11 @@ test_that("ecr works with simple soo function", {
     representation = "float",
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
-  )
-  }
+    )
+}
+
+test_that("ecr works with simple soo function", {
+  obj.fun = smoof::makeSphereFunction(dimensions = 2L)
 
   for (population.size in c(20, 40, 60)) {
     for (offspring.size in c(20, 40, 60)) {
@@ -45,6 +38,42 @@ test_that("ecr works with simple soo function", {
           info = sprintf("Did not approximate optimal value with params mu: %i, lambda: %i, strategy: %s", population.size, offspring.size, survival.strategy))
         expect_true(all(res$best.param < 0.1),
           info = sprintf("Did not approximate optimal params with params mu: %i, lambda: %i, strategy: %s", population.size, offspring.size, survival.strategy))
+      }
+    }
+  }
+})
+
+test_that("ecr works on binary representations", {
+  n.params = 10L
+  max.iter = 200L
+  obj.fun = makeOneMinFunction(dimensions = n.params)
+
+  for (population.size in c(10, 15, 20)) {
+    for (offspring.size in c(10, 15, 20)) {
+      for (mutator in c(makeBitFlipMutator())) {
+        control = ecr.control(
+          population.size = population.size,
+          offspring.size = offspring.size,
+          survival.strategy = "plus",
+          stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter)),
+          monitor = makeNullMonitor(),
+          n.params = n.params,
+          generator = makeBinaryGenerator(),
+          recombinator = makeCrossoverRecombinator(),
+          representation = "binary",
+          mutator = list(mutator)
+        )
+
+        res = ecr(obj.fun, control = control)
+
+        # check results
+        expect_false(is.null(res))
+        expect_equal(res$best.value, 0,
+          info = sprintf("Did not find OneMin minimum with params mu: %i, lambda: %i, strategy: %s, mutator: %s",
+            population.size, offspring.size, "plus", getOperatorName(mutator)))
+        expect_true(all(res$best.param == 0),
+          info = sprintf("Did not find OneMin minimum with params mu: %i, lambda: %i, strategy: %s, mutator: %s",
+            population.size, offspring.size, "plus", getOperatorName(mutator)))
       }
     }
   }

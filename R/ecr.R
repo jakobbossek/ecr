@@ -88,7 +88,7 @@ ecr = function(objective.fun, control) {
       pop.mean.fitness = mean(fitness),
       pop.median.fitness = median(fitness),
       pop.max.fitness = max(fitness)
-      ))
+    ))
   }
 
   iter = 1L
