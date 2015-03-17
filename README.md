@@ -1,6 +1,6 @@
 # ecr: Evolutionary Computing in R
 
-Travis CI build status: [![Build Status](https://travis-ci.org/jakobbossek/ecr.svg?branch=master)](https://travis-ci.org/jakobbossek/ecr)
+[![Build Status](https://travis-ci.org/jakobbossek/ecr.svg?branch=master)](https://travis-ci.org/jakobbossek/ecr)
 [![Coverage Status](https://coveralls.io/repos/jakobbossek/ecr/badge.svg)](https://coveralls.io/r/jakobbossek/ecr)
 
 The **ecr** package provides a powerful framework for **Evolutionary Computing in R**. The user can solve his objective functions using predefined evolutionary operators, i. e., operators for mutation, recombination and so on for several common representations, with only a few lines of code. Extending the framework with own operators is also possible. Additionaly there are various control options such as the survival strategy elitism, which allow maximal flexibility.
@@ -35,9 +35,10 @@ control = ecr.control(
   representation = "float",
   survival.strategy = "plus",
   n.params = 1L,
-  mutator = list(gaussMutator),
+  mutator = makeGaussMutator(),
   mutator.control = list(mutator.gauss.sd = 0.005),
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
+)
 ```
 
 Now lets start the optimization process and print the result object, which contains the optimization trace, the best parameters, the best fitness value and some additional information.
