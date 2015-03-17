@@ -91,8 +91,9 @@ ecr = function(objective.fun, control) {
     )
     # save mutation operators in there
     if (length(control$mutator.control)) {
-      extra = insert(extra, control$mutator.control[[1]])
+      extra = insert(extra, control$mutator.control)
     }
+    return(extra)
   }
 
   iter = 1L
