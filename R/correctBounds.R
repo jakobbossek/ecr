@@ -1,13 +1,15 @@
 # Corrects the parameters if they are out of bounds.
 #
-# @param individuals [\code{setOfIndividuals}]\cr
-#   Set of individuals, for example the entire population.
+# @param individuals [\code{numeric}]\cr
+#   Candidate solution.
 # @param par.set [\code{\link[ParamHelpers]{ParamSet}]\cr
 #   Parameter set.
 # @return [\code{setOfIndividuals}].
-correctBounds = function(individuals, par.set) {
-  for (i in 1:nrow(individuals$individuals)) {
-    individuals$individuals[i, ] = repairPoint(par.set, as.list(individuals$individuals[i, ]))
-  }
-  return(individuals)
+correctBounds = function(individual, par.set) {
+  lower = getLower(par.set, with.nr = TRUE)
+  upper = getUpper(par.set, with.nr = TRUE)
+
+  stopifnot(length(lower) == length(individual))
+  individual = pmax(pmin(upper, individual), lower)
+  return(individual)
 }

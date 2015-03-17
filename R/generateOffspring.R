@@ -17,6 +17,7 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   #parentSelector = control$parentSelector
   parentSelector = simpleUniformSelection
   offspring.size = control$offspring.size
+  par.set = getParamSet(objective.fun)
   n.params = control$n.params
 
   #offspring = list()
@@ -27,7 +28,10 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     child = recombinator(parents)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
     child = mutator(child, mutator.control)
-    offspring[i, ] = child$individuals
+    child = child$individuals
+    # repair points which are out of bounds
+    child = correctBounds(child, par.set)
+    offspring[i, ] = unlist(child, use.names = FALSE)
   }
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 

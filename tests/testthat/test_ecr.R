@@ -80,3 +80,28 @@ test_that("ecr works on binary representations", {
     }
   }
 })
+
+test_that("ecr finds optimum if is is located on the edge of the search space", {
+  fn = makeSingleObjectiveFunction(
+    name = "linear",
+    par.set = makeNumericParamSet("x", len = 2L, lower = 0, upper = 1),
+    # optimum is in (0, 0)
+    fn = function(x) sum(x)
+  )
+
+  # initialize control object
+  control = ecr.control(
+    population.size = 30L,
+    offspring.size = 10L,
+    survival.strategy = "plus",
+    representation = "float",
+    monitor = makeNullMonitor(),
+    n.params = 2L,
+    mutator.control = list(mutator.gauss.sd = 0.05),
+    stopping.conditions = setupStoppingConditions(max.iter = 100L)
+  )
+
+  res = ecr(fn, control = control)
+  expect_true(res$best.value < 0.1)
+  expect_true(all(res$best.param < 0.1))
+})
