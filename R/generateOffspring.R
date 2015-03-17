@@ -29,10 +29,9 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
     child = mutator(child, mutator.control)
     child = child$individuals
-    # repair points which are out of bounds
-    child = correctBounds(child, par.set)
-    offspring[i, ] = unlist(child, use.names = FALSE)
+    offspring[i, ] = child
   }
+  offspring = correctBounds(offspring, par.set, n.params)
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
   return(makePopulation(offspring, offspring.fitness))
