@@ -35,9 +35,11 @@ test_that("ecr works with simple soo function", {
         # check result
         expect_false(is.null(res))
         expect_true(res$best.value < 0.1,
-          info = sprintf("Did not approximate optimal value with params mu: %i, lambda: %i, strategy: %s", population.size, offspring.size, survival.strategy))
+          info = sprintf("Did not approximate optimal value with params mu: %i, lambda: %i, strategy: %s",
+            population.size, offspring.size, survival.strategy))
         expect_true(all(res$best.param < 0.1),
-          info = sprintf("Did not approximate optimal params with params mu: %i, lambda: %i, strategy: %s", population.size, offspring.size, survival.strategy))
+          info = sprintf("Did not approximate optimal params with params mu: %i, lambda: %i, strategy: %s",
+            population.size, offspring.size, survival.strategy))
       }
     }
   }

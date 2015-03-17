@@ -98,8 +98,11 @@ ecr = function(objective.fun, control) {
   iter = 1L
   start.time = Sys.time()
 
-  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE, include.extra = TRUE, include.exec.time = TRUE)
-  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, extra = buildExtras(iter, start.time, population$fitness, control), exec.time = 0.0)
+  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE,
+    include.extra = TRUE, include.exec.time = TRUE)
+  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
+    generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
+    exec.time = 0.0)
 
   population.storage = namedList(control$save.population.at)
   if (0 %in% control$save.population.at) {
@@ -126,7 +129,9 @@ ecr = function(objective.fun, control) {
     }
 
     best = getBestIndividual(population)
-    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, exec.time = 0.0, extra = buildExtras(iter, start.time, population$fitness, control))
+    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
+      generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
+      exec.time = 0.0)
 
     stop.object = doTerminate(control$stopping.conditions, opt.path)
     if (length(stop.object) > 0L) {
@@ -142,7 +147,8 @@ ecr = function(objective.fun, control) {
     structure(list(
       objective.fun = objective.fun,
       control = control,
-      best.param = setColNames(t(data.frame(best$individual)), getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
+      best.param = setColNames(t(data.frame(best$individual)),
+        getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
       opt.path = opt.path,
       population.storage = population.storage,
@@ -161,8 +167,10 @@ ecr = function(objective.fun, control) {
 print.ecr_result = function(x, ...) {
   opt.path = x$opt.path
   par.set = opt.path$par.set
-  catf("Parameters: %s", paste(getParamIds(par.set, repeated = TRUE, with.nr = TRUE), "=", x$best.param, sep = "", collapse = ", "))
-  catf("Objective function value: %s\n", paste(x$control$target.name, "=", x$best.value, sep ="", collapse = ", "))
+  catf("Parameters: %s", paste(getParamIds(par.set, repeated = TRUE, with.nr = TRUE),
+    "=", x$best.param, sep = "", collapse = ", "))
+  catf("Objective function value: %s\n", paste(x$control$target.name, "=",
+    x$best.value, sep ="", collapse = ", "))
 }
 
 # Adds the parameter values and the y-value(s) of the best individual to the opt.path.
@@ -185,6 +193,7 @@ addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.t
     best.param.values = as.list(best$individual)
     names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
   }
-  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation, exec.time = exec.time, extra = extra)
+  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation,
+    exec.time = exec.time, extra = extra)
   return(opt.path)
 }
