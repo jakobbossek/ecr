@@ -35,6 +35,14 @@
 #'   population.
 #' @param mutator [\code{ecr_mutator}]\cr
 #'   Mutation operator of type \code{ecr_mutator}.
+#' @param mutationStrategyAdaptor [\code{function}]\cr
+#'   This is an experimental parameter. Hence, you should be careful when using it.
+#'   Serves to offer the possibility to adapt parameters of the mutation algorithm
+#'   (e. g. mutation stepsize \eqn{\sigma} for Gaussian mutation) in each iteration.
+#'   The function needs to expect the parameters \dQuote{operator.control} and
+#'   \dQuote{opt.path}, the last being of type \code{\link[ParamHelpers]{OptPath}} and
+#'   must return the modified \dQuote{operator.control} object. The default does
+#'   nothing.
 #' @param recombinator [\code{ecr_recombinator}]\cr
 #'   Recombination operator of type \code{ecr_recombinator}.
 #' @param mutator.control [\code{list}]\cr
@@ -62,7 +70,10 @@ ecr.control = function(
   save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(),
-  mutator = list(makeGaussMutator()),
+  mutator = makeGaussMutator(),
+  mutationStrategyAdaptor = function(operator.control, opt.path) {
+    return(operator.control)
+  },
   recombinator = makeIntermediateRecombinator(),
   mutator.control = list(),
   recombinator.control = list(),
@@ -82,28 +93,20 @@ ecr.control = function(
     assertInteger(save.population.at, lower = 0L, any.missing = FALSE)
   }
 
-  assertList(mutator, any.missing = FALSE)
+  assertClass(mutator, "ecr_mutator")
   assertList(mutator.control, any.missing = FALSE)
+  assertFunction(mutationStrategyAdaptor, args = c("operator.control", "opt.path"), ordered = TRUE)
   assertList(recombinator.control, any.missing = FALSE)
   if (!inherits(monitor, "ecr_monitor")) {
     stopf("Currently only monitor of type 'ecr_monitor' supported")
   }
 
-  # Check arguments of mutator
-  n.mutators = length(mutator)
-  if (n.mutators == 0) {
-    stopf("At least one mutator must be provided.")
+  # Check passed mutator
+  if (!inherits(mutator, "ecr_mutator")) {
+    stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
   }
-
-  mutator.control2 = vector(mode = "list", length = length(mutator))
-  for (i in 1:n.mutators) {
-    theMutator = mutator[[i]]
-    if (!inherits(theMutator, "ecr_mutator")) {
-      stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(theMutator, "class")))
-    }
-    checkMutator(theMutator)
-    mutator.control2[[i]] = prepareOperatorParameters(theMutator, mutator.control)
-  }
+  checkMutator(mutator)
+  mutator.control = prepareOperatorParameters(mutator, mutator.control)
 
   # Check arguments of recombinator
   if (!inherits(recombinator, "ecr_recombinator")) {
@@ -156,9 +159,9 @@ ecr.control = function(
     mating.pool.generator = mating.pool.generator,
     generator = generator,
     mutator = mutator,
-    n.mutators = n.mutators,
+    mutationStrategyAdaptor = mutationStrategyAdaptor,
     recombinator = recombinator,
-    mutator.control = mutator.control2,
+    mutator.control = mutator.control,
     recombinator.control = recombinator.control,
     save.population.at = save.population.at,
     target.name = target.name,
@@ -220,10 +223,7 @@ print.ecr_control = function(x, ...) {
   catf("")
   catf("Evolutionary operators:")
   catf("Generator object             : %s", getOperatorName(x$generator))
-  catf("Mutation operators           : ")
-  for (i in 1:x$n.mutators) {
-    catf("  %s (%s )", getOperatorName(x$mutator[[i]]), getParametersAsString(x$mutator.control[[i]]), sep = "")
-  }
+  catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator), getParametersAsString(x$mutator.control))
   catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator), getParametersAsString(x$recombinator.control))
 }
 

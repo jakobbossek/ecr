@@ -80,22 +80,26 @@ ecr = function(objective.fun, control) {
   population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
 
-  buildExtras = function(iter, start.time, fitness) {
-    return(list(
+  buildExtras = function(iter, start.time, fitness, control) {
+    extra = list(
       past.time = as.numeric(Sys.time() - start.time),
       iter = iter,
       pop.min.fitness = min(fitness),
       pop.mean.fitness = mean(fitness),
       pop.median.fitness = median(fitness),
       pop.max.fitness = max(fitness)
-    ))
+    )
+    # save mutation operators in there
+    if (length(control$mutator.control)) {
+      extra = insert(extra, control$mutator.control[[1]])
+    }
   }
 
   iter = 1L
   start.time = Sys.time()
 
   opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE, include.extra = TRUE, include.exec.time = TRUE)
-  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, extra = buildExtras(iter, start.time, population$fitness), exec.time = 0.0)
+  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, extra = buildExtras(iter, start.time, population$fitness, control), exec.time = 0.0)
 
   population.storage = namedList(control$save.population.at)
   if (0 %in% control$save.population.at) {
@@ -108,7 +112,7 @@ ecr = function(objective.fun, control) {
     monitor$step()
 
     parents = matingPoolGenerator(population, mating.pool.size)
-    offspring = generateOffspring(parents, objective.fun, control)
+    offspring = generateOffspring(parents, objective.fun, control, opt.path)
 
     population = selectForSurvival(
       population,
@@ -122,7 +126,7 @@ ecr = function(objective.fun, control) {
     }
 
     best = getBestIndividual(population)
-    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, exec.time = 0.0, extra = buildExtras(iter, start.time, population$fitness))
+    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness, generation = iter, exec.time = 0.0, extra = buildExtras(iter, start.time, population$fitness, control))
 
     stop.object = doTerminate(control$stopping.conditions, opt.path)
     if (length(stop.object) > 0L) {

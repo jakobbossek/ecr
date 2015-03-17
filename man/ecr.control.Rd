@@ -9,10 +9,11 @@ ecr.control(population.size, offspring.size,
   survival.strategy = "plus", elite.size = 0L, n.params,
   target.name = "y", save.population.at = integer(0),
   mating.pool.generator = simpleMatingPoolGenerator,
-  generator = makeUniformGenerator(), mutator = list(makeGaussMutator()),
-  recombinator = makeIntermediateRecombinator(), mutator.control = list(),
-  recombinator.control = list(), monitor = makeConsoleMonitor(),
-  stopping.conditions = list())
+  generator = makeUniformGenerator(), mutator = makeGaussMutator(),
+  mutationStrategyAdaptor = function(operator.control, opt.path) {    
+  return(operator.control) }, recombinator = makeIntermediateRecombinator(),
+  mutator.control = list(), recombinator.control = list(),
+  monitor = makeConsoleMonitor(), stopping.conditions = list())
 }
 \arguments{
 \item{population.size}{[\code{integer(1)}]\cr
@@ -57,6 +58,15 @@ population.}
 
 \item{mutator}{[\code{ecr_mutator}]\cr
 Mutation operator of type \code{ecr_mutator}.}
+
+\item{mutationStrategyAdaptor}{[\code{function}]\cr
+This is an experimental parameter. Hence, you should be careful when using it.
+Serves to offer the possibility to adapt parameters of the mutation algorithm
+(e. g. mutation stepsize \eqn{\sigma} for Gaussian mutation) in each iteration.
+The function needs to expect the parameters \dQuote{operator.control} and
+\dQuote{opt.path}, the last being of type \code{\link[ParamHelpers]{OptPath}} and
+must return the modified \dQuote{operator.control} object. The default does
+nothing.}
 
 \item{recombinator}{[\code{ecr_recombinator}]\cr
 Recombination operator of type \code{ecr_recombinator}.}

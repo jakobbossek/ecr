@@ -61,7 +61,7 @@ test_that("ecr works on binary representations", {
           generator = makeBinaryGenerator(),
           recombinator = makeCrossoverRecombinator(),
           representation = "binary",
-          mutator = list(mutator)
+          mutator = mutator
         )
 
         res = ecr(obj.fun, control = control)

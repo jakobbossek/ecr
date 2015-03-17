@@ -8,9 +8,10 @@
 #   Control object containing alle the operators and further parameters.
 # @return [\code{setOfIndividuals}]
 #   Generated offspring.
-generateOffspring = function(matingPool, objective.fun, control) {
+generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   generator = control$generator
   mutator = control$mutator
+  mutationStrategyAdaptor = control$mutationStrategyAdaptor
   mutator.control = control$mutator.control
   recombinator = control$recombinator
   #parentSelector = control$parentSelector
@@ -24,12 +25,8 @@ generateOffspring = function(matingPool, objective.fun, control) {
   for (i in 1:offspring.size) {
     parents = parentSelector(matingPool)
     child = recombinator(parents)
-    for (j in 1:control$n.mutators) {
-      mutator.fun = mutator[[j]]
-      mutator.params = mutator.control[[j]]
-      child = mutator.fun(child, mutator.params)
-      # catf("Applying mutator %i of %i", j, control$n.mutators)
-    }
+    mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
+    child = mutator(child, mutator.control)
     offspring[i, ] = child$individuals
   }
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
