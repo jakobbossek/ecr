@@ -21,8 +21,8 @@ setUpControlObject = function(population.size,
 test_that("ecr works with simple soo function", {
   obj.fun = smoof::makeSphereFunction(dimensions = 2L)
 
-  for (population.size in c(20, 40, 60)) {
-    for (offspring.size in c(20, 40, 60)) {
+  for (population.size in c(10, 20)) {
+    for (offspring.size in c(10, 20)) {
       for (survival.strategy in c("plus", "comma")) {
 
         if (survival.strategy == "comma") {
@@ -34,7 +34,7 @@ test_that("ecr works with simple soo function", {
 
         # check result
         expect_false(is.null(res))
-        expect_true(res$best.value < 0.01,
+        expect_true(res$best.value < 0.1,
           info = sprintf("Did not approximate optimal value with params mu: %i, lambda: %i, strategy: %s", population.size, offspring.size, survival.strategy))
         expect_true(all(res$best.param < 0.1),
           info = sprintf("Did not approximate optimal params with params mu: %i, lambda: %i, strategy: %s", population.size, offspring.size, survival.strategy))
@@ -45,11 +45,11 @@ test_that("ecr works with simple soo function", {
 
 test_that("ecr works on binary representations", {
   n.params = 10L
-  max.iter = 200L
+  max.iter = 150L
   obj.fun = makeOneMinFunction(dimensions = n.params)
 
-  for (population.size in c(10, 15, 20)) {
-    for (offspring.size in c(10, 15, 20)) {
+  for (population.size in c(10, 15)) {
+    for (offspring.size in c(10, 15)) {
       for (mutator in c(makeBitFlipMutator())) {
         control = ecr.control(
           population.size = population.size,
