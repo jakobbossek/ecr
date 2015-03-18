@@ -9,7 +9,7 @@ makeCrossoverRecombinator = function() {
     parent2 = parents[2, ]
     n = length(parent1)
     # at least one allele of each parent should be contained
-    idx = sample(2:(n - 1), size = 1L)
+    idx = sample(0:n, size = 1L)
     child = parent1
     child[idx:n] = parent2[idx:n]
     child = matrix(child, nrow = 1L)
