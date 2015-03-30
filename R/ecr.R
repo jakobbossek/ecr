@@ -107,7 +107,7 @@ ecr = function(objective.fun, control) {
 
   population.storage = namedList(control$save.population.at)
   if (0 %in% control$save.population.at) {
-    population.storage[[as.character(0)]] = population
+    population.storage[[paste("gen.", as.character(0), sep = "")]] = population
   }
 
   monitor$before()
@@ -126,7 +126,7 @@ ecr = function(objective.fun, control) {
       elite.size = control$elite.size)
 
     if (iter %in% control$save.population.at) {
-      population.storage[[as.character(iter)]] = population
+      population.storage[[paste("gen.", as.character(iter), sep = "")]] = population
     }
 
     best = getBestIndividual(population)
