@@ -48,7 +48,8 @@ monitorStep = function(envir = parent.frame()) {
     envir$first.best = best.fitness
   }
   first.best.fitness = envir$first.best
-  cat(sprintf("Best objective value in iteration \%i is \%.6f (overall absolute improvement is: \%.6f)\\n",
+  cat(sprintf("Best objective value in iteration \%i is \%.6f
+    (overall absolute improvement is: \%.6f)\\n",
     iter, best.fitness, first.best.fitness - best.fitness)
   )
 }
