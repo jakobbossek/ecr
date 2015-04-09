@@ -104,10 +104,11 @@ ecr = function(objective.fun, control) {
   opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
     generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
     exec.time = 0.0)
-
-  population.storage = namedList(control$save.population.at)
+  
+  population.storage = namedList(paste0("gen.", control$save.population.at))
+  # store start population
   if (0 %in% control$save.population.at) {
-    population.storage[[paste("gen.", as.character(0), sep = "")]] = population
+    population.storage[[paste0("gen.", as.character(0))]] = population
   }
 
   monitor$before()
@@ -126,7 +127,7 @@ ecr = function(objective.fun, control) {
       elite.size = control$elite.size)
 
     if (iter %in% control$save.population.at) {
-      population.storage[[paste("gen.", as.character(iter), sep = "")]] = population
+      population.storage[[paste0("gen.", as.character(iter))]] = population
     }
 
     best = getBestIndividual(population)
