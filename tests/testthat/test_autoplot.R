@@ -42,7 +42,7 @@ test_that("autoplot for log axis and show process", {
       survival.strategy = "plus",
       n.params = n.params,
       # FIXME: Throws an error if not complete population is saved
-      save.population.at = 0:16,
+      save.population.at = 0:15,
       mutator = makeGaussMutator(mutator.gauss.sd = 0.005),
       recombinator = makeCrossoverRecombinator(),
       stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 15L))
