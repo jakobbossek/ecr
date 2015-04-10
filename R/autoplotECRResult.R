@@ -26,7 +26,7 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
   op = as.data.frame(object$opt.path)
   unique.dobs = unique(op$dob)
   # we start with the second dob, since otherwise there is not enough info to plot
-  for (dob in unique.dobs[2:length(unique.dobs)]) {
+  for (dob in unique.dobs[1:length(unique.dobs)]) {
     pl.trace = plotTrace(op[which(op$dob <= dob), ], xlim, ylim, log.fitness, ...)
     pl.trace = pl.trace + ggtitle(sprintf("Optimization trace for function '%s'", getName(object$objective.fun)))
     if (show.process) {
@@ -37,7 +37,7 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
         stopf("Cannot visualize population since no population was stored! Take a glance a the 'save.population.at' control parameter.")
       }
       pl.fun = autoplot(obj.fun)
-      population = object$population.storage[[as.character(dob)]]
+      population = object$population.storage[[paste0("gen.", as.character(dob))]]
       if (n.params == 2L) {
         df.points = as.data.frame(population$individuals)
         colnames(df.points) = paste("x", 1:n.params, sep = "")
