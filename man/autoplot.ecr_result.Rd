@@ -5,7 +5,7 @@
 \title{Plot optimization trace.}
 \usage{
 \method{autoplot}{ecr_result}(object, xlim = NULL, ylim = NULL,
-  show.process = FALSE, log.fitness = FALSE, ...)
+  show.process = FALSE, log.fitness = FALSE, complete.trace = FALSE, ...)
 }
 \arguments{
 \item{object}{[\code{ecr_result}]\cr
@@ -24,11 +24,14 @@ Should the function itself with the population be plotted as well? Default is
 \item{log.fitness}{[\code{logical(1)}]\cr
 Log-transform fitness values? Default is \code{FALSE}.}
 
+\item{complete.trace}{[\code{logical(1)}]\cr
+Direct show the plot with the fitness for all generations. Default is \code{FALSE}.}
+
 \item{...}{[any]\cr
 Not used.}
 }
 \value{
-Nothing.
+[\code{invisible(TRUE)}]
 }
 \description{
 Call this function on the result object of an \code{\link{ecr}} function call
