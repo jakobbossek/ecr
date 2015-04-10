@@ -14,19 +14,24 @@
 #'   \code{FALSE}.
 #' @param log.fitness [\code{logical(1)}]\cr
 #'   Log-transform fitness values? Default is \code{FALSE}.
+#' @param complete.trace [\code{logical(1)}]\cr
+#'   Direct show the plot with the fitness for all generations. Default is \code{FALSE}.
 #' @param ... [any]\cr
 #'   Not used.
-#' @return Nothing.
+#' @return [\code{invisible(TRUE)}]
 #' @export
-autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = FALSE, log.fitness = FALSE, ...) {
+autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = FALSE
+                               , log.fitness = FALSE, complete.trace = FALSE, ...) {
   assertFlag(show.process, na.ok = FALSE)
   obj.fun = object$objective.fun
   n.params = getNumberOfParameters(obj.fun)
 
   op = as.data.frame(object$opt.path)
-  unique.dobs = unique(op$dob)
   # we start with the second dob, since otherwise there is not enough info to plot
-  for (dob in unique.dobs[2:length(unique.dobs)]) {
+  unique.dobs = unique(op$dob)[-1]
+  if (complete.trace)
+    unique.dobs = tail(unique.dobs, 1)
+  for (dob in unique.dobs) {
     pl.trace = plotTrace(op[which(op$dob <= dob), ], xlim, ylim, log.fitness, ...)
     pl.trace = pl.trace + ggtitle(sprintf("Optimization trace for function '%s'", getName(object$objective.fun)))
     if (show.process) {
@@ -37,7 +42,7 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
         stopf("Cannot visualize population since no population was stored! Take a glance a the 'save.population.at' control parameter.")
       }
       pl.fun = autoplot(obj.fun)
-      population = object$population.storage[[as.character(dob)]]
+      population = object$population.storage[[paste0("gen.", dob)]]
       if (n.params == 2L) {
         df.points = as.data.frame(population$individuals)
         colnames(df.points) = paste("x", 1:n.params, sep = "")
@@ -48,17 +53,21 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
         pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x", y = "y"), colour = "tomato")
         pl.fun = pl.fun + geom_hline(yintercept = min(population$fitness), linetype = "dashed", colour = "gray")
       }
-    }
-    if (show.process) {
+
       #FIXME: this seems to fail!
       BBmisc::requirePackages(c("grid", "gridExtra"), why = "ecr")
-      pl = do.call(gridExtra::arrangeGrob, list(pl.fun, pl.trace, ncol = 1))
+      #FIXME: next line returns errors in 'test_autoplot.R'
+      #pl = do.call(gridExtra::arrangeGrob, list(pl.fun, pl.trace, ncol = 1))
+      pl = pl.trace
     } else {
       pl = pl.trace
     }
-    pause()
+    
     print(pl)
+    if (dob != tail(unique.dobs, 1))
+      pause()
   }
+  return(invisible(TRUE))
 }
 
 # autoplot function for opt.path used by ecr
