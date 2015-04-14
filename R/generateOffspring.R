@@ -31,7 +31,7 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     child = child$individuals
     offspring[[i]] = child
   }
-  #offspring = correctBounds(offspring, par.set, n.params)
+  offspring = correctBounds(offspring, par.set, n.params)
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
   return(makePopulation(offspring, offspring.fitness))

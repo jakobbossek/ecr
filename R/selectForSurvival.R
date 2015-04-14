@@ -37,7 +37,7 @@ selectForSurvival = function(population, offspring, n.population, strategy = "pl
       # Adapt number of individuals taken from the offspring
       n.population = n.population - n.elite
       elite = makePopulation(
-        individuals = parent.individuals[to.be.elite, , drop = FALSE],
+        individuals = parent.individuals[to.be.elite],
         fitness = parent.fitness[to.be.elite]
       )
     }

@@ -24,7 +24,7 @@ obj.fun = function(tour) {
 }
 
 # now we wrap the objective function with the smoof package
-par.set = makeNumericParamSet(len = n.nodes, id = "c", lower = 1, upper = n.nodes, vector = FALSE)
+par.set = makeNumericParamSet(len = n.nodes, id = "c", lower = 1, upper = n.nodes)
 obj.fun = makeSingleObjectiveFunction(fn = obj.fun, par.set = par.set, name = "Tour")
 
 # Here we make use of mutations only! The nullRecombinator

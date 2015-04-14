@@ -4,18 +4,20 @@
 #' @export
 makeSwapMutator = function() {
   mutator = function(setOfIndividuals, control = list()) {
-    n.params = ncol(setOfIndividuals$individuals)
-    n = nrow(setOfIndividuals$individuals)
-
+    inds = setOfIndividuals$individuals
+    n.params = length(inds[[1]])
+    n = length(inds)
     for (i in seq(n)) {
       pos = sample(1:n.params, size = 2)
       pos1 = pos[1]
       pos2 = pos[2]
       #catf("Positions: %i, %i", pos1, pos2)
-      tmp = setOfIndividuals$individuals[i, pos1]
-      setOfIndividuals$individuals[i, pos1] = setOfIndividuals$individuals[i, pos2]
-      setOfIndividuals$individuals[i, pos2] = tmp
+      tmp = setOfIndividuals$individuals[[i]][pos1]
+      setOfIndividuals$individuals[[i]][pos1] = setOfIndividuals$individuals[[i]][pos2]
+      setOfIndividuals$individuals[[i]][pos2] = tmp
     }
+    #FIXME: something is inconsistent here.
+    setOfIndividuals$individuals = unlist(setOfIndividuals$individuals)
     return(setOfIndividuals)
   }
 

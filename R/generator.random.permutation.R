@@ -19,10 +19,12 @@ makePermutationGenerator = function() {
   # @param control [\code{ecr_control}]\cr
   #   Control object.
   # @return [\code{setOfIndividuals}]
-  generatePermutationPopulation = function(size, n.params, lower.bounds = NA, upper.bounds = NA, control) {
-    population = matrix(0, nrow = size, ncol = n.params)
-    for(i in 1:size) {
-      population[i, ] = sample(1:n.params)
+  generatePermutationPopulation = function(size, control) {
+    par.set = control$par.set
+    n.params = sum(getParamLengths(par.set))
+    population = list()
+    for(i in seq(size)) {
+      population[[i]] = sample(1:n.params)
     }
     makePopulation(population)
   }

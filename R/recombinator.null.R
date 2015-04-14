@@ -4,7 +4,7 @@
 #' @export
 makeNullRecombinator = function() {
   recombinator = function(setOfIndividuals, control=list()) {
-    child = setOfIndividuals$individuals[1, , drop = FALSE]
+    child = list(setOfIndividuals$individuals[[1]])
     makePopulation(child)
   }
 

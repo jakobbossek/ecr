@@ -68,7 +68,7 @@ doTheEvolution = function(objective.fun, control) {
     }
   } else {
     # dummy par.set
-    par.set = makeParameterSet(makeNumericParam("x", lower = 0, upper = 1))
+    par.set = makeParamSet(makeNumericParam("x", lower = 0, upper = 1))
   }
 
   n.population = control$n.population
@@ -103,6 +103,7 @@ doTheEvolution = function(objective.fun, control) {
 
   opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE,
     include.extra = TRUE, include.exec.time = TRUE)
+
   opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
     generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
     exec.time = 0.0)
@@ -195,11 +196,12 @@ print.ecr_result = function(x, ...) {
 addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.time, extra) {
   if (length(par.set$pars) == 1L) {
     best.param.values = list(best$individual)
+    names(best.param.values) = getParamIds(par.set)
   } else {
     best.param.values = as.list(best$individual)
     names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
   }
   addOptPathEl(opt.path, x = best.param.values, y = unlist(best$fitness), dob = generation,
-    exec.time = exec.time, extra = extra)
+    exec.time = exec.time, extra = extra, check.feasible = FALSE)
   return(opt.path)
 }
