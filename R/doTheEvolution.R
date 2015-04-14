@@ -67,7 +67,7 @@ doTheEvolution = function(objective.fun, control) {
     }
   } else {
     # dummy par.set
-    par.set = makeParamSet(makeNumericParam("x", lower = 0, upper = 1))
+    par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))
   }
 
   n.population = control$n.population
@@ -81,6 +81,7 @@ doTheEvolution = function(objective.fun, control) {
   population = populationGenerator(n.population, control)
   population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
+
   buildExtras = function(iter, start.time, fitness, control) {
     extra = list(
       past.time = as.numeric(Sys.time() - start.time),
@@ -105,7 +106,7 @@ doTheEvolution = function(objective.fun, control) {
 
   opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
     generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
-    exec.time = 0.0)
+    exec.time = 0.0, control)
 
   population.storage = namedList(paste0("gen.", control$save.population.at))
   # store start population
@@ -126,7 +127,8 @@ doTheEvolution = function(objective.fun, control) {
       offspring,
       n.population,
       strategy = control$survival.strategy,
-      n.elite = control$n.elite)
+      n.elite = control$n.elite
+    )
 
     if (iter %in% control$save.population.at) {
       population.storage[[paste0("gen.", as.character(iter))]] = population
@@ -135,13 +137,12 @@ doTheEvolution = function(objective.fun, control) {
     best = getBestIndividual(population)
     opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
       generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
-      exec.time = 0.0)
+      exec.time = 0.0, control)
 
     stop.object = doTerminate(control$stopping.conditions, opt.path)
     if (length(stop.object) > 0L) {
       break
     }
-    #print(as.data.frame(opt.path))
 
     iter = iter + 1
   }
@@ -192,13 +193,17 @@ print.ecr_result = function(x, ...) {
 # @param generation [\code{integer(1)}]\cr
 #   Current generation.
 # @return [\code{\link[ParamHelpers]{OptPathDF}}]
-addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.time, extra) {
+addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.time, extra, control) {
   if (length(par.set$pars) == 1L) {
     best.param.values = list(best$individual)
     names(best.param.values) = getParamIds(par.set)
   } else {
     best.param.values = as.list(best$individual)
     names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
+  }
+  #FIXME: dummy value for custom representation
+  if (control$representation == "custom") {
+    best.param.values = list("x" = 0.5)
   }
   addOptPathEl(opt.path, x = best.param.values, y = unlist(best$fitness), dob = generation,
     exec.time = exec.time, extra = extra, check.feasible = FALSE)
