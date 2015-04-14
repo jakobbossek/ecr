@@ -6,8 +6,8 @@
 #'
 #' @param control [\code{ecr_control}]\cr
 #'   ECR control object generated via \code{\link{setupECRControl}}.
-#' @param selector [\code{function}]\cr
-#'   Generator operator which implements a procedure to copy individuals from a
+#' @param selector [\code{ecr_selector}]\cr
+#'   Selection operator which implements a procedure to copy individuals from a
 #'   given population to the mating pool, i. e., allow them to become parents.
 #' @param generator [\code{ecr_generator}]\cr
 #'   Generator operator of type \code{ecr_generator} for the generation of the initial
@@ -34,7 +34,7 @@
 #' @export
 setupEvolutionaryOperators = function(
   control,
-  selector = simpleMatingPoolGenerator,
+  selector = makeSimpleSelector(),
   generator = getDefaultEvolutionaryOperators(control$representation, "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation, "mutator"),
   #FIXME: this stuff is experimental.

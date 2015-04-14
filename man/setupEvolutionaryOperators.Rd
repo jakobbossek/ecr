@@ -5,7 +5,7 @@
 \title{Define the toolbix of all the evolutionary operators you wish to operate on
 your problem.}
 \usage{
-setupEvolutionaryOperators(control, selector = simpleMatingPoolGenerator,
+setupEvolutionaryOperators(control, selector = makeSimpleSelector(),
   generator = getDefaultEvolutionaryOperators(control$representation,
   "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation,
@@ -18,8 +18,8 @@ setupEvolutionaryOperators(control, selector = simpleMatingPoolGenerator,
 \item{control}{[\code{ecr_control}]\cr
 ECR control object generated via \code{\link{setupECRControl}}.}
 
-\item{selector}{[\code{function}]\cr
-Generator operator which implements a procedure to copy individuals from a
+\item{selector}{[\code{ecr_selector}]\cr
+Selection operator which implements a procedure to copy individuals from a
 given population to the mating pool, i. e., allow them to become parents.}
 
 \item{generator}{[\code{ecr_generator}]\cr
