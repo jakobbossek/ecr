@@ -21,15 +21,16 @@ makeGaussMutator = function(mutator.gauss.prob = 1L, mutator.gauss.sd = 0.05) {
   mutatorCheck(defaults)
 
   mutator = function(setOfIndividuals, control = defaults) {
-    n.params = ncol(setOfIndividuals$individuals)
-    n = nrow(setOfIndividuals$individuals)
+    inds = setOfIndividuals$individuals
+    n.params = length(inds[[1]])
+    n = length(inds)
 
-    mutation.bool = matrix(runif(n * n.params) < control$mutator.gauss.prob, ncol = n.params)
-    mutation = matrix(0, ncol = n.params, nrow = n)
-    idx = which(mutation.bool)
-    mutation[idx] = rnorm(length(idx), mean = 0, sd = control$mutator.gauss.sd)
-    setOfIndividuals$individuals = setOfIndividuals$individuals + mutation
-
+    for (i in seq(n)) {
+      idx = which(runif(n.params) < control$mutator.gauss.prob)
+      mut = rnorm(length(idx), mean = 0, sd = control$mutator.gauss.sd)
+      inds[[i]][idx] = inds[[i]][idx] + mut
+    }
+    setOfIndividuals$individuals = inds
     return(setOfIndividuals)
   }
 

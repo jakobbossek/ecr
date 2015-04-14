@@ -7,6 +7,11 @@
 #' @export
 makeSimpleSelector = function() {
   selector = function(population, n.mating.pool) {
+    # inds = population$individuals
+    # fitn = population$fitness
+    # n = length(inds)
+    # idx = sample(n, size = 2, replace = FALSE)
+    # return(makePopulation(inds[idx], fitn[idx]))
     return(population)
   }
   makeSelector(

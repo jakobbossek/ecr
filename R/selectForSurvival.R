@@ -45,7 +45,7 @@ selectForSurvival = function(population, offspring, n.population, strategy = "pl
   }
 
   population2 = makePopulation(
-    individuals = source.individuals[to.survive, , drop = FALSE],
+    individuals = source.individuals[to.survive],
     fitness = source.fitness[to.survive]
   )
 

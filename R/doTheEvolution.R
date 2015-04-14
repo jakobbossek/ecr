@@ -49,39 +49,39 @@
 #' @seealso \code{\link{setupECRControl}}
 #' @export
 doTheEvolution = function(objective.fun, control) {
-  assertClass(objective.fun, "smoof_function")
-  par.set = getParamSet(objective.fun)
-  assertClass(par.set, "ParamSet")
+  repr = control$representation
+  par.set = NULL
+  if (repr != "custom") {
+    assertClass(objective.fun, "smoof_function")
+    par.set = getParamSet(objective.fun)
+    #FIXME: is this a good idea to modify control object here?
+    control$par.set = par.set
 
-  n.params = control$n.params
-  max.iter = control$max.iter
-  max.time = control$max.time
+    # potentially global optimum
+    global.optimum = NULL
+    if (hasGlobalOptimum(objective.fun)) {
+      global.optimum = getGlobalOptimum(objective.fun)$param
+    }
+
+    if (repr == "float" && !hasFiniteBoxConstraints(par.set)) {
+      stopf("Lower and upper box constraints needed for representation type 'float'.")
+    }
+  } else {
+    # dummy par.set
+    par.set = makeParameterSet(makeNumericParam("x", lower = 0, upper = 1))
+  }
+
   n.population = control$n.population
   n.mating.pool = control$n.mating.pool
   n.offspring = control$n.offspring
-  termination.eps = control$termination.eps
   monitor = control$monitor
-
-  # potentially global optimum
-  global.optimum = NULL
-  if (hasGlobalOptimum(objective.fun)) {
-    global.optimum = getGlobalOptimum(objective.fun)$param
-  }
-
-  if (control$representation %in% c("float") && !hasFiniteBoxConstraints(par.set)) {
-    stopf("Lower and upper box constraints needed for representation type 'float'.")
-  }
-
-  lower = getLower(par.set)
-  upper = getUpper(par.set)
 
   populationGenerator = control$generator
   matingPoolGenerator = control$selector
 
-  population = populationGenerator(n.population, n.params, lower, upper, control)
+  population = populationGenerator(n.population, control)
   population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
-
   buildExtras = function(iter, start.time, fitness, control) {
     extra = list(
       past.time = as.numeric(Sys.time() - start.time),
@@ -120,6 +120,7 @@ doTheEvolution = function(objective.fun, control) {
 
     parents = matingPoolGenerator(population, n.mating.pool)
     offspring = generateOffspring(parents, objective.fun, control, opt.path)
+    #print(offspring)
 
     population = selectForSurvival(
       population,
@@ -141,6 +142,7 @@ doTheEvolution = function(objective.fun, control) {
     if (length(stop.object) > 0L) {
       break
     }
+    #print(as.data.frame(opt.path))
 
     iter = iter + 1
   }
@@ -151,8 +153,9 @@ doTheEvolution = function(objective.fun, control) {
     structure(list(
       objective.fun = objective.fun,
       control = control,
-      best.param = setColNames(t(data.frame(best$individual)),
-        getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
+      best.param = best$individual,
+      # best.param = setColNames(t(data.frame(best$individual)),
+      #   getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
       opt.path = opt.path,
       population.storage = population.storage,
@@ -197,7 +200,7 @@ addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.t
     best.param.values = as.list(best$individual)
     names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
   }
-  addOptPathEl(opt.path, x = best.param.values, y = best$fitness, dob = generation,
+  addOptPathEl(opt.path, x = best.param.values, y = unlist(best$fitness), dob = generation,
     exec.time = exec.time, extra = extra)
   return(opt.path)
 }

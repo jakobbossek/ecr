@@ -25,5 +25,5 @@ makeMutator = function(mutator, name, description,
 
 # Helper function which returns all supported parameter representations.
 getAvailableRepresentations = function() {
-  c("permutation", "binary", "float", "integer")
+  c("permutation", "binary", "float", "custom")
 }

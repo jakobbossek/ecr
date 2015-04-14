@@ -4,7 +4,13 @@
 #' @export
 makeIntermediateRecombinator = function() {
   recombinator = function(setOfIndividuals, control = list()) {
-    child = matrix(colSums(setOfIndividuals$individuals) / 2, nrow = 1L)
+    inds = setOfIndividuals$individuals
+    n = length(inds[[1]])
+    child = rep(0, n)
+    for (i in 1:length(inds)) {
+      child = child + inds[[i]]
+    }
+    child = child / length(inds)
     makePopulation(child)
   }
 

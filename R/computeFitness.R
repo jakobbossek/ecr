@@ -9,6 +9,6 @@
 #'   Fitness function.
 #' @return [\code{matrix}].
 computeFitness = function(population, fitness.fun) {
-    fitness = apply(population$individuals, 1, fitness.fun)
+    fitness = unlist(lapply(population$individuals, fitness.fun))
     return(fitness)
 }

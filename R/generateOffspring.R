@@ -14,14 +14,14 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   mutationStrategyAdaptor = control$mutationStrategyAdaptor
   mutator.control = control$mutator.control
   recombinator = control$recombinator
-  #parentSelector = control$parentSelector
+  #parentSelector = control$selector
   parentSelector = simpleUniformSelection
   n.offspring = control$n.offspring
   par.set = getParamSet(objective.fun)
   n.params = control$n.params
 
   #offspring = list()
-  offspring = matrix(NA, ncol = n.params, nrow = n.offspring)
+  offspring = vector("list", n.offspring)
 
   for (i in 1:n.offspring) {
     parents = parentSelector(matingPool)
@@ -29,9 +29,9 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
     child = mutator(child, mutator.control)
     child = child$individuals
-    offspring[i, ] = child
+    offspring[[i]] = child
   }
-  offspring = correctBounds(offspring, par.set, n.params)
+  #offspring = correctBounds(offspring, par.set, n.params)
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
   return(makePopulation(offspring, offspring.fitness))
@@ -40,11 +40,11 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
 simpleUniformSelection = function(matingPool) {
   population = matingPool$individuals
   fitness = matingPool$fitness
-  n = nrow(population)
+  n = length(population)
   # if we have only one individual, return it twice
   if (n == 1) {
-    return(makePopulation(population[c(1, 1), , drop = FALSE], fitness[c(1, 1)]))
+    return(makePopulation(population[c(1, 1)], fitness[c(1, 1)]))
   }
   idx = sample(n, size = 2, replace = FALSE)
-  makePopulation(population[idx, , drop = FALSE], fitness[idx])
+  makePopulation(population[idx], fitness[idx])
 }

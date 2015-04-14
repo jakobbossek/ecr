@@ -5,22 +5,24 @@
 # @return [\code{setOfIndividuals}]
 mergePopulations = function(...) {
   populations = list(...)
+  #stop()
+
   # get n.params
-  n.params = ncol(populations[[1]]$individuals)
+  n.params = length(populations[[1]]$individuals[[1]])
 
   # summarize over all population sizes
   pop.size = sum(sapply(populations, function(x) length(x$fitness)))
 
   # allocate space
-  fitness = numeric(pop.size)
-  individuals = matrix(NA, ncol = n.params, nrow = pop.size)
+  fitness = numeric()
+  individuals = list()
 
   # now iterate over populations and generate merged population
   start = 1L
   for (i in 1:length(populations)) {
-    j = nrow(populations[[i]]$individuals)
-    individuals[start:(start + j - 1), ] = populations[[i]]$individuals
-    fitness[start:(start + j - 1)] = populations[[i]]$fitness
+    j = length(populations[[i]]$individuals[[1]])
+    individuals = c(individuals, populations[[i]]$individuals)
+    fitness = c(fitness, unlist(populations[[i]]$fitness))
     start = start + j
   }
   makePopulation(

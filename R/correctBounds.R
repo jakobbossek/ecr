@@ -11,12 +11,8 @@ correctBounds = function(individuals, par.set, n.params) {
   lower = getLower(par.set, with.nr = TRUE)
   upper = getUpper(par.set, with.nr = TRUE)
 
-  individuals = as.matrix(apply(individuals, 1, function(child) {
-    pmax(pmin(upper, child), lower)
-  }))
-
-  if (n.params > 1L) {
-    individuals = t(individuals)
-  }
-  individuals
+  individuals = lapply(individuals, function(child) {
+    pmin(pmax(lower, child), upper)
+  })
+  return(individuals)
 }

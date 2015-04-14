@@ -9,6 +9,6 @@ getBestIndividual = function(population) {
     fitness = population$fitness
     best.idx = which.min(population$fitness)
     best.fitness = fitness[best.idx]
-    best.individual = population$individuals[best.idx, ]
+    best.individual = population$individuals[[best.idx]]
     return(list(individual = best.individual, fitness = best.fitness))
 }

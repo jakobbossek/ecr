@@ -19,10 +19,18 @@ makeUniformGenerator = function() {
   # @param control [\code{ecr_control}]\cr
   #   Control object.
   # @return [\code{setOfIndividuals}]
-  generateUniformPopulation = function(size, n.params, lower.bounds = NA, upper.bounds = NA, control) {
-    population = matrix(0, nrow = size, ncol = n.params)
-    for(i in 1:n.params) {
-      population[, i] = runif(size, min = lower.bounds[i], max = upper.bounds[i])
+  generateUniformPopulation = function(size, control) {
+    par.set = control$par.set
+    lower = getLower(par.set)
+    upper = getUpper(par.set)
+    n.params = sum(getParamLengths(par.set))
+    population = list()
+    for(i in seq(size)) {
+      ind = vector(mode = "numeric", length = n.params)
+      for (j in seq(n.params)) {
+        ind[j] = runif(1L, min = lower[j], max = upper[j])
+      }
+      population[[i]] = ind
     }
     makePopulation(population)
   }
