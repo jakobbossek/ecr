@@ -1,29 +1,13 @@
-language: c
+# travis config
 
-# env:
-#   - global:
-#     - WARNINGS_ARE_ERRORS=0
+language: r
 
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-install:
-  - ./travis-tool.sh github_package hadley/testthat
-  - ./travis-tool.sh github_package hadley/assertthat
-  - ./travis-tool.sh github_package berndbischl/BBmisc
-  - ./travis-tool.sh github_package berndbischl/parallelMap
-  - ./travis-tool.sh github_package berndbischl/ParamHelpers
-  - ./travis-tool.sh github_package jakobbossek/smoof
-  - ./travis-tool.sh github_package jimhester/covr
-  - ./travis-tool.sh install_deps
-script: ./travis-tool.sh run_tests
+r_github_packages:
+  - jimhester/covr
+  - jakobbossek/smoof
 
 after_success:
   - Rscript -e 'library(covr);coveralls()'
-
-after_failure:
-  - ./travis-tool.sh dump_logs
 
 notifications:
   email:
