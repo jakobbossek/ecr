@@ -16,9 +16,9 @@ load_all(".", reset = TRUE)
 set.seed(123)
 
 # initialize control object
-control = ecr.control(
-  population.size = 20L,
-  offspring.size = 10L,
+control = setupECRControl(
+  n.population = 20L,
+  n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
   n.params = 2L,
@@ -54,7 +54,7 @@ for (i in 1:n.reps) {
   attributes(fitness.fun) = attributes(obj.fun)
 
   # do the evolutionary magic
-  res = ecr(fitness.fun, control = control)
+  res = doTheEvolution(fitness.fun, control = control)
 
   # save new non-inferior point
   pareto.set[i, ] = as.numeric(res$best.param)

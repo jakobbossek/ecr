@@ -37,9 +37,9 @@ test_that("permutation example with swap mutator", {
     ),
     name = "Sorting"
   )
-  control = ecr.control(
-    population.size = 5L,
-    offspring.size = 5L,
+  control = setupECRControl(
+    n.population = 5L,
+    n.offspring = 5L,
     representation = "permutation",
     survival.strategy = "plus",
     n.params = n.params,
@@ -49,7 +49,7 @@ test_that("permutation example with swap mutator", {
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
   )
-  res = ecr(obj.fun, control = control)
+  res = doTheEvolution(obj.fun, control = control)
   # check results
   expect_false(is.null(res))
   expect_equal(res$best.value, 0,

@@ -4,7 +4,7 @@
 #'
 #' @param objective.fun [\code{smoof_function}]\cr
 #'   Single objective target function of type \code{smoof_function}.
-#' @param control [\code{ecr.control}]\cr
+#' @param control [\code{setupECRControl}]\cr
 #'   Control object.
 #' @return [\code{ecrResult}]
 #'   Object of type \code{ecr_result} containing a list:
@@ -32,21 +32,21 @@
 #' # We want to solve this with a (10 + 10) evolutionary strategy based on
 #' # the floating point representation of the input vectors with the default
 #' # operators: intermediate recombinator and Gauss mutation
-#' ctrl = ecr.control(
-#'   population.size = 10L,
-#'   offspring.size = 10L,
+#' ctrl = setupECRControl(
+#'   n.population = 10L,
+#'   n.offspring = 10L,
 #'   survival.strategy = "plus",
 #'   n.params = 1L,
 #'   representation = "float",
 #'   stopping.conditions = setupStoppingConditions(max.iter = 100L)
 #' )
 #'
-#' res = ecr(obj.fn, control = ctrl)
+#' res = doTheEvolution(obj.fn, control = ctrl)
 #' print(res)
 #'
-#' @seealso \code{\link{ecr.control}}
+#' @seealso \code{\link{setupECRControl}}
 #' @export
-ecr = function(objective.fun, control) {
+doTheEvolution = function(objective.fun, control) {
   assertClass(objective.fun, "smoof_function")
   par.set = getParamSet(objective.fun)
   assertClass(par.set, "ParamSet")
@@ -54,9 +54,9 @@ ecr = function(objective.fun, control) {
   n.params = control$n.params
   max.iter = control$max.iter
   max.time = control$max.time
-  population.size = control$population.size
-  mating.pool.size = control$mating.pool.size
-  offspring.size = control$offspring.size
+  n.population = control$n.population
+  n.mating.pool = control$n.mating.pool
+  n.offspring = control$n.offspring
   termination.eps = control$termination.eps
   monitor = control$monitor
 
@@ -74,9 +74,9 @@ ecr = function(objective.fun, control) {
   upper = getUpper(par.set)
 
   populationGenerator = control$generator
-  matingPoolGenerator = control$mating.pool.generator
+  matingPoolGenerator = control$selector
 
-  population = populationGenerator(population.size, n.params, lower, upper, control)
+  population = populationGenerator(n.population, n.params, lower, upper, control)
   population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
 
@@ -104,7 +104,7 @@ ecr = function(objective.fun, control) {
   opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
     generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
     exec.time = 0.0)
-  
+
   population.storage = namedList(paste0("gen.", control$save.population.at))
   # store start population
   if (0 %in% control$save.population.at) {
@@ -116,15 +116,15 @@ ecr = function(objective.fun, control) {
   repeat {
     monitor$step()
 
-    parents = matingPoolGenerator(population, mating.pool.size)
+    parents = matingPoolGenerator(population, n.mating.pool)
     offspring = generateOffspring(parents, objective.fun, control, opt.path)
 
     population = selectForSurvival(
       population,
       offspring,
-      population.size,
+      n.population,
       strategy = control$survival.strategy,
-      elite.size = control$elite.size)
+      n.elite = control$n.elite)
 
     if (iter %in% control$save.population.at) {
       population.storage[[paste0("gen.", as.character(iter))]] = population

@@ -4,11 +4,11 @@
 #' a lot of customization options. The control object is a simple but powerful
 #' wrapper for all these options and sets convenient default options.
 #'
-#' @param population.size [\code{integer(1)}]\cr
+#' @param n.population [\code{integer(1)}]\cr
 #'   Number of individuals in the population.
-#' @param offspring.size [\code{integer(1)}]\cr
+#' @param n.offspring [\code{integer(1)}]\cr
 #'   Number of individuals generated in each generation.
-#' @param mating.pool.size [\code{integer(1)}]\cr
+#' @param n.mating.pool [\code{integer(1)}]\cr
 #'   Number of individuals which can potentially participate in the
 #'   generation of offspring. Default is half of the population size.
 #' @param representation [\code{character(1)}]\cr
@@ -17,7 +17,7 @@
 #' @param survival.strategy [\code{character(1)}]\cr
 #'   Determines the survival strategy used by the EA. Possible are 'plus' for a classical
 #'   (mu + lambda) strategy and 'comma' for (mu, lambda).
-#' @param elite.size [\code{integer(1)}]\cr
+#' @param n.elite [\code{integer(1)}]\cr
 #'   Number of fittest individuals of the current generation that shall be copied to the
 #'   next generation without changing. Default is 0. Keep in mind, that the algorithm
 #'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
@@ -27,7 +27,7 @@
 #'   Name for the objective fun values. Default is \dQuote{y}.
 #' @param save.population.at [\code{integer}]\cr
 #'   Which populations should be saved? Default is none.
-#' @param mating.pool.generator [\code{function}]\cr
+#' @param selector [\code{function}]\cr
 #'   Generator operator which implements a procedure to copy individuals from a
 #'   given population to the mating pool, i. e., allow them to become parents.
 #' @param generator [\code{ecr_generator}]\cr
@@ -58,17 +58,17 @@
 #' @return
 #'   S3 object of type \code{ecr_control}.
 #' @export
-ecr.control = function(
-  population.size,
-  offspring.size,
-  mating.pool.size = floor(population.size / 2),
+setupECRControl = function(
+  n.population,
+  n.offspring,
+  n.mating.pool = floor(n.population / 2),
   representation,
   survival.strategy = "plus",
-  elite.size = 0L,
+  n.elite = 0L,
   n.params,
   target.name = "y",
   save.population.at = integer(0),
-  mating.pool.generator = simpleMatingPoolGenerator,
+  selector = simpleMatingPoolGenerator,
   generator = makeUniformGenerator(),
   mutator = makeGaussMutator(),
   mutationStrategyAdaptor = function(operator.control, opt.path) {
@@ -79,13 +79,13 @@ ecr.control = function(
   recombinator.control = list(),
   monitor = makeConsoleMonitor(),
   stopping.conditions = list()) {
-  assertCount(population.size, positive = TRUE, na.ok = FALSE)
-  assertCount(offspring.size, positive = TRUE, na.ok = FALSE)
-  mating.pool.size = convertInteger(mating.pool.size)
-  assertCount(mating.pool.size, positive = TRUE, na.ok = FALSE)
+  assertCount(n.population, positive = TRUE, na.ok = FALSE)
+  assertCount(n.offspring, positive = TRUE, na.ok = FALSE)
+  n.mating.pool = convertInteger(n.mating.pool)
+  assertCount(n.mating.pool, positive = TRUE, na.ok = FALSE)
   assertChoice(representation, choices = getAvailableRepresentations())
   assertChoice(survival.strategy, choices = c("plus", "comma"))
-  assertCount(elite.size, na.ok = FALSE)
+  assertCount(n.elite, na.ok = FALSE)
   assertCount(n.params, positive = TRUE, na.ok = FALSE)
   assertCharacter(target.name, len = 1L, any.missing = FALSE)
 
@@ -127,13 +127,13 @@ ecr.control = function(
 
   # If the survival strategy is (mu + lambda), than the number of generated offspring in each iteration
   # must greater or equal to the population size
-  if (survival.strategy == "comma" && offspring.size < population.size) {
+  if (survival.strategy == "comma" && n.offspring < n.population) {
     stopf("The (mu, lambda) survival strategy requires the number of generated offspring in each generation
-      to be greater or equal to the population size, but %i < %i", offspring.size, population.size)
+      to be greater or equal to the population size, but %i < %i", n.offspring, n.population)
   }
 
-  if (survival.strategy == "comma" && elite.size >= population.size) {
-     stopf("Elite.size must be smaller than population.size! Otherwise each population would be the same.")
+  if (survival.strategy == "comma" && n.elite >= n.population) {
+     stopf("n.elite must be smaller than n.population! Otherwise each population would be the same.")
   }
 
   if (length(stopping.conditions) == 0) {
@@ -148,15 +148,15 @@ ecr.control = function(
   }
 
   structure(list(
-    population.size = population.size,
-    offspring.size = offspring.size,
-    mating.pool.size = mating.pool.size,
+    n.population = n.population,
+    n.offspring = n.offspring,
+    n.mating.pool = n.mating.pool,
     representation = representation,
     survival.strategy = survival.strategy,
-    elite.size = elite.size,
+    n.elite = n.elite,
     n.params = n.params,
     n.targets = NULL, # we set this by hand here
-    mating.pool.generator = mating.pool.generator,
+    selector = selector,
     generator = generator,
     mutator = mutator,
     mutationStrategyAdaptor = mutationStrategyAdaptor,
@@ -212,12 +212,12 @@ print.ecr_control = function(x, ...) {
 
   catf("Evolutionary parameters:")
   catf("Population size              : %i", x$individuals.size)
-  catf("Offspring size               : %i", x$offspring.size)
-  catf("Mating pool size             : %i", x$mating.pool.size)
+  catf("Offspring size               : %i", x$n.offspring)
+  catf("Mating pool size             : %i", x$n.mating.pool)
   catf("Representation               : %s", x$representation)
   catf("Survival strategy            : %s", if (x$survival.strategy == "plus") "(mu + lambda)" else "(mu, lambda)")
-  if (x$elite.size > 0L && x$survival.strategy == "comma") {
-    catf("(Using elitism with elite count %i, i.e., %.2g%% of the fittest candidates in each generation will survive)", x$elite.size, as.numeric(x$elite.size)/x$individuals.size)
+  if (x$n.elite > 0L && x$survival.strategy == "comma") {
+    catf("(Using elitism with elite count %i, i.e., %.2g%% of the fittest candidates in each generation will survive)", x$n.elite, as.numeric(x$n.elite)/x$individuals.size)
   }
 
   catf("")

@@ -32,10 +32,10 @@ obj.fun = makeSingleObjectiveFunction(
 
 # Here we make use of mutations only! The nullRecombinator
 # does nothing.
-control = ecr.control(
-  population.size = 1L,
-  offspring.size = 1L,
-  mating.pool.size = 1L,
+control = setupECRControl(
+  n.population = 1L,
+  n.offspring = 1L,
+  n.mating.pool = 1L,
   representation = "binary",
   survival.strategy = "plus",
   n.params = n.params,
@@ -49,7 +49,7 @@ control = ecr.control(
 print(control)
 
 # actually apply the evolutionary algorithm
-res = ecr(obj.fun, control = control)
+res = doTheEvolution(obj.fun, control = control)
 print(res)
 
 # plot optimization trace

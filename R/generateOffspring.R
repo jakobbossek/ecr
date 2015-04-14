@@ -16,14 +16,14 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   recombinator = control$recombinator
   #parentSelector = control$parentSelector
   parentSelector = simpleUniformSelection
-  offspring.size = control$offspring.size
+  n.offspring = control$n.offspring
   par.set = getParamSet(objective.fun)
   n.params = control$n.params
 
   #offspring = list()
-  offspring = matrix(NA, ncol = n.params, nrow = offspring.size)
+  offspring = matrix(NA, ncol = n.params, nrow = n.offspring)
 
-  for (i in 1:offspring.size) {
+  for (i in 1:n.offspring) {
     parents = parentSelector(matingPool)
     child = recombinator(parents)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)

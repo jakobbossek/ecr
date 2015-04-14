@@ -29,12 +29,12 @@ obj.fun = makeSingleObjectiveFunction(fn = obj.fun, par.set = par.set, name = "T
 
 # Here we make use of mutations only! The nullRecombinator
 # does nothing.
-control = ecr.control(
-  population.size = 100L,
-  offspring.size = 50L,
+control = setupECRControl(
+  n.population = 100L,
+  n.offspring = 50L,
   representation = "permutation",
   survival.strategy = "plus",
-  elite.size = 1L,
+  n.elite = 1L,
   n.params = tspmeta:::number_of_cities(inst),
   generator = makePermutationGenerator(),
   mutator = makeSwapMutator(),
@@ -43,7 +43,7 @@ control = ecr.control(
 )
 print(control)
 
-res = ecr(obj.fun, control = control)
+res = doTheEvolution(obj.fun, control = control)
 print(res)
 
 # plot computed tour

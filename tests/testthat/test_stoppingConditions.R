@@ -11,12 +11,12 @@ test_that("stopping conditions work", {
 		global.opt.value = 0
 	)
 
-	control = ecr.control(
-		population.size = 2L,
-		offspring.size = 2L,
+	control = setupECRControl(
+		n.population = 2L,
+		n.offspring = 2L,
 		n.params = 1L,
 		survival.strategy = "plus",
-		elite.size = 1L,
+		n.elite = 1L,
 		representation = "float",
 		monitor = makeNullMonitor(),
     stopping.conditions = setupStoppingConditions(max.iter = 5L)
@@ -24,9 +24,9 @@ test_that("stopping conditions work", {
 
 	# check for max time budget
 	control$stopping.conditions = list(makeMaximumTimeStoppingCondition(max.time = 2))
-	expect_true(grepl("Time limit", ecr(obj.fn, control)$message))
+	expect_true(grepl("Time limit", doTheEvolution(obj.fn, control)$message))
 
 	# check for max iterations
 	control$stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 10L))
-	expect_true(grepl("iterations", ecr(obj.fn, control)$message))
+	expect_true(grepl("iterations", doTheEvolution(obj.fn, control)$message))
 })

@@ -10,9 +10,9 @@ test_that("autoplot standard plot", {
     ),
     name = "ONE-MAX"
   )
-  control = ecr.control(
-    population.size = 5L,
-    offspring.size = 5L,
+  control = setupECRControl(
+    n.population = 5L,
+    n.offspring = 5L,
     representation = "binary",
     survival.strategy = "plus",
     n.params = n.params,
@@ -22,7 +22,7 @@ test_that("autoplot standard plot", {
     recombinator = makeCrossoverRecombinator(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 15L))
   )
-  res = ecr(obj.fun, control = control)
+  res = doTheEvolution(obj.fun, control = control)
   expect_true(autoplot(res, complete.trace = TRUE))
 })
 
@@ -36,9 +36,9 @@ test_that("autoplot for log axis and show process", {
       ),
       name = "Parabola"
     )
-    control = ecr.control(
-      population.size = 5L,
-      offspring.size = 5L,
+    control = setupECRControl(
+      n.population = 5L,
+      n.offspring = 5L,
       representation = "float",
       survival.strategy = "plus",
       n.params = n.params,
@@ -49,7 +49,7 @@ test_that("autoplot for log axis and show process", {
       recombinator = makeCrossoverRecombinator(),
       stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 15L))
     )
-    res = ecr(obj.fun, control = control)
+    res = doTheEvolution(obj.fun, control = control)
     expect_message(autoplot(res, log.fitness = TRUE, complete.trace = TRUE)
                    , regexp = "Scale for 'y' is already present. Adding another scale for 'y', which will replace the existing scale.")
     expect_true(autoplot(res, show.process = TRUE, complete.trace = TRUE))

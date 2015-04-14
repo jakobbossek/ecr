@@ -42,9 +42,9 @@ myMonitor = makeMonitor(step = myMonitorStep)
 obj.fun = makeRastriginFunction(dimensions = 1L)
 
 # initialize control object
-control = ecr.control(
-  population.size = 20L,
-  offspring.size = 5L,
+control = setupECRControl(
+  n.population = 20L,
+  n.offspring = 5L,
   survival.strategy = "plus",
   representation = "float",
   n.params = 1L,
@@ -56,4 +56,4 @@ control = ecr.control(
 # do the evolutionary magic
 set.seed(123)
 
-res = ecr(obj.fun, control = control)
+res = doTheEvolution(obj.fun, control = control)

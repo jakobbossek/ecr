@@ -49,16 +49,16 @@
 #' # We want to solve this with a (10 + 10) evolutionary strategy based on
 #' # the floating point representation of the input vectors with the default
 #' # operators: intermediate recombinator and Gauss mutation
-#' ctrl = ecr.control(
-#'   population.size = 10L,
-#'   offspring.size = 10L,
+#' ctrl = setupECRControl(
+#'   n.population = 10L,
+#'   n.offspring = 10L,
 #'   survival.strategy = "plus",
 #'   n.params = 1L,
 #'   representation = "float",
 #'   stopping.conditions = setupStoppingConditions(max.iter = 30L),
 #'   monitor = myFancyConsoleMonitor
 #' )
-#' res = ecr(obj.fn, ctrl)
+#' res = doTheEvolution(obj.fn, ctrl)
 #' print(res)
 #'
 #' @export

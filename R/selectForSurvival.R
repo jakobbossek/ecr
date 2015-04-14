@@ -5,7 +5,7 @@
 #   Population.
 # @param offspring [\code{integer(1)}]\cr
 #   Generated offspring.
-# @param population.size [\code{integer(1)}]\cr
+# @param n.population [\code{integer(1)}]\cr
 #   Number of individuals.
 # @param strategy [\code{character(1)}]\cr
 #   Strategy used for selection. Possible strategies are:
@@ -14,34 +14,34 @@
 #     \item{comma}{A classical (mu, lambda) strategy.}
 #   }
 #   Default is \code{plus}. Another is not implemented yet.
-# @param elite.size [\code{integer(1)}]\cr
+# @param n.elite [\code{integer(1)}]\cr
 #   Number of fittest individuals of the current generation that shall be copied to the
 #   next generation without changing. Default is 0.
 # @return [\code{setOfIndividuals}]
-selectForSurvival = function(population, offspring, population.size, strategy = "plus", elite.size = 0L) {
+selectForSurvival = function(population, offspring, n.population, strategy = "plus", n.elite = 0L) {
   elite = NULL
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
     source.individuals = source.population$individuals
     source.fitness = source.population$fitness
-    to.survive = order(source.fitness)[seq(population.size)]
+    to.survive = order(source.fitness)[seq(n.population)]
   } else if (strategy == "comma") {
     source.population = offspring
     source.individuals = source.population$individuals
     source.fitness = source.population$fitness
-    if (elite.size > 0L) {
-      #catf("Elitism with %i candidates out of %i", elite.size, population.size)
+    if (n.elite > 0L) {
+      #catf("Elitism with %i candidates out of %i", n.elite, n.population)
       parent.individuals = population$individuals
       parent.fitness = population$fitness
-      to.be.elite = order(parent.fitness)[seq(elite.size)]
+      to.be.elite = order(parent.fitness)[seq(n.elite)]
       # Adapt number of individuals taken from the offspring
-      population.size = population.size - elite.size
+      n.population = n.population - n.elite
       elite = makePopulation(
         individuals = parent.individuals[to.be.elite, , drop = FALSE],
         fitness = parent.fitness[to.be.elite]
       )
     }
-    to.survive = order(source.fitness)[seq(population.size)]
+    to.survive = order(source.fitness)[seq(n.population)]
   }
 
   population2 = makePopulation(

@@ -1,7 +1,7 @@
 #' Plot optimization trace.
 #'
-#' Call this function on the result object of an \code{\link{ecr}} function call
-#' to visualize the optimization trace.
+#' Call this function on the result object of an \code{\link{doTheEvolution}} function
+#' call to visualize the optimization trace.
 #'
 #' @param object [\code{ecr_result}]\cr
 #'   ecr result object.

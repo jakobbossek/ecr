@@ -34,7 +34,7 @@ Not used.}
 [\code{invisible(TRUE)}]
 }
 \description{
-Call this function on the result object of an \code{\link{ecr}} function call
-to visualize the optimization trace.
+Call this function on the result object of an \code{\link{doTheEvolution}} function
+call to visualize the optimization trace.
 }
 

@@ -4,13 +4,13 @@
 \alias{simpleMatingPoolGenerator}
 \title{Simple mating pool generator.}
 \usage{
-simpleMatingPoolGenerator(population, mating.pool.size)
+simpleMatingPoolGenerator(population, n.mating.pool)
 }
 \arguments{
 \item{population}{[\code{setOfIndividuals}]\cr
 Population.}
 
-\item{mating.pool.size}{[\code{integer(1)}]\cr
+\item{n.mating.pool}{[\code{integer(1)}]\cr
 Number of individuals which should be placed in the mating pool.}
 }
 \value{

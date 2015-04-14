@@ -30,9 +30,9 @@ obj.fun = makeRastriginFunction(dimensions = 1L)
 As a next step we generate an ecr *control object*, which holds all the neccessary parameters for the evolutionary algorithm. We decide ourself for the natural representation with real-valued numbers as the genotype, a population size of 20 individuals with 5 individuals being created by recombination and mutation in each generation. Furthermore we decide to use a 'plus' survival strategy, i. e., the current population and the offspring will be merged before survival selection takes place. Gauss mutation with a standard deviance of 0.005 serves as the mutation operator and we keep the intermediate recombination operator (which is the default for representation float). Moreover we define a maximal number of 50 generations.
 
 ```splus
-control = ecr.control(
-  population.size = 20L,
-  offspring.size = 5L,
+control = setupECRControl(
+  n.population = 20L,
+  n.offspring = 5L,
   representation = "float",
   survival.strategy = "plus",
   n.params = 1L,
@@ -46,7 +46,7 @@ Now lets start the optimization process and print the result object, which conta
 
 ```splus
 set.seed(123)
-res = ecr(obj.fun, control = control)
+res = doTheEvolution(obj.fun, control = control)
 print(res)
 print(autoplot(res))
 ```
