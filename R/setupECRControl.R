@@ -12,8 +12,8 @@
 #'   Number of individuals which can potentially participate in the
 #'   generation of offspring. Default is half of the population size.
 #' @param representation [\code{character(1)}]\cr
-#'   Genotype representation of the parameters. Available are binary, real, integer and
-#'   permutation.
+#'   Genotype representation of the parameters. Available are binary, real,
+#'   permutation and custom.
 #' @param survival.strategy [\code{character(1)}]\cr
 #'   Determines the survival strategy used by the EA. Possible are 'plus' for a classical
 #'   (mu + lambda) strategy and 'comma' for (mu, lambda).
@@ -82,7 +82,7 @@ setupECRControl = function(
     stopf("Currently only monitor of type 'ecr_monitor' supported")
   }
 
-  structure(list(
+  makeS3Obj(
     n.population = n.population,
     n.offspring = n.offspring,
     n.mating.pool = n.mating.pool,
@@ -93,8 +93,9 @@ setupECRControl = function(
     save.population.at = save.population.at,
     target.name = target.name,
     stopping.conditions = stopping.conditions,
-    monitor = monitor),
-  class = "ecr_control")
+    monitor = monitor,
+    classes = "ecr_control"
+  )
 }
 
 #' Print ecr control object.

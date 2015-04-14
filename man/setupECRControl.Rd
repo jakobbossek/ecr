@@ -22,8 +22,8 @@ Number of individuals which can potentially participate in the
 generation of offspring. Default is half of the population size.}
 
 \item{representation}{[\code{character(1)}]\cr
-Genotype representation of the parameters. Available are binary, real, integer and
-permutation.}
+Genotype representation of the parameters. Available are binary, real,
+permutation and custom.}
 
 \item{survival.strategy}{[\code{character(1)}]\cr
 Determines the survival strategy used by the EA. Possible are 'plus' for a classical
