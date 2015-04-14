@@ -26,14 +26,8 @@ test_that("autoplot standard plot", {
 
 test_that("autoplot for log axis and show process", {
   for (n.params in c(1L, 2L)) {
-    # now we wrap the objective function with the smoof package
-    obj.fun = makeSingleObjectiveFunction(
-      fn = function(x) {sum(x^2)},
-      par.set = makeParamSet(
-        makeNumericVectorParam(len = n.params, id = "x", lower = -4, upper = 4)
-      ),
-      name = "Parabola"
-    )
+    obj.fun = smoof::makeSphereFunction(dimensions = n.params)
+
     control = setupECRControl(
       n.population = 5L,
       n.offspring = 5L,

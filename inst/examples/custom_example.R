@@ -39,8 +39,13 @@ ctrl = setupECRControl(
   monitor = makeConsoleMonitor()
 )
 
-myGenerator = makeGenerator("custom", function(N) {
-  matrix(runif(N * 2L), ncol = 2L)
+myGenerator = makeGenerator(
+  generator = function(size, control) {
+    matrix(runif(N * 2L), ncol = 2L)
+  },
+  name = "Point generator",
+  description = "Generates random point clouds in the euclidean space",
+  supported = "custom"
 })
 
 myMutator = makeMutator(
@@ -63,7 +68,8 @@ myRecombinator = makeRecombinator(
   supported = "custom"
 )
 
-evops = setUpECROperatorSet(
+control = setupEvolutionaryOperators(
+  control,
   generator = myGenerator,
   mutator = myMutator,
   recombinator = myRecombinator

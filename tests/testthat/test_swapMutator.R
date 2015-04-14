@@ -1,26 +1,5 @@
 context("swap mutator")
 
-test_that("swap mutator", {
-  permGen <- ecr:::makePermutationGenerator()
-  swapMut <- ecr:::makeSwapMutator()
-
-  population <- permGen(3, 7)
-
-  set.seed(5678)
-  popSwap <- swapMut(population)
-
-  set.seed(5678)
-  for (i in seq(3)) {
-    pos = sample(1:7, size = 2)
-    pos1 = pos[1]
-    pos2 = pos[2]
-    tmp = population$individuals[i, pos1]
-    population$individuals[i, pos1] = population$individuals[i, pos2]
-    population$individuals[i, pos2] = tmp
-  }
-  expect_true(all.equal(popSwap$individuals, population$individuals))
-})
-
 test_that("permutation example with swap mutator", {
   n.params = 7L
   obj.fun = makeSingleObjectiveFunction(

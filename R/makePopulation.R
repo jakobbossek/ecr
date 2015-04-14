@@ -6,11 +6,9 @@
 #   Vector of fitness values for the individuals.
 # @return [\code{setOfIndividuals}]
 makePopulation = function(individuals, fitness = NULL) {
-  structure(
-    list(
-      individuals = individuals,
-      fitness = fitness
-    ),
+  makeS3Obj(
+    individuals = individuals,
+    fitness = fitness,
     classes = c("ecrPopulation", "setOfIndividuals")
   )
 }

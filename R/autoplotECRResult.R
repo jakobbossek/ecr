@@ -46,21 +46,21 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
       pl.fun = autoplot(obj.fun)
       population = object$population.storage[[paste0("gen.", dob)]]
       if (n.params == 2L) {
-        df.points = as.data.frame(population$individuals)
+        df.points = as.data.frame(do.call(rbind, population$individuals))
         colnames(df.points) = paste("x", 1:n.params, sep = "")
         df.points$y = population$fitness
         pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x1", y = "x2"), colour = "tomato")
       } else {
-        df.points = data.frame(x = population$individuals, y = population$fitness)
+        df.points = data.frame(x = do.call(c, population$individuals), y = population$fitness)
         pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x", y = "y"), colour = "tomato")
         pl.fun = pl.fun + geom_hline(yintercept = min(population$fitness), linetype = "dashed", colour = "gray")
       }
 
       #FIXME: this seems to fail!
-      #BBmisc::requirePackages(c("grid", "gridExtra"), why = "ecr")
+      BBmisc::requirePackages(c("grid", "gridExtra"), why = "ecr")
       #FIXME: next line returns errors in 'test_autoplot.R'
-      #pl = do.call(gridExtra::arrangeGrob, list(pl.fun, pl.trace, ncol = 1))
-      pl = pl.trace
+      pl = do.call(gridExtra::arrangeGrob, list(pl.fun, pl.trace, ncol = 1))
+      #pl = pl.trace
     } else {
       pl = pl.trace
     }
