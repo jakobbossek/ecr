@@ -17,7 +17,6 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   #parentSelector = control$selector
   parentSelector = simpleUniformSelection
   n.offspring = control$n.offspring
-  par.set = getParamSet(objective.fun)
 
   #offspring = list()
   offspring = vector("list", n.offspring)
@@ -31,7 +30,9 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     child = mutator(child, mutator.control)
     offspring[[i]] = child
   }
-  offspring = correctBounds(offspring, par.set)
+  if (control$representation != "custom") {
+    offspring = correctBounds(offspring, par.set = getParamSet(objective.fun))
+  }
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
   return(makePopulation(offspring, offspring.fitness))
