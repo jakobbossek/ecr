@@ -120,7 +120,6 @@ doTheEvolution = function(objective.fun, control) {
 
     parents = matingPoolGenerator(population, n.mating.pool)
     offspring = generateOffspring(parents, objective.fun, control, opt.path)
-    #print(offspring)
 
     population = selectForSurvival(
       population,

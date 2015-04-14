@@ -12,8 +12,7 @@ makeCrossoverRecombinator = function() {
     idx = sample(0:n, size = 1L)
     child = parent1
     child[idx:n] = parent2[idx:n]
-    child = child
-    p = makePopulation(child)
+    makePopulation(child)
   }
 
   makeRecombinator(

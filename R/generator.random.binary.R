@@ -19,8 +19,13 @@ makeBinaryGenerator = function() {
   # @param control [\code{ecr_control}]\cr
   #   Control object.
   # @return [\code{setOfIndividuals}]
-  generateBinaryPopulation = function(size, n.params, lower.bounds = NA, upper.bounds = NA, control) {
-    population = matrix(sample(c(0,1), size = n.params * size, replace = TRUE), nrow = size, ncol = n.params)
+  generateBinaryPopulation = function(size, control) {
+    par.set = control$par.set
+    n.params = sum(getParamLengths(par.set))
+    population = list()
+    for (i in seq(size)) {
+      population[[i]] = sample(c(0, 1), size = n.params, replace = TRUE)
+    }
     makePopulation(population)
   }
   operator = makeOperator(

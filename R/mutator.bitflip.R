@@ -14,12 +14,12 @@ makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck(defaults)
 
   mutator = function(setOfIndividuals, control = defaults) {
-    n.params = ncol(setOfIndividuals$individuals)
-    n = nrow(setOfIndividuals$individuals)
-
+    inds = setOfIndividuals$individuals
+    n = length(inds)
+    n.params = length(inds[[1]])
     for (i in seq(n)) {
       do.mutate = runif(n.params) < control$mutator.flip.prob
-      setOfIndividuals$individuals[i, do.mutate] = 1 - setOfIndividuals$individuals[i, do.mutate]
+      setOfIndividuals$individuals[[i]][do.mutate] = 1 - setOfIndividuals$individuals[[i]][do.mutate]
     }
     return(setOfIndividuals)
   }
