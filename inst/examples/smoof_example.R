@@ -29,11 +29,11 @@ myMonitorStep = function(envir = parent.frame()) {
   df = data.frame(x = x, y = sapply(x, envir$objective.fun))
   pl = ggplot(data = df, aes(x = x, y = y)) + geom_line()
 
-  # population.points = data.frame(x = as.numeric(population$individuals[[1]]), y = as.numeric(population$fitness))
-  # pl = pl + geom_point(data = population.points, colour = "tomato", size = 2.2)
-  # pl = pl + geom_hline(yintercept = min(population$fitness), linetype = "dotted", colour = "tomato")
-  # print(pl)
-  # Sys.sleep(0.3)
+  population.points = data.frame(x = unlist(population$individuals), y = as.numeric(population$fitness))
+  pl = pl + geom_point(data = population.points, colour = "tomato", size = 2.2)
+  pl = pl + geom_hline(yintercept = min(population$fitness), linetype = "dotted", colour = "tomato")
+  print(pl)
+  Sys.sleep(0.3)
 }
 
 myMonitor = makeMonitor(step = myMonitorStep)
