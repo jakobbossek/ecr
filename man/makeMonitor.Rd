@@ -74,6 +74,8 @@ ctrl = setupECRControl(
   stopping.conditions = setupStoppingConditions(max.iter = 30L),
   monitor = myFancyConsoleMonitor
 )
+ctrl = setupEvolutionaryOperators(ctrl)
+
 res = doTheEvolution(obj.fn, ctrl)
 print(res)
 }

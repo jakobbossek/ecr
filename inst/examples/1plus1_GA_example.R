@@ -39,12 +39,15 @@ control = setupECRControl(
   representation = "binary",
   survival.strategy = "plus",
   n.params = n.params,
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 500L))
+)
+control = setupEvolutionaryOperators(
+  control,
   generator = makeBinaryGenerator(),
   mutator = makeBitFlipMutator(),
   recombinator = makeCrossoverRecombinator(),
   # see the literature on 1+1 GA for this parameter recommendation
-  mutator.control = list(mutator.flip.prob = 1 / n.params),
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 500L))
+  mutator.control = list(mutator.flip.prob = 1 / n.params)
 )
 print(control)
 
@@ -53,4 +56,4 @@ res = doTheEvolution(obj.fun, control = control)
 print(res)
 
 # plot optimization trace
-print(autoplot(res, log.fitness = FALSE))
+print(autoplot(res, log.fitness = FALSE, complete.trace = TRUE))

@@ -22,9 +22,10 @@ control = setupECRControl(
   survival.strategy = "plus",
   representation = "float",
   n.params = 2L,
-  mutator.control = list(mutator.gauss.sd = 0.05),
   stopping.conditions = setupStoppingConditions(max.iter = 50L)
 )
+
+control = setupEvolutionaryOperators(control, mutator.control = list(mutator.gauss.sd = 0.05))
 
 # generate test function
 obj.fun = makeZDT1Function(dimensions = 2L)

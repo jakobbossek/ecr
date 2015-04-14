@@ -36,11 +36,10 @@ control = setupECRControl(
   survival.strategy = "plus",
   n.elite = 1L,
   n.params = tspmeta:::number_of_cities(inst),
-  generator = makePermutationGenerator(),
-  mutator = makeSwapMutator(),
-  recombinator = makeNullRecombinator(),
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 200L))
 )
+# here we stick to the defaults
+control = setupEvolutionaryOperators(control)
 print(control)
 
 res = doTheEvolution(obj.fun, control = control)

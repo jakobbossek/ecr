@@ -21,6 +21,7 @@ test_that("stopping conditions work", {
 		monitor = makeNullMonitor(),
     stopping.conditions = setupStoppingConditions(max.iter = 5L)
 	)
+  control = setupEvolutionaryOperators(control)
 
 	# check for max time budget
 	control$stopping.conditions = list(makeMaximumTimeStoppingCondition(max.time = 2))

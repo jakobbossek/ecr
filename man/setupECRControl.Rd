@@ -7,12 +7,8 @@
 setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
   survival.strategy = "plus", n.elite = 0L, n.params, target.name = "y",
-  save.population.at = integer(0), selector = simpleMatingPoolGenerator,
-  generator = makeUniformGenerator(), mutator = makeGaussMutator(),
-  mutationStrategyAdaptor = function(operator.control, opt.path) {    
-  return(operator.control) }, recombinator = makeIntermediateRecombinator(),
-  mutator.control = list(), recombinator.control = list(),
-  monitor = makeConsoleMonitor(), stopping.conditions = list())
+  save.population.at = integer(0), monitor = makeConsoleMonitor(),
+  stopping.conditions = list())
 }
 \arguments{
 \item{n.population}{[\code{integer(1)}]\cr
@@ -46,37 +42,6 @@ Name for the objective fun values. Default is \dQuote{y}.}
 
 \item{save.population.at}{[\code{integer}]\cr
 Which populations should be saved? Default is none.}
-
-\item{selector}{[\code{function}]\cr
-Generator operator which implements a procedure to copy individuals from a
-given population to the mating pool, i. e., allow them to become parents.}
-
-\item{generator}{[\code{ecr_generator}]\cr
-Generator operator of type \code{ecr_generator} for the generation of the initial
-population.}
-
-\item{mutator}{[\code{ecr_mutator}]\cr
-Mutation operator of type \code{ecr_mutator}.}
-
-\item{mutationStrategyAdaptor}{[\code{function}]\cr
-This is an experimental parameter. Hence, you should be careful when using it.
-Serves to offer the possibility to adapt parameters of the mutation algorithm
-(e. g. mutation stepsize \eqn{\sigma} for Gaussian mutation) in each iteration.
-The function needs to expect the parameters \dQuote{operator.control} and
-\dQuote{opt.path}, the last being of type \code{\link[ParamHelpers]{OptPath}} and
-must return the modified \dQuote{operator.control} object. The default does
-nothing.}
-
-\item{recombinator}{[\code{ecr_recombinator}]\cr
-Recombination operator of type \code{ecr_recombinator}.}
-
-\item{mutator.control}{[\code{list}]\cr
-List of evolutionary parameters for the corresponding mutation operator. See the
-help pages for the mutation operators for the needed values.}
-
-\item{recombinator.control}{[\code{list}]\cr
-List of evolutionary parameters for the corresponding recombination operator. See the
-help pages for the recombination operators for the needed values.}
 
 \item{monitor}{[\code{function}]\cr
 Monitoring function. Default is \code{consoleMonitor}.}

@@ -16,12 +16,10 @@ test_that("autoplot standard plot", {
     representation = "binary",
     survival.strategy = "plus",
     n.params = n.params,
-    generator = makeBinaryGenerator(),
-    mutator = makeBitFlipMutator(),
     monitor = makeNullMonitor(),
-    recombinator = makeCrossoverRecombinator(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 15L))
   )
+  control = setupEvolutionaryOperators(control)
   res = doTheEvolution(obj.fun, control = control)
   expect_true(autoplot(res, complete.trace = TRUE))
 })
@@ -45,9 +43,12 @@ test_that("autoplot for log axis and show process", {
       # FIXME: Throws an error if not complete population is saved
       save.population.at = 0:15,
       monitor = makeNullMonitor(),
-      mutator = makeGaussMutator(mutator.gauss.sd = 0.005),
-      recombinator = makeCrossoverRecombinator(),
       stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 15L))
+    )
+    control = setupEvolutionaryOperators(
+      control,
+      mutator = makeGaussMutator(mutator.gauss.sd = 0.005),
+      recombinator = makeCrossoverRecombinator()
     )
     res = doTheEvolution(obj.fun, control = control)
     expect_message(autoplot(res, log.fitness = TRUE, complete.trace = TRUE)

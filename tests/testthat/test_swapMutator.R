@@ -43,12 +43,10 @@ test_that("permutation example with swap mutator", {
     representation = "permutation",
     survival.strategy = "plus",
     n.params = n.params,
-    generator = makePermutationGenerator(),
-    mutator = makeSwapMutator(),
-    recombinator = makeNullRecombinator(),
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
   )
+  control = setupEvolutionaryOperators(control)
   res = doTheEvolution(obj.fun, control = control)
   # check results
   expect_false(is.null(res))

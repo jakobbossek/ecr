@@ -52,6 +52,8 @@ ctrl = setupECRControl(
   representation = "float",
   stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
+# use the default operators for representation "float"
+ctrl = setupEvolutionaryOperators(ctrl)
 
 res = doTheEvolution(obj.fn, control = ctrl)
 print(res)

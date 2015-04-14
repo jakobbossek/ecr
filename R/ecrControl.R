@@ -27,30 +27,6 @@
 #'   Name for the objective fun values. Default is \dQuote{y}.
 #' @param save.population.at [\code{integer}]\cr
 #'   Which populations should be saved? Default is none.
-#' @param selector [\code{function}]\cr
-#'   Generator operator which implements a procedure to copy individuals from a
-#'   given population to the mating pool, i. e., allow them to become parents.
-#' @param generator [\code{ecr_generator}]\cr
-#'   Generator operator of type \code{ecr_generator} for the generation of the initial
-#'   population.
-#' @param mutator [\code{ecr_mutator}]\cr
-#'   Mutation operator of type \code{ecr_mutator}.
-#' @param mutationStrategyAdaptor [\code{function}]\cr
-#'   This is an experimental parameter. Hence, you should be careful when using it.
-#'   Serves to offer the possibility to adapt parameters of the mutation algorithm
-#'   (e. g. mutation stepsize \eqn{\sigma} for Gaussian mutation) in each iteration.
-#'   The function needs to expect the parameters \dQuote{operator.control} and
-#'   \dQuote{opt.path}, the last being of type \code{\link[ParamHelpers]{OptPath}} and
-#'   must return the modified \dQuote{operator.control} object. The default does
-#'   nothing.
-#' @param recombinator [\code{ecr_recombinator}]\cr
-#'   Recombination operator of type \code{ecr_recombinator}.
-#' @param mutator.control [\code{list}]\cr
-#'   List of evolutionary parameters for the corresponding mutation operator. See the
-#'   help pages for the mutation operators for the needed values.
-#' @param recombinator.control [\code{list}]\cr
-#'   List of evolutionary parameters for the corresponding recombination operator. See the
-#'   help pages for the recombination operators for the needed values.
 #' @param monitor [\code{function}]\cr
 #'   Monitoring function. Default is \code{consoleMonitor}.
 #' @param stopping.conditions [\code{list}]\cr
@@ -68,15 +44,6 @@ setupECRControl = function(
   n.params,
   target.name = "y",
   save.population.at = integer(0),
-  selector = simpleMatingPoolGenerator,
-  generator = makeUniformGenerator(),
-  mutator = makeGaussMutator(),
-  mutationStrategyAdaptor = function(operator.control, opt.path) {
-    return(operator.control)
-  },
-  recombinator = makeIntermediateRecombinator(),
-  mutator.control = list(),
-  recombinator.control = list(),
   monitor = makeConsoleMonitor(),
   stopping.conditions = list()) {
   assertCount(n.population, positive = TRUE, na.ok = FALSE)
@@ -92,38 +59,6 @@ setupECRControl = function(
   if (length(save.population.at) > 0) {
     assertInteger(save.population.at, lower = 0L, any.missing = FALSE)
   }
-
-  assertClass(mutator, "ecr_mutator")
-  assertList(mutator.control, any.missing = FALSE)
-  assertFunction(mutationStrategyAdaptor, args = c("operator.control", "opt.path"), ordered = TRUE)
-  assertList(recombinator.control, any.missing = FALSE)
-  if (!inherits(monitor, "ecr_monitor")) {
-    stopf("Currently only monitor of type 'ecr_monitor' supported")
-  }
-
-  # Check passed mutator
-  if (!inherits(mutator, "ecr_mutator")) {
-    stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
-  }
-  checkMutator(mutator)
-  mutator.control = prepareOperatorParameters(mutator, mutator.control)
-
-  # Check arguments of recombinator
-  if (!inherits(recombinator, "ecr_recombinator")) {
-    stopf("Recombinator must be of class ecr_recombinator, not %s", paste(attr(mutator, "class")))
-  }
-  checkRecombinator(recombinator)
-  recombinator.control = prepareOperatorParameters(recombinator, recombinator.control)
-
-  if (!inherits(generator, "ecr_generator")) {
-    stopf("Generator must be of class ecr_generator, not %s", paste(attr(generator, "class")))
-  }
-
-  sapply(c(generator, mutator, recombinator), function(operator) {
-    if (!is.supported(operator, representation)) {
-      stop(paste("Mutator '", getOperatorName(operator), "' is not compatible with representation '", representation, "'!", sep = ""))
-    }
-  })
 
   # If the survival strategy is (mu + lambda), than the number of generated offspring in each iteration
   # must greater or equal to the population size
@@ -147,6 +82,10 @@ setupECRControl = function(
     }
   }
 
+  if (!inherits(monitor, "ecr_monitor")) {
+    stopf("Currently only monitor of type 'ecr_monitor' supported")
+  }
+
   structure(list(
     n.population = n.population,
     n.offspring = n.offspring,
@@ -156,35 +95,11 @@ setupECRControl = function(
     n.elite = n.elite,
     n.params = n.params,
     n.targets = NULL, # we set this by hand here
-    selector = selector,
-    generator = generator,
-    mutator = mutator,
-    mutationStrategyAdaptor = mutationStrategyAdaptor,
-    recombinator = recombinator,
-    mutator.control = mutator.control,
-    recombinator.control = recombinator.control,
     save.population.at = save.population.at,
     target.name = target.name,
     stopping.conditions = stopping.conditions,
     monitor = monitor),
   class = "ecr_control")
-}
-
-# Helper function which constructs control object for a given operator
-# and checks the user parameters for validity.
-#
-# @param operator [\code{ecr_operator}]\cr
-#   Operator object.
-# @param parameters [\code{list}]\cr
-#   List of parameters provedided by the user for the operator.
-# @return [\code{list}]
-#   List of checked parameters.
-prepareOperatorParameters = function(operator, input.params) {
-  defaults = getOperatorDefaultParameters(operator)
-  params = insert(defaults, input.params)
-  params[setdiff(names(params), names(defaults))] = NULL
-  do.call(getOperatorCheckFunction(operator), list(params))
-  return(params)
 }
 
 #' Print ecr control object.

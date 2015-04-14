@@ -6,7 +6,7 @@ setUpControlObject = function(n.population,
   n.elite = 1L,
   n.mating.pool = round(n.population / 2),
   max.iter = 100L) {
-  setupECRControl(
+  control = setupECRControl(
     n.population = n.population,
     n.offspring = n.offspring,
     survival.strategy = survival.strategy,
@@ -15,7 +15,8 @@ setUpControlObject = function(n.population,
     representation = "float",
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
-    )
+  )
+  control = setupEvolutionaryOperators(control)
 }
 
 test_that("ecr works with simple soo function", {
@@ -60,9 +61,10 @@ test_that("ecr works on binary representations", {
           stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter)),
           monitor = makeNullMonitor(),
           n.params = n.params,
-          generator = makeBinaryGenerator(),
-          recombinator = makeCrossoverRecombinator(),
           representation = "binary",
+        )
+        control = setupEvolutionaryOperators(
+          control,
           mutator = mutator
         )
 
@@ -97,9 +99,9 @@ test_that("ecr finds optimum if is is located on the edge of the search space", 
     representation = "float",
     monitor = makeNullMonitor(),
     n.params = 2L,
-    mutator.control = list(mutator.gauss.sd = 0.05),
     stopping.conditions = setupStoppingConditions(max.iter = 100L)
   )
+  control = setupEvolutionaryOperators(control, mutator.control = list(mutator.gauss.sd = 0.05))
 
   res = doTheEvolution(fn, control = control)
   expect_true(res$best.value < 0.1)

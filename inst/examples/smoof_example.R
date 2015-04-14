@@ -48,10 +48,10 @@ control = setupECRControl(
   survival.strategy = "plus",
   representation = "float",
   n.params = 1L,
-  mutator.control = list(mutator.gauss.sd = 0.005),
   monitor = myMonitor,
   stopping.conditions = setupStoppingConditions(max.iter = 25L)
 )
+control = setupEvolutionaryOperators(control, mutator.control = list(mutator.gauss.sd = 0.005))
 
 # do the evolutionary magic
 set.seed(123)
