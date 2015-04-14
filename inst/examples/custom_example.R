@@ -23,6 +23,9 @@ getPairwiseDistances = function(x) {
   return(distances)
 }
 
+# defs
+N = 15L
+
 #fitness = makeFitnessFunction(
 fitness = function(x, ...) {
   dists = getPairwiseDistances(x)
@@ -31,16 +34,19 @@ fitness = function(x, ...) {
 
 # control and operator settings are separated now
 ctrl = setupECRControl(
-  n.population = 10L,
+  n.population = 100L,
   n.offspring = 10L,
   representation = "custom", # bypass everything
   survival.strategy = "plus",
-  monitor = makeConsoleMonitor()
+  monitor = makeConsoleMonitor(),
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 10000L))
 )
 
 myGenerator = makeGenerator(
   generator = function(size, control) {
-    matrix(runif(N * 2L), ncol = 2L)
+    makePopulation(lapply(seq(size), function(i) {
+      matrix(runif(N * 2L), ncol = 2L)
+    }))
   },
   name = "Point generator",
   description = "Generates random point clouds in the euclidean space",
@@ -48,9 +54,10 @@ myGenerator = makeGenerator(
 )
 
 myMutator = makeMutator(
-  mutator = function(x) {
-    N = nrow(x)
-    x + runif(N * 2L, ncol = 2L, min = 0, max = 0.01)
+  mutator = function(x, control) {
+    idx = which(runif(nrow(x)) < 0.1)
+    x[idx, ] = matrix(runif(2 * length(idx)), ncol = 2)
+    return(x)
   },
   name = "Point-Shift mutation",
   description = "Shift all points in a random direction",
@@ -58,20 +65,20 @@ myMutator = makeMutator(
 )
 
 myRecombinator = makeRecombinator(
-  recombinator = function(x, y) {
-    N = nrow(x)
-    0.5 * (x + y)
+  recombinator = function(x) {
+    x[[1]]
   },
   name = "Convex-Combination recombinator",
   description = "Make a convex combination of the point coordinates",
   supported = "custom"
 )
 
-control = setupEvolutionaryOperators(
-  control,
+ctrl = setupEvolutionaryOperators(
+  ctrl,
   generator = myGenerator,
   mutator = myMutator,
   recombinator = myRecombinator
 )
 
 res = doTheEvolution(fitness, ctrl)
+plot(res$best.param)
