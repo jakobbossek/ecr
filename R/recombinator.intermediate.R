@@ -3,15 +3,13 @@
 #' @return [\code{ecr_recombinator}]
 #' @export
 makeIntermediateRecombinator = function() {
-  recombinator = function(setOfIndividuals, control = list()) {
-    inds = setOfIndividuals$individuals
+  recombinator = function(inds, control = list()) {
     n = length(inds[[1]])
     child = rep(0, n)
     for (i in 1:length(inds)) {
       child = child + inds[[i]]
     }
-    child = child / length(inds)
-    makePopulation(child)
+    return(child / length(inds))
   }
 
   makeRecombinator(

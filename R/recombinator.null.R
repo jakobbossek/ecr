@@ -3,9 +3,8 @@
 #' @return [\code{ecr_recombinator}]
 #' @export
 makeNullRecombinator = function() {
-  recombinator = function(setOfIndividuals, control=list()) {
-    child = list(setOfIndividuals$individuals[[1]])
-    makePopulation(child)
+  recombinator = function(inds, control=list()) {
+    return(inds[[1L]])
   }
 
   makeRecombinator(

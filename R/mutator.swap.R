@@ -3,22 +3,16 @@
 #' @return [\code{ecr_mutator}]
 #' @export
 makeSwapMutator = function() {
-  mutator = function(setOfIndividuals, control = list()) {
-    inds = setOfIndividuals$individuals
-    n.params = length(inds[[1]])
-    n = length(inds)
-    for (i in seq(n)) {
-      pos = sample(1:n.params, size = 2)
-      pos1 = pos[1]
-      pos2 = pos[2]
-      #catf("Positions: %i, %i", pos1, pos2)
-      tmp = setOfIndividuals$individuals[[i]][pos1]
-      setOfIndividuals$individuals[[i]][pos1] = setOfIndividuals$individuals[[i]][pos2]
-      setOfIndividuals$individuals[[i]][pos2] = tmp
-    }
-    #FIXME: something is inconsistent here.
-    setOfIndividuals$individuals = unlist(setOfIndividuals$individuals)
-    return(setOfIndividuals)
+  mutator = function(ind, control = list()) {
+    n.params = length(ind)
+    pos = sample(1:n.params, size = 2)
+    pos1 = pos[1]
+    pos2 = pos[2]
+    #catf("Positions: %i, %i", pos1, pos2)
+    tmp = ind[pos1]
+    ind[pos1] = ind[pos2]
+    ind[pos2] = tmp
+    return(ind)
   }
 
   makeMutator(

@@ -20,18 +20,12 @@ makeGaussMutator = function(mutator.gauss.prob = 1L, mutator.gauss.sd = 0.05) {
   defaults = list(mutator.gauss.prob = mutator.gauss.prob, mutator.gauss.sd = mutator.gauss.sd)
   mutatorCheck(defaults)
 
-  mutator = function(setOfIndividuals, control = defaults) {
-    inds = setOfIndividuals$individuals
-    n.params = length(inds[[1]])
-    n = length(inds)
-
-    for (i in seq(n)) {
-      idx = which(runif(n.params) < control$mutator.gauss.prob)
-      mut = rnorm(length(idx), mean = 0, sd = control$mutator.gauss.sd)
-      inds[[i]][idx] = inds[[i]][idx] + mut
-    }
-    setOfIndividuals$individuals = inds
-    return(setOfIndividuals)
+  mutator = function(ind, control = defaults) {
+    n.params = length(ind)
+    idx = which(runif(n.params) < control$mutator.gauss.prob)
+    mut = rnorm(length(idx), mean = 0, sd = control$mutator.gauss.sd)
+    ind[idx] = ind[idx] + mut
+    return(ind)
   }
 
   makeMutator(

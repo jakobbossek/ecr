@@ -39,7 +39,7 @@ myMonitorStep = function(envir = parent.frame()) {
 myMonitor = makeMonitor(step = myMonitorStep)
 
 # generate objective function
-obj.fun = makeRastriginFunction(dimensions = 3L)
+obj.fun = makeRastriginFunction(dimensions = 1L)
 
 # initialize control object
 control = setupECRControl(
@@ -47,7 +47,7 @@ control = setupECRControl(
   n.offspring = 5L,
   survival.strategy = "plus",
   representation = "float",
-  n.params = 3L,
+  n.params = 1L,
   monitor = myMonitor,
   stopping.conditions = setupStoppingConditions(max.iter = 25L)
 )

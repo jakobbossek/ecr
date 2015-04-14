@@ -25,10 +25,11 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
 
   for (i in 1:n.offspring) {
     parents = parentSelector(matingPool)
-    child = recombinator(parents)
+    # pass just the individuals and get a single individual
+    child = recombinator(parents$individuals)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
+    # pass just the individual and get a single individual
     child = mutator(child, mutator.control)
-    child = child$individuals
     offspring[[i]] = child
   }
   offspring = correctBounds(offspring, par.set, n.params)
