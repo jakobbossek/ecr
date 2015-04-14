@@ -21,7 +21,6 @@ control = setupECRControl(
   n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
-  n.params = 2L,
   stopping.conditions = setupStoppingConditions(max.iter = 50L)
 )
 

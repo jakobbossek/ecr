@@ -38,7 +38,6 @@ control = setupECRControl(
   n.mating.pool = 1L,
   representation = "binary",
   survival.strategy = "plus",
-  n.params = n.params,
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 500L))
 )
 control = setupEvolutionaryOperators(

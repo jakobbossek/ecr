@@ -21,8 +21,6 @@
 #'   Number of fittest individuals of the current generation that shall be copied to the
 #'   next generation without changing. Default is 0. Keep in mind, that the algorithm
 #'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
-#' @param n.params [\code{integer(1)}]\cr
-#'   Number of parameters of the objective function.
 #' @param target.name [\code{character(1)}]\cr
 #'   Name for the objective fun values. Default is \dQuote{y}.
 #' @param save.population.at [\code{integer}]\cr
@@ -41,7 +39,6 @@ setupECRControl = function(
   representation,
   survival.strategy = "plus",
   n.elite = 0L,
-  n.params,
   target.name = "y",
   save.population.at = integer(0),
   monitor = makeConsoleMonitor(),
@@ -53,7 +50,6 @@ setupECRControl = function(
   assertChoice(representation, choices = getAvailableRepresentations())
   assertChoice(survival.strategy, choices = c("plus", "comma"))
   assertCount(n.elite, na.ok = FALSE)
-  assertCount(n.params, positive = TRUE, na.ok = FALSE)
   assertCharacter(target.name, len = 1L, any.missing = FALSE)
 
   if (length(save.population.at) > 0) {
@@ -93,7 +89,6 @@ setupECRControl = function(
     representation = representation,
     survival.strategy = survival.strategy,
     n.elite = n.elite,
-    n.params = n.params,
     n.targets = NULL, # we set this by hand here
     save.population.at = save.population.at,
     target.name = target.name,
@@ -119,20 +114,22 @@ print.ecr_control = function(x, ...) {
   } else {
     catf("Optimizing multi-criteria objective function (%i targets).", x$n.targets)
   }
-  catf("Number of parameters         : %i", x$n.params)
-  if (!is.null(x$n.targets)) {
-    catf("Number of targets            : %i", x$n.targets)
-  }
-  catf("")
+  # catf("Number of parameters         : %i", x$n.params)
+  # if (!is.null(x$n.targets)) {
+  #   catf("Number of targets            : %i", x$n.targets)
+  # }
+  # catf("")
 
   catf("Evolutionary parameters:")
-  catf("Population size              : %i", x$individuals.size)
+  catf("Population size              : %i", x$n.population)
   catf("Offspring size               : %i", x$n.offspring)
   catf("Mating pool size             : %i", x$n.mating.pool)
   catf("Representation               : %s", x$representation)
   catf("Survival strategy            : %s", if (x$survival.strategy == "plus") "(mu + lambda)" else "(mu, lambda)")
   if (x$n.elite > 0L && x$survival.strategy == "comma") {
-    catf("(Using elitism with elite count %i, i.e., %.2g%% of the fittest candidates in each generation will survive)", x$n.elite, as.numeric(x$n.elite)/x$individuals.size)
+    catf("(Using elitism with elite count %i, i.e., %.2g%% of the fittest
+      candidates in each generation will survive)",
+    x$n.elite, as.numeric(x$n.elite)/x$n.population)
   }
 
   catf("")

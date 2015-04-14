@@ -5,7 +5,7 @@
 # @param par.set [\code{\link[ParamHelpers]{ParamSet}]\cr
 #   Parameter set.
 # @return [\code{setOfIndividuals}].
-correctBounds = function(individuals, par.set, n.params) {
+correctBounds = function(individuals, par.set) {
   #FIXME: this was/is damn slow!!! Already improved, but it still sucks, in
   # particular the last if case and the transposition
   lower = getLower(par.set, with.nr = TRUE)

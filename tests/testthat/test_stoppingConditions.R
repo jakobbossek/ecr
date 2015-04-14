@@ -14,7 +14,6 @@ test_that("stopping conditions work", {
 	control = setupECRControl(
 		n.population = 2L,
 		n.offspring = 2L,
-		n.params = 1L,
 		survival.strategy = "plus",
 		n.elite = 1L,
 		representation = "float",

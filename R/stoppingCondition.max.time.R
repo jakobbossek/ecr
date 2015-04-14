@@ -21,5 +21,5 @@ makeMaximumTimeStoppingCondition = function(max.time = NULL) {
     condition.fun,
     name = "TimeLimit",
     message = sprintf("Time limit reached: '%s' [seconds]", max.time)
-    )
+  )
 }

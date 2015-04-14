@@ -36,7 +36,6 @@
 #'   n.population = 10L,
 #'   n.offspring = 10L,
 #'   survival.strategy = "plus",
-#'   n.params = 1L,
 #'   representation = "float",
 #'   stopping.conditions = setupStoppingConditions(max.iter = 100L)
 #' )

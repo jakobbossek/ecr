@@ -6,7 +6,7 @@
 \usage{
 setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
-  survival.strategy = "plus", n.elite = 0L, n.params, target.name = "y",
+  survival.strategy = "plus", n.elite = 0L, target.name = "y",
   save.population.at = integer(0), monitor = makeConsoleMonitor(),
   stopping.conditions = list())
 }
@@ -33,9 +33,6 @@ Determines the survival strategy used by the EA. Possible are 'plus' for a class
 Number of fittest individuals of the current generation that shall be copied to the
 next generation without changing. Default is 0. Keep in mind, that the algorithm
 does not care about this option if the \code{survival.strategy} is set to 'plus'.}
-
-\item{n.params}{[\code{integer(1)}]\cr
-Number of parameters of the objective function.}
 
 \item{target.name}{[\code{character(1)}]\cr
 Name for the objective fun values. Default is \dQuote{y}.}

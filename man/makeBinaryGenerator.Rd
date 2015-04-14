@@ -10,6 +10,7 @@ makeBinaryGenerator()
 [\code{ecr_operator}]
 }
 \description{
-Generates a generator object for the initial population.
+The generated operator samples uniformally distributed points in the design
+space of the target function taking care not to violate bounds.
 }
 

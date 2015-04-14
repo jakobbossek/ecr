@@ -35,7 +35,6 @@ control = setupECRControl(
   representation = "permutation",
   survival.strategy = "plus",
   n.elite = 1L,
-  n.params = tspmeta:::number_of_cities(inst),
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 200L))
 )
 # here we stick to the defaults

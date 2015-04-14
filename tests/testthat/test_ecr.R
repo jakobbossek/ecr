@@ -11,7 +11,6 @@ setUpControlObject = function(n.population,
     n.offspring = n.offspring,
     survival.strategy = survival.strategy,
     n.elite = n.elite,
-    n.params = 2L,
     representation = "float",
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
@@ -60,7 +59,6 @@ test_that("ecr works on binary representations", {
           survival.strategy = "plus",
           stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter)),
           monitor = makeNullMonitor(),
-          n.params = n.params,
           representation = "binary",
         )
         control = setupEvolutionaryOperators(
@@ -98,7 +96,6 @@ test_that("ecr finds optimum if is is located on the edge of the search space", 
     survival.strategy = "plus",
     representation = "float",
     monitor = makeNullMonitor(),
-    n.params = 2L,
     stopping.conditions = setupStoppingConditions(max.iter = 100L)
   )
   control = setupEvolutionaryOperators(control, mutator.control = list(mutator.gauss.sd = 0.05))

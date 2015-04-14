@@ -15,7 +15,6 @@ test_that("autoplot standard plot", {
     n.offspring = 5L,
     representation = "binary",
     survival.strategy = "plus",
-    n.params = n.params,
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 15L))
   )
@@ -33,7 +32,6 @@ test_that("autoplot for log axis and show process", {
       n.offspring = 5L,
       representation = "float",
       survival.strategy = "plus",
-      n.params = n.params,
       # FIXME: Throws an error if not complete population is saved
       save.population.at = 0:15,
       monitor = makeNullMonitor(),

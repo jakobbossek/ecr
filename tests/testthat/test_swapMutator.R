@@ -21,7 +21,6 @@ test_that("permutation example with swap mutator", {
     n.offspring = 5L,
     representation = "permutation",
     survival.strategy = "plus",
-    n.params = n.params,
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
   )

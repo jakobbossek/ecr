@@ -21,5 +21,5 @@ makeMaximumIterationsStoppingCondition = function(max.iter = NULL) {
     condition.fun,
     name = "IterLimit",
     message = sprintf("Maximum number of iterations reached: '%i'", max.iter)
-    )
+  )
 }

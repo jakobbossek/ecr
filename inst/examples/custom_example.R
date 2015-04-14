@@ -25,10 +25,9 @@ getPairwiseDistances = function(x) {
 
 #fitness = makeFitnessFunction(
 fitness = function(x, ...) {
-    dists = getPairwiseDistances(x)
-    return(1 / sum(dists)) # since we want to maximise here
-  }
-#
+  dists = getPairwiseDistances(x)
+  return(1 / sum(dists)) # since we want to maximise here
+}
 
 # control and operator settings are separated now
 ctrl = setupECRControl(
@@ -46,7 +45,7 @@ myGenerator = makeGenerator(
   name = "Point generator",
   description = "Generates random point clouds in the euclidean space",
   supported = "custom"
-})
+)
 
 myMutator = makeMutator(
   mutator = function(x) {
