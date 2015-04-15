@@ -52,27 +52,27 @@ setupEvolutionaryOperators = function(
   assertFunction(mutationStrategyAdaptor, args = c("operator.control", "opt.path"), ordered = TRUE)
   assertList(recombinator.control, any.missing = FALSE)
 
+  # check passed selector
+  checkCorrectOperatorType(selector, "ecr_selector", "Selector")
+
   # Check passed mutator
-  if (!inherits(mutator, "ecr_mutator")) {
-    stopf("Mutator must be of class ecr_mutator, not %s", paste(attr(mutator, "class")))
-  }
+  checkCorrectOperatorType(mutator, "ecr_mutator", "Mutator")
   checkMutator(mutator)
   mutator.control = prepareOperatorParameters(mutator, mutator.control)
 
   # Check arguments of recombinator
-  if (!inherits(recombinator, "ecr_recombinator")) {
-    stopf("Recombinator must be of class ecr_recombinator, not %s", paste(attr(mutator, "class")))
-  }
+  checkCorrectOperatorType(recombinator, "ecr_recombinator", "Recombinator")
   checkRecombinator(recombinator)
   recombinator.control = prepareOperatorParameters(recombinator, recombinator.control)
 
-  if (!inherits(generator, "ecr_generator")) {
-    stopf("Generator must be of class ecr_generator, not %s", paste(attr(generator, "class")))
-  }
+  # check generator
+  checkCorrectOperatorType(generator, "ecr_generator", "Generator")
 
   sapply(c(generator, mutator, recombinator), function(operator) {
     if (!is.supported(operator, representation)) {
-      stop(paste("Mutator '", getOperatorName(operator), "' is not compatible with representation '", representation, "'!", sep = ""))
+      stopf("Operator '%s' is not compatible with representation '%s'",
+        getOperatorName(operator), representation
+      )
     }
   })
 
@@ -86,6 +86,21 @@ setupEvolutionaryOperators = function(
   control$recombinator.control = recombinator.control
 
   return (control)
+}
+
+# Check if given operator is of the specified type.
+#
+# @param operator [ecr_operator]
+#   Operator.
+# @param class [character(1)]
+#   Class.
+# @param type [character(1)]
+#   Type of the operator.
+# @return Nothing
+checkCorrectOperatorType = function(operator, class, type) {
+  if (!inherits(operator, class)) {
+    stopf("%s must be of class '%s', not '%s'.", type, class, collapse(attr(operator, "class"), sep = ", "))
+  }
 }
 
 # Helper function which constructs control object for a given operator

@@ -31,7 +31,7 @@
 #'
 #' # We want to solve this with a (10 + 10) evolutionary strategy based on
 #' # the floating point representation of the input vectors with the default
-#' # operators: intermediate recombinator and Gauss mutation
+#' # operators: intermediate recombinator and Gaussian mutation
 #' ctrl = setupECRControl(
 #'   n.population = 10L,
 #'   n.offspring = 10L,
@@ -42,9 +42,27 @@
 #' # use the default operators for representation "float"
 #' ctrl = setupEvolutionaryOperators(ctrl)
 #'
-#' res = doTheEvolution(obj.fn, control = ctrl)
+#' res = doTheEvolution(obj.fn, ctrl)
 #' print(res)
 #'
+#' # Now let us choose a (10, 10) strategy with crossover recombination. Moreover,
+#' # we want the "fittest" individual to surive each time and therefore set elite.size
+#' # to 1.
+#' ctrl = setupECRControl(
+#'   n.population = 10L,
+#'   n.offspring = 10L,
+#'   survival.strategy = "comma",
+#'   n.elite = 1L,
+#'   representation = "float",
+#'   stopping.conditions = setupStoppingConditions(max.iter = 100L)
+#' )
+#' ctrl = setupEvolutionaryOperators(
+#'   ctrl,
+#'   recombinator = makeCrossoverRecombinator()
+#' )
+#'
+#' res = doTheEvolution(obj.fn, ctrl)
+#' print(res)
 #' @seealso \code{\link{setupECRControl}}
 #' @export
 doTheEvolution = function(objective.fun, control) {
