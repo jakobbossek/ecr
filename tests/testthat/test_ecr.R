@@ -81,6 +81,53 @@ test_that("ecr works on binary representations", {
   }
 })
 
+test_that("ecr works on permutation genomes", {
+  # defs
+  n.params = 5L
+  max.iter = 100L
+
+  # objective
+  obj.fun = makeSingleObjectiveFunction(
+    fn = function(x) {
+      CI = 0
+      for (i in seq(length(x)-1)) {
+        CI = CI + sum(x[1] > x[-1])
+        x = x[-1]
+      }
+      return(CI)
+    },
+    par.set = makeParamSet(
+      makeIntegerVectorParam(len = n.params, id = "x", lower = 1, upper = n.params)
+    ),
+    name = "Sorting"
+  )
+
+  control = setupECRControl(
+    n.population = 5L,
+    n.offspring = 5L,
+    representation = "permutation",
+    survival.strategy = "plus",
+    monitor = makeNullMonitor(),
+    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
+  )
+
+  # check it for a selection of mutators for permutations
+  for (mutatorGenerator in c(makeSwapMutator, makeInversionMutator, makeInsertionMutator)) {
+    control = setupEvolutionaryOperators(
+      control,
+      mutator = mutatorGenerator()
+    )
+
+    res = doTheEvolution(obj.fun, control = control)
+
+    # check results
+    expect_false(is.null(res))
+    expect_equal(res$best.value, 0,
+      info = sprintf("Did not find correct sorting with '%s' mutator.", getOperatorName(control$mutator))
+    )
+  }
+})
+
 test_that("ecr finds optimum if is is located on the edge of the search space", {
   fn = makeSingleObjectiveFunction(
     name = "linear",
