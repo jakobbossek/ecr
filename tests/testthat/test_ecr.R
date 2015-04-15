@@ -31,6 +31,7 @@ test_that("ecr works with simple soo function", {
 
         control = setUpControlObject(n.population, n.offspring, survival.strategy)
         res = doTheEvolution(obj.fun, control = control)
+        expect_output(print(control), regexp = "CONTROL OBJECT")
 
         # check result
         expect_false(is.null(res))
