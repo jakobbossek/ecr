@@ -7,6 +7,7 @@ install:
   ps: Bootstrap
 
 build_script:
+  - travis-tool.sh install_github jakobbossek/smoof
   - travis-tool.sh install_deps
 
 test_script:
