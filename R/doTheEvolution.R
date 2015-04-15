@@ -105,27 +105,11 @@ doTheEvolution = function(objective.fun, control) {
 
   pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
-  buildExtras = function(iter, start.time, fitness, control) {
-    extra = list(
-      past.time = as.numeric(Sys.time() - start.time),
-      iter = iter,
-      pop.min.fitness = min(fitness),
-      pop.mean.fitness = mean(fitness),
-      pop.median.fitness = median(fitness),
-      pop.max.fitness = max(fitness)
-    )
-    # save mutation operators in there
-    if (length(control$mutator.control)) {
-      extra = insert(extra, control$mutator.control)
-    }
-    return(extra)
-  }
-
   opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE,
     include.extra = TRUE, include.exec.time = TRUE)
 
   opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
-    generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
+    generation = iter, extra = getListOfExtras(iter, population, start.time, control),
     exec.time = pop.gen.time, control)
 
   population.storage = namedList(paste0("gen.", control$save.population.at))
@@ -159,7 +143,7 @@ doTheEvolution = function(objective.fun, control) {
 
     best = getBestIndividual(population)
     opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
-      generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
+      generation = iter, extra = getListOfExtras(iter, population, start.time, control),
       exec.time = off.gen.time, control)
 
     stop.object = doTerminate(control$stopping.conditions, opt.path)
@@ -201,6 +185,42 @@ print.ecr_result = function(x, ...) {
     "=", x$best.param, sep = "", collapse = ", "))
   catf("Objective function value: %s\n", paste(x$control$target.name, "=",
     x$best.value, sep ="", collapse = ", "))
+}
+
+# Generate 'extras' argument for opt.path.
+#
+# @param iter [numeric(1)]
+#   Current iteration/generation.
+# @param population [ecr_population]
+#   Current population.
+# @param start.time [POSIXct]
+#   Start time of evolution process.
+# @pram control [ecr_control]
+#   Control object.
+# @return [list] Named list with scalar values to be stored in opt.path.
+getListOfExtras = function(iter, population, start.time, control) {
+  fitness = population$fitness
+  extra = list(
+    past.time = as.numeric(Sys.time() - start.time),
+    iter = iter,
+    pop.min.fitness = min(fitness),
+    pop.mean.fitness = mean(fitness),
+    pop.median.fitness = median(fitness),
+    pop.max.fitness = max(fitness)
+  )
+  # compute and log used defined stuff
+  if (!is.null(control$extras.fun)) {
+    user.extra = control$extras.fun(population)
+    if (!testList(user.extra, names = "strict")) {
+      stopf("Result computed by 'extras.fun' is not a named list!")
+    }
+    extra = c(extra, user.extra)
+  }
+  # save mutation operators in there
+  if (length(control$mutator.control)) {
+    extra = insert(extra, control$mutator.control)
+  }
+  return(extra)
 }
 
 # Adds the parameter values and the y-value(s) of the best individual to the opt.path.

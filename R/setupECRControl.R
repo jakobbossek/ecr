@@ -29,6 +29,12 @@
 #'   Monitoring function. Default is \code{consoleMonitor}.
 #' @param stopping.conditions [\code{list}]\cr
 #'   List of functions of type \code{ecr_stoppingCondition}.
+#' @param extras.fun [\code{function} | \code{NULL}]\cr
+#'   Functin which expects the population and returns a list of scalar quality
+#'   computed based on the individual genomes or the fitness values, e.g., standard
+#'   deviation of the fitness. The function is called once in each generation.
+#'   The results are stored in the optimization path. Default is \code{NULL}, which
+#'   means that no additional stuff is logged.
 #' @return
 #'   S3 object of type \code{ecr_control}.
 #' @export
@@ -42,7 +48,8 @@ setupECRControl = function(
   target.name = "y",
   save.population.at = integer(0),
   monitor = makeConsoleMonitor(),
-  stopping.conditions = list()) {
+  stopping.conditions = list(),
+  extras.fun = NULL) {
   assertCount(n.population, positive = TRUE, na.ok = FALSE)
   assertCount(n.offspring, positive = TRUE, na.ok = FALSE)
   n.mating.pool = convertInteger(n.mating.pool)
@@ -54,6 +61,10 @@ setupECRControl = function(
 
   if (length(save.population.at) > 0) {
     assertInteger(save.population.at, lower = 0L, any.missing = FALSE)
+  }
+
+  if (!is.null(extras.fun)) {
+    assertFunction(extras.fun, args = "population")
   }
 
   # If the survival strategy is (mu + lambda), than the number of generated offspring in each iteration
@@ -94,6 +105,7 @@ setupECRControl = function(
     target.name = target.name,
     stopping.conditions = stopping.conditions,
     monitor = monitor,
+    extras.fun = extras.fun,
     classes = "ecr_control"
   )
 }

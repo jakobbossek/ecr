@@ -8,7 +8,7 @@ setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
   survival.strategy = "plus", n.elite = 0L, target.name = "y",
   save.population.at = integer(0), monitor = makeConsoleMonitor(),
-  stopping.conditions = list())
+  stopping.conditions = list(), extras.fun = NULL)
 }
 \arguments{
 \item{n.population}{[\code{integer(1)}]\cr
@@ -45,6 +45,13 @@ Monitoring function. Default is \code{consoleMonitor}.}
 
 \item{stopping.conditions}{[\code{list}]\cr
 List of functions of type \code{ecr_stoppingCondition}.}
+
+\item{extras.fun}{[\code{function} | \code{NULL}]\cr
+Functin which expects the population and returns a list of scalar quality
+computed based on the individual genomes or the fitness values, e.g., standard
+deviation of the fitness. The function is called once in each generation.
+The results are stored in the optimization path. Default is \code{NULL}, which
+means that no additional stuff is logged.}
 }
 \value{
 S3 object of type \code{ecr_control}.
