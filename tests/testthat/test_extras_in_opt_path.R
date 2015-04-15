@@ -17,6 +17,7 @@ test_that("user defined extras are stored in opt.path", {
     n.offspring = 5L,
     survival.strategy = "plus",
     representation = "float",
+    monitor = makeNullMonitor(),
     stopping.conditions = setupStoppingConditions(max.iter = 2L),
     extras.fun = extras.fun
   )
