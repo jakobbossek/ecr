@@ -24,7 +24,6 @@ test_that("user defined extras are stored in opt.path", {
 
   res = doTheEvolution(fn, ctrl)
   opt.path = as.data.frame(res$opt.path)
-  print(opt.path)
 
   # check that corresponding column names exist
   expected.names = c("num1", "num2", "disc")

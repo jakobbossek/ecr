@@ -216,10 +216,6 @@ getListOfExtras = function(iter, population, start.time, control) {
     }
     extra = c(extra, user.extra)
   }
-  # save mutation operators in there
-  if (length(control$mutator.control)) {
-    extra = insert(extra, control$mutator.control)
-  }
   return(extra)
 }
 
