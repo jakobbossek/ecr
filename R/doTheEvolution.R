@@ -94,7 +94,7 @@ doTheEvolution = function(objective.fun, control) {
   monitor = control$monitor
 
   populationGenerator = control$generator
-  matingPoolGenerator = control$selector
+  parentSelector = control$selector
 
   iter = 1L
   start.time = Sys.time()
@@ -124,8 +124,8 @@ doTheEvolution = function(objective.fun, control) {
     monitor$step()
     off.gen.start.time = Sys.time()
 
-    parents = matingPoolGenerator(population, n.mating.pool)
-    offspring = generateOffspring(parents, objective.fun, control, opt.path)
+    matingPool = parentSelector(population, n.mating.pool)
+    offspring = generateOffspring(matingPool, objective.fun, control, opt.path)
 
     population = selectForSurvival(
       population,
