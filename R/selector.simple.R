@@ -1,7 +1,7 @@
-#' Simple mating pool generator.
+#' Simple (naive) mating pool generator.
 #'
 #' Just for testing. Actually does not really select, but instead returns the
-#' entire population.
+#' entire population to form the mating pool.
 #'
 #' @return [\code{setOfIndividuals}]
 #' @export

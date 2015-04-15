@@ -34,7 +34,7 @@
 #' @export
 setupEvolutionaryOperators = function(
   control,
-  selector = makeSimpleSelector(),
+  selector = getDefaultEvolutionaryOperators(control$representation, "selector"),
   generator = getDefaultEvolutionaryOperators(control$representation, "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation, "mutator"),
   #FIXME: this stuff is experimental.
@@ -123,16 +123,19 @@ prepareOperatorParameters = function(operator, input.params) {
 getDefaultEvolutionaryOperators = function(representation, type) {
   defaults = list(
     "float" = list(
+      "selector" = makeSimpleSelector(),
       "generator" = makeUniformGenerator(),
       "mutator" = makeGaussMutator(),
       "recombinator" = makeIntermediateRecombinator()
     ),
     "binary" = list(
+      "selector" = makeSimpleSelector(),
       "generator" = makeBinaryGenerator(),
       "mutator" = makeBitFlipMutator(),
       "recombinator" = makeCrossoverRecombinator()
     ),
     "permutation" = list(
+      "selector" = makeSimpleSelector(),
       "generator" = makePermutationGenerator(),
       "mutator" = makeSwapMutator(),
       #FIXME: later add a good

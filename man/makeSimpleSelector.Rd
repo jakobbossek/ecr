@@ -2,7 +2,7 @@
 % Please edit documentation in R/selector.simple.R
 \name{makeSimpleSelector}
 \alias{makeSimpleSelector}
-\title{Simple mating pool generator.}
+\title{Simple (naive) mating pool generator.}
 \usage{
 makeSimpleSelector()
 }
@@ -11,6 +11,6 @@ makeSimpleSelector()
 }
 \description{
 Just for testing. Actually does not really select, but instead returns the
-entire population.
+entire population to form the mating pool.
 }
 

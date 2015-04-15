@@ -14,17 +14,14 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   mutationStrategyAdaptor = control$mutationStrategyAdaptor
   mutator.control = control$mutator.control
   recombinator = control$recombinator
-  #parentSelector = control$selector
-  parentSelector = simpleUniformSelection
   n.offspring = control$n.offspring
 
-  #offspring = list()
   offspring = vector("list", n.offspring)
 
-  for (i in 1:n.offspring) {
-    parents = parentSelector(matingPool)
+  for (i in seq(n.offspring)) {
+    parents = getParents(matingPool)
     # pass just the individuals and get a single individual
-    child = recombinator(parents$individuals)
+    child = recombinator(parents)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
     # pass just the individual and get a single individual
     child = mutator(child, mutator.control)
@@ -38,14 +35,19 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   return(makePopulation(offspring, offspring.fitness))
 }
 
-simpleUniformSelection = function(matingPool) {
-  population = matingPool$individuals
-  fitness = matingPool$fitness
-  n = length(population)
+# Helper method to extract two parents from the mating pool
+#
+# @param matingPool [ecr_population]
+#   Set of individuals selected for reproduction.
+# @return [list]
+#FIXME: generalize to more than two parents
+getParents = function(matingPool) {
+  inds = matingPool$individuals
+  n = length(inds)
   # if we have only one individual, return it twice
   if (n == 1) {
-    return(makePopulation(population[c(1, 1)], fitness[c(1, 1)]))
+    return(inds[c(1, 1)])
   }
   idx = sample(n, size = 2, replace = FALSE)
-  makePopulation(population[idx], fitness[idx])
+  return(inds[idx])
 }
