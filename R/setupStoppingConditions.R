@@ -17,11 +17,11 @@
 # default value (see ecr operators). This way setupStoppingCondition could
 # iterate over all available stopping conditions.
 setupStoppingConditions = function(max.iter = NULL, max.time = NULL) {
-    if (is.null(max.iter) && is.null(max.time)) {
-        stopf("At least max.iter or max.time must be finite.")
-    }
-    list(
-        makeMaximumIterationsStoppingCondition(max.iter),
-        makeMaximumTimeStoppingCondition(max.time)
-    )
+  if (is.null(max.iter) && is.null(max.time)) {
+    stopf("At least max.iter or max.time must be finite.")
+  }
+  list(
+    makeMaximumIterationsStoppingCondition(max.iter),
+    makeMaximumTimeStoppingCondition(max.time)
+  )
 }
