@@ -5,7 +5,9 @@
 \title{Define the toolbix of all the evolutionary operators you wish to operate on
 your problem.}
 \usage{
-setupEvolutionaryOperators(control, selector = makeSimpleSelector(),
+setupEvolutionaryOperators(control,
+  selector = getDefaultEvolutionaryOperators(control$representation,
+  "selector"),
   generator = getDefaultEvolutionaryOperators(control$representation,
   "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation,
