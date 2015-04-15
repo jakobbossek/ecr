@@ -78,9 +78,14 @@ doTheEvolution = function(objective.fun, control) {
   populationGenerator = control$generator
   matingPoolGenerator = control$selector
 
+  iter = 1L
+  start.time = Sys.time()
+
   population = populationGenerator(n.population, control)
   population$fitness = computeFitness(population, objective.fun)
   best = getBestIndividual(population)
+
+  pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
   buildExtras = function(iter, start.time, fitness, control) {
     extra = list(
@@ -98,15 +103,12 @@ doTheEvolution = function(objective.fun, control) {
     return(extra)
   }
 
-  iter = 1L
-  start.time = Sys.time()
-
   opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE,
     include.extra = TRUE, include.exec.time = TRUE)
 
   opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
     generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
-    exec.time = 0.0, control)
+    exec.time = pop.gen.time, control)
 
   population.storage = namedList(paste0("gen.", control$save.population.at))
   # store start population
@@ -118,6 +120,7 @@ doTheEvolution = function(objective.fun, control) {
 
   repeat {
     monitor$step()
+    off.gen.start.time = Sys.time()
 
     parents = matingPoolGenerator(population, n.mating.pool)
     offspring = generateOffspring(parents, objective.fun, control, opt.path)
@@ -130,6 +133,8 @@ doTheEvolution = function(objective.fun, control) {
       n.elite = control$n.elite
     )
 
+    off.gen.time = difftime(Sys.time(), off.gen.start.time, units = "secs")
+
     if (iter %in% control$save.population.at) {
       population.storage[[paste0("gen.", as.character(iter))]] = population
     }
@@ -137,7 +142,7 @@ doTheEvolution = function(objective.fun, control) {
     best = getBestIndividual(population)
     opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
       generation = iter, extra = buildExtras(iter, start.time, population$fitness, control),
-      exec.time = 0.0, control)
+      exec.time = off.gen.time, control)
 
     stop.object = doTerminate(control$stopping.conditions, opt.path)
     if (length(stop.object) > 0L) {
