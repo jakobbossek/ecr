@@ -23,7 +23,7 @@ makeTournamentSelector = function(k = 3L) {
       # choose k individuals at random ...
       competitor.idx = sample(pop.idx, size = k)
       # ... and store the best
-      idx[i] = competitor.idx[which.max(fitness[competitor.idx])]
+      idx[i] = competitor.idx[which.min(fitness[competitor.idx])]
     }
 
     return(makePopulation(inds[idx], fitness[idx]))
