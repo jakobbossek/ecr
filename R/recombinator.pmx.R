@@ -24,7 +24,8 @@ makePMXRecombinator = function() {
     }
 
     # swap the subsequence
-    c1 = c2 = rep(NA, n)
+    c1 = rep(NA, n)
+    c2 = rep(NA, n)
     c1[i1:i2] = p2[i1:i2]
     c2[i1:i2] = p1[i1:i2]
 
@@ -34,12 +35,20 @@ makePMXRecombinator = function() {
       if (p1[i] %nin% c1[i1:i2]) {
         c1[i] = p1[i]
       } else {
-        c1[i] = p1[which(p2 == p1[i])]
+        ins = c2[which(c1 == p1[i])]
+        while (ins %in% c1[i1:i2]) {
+          ins = c2[which(c1 == ins)]
+        }
+        c1[i] = ins
       }
       if (p2[i] %nin% c2[i1:i2]) {
         c2[i] = p2[i]
       } else {
-        c2[i] = p2[which(p1 == p2[i])]
+        ins = c1[which(c2 == p2[i])]
+        while (ins %in% c2[i1:i2]) {
+          ins = c1[which(c2 == ins)]
+        }
+        c2[i] = ins
       }
     }
     #FIXME: until now we only allow to return one individual, but we created two
