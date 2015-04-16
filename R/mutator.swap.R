@@ -3,7 +3,7 @@
 #' @return [\code{ecr_mutator}]
 #' @export
 makeSwapMutator = function() {
-  mutator = function(ind, control = list()) {
+  mutator = function(ind, args = list(), control) {
     n.params = length(ind)
     pos = sample(1:n.params, size = 2)
     pos1 = pos[1]

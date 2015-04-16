@@ -6,7 +6,7 @@
 #' @return [\code{ecr_mutator}]
 #' @export
 makeInversionMutator = function() {
-  mutator = function(ind, control = list()) {
+  mutator = function(ind, args = list(), control) {
     n.params = length(ind)
     idx = sample(seq(n.params), size = 2L)
     ind[idx[1]:idx[2]] = ind[idx[2]:idx[1]]

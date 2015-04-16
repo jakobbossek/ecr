@@ -20,11 +20,13 @@ makeGaussMutator = function(mutator.gauss.prob = 1L, mutator.gauss.sd = 0.05) {
   defaults = list(mutator.gauss.prob = mutator.gauss.prob, mutator.gauss.sd = mutator.gauss.sd)
   mutatorCheck(defaults)
 
-  mutator = function(ind, control = defaults) {
+  mutator = function(ind, args = defaults, control) {
     n.params = length(ind)
-    idx = which(runif(n.params) < control$mutator.gauss.prob)
-    mut = rnorm(length(idx), mean = 0, sd = control$mutator.gauss.sd)
+    idx = which(runif(n.params) < args$mutator.gauss.prob)
+    mut = rnorm(length(idx), mean = 0, sd = args$mutator.gauss.sd)
     ind[idx] = ind[idx] + mut
+    # correct bounds
+    ind = pmin(pmax(control$par.lower, ind), control$par.upper)
     return(ind)
   }
 

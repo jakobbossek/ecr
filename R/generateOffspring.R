@@ -21,14 +21,11 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   for (i in seq(n.offspring)) {
     parents = getParents(matingPool)
     # pass just the individuals and get a single individual
-    child = recombinator(parents)
+    child = recombinator(parents, control)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
     # pass just the individual and get a single individual
-    child = mutator(child, mutator.control)
+    child = mutator(child, mutator.control, control)
     offspring[[i]] = child
-  }
-  if (control$representation != "custom") {
-    offspring = correctBounds(offspring, par.set = getParamSet(objective.fun))
   }
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 

@@ -28,6 +28,8 @@ doTheEvolution = function(objective.fun, control) {
     par.set = getParamSet(objective.fun)
     #FIXME: is this a good idea to modify control object here?
     control$par.set = par.set
+    control$par.lower = getLower(par.set, with.nr = TRUE)
+    control$par.upper = getUpper(par.set, with.nr = TRUE)
 
     # potentially global optimum
     global.optimum = NULL
