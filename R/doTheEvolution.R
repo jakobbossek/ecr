@@ -17,52 +17,7 @@
 #'    \item{population.storage \code{list}}{List of populations.}
 #'    \item{message \code{character(1)}}{Message explaining the reason for termination.}
 #'   }
-#' @examples
-#' library(smoof)
-#' library(ParamHelpers)
-#' # We want to find the minimum of the function f(x) = x sin(2x) on the intervall
-#' # [0, 2pi]. The optimal value is about -5.5 for x = 5.54.
-#' # First we wrap the function with the smoof package:
-#' obj.fn = makeSingleObjectiveFunction(
-#'   name = "My obj. function",
-#'   fn = function(x) x * sin(2 * x),
-#'   par.set = makeParamSet(makeNumericParam("x", lower = 0, upper = 2 * pi))
-#' )
-#'
-#' # We want to solve this with a (10 + 10) evolutionary strategy based on
-#' # the floating point representation of the input vectors with the default
-#' # operators: intermediate recombinator and Gaussian mutation
-#' ctrl = setupECRControl(
-#'   n.population = 10L,
-#'   n.offspring = 10L,
-#'   survival.strategy = "plus",
-#'   representation = "float",
-#'   stopping.conditions = setupStoppingConditions(max.iter = 100L)
-#' )
-#' # use the default operators for representation "float"
-#' ctrl = setupEvolutionaryOperators(ctrl)
-#'
-#' res = doTheEvolution(obj.fn, ctrl)
-#' print(res)
-#'
-#' # Now let us choose a (10, 10) strategy with crossover recombination. Moreover,
-#' # we want the "fittest" individual to surive each time and therefore set elite.size
-#' # to 1.
-#' ctrl = setupECRControl(
-#'   n.population = 10L,
-#'   n.offspring = 10L,
-#'   survival.strategy = "comma",
-#'   n.elite = 1L,
-#'   representation = "float",
-#'   stopping.conditions = setupStoppingConditions(max.iter = 100L)
-#' )
-#' ctrl = setupEvolutionaryOperators(
-#'   ctrl,
-#'   recombinator = makeCrossoverRecombinator()
-#' )
-#'
-#' res = doTheEvolution(obj.fn, ctrl)
-#' print(res)
+#' @example examples/ex_doTheEvolution.R
 #' @seealso \code{\link{setupECRControl}}
 #' @export
 doTheEvolution = function(objective.fun, control) {
