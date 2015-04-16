@@ -123,19 +123,19 @@ prepareOperatorParameters = function(operator, input.params) {
 getDefaultEvolutionaryOperators = function(representation, type) {
   defaults = list(
     "float" = list(
-      "selector" = makeSimpleSelector(),
+      "selector" = makeRouletteWheelSelector(),
       "generator" = makeUniformGenerator(),
       "mutator" = makeGaussMutator(),
       "recombinator" = makeIntermediateRecombinator()
     ),
     "binary" = list(
-      "selector" = makeSimpleSelector(),
+      "selector" = makeRouletteWheelSelector(),
       "generator" = makeBinaryGenerator(),
       "mutator" = makeBitFlipMutator(),
       "recombinator" = makeCrossoverRecombinator()
     ),
     "permutation" = list(
-      "selector" = makeSimpleSelector(),
+      "selector" = makeRouletteWheelSelector(),
       "generator" = makePermutationGenerator(),
       "mutator" = makeSwapMutator(),
       #FIXME: later add a good
