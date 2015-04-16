@@ -15,7 +15,7 @@ load_all(".")
 set.seed(352)
 
 # generate instance
-n.nodes = 20L
+n.nodes = 50L
 inst = random_instance(size = n.nodes)
 
 # The target fun is the length of a given tour
@@ -30,12 +30,12 @@ obj.fun = makeSingleObjectiveFunction(fn = obj.fun, par.set = par.set, name = "T
 # Here we make use of mutations only! The nullRecombinator
 # does nothing.
 control = setupECRControl(
-  n.population = 100L,
-  n.offspring = 50L,
+  n.population = 1000L,
+  n.offspring = 10L,
   representation = "permutation",
   survival.strategy = "plus",
   n.elite = 1L,
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 200L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 2000L))
 )
 # here we stick to the defaults
 control = setupEvolutionaryOperators(control)

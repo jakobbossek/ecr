@@ -19,7 +19,7 @@ obj.fun = function(x) {
   length(x) - sum(x)
 }
 
-n.params = 50L
+n.params = 25L
 
 # now we wrap the objective function with the smoof package
 obj.fun = makeSingleObjectiveFunction(
@@ -38,7 +38,7 @@ control = setupECRControl(
   n.mating.pool = 1L,
   representation = "binary",
   survival.strategy = "plus",
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 500L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 250L))
 )
 control = setupEvolutionaryOperators(
   control,
