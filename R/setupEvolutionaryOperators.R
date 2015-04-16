@@ -138,8 +138,7 @@ getDefaultEvolutionaryOperators = function(representation, type) {
       "selector" = makeRouletteWheelSelector(),
       "generator" = makePermutationGenerator(),
       "mutator" = makeSwapMutator(),
-      #FIXME: later add a good
-      "recombinator" = makeNullRecombinator()
+      "recombinator" = makePMXRecombinator()
     )
   )
 
