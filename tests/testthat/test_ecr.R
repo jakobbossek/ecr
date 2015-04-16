@@ -114,18 +114,24 @@ test_that("ecr works on permutation genomes", {
 
   # check it for a selection of mutators for permutations
   for (mutatorGenerator in c(makeSwapMutator, makeInversionMutator, makeInsertionMutator)) {
-    control = setupEvolutionaryOperators(
-      control,
-      mutator = mutatorGenerator()
-    )
+    for (recombinatorGenerator in c(makeNullRecombinator, makePMXRecombinator)) {
+      control = setupEvolutionaryOperators(
+        control,
+        mutator = mutatorGenerator(),
+        recombinator = recombinatorGenerator()
+      )
 
-    res = doTheEvolution(obj.fun, control = control)
+      res = doTheEvolution(obj.fun, control = control)
 
-    # check results
-    expect_false(is.null(res))
-    expect_equal(res$best.value, 0,
-      info = sprintf("Did not find correct sorting with '%s' mutator.", getOperatorName(control$mutator))
-    )
+      # check results
+      expect_false(is.null(res))
+      expect_equal(res$best.value, 0,
+        info = sprintf("Did not find correct sorting with mutator '%s' and recombinator '%s'.",
+          getOperatorName(control$mutator),
+          getOperatorName(control$recombinator)
+        )
+      )
+    }
   }
 })
 
