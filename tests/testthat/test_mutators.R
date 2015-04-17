@@ -5,8 +5,14 @@ test_that("mutation operators working on permutation genes create valid offsprin
   s = 1:10L
   n.reps = 5L
 
+  # gather all mutators for permutation representation
+  availableMutators = c(
+    makeSwapMutator, makeInversionMutator,
+    makeInsertionMutator, makeScrambleMutator
+  )
+
   # check validity of produced output for each permutation-based mutator
-  for (mutatorGenerator in c(makeSwapMutator, makeInversionMutator, makeInsertionMutator)) {
+  for (mutatorGenerator in availableMutators) {
     mutate = mutatorGenerator() # no mutation control parameters to check here
     test.seq = sample(seq(100L), 10L, replace = FALSE)
     for (i in seq(n.reps)) {

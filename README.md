@@ -14,7 +14,7 @@ The **ecr** package provides a powerful framework for **Evolutionary Computation
 * Storing of the optimization process in an optimization path
 * Methods to visualize results
 
-# Installation instructions
+## Installation instructions
 
 The package will be available in a first version at [CRAN](http://cran.r-project.org) soon. If you are interested in trying out and playing around with the current github developer version use the [devtools](https://github.com/hadley/devtools) package and type the following command in R.
 

@@ -59,8 +59,8 @@ ctrl = setupEvolutionaryOperators(ctrl)
 res = doTheEvolution(obj.fn, ctrl)
 print(res)
 
-# Now let us choose a (10, 10) strategy with crossover recombination. Moreover,
-# we want the "fittest" individual to surive each time and therefore set elite.size
+# Now let us choose a (10, 10) strategy with intermediate recombination. Moreover,
+# we want the "fittest" individual to surive each time and therefore set n.elite
 # to 1.
 ctrl = setupECRControl(
   n.population = 10L,
@@ -70,10 +70,7 @@ ctrl = setupECRControl(
   representation = "float",
   stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
-ctrl = setupEvolutionaryOperators(
-  ctrl,
-  recombinator = makeCrossoverRecombinator()
-)
+ctrl = setupEvolutionaryOperators(ctrl)
 
 res = doTheEvolution(obj.fn, ctrl)
 print(res)
@@ -104,9 +101,9 @@ ctrl = setupEvolutionaryOperators(
 )
 res = doTheEvolution(obj.fn, ctrl)
 print(res)
-\dontrun{
-  autoplot(res, show.process = TRUE)
-}
+# \dontrun{
+#   autoplot(res, show.process = TRUE)
+# }
 }
 \seealso{
 \code{\link{setupECRControl}}
