@@ -2,7 +2,7 @@
 % Please edit documentation in R/recombinator.crossover.R
 \name{makeCrossoverRecombinator}
 \alias{makeCrossoverRecombinator}
-\title{Generator of the crossover recombination operator.}
+\title{Generator of the One-point crossover recombination operator.}
 \usage{
 makeCrossoverRecombinator()
 }
@@ -10,6 +10,6 @@ makeCrossoverRecombinator()
 [\code{ecr_recombinator}]
 }
 \description{
-Generator of the crossover recombination operator.
+Generator of the One-point crossover recombination operator.
 }
 
