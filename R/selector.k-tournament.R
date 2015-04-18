@@ -12,14 +12,14 @@
 makeTournamentSelector = function(k = 3L) {
   force(k)
 
-  selector = function(population, n.mating.pool) {
+  selector = function(population, n.select, control) {
     inds = population$individuals
     fitness = population$fitness
     n.population = length(fitness)
     pop.idx = seq(n.population)
 
-    idx = integer(n.mating.pool)
-    for (i in seq(n.mating.pool)) {
+    idx = integer(n.select)
+    for (i in seq(n.select)) {
       # choose k individuals at random ...
       competitor.idx = sample(pop.idx, size = k)
       # ... and store the best

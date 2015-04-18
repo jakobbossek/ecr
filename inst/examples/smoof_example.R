@@ -48,7 +48,10 @@ control = setupECRControl(
   stopping.conditions = setupStoppingConditions(max.iter = 25L)
 )
 # use default operators
-control = setupEvolutionaryOperators(control)
+control = setupEvolutionaryOperators(
+  control,
+  survival.selector = makeGreedySelector()
+)
 
 # do the evolutionary magic
 set.seed(123)

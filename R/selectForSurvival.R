@@ -18,40 +18,46 @@
 #   Number of fittest individuals of the current generation that shall be copied to the
 #   next generation without changing. Default is 0.
 # @return [\code{setOfIndividuals}]
-selectForSurvival = function(population, offspring, n.population, strategy = "plus", n.elite = 0L) {
+selectForSurvival = function(population, offspring, n.population, strategy = "plus", n.elite = 0L, control) {
   elite = NULL
+  new.population = NULL
+  survivalSelector = control$survival.selector
   if (strategy == "plus") {
+    # print(population)
+    # print(offspring)
+    # stop()
     source.population = mergePopulations(population, offspring)
-    source.individuals = source.population$individuals
-    source.fitness = source.population$fitness
-    to.survive = order(source.fitness)[seq(n.population)]
+    # print(source.population)
+    # stop()
+    new.population = survivalSelector(source.population, n.population, control)
+    # source.individuals = source.population$individuals
+    # source.fitness = source.population$fitness
+    # to.survive = order(source.fitness)[seq(n.population)]
   } else if (strategy == "comma") {
     source.population = offspring
-    source.individuals = source.population$individuals
-    source.fitness = source.population$fitness
+    elite = list()
+
     if (n.elite > 0L) {
       #catf("Elitism with %i candidates out of %i", n.elite, n.population)
+      #FIXME: this is principally done already in the "greedy" selector. We could
+      # use it here
       parent.individuals = population$individuals
       parent.fitness = population$fitness
       to.be.elite = order(parent.fitness)[seq(n.elite)]
-      # Adapt number of individuals taken from the offspring
-      n.population = n.population - n.elite
+
+      # get elite individuals
       elite = makePopulation(
         individuals = parent.individuals[to.be.elite],
         fitness = parent.fitness[to.be.elite]
       )
+
+      # Adapt number of individuals taken from the offspring and select non-elite individuals
+      n.population = n.population - n.elite
     }
-    to.survive = order(source.fitness)[seq(n.population)]
+    new.population = survivalSelector(offspring, n.population, control)
+    if (length(elite) > 0L) {
+      new.population = mergePopulations(new.population, elite)
+    }
   }
-
-  population2 = makePopulation(
-    individuals = source.individuals[to.survive],
-    fitness = source.fitness[to.survive]
-  )
-
-  # merge populations if elitism was used
-  if (!is.null(elite)) {
-    population2 = mergePopulations(population2, elite)
-  }
-  return(population2)
+  return(new.population)
 }

@@ -15,7 +15,7 @@ load_all(".")
 set.seed(352)
 
 # generate instance
-n.nodes = 25L
+n.nodes = 20L
 inst = random_instance(size = n.nodes)
 
 # The target fun is the length of a given tour
@@ -37,8 +37,11 @@ control = setupECRControl(
   n.elite = 1L,
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 2000L))
 )
-# here we stick to the defaults
-control = setupEvolutionaryOperators(control)
+# here we select the 100 fittest indiviuals to survive
+control = setupEvolutionaryOperators(
+  control,
+  survival.selector = makeGreedySelector()
+)
 print(control)
 
 res = doTheEvolution(obj.fun, control = control)

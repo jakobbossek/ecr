@@ -51,7 +51,7 @@ doTheEvolution = function(objective.fun, control) {
   monitor = control$monitor
 
   populationGenerator = control$generator
-  parentSelector = control$selector
+  parentSelector = control$parent.selector
 
   iter = 1L
   start.time = Sys.time()
@@ -89,7 +89,8 @@ doTheEvolution = function(objective.fun, control) {
       offspring,
       n.population,
       strategy = control$survival.strategy,
-      n.elite = control$n.elite
+      n.elite = control$n.elite,
+      control
     )
 
     off.gen.time = difftime(Sys.time(), off.gen.start.time, units = "secs")

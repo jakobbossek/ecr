@@ -19,16 +19,23 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   offspring = vector("list", n.offspring)
 
   for (i in seq(n.offspring)) {
+    #catf("Parent %i", i)
     parents = getParents(matingPool)
+    #print(parents)
     # pass just the individuals and get a single individual
     child = recombinator(parents, control)
+    #catf("Child %i", i)
+    #print(child)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
     # pass just the individual and get a single individual
     child = mutator(child, mutator.control, control)
     offspring[[i]] = child
   }
+  #print(offspring)
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
+  #print(makePopulation(offspring, offspring.fitness))
+  #stop()
   return(makePopulation(offspring, offspring.fitness))
 }
 

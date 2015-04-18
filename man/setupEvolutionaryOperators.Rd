@@ -6,7 +6,9 @@
 your problem.}
 \usage{
 setupEvolutionaryOperators(control,
-  selector = getDefaultEvolutionaryOperators(control$representation,
+  parent.selector = getDefaultEvolutionaryOperators(control$representation,
+  "selector"),
+  survival.selector = getDefaultEvolutionaryOperators(control$representation,
   "selector"),
   generator = getDefaultEvolutionaryOperators(control$representation,
   "generator"),
@@ -20,9 +22,13 @@ setupEvolutionaryOperators(control,
 \item{control}{[\code{ecr_control}]\cr
 ECR control object generated via \code{\link{setupECRControl}}.}
 
-\item{selector}{[\code{ecr_selector}]\cr
+\item{parent.selector}{[\code{ecr_selector}]\cr
 Selection operator which implements a procedure to copy individuals from a
 given population to the mating pool, i. e., allow them to become parents.}
+
+\item{survival.selector}{[\code{ecr_selector}]\cr
+Selection operator which implements a procedurce to extract individuals from
+a given set, which should survive and set up the next generation.}
 
 \item{generator}{[\code{ecr_generator}]\cr
 Generator operator of type \code{ecr_generator} for the generation of the initial

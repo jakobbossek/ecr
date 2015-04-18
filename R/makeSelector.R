@@ -14,7 +14,7 @@
 #   selector object.
 makeSelector = function(selector, name, description,
   supported = getAvailableRepresentations()) {
-  assertFunction(selector, args = c("population", "n.mating.pool"), ordered = TRUE)
+  assertFunction(selector, args = c("population", "n.select", "control"), ordered = TRUE)
   selector = makeOperator(selector, name, description, supported)
   selector = addClasses(selector, c("ecr_selector"))
   return(selector)

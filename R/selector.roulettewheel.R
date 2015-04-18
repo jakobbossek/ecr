@@ -9,7 +9,7 @@
 #' @return [\code{setOfIndividuals}]
 #' @export
 makeRouletteWheelSelector = function() {
-  selector = function(population, n.mating.pool) {
+  selector = function(population, n.select, control) {
     #FIXME: We do minimization; Roulette-Wheel selection cannot be used in
     # minimization in general, since low fitness values lead to low selection
     # probabilities. Another problem are negative fitness values.
@@ -26,7 +26,7 @@ makeRouletteWheelSelector = function() {
     fitness = 1 / fitness
     n.population = length(inds)
     prob = fitness / sum(fitness)
-    idx = sample(n.population, size = n.mating.pool, replace = TRUE, prob = prob)
+    idx = sample(n.population, size = n.select, replace = TRUE, prob = prob)
     return(makePopulation(inds[idx], population$fitness[idx]))
   }
   makeSelector(

@@ -6,7 +6,7 @@
 #' @return [\code{setOfIndividuals}]
 #' @export
 makeSimpleSelector = function() {
-  selector = function(population, n.mating.pool) {
+  selector = function(population, n.select, control) {
     # inds = population$individuals
     # fitn = population$fitness
     # n = length(inds)

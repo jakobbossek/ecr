@@ -96,14 +96,15 @@ ctrl = setupECRControl(
 )
 ctrl = setupEvolutionaryOperators(
  ctrl,
- selector = makeRouletteWheelSelector(),
- recombinator = makeCrossoverRecombinator()
+ parent.selector = makeRouletteWheelSelector(),
+ recombinator = makeCrossoverRecombinator(),
+ survival.selector = makeGreedySelector()
 )
 res = doTheEvolution(obj.fn, ctrl)
 print(res)
-# \dontrun{
-#   autoplot(res, show.process = TRUE)
-# }
+\dontrun{
+  autoplot(res, show.process = TRUE)
+}
 }
 \seealso{
 \code{\link{setupECRControl}}

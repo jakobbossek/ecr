@@ -39,8 +39,7 @@ test_that("autoplot for log axis and show process", {
     )
     control = setupEvolutionaryOperators(
       control,
-      mutator = makeGaussMutator(mutator.gauss.sd = 0.005),
-      recombinator = makeCrossoverRecombinator()
+      mutator = makeGaussMutator(mutator.gauss.sd = 0.005)
     )
     res = doTheEvolution(obj.fun, control = control)
     expect_message(autoplot(res, log.fitness = TRUE, complete.trace = TRUE)

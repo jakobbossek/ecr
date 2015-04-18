@@ -6,12 +6,15 @@
 #'
 #' @param control [\code{ecr_control}]\cr
 #'   ECR control object generated via \code{\link{setupECRControl}}.
-#' @param selector [\code{ecr_selector}]\cr
-#'   Selection operator which implements a procedure to copy individuals from a
-#'   given population to the mating pool, i. e., allow them to become parents.
 #' @param generator [\code{ecr_generator}]\cr
 #'   Generator operator of type \code{ecr_generator} for the generation of the initial
 #'   population.
+#' @param parent.selector [\code{ecr_selector}]\cr
+#'   Selection operator which implements a procedure to copy individuals from a
+#'   given population to the mating pool, i. e., allow them to become parents.
+#' @param survival.selector [\code{ecr_selector}]\cr
+#'   Selection operator which implements a procedurce to extract individuals from
+#'   a given set, which should survive and set up the next generation.
 #' @param mutator [\code{ecr_mutator}]\cr
 #'   Mutation operator of type \code{ecr_mutator}.
 #' @param mutationStrategyAdaptor [\code{function}]\cr
@@ -34,7 +37,8 @@
 #' @export
 setupEvolutionaryOperators = function(
   control,
-  selector = getDefaultEvolutionaryOperators(control$representation, "selector"),
+  parent.selector = getDefaultEvolutionaryOperators(control$representation, "selector"),
+  survival.selector = getDefaultEvolutionaryOperators(control$representation, "selector"),
   generator = getDefaultEvolutionaryOperators(control$representation, "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation, "mutator"),
   #FIXME: this stuff is experimental.
@@ -52,8 +56,9 @@ setupEvolutionaryOperators = function(
   assertFunction(mutationStrategyAdaptor, args = c("operator.control", "opt.path"), ordered = TRUE)
   assertList(recombinator.control, any.missing = FALSE)
 
-  # check passed selector
-  checkCorrectOperatorType(selector, "ecr_selector", "Selector")
+  # check passed selector(s)
+  checkCorrectOperatorType(parent.selector, "ecr_selector", "Parent selector")
+  checkCorrectOperatorType(survival.selector, "ecr_selector", "Survival selector")
 
   # Check passed mutator
   checkCorrectOperatorType(mutator, "ecr_mutator", "Mutator")
@@ -77,7 +82,8 @@ setupEvolutionaryOperators = function(
   })
 
   # store stuff in control object
-  control$selector = selector
+  control$parent.selector = parent.selector
+  control$survival.selector = survival.selector
   control$generator = generator
   control$mutator = mutator
   control$mutationStrategyAdaptor = mutationStrategyAdaptor
