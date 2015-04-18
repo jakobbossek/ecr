@@ -45,7 +45,6 @@ control = setupEvolutionaryOperators(
   generator = makeBinaryGenerator(),
   mutator = makeBitFlipMutator(),
   recombinator = makeCrossoverRecombinator(),
-  survival.selector = makeGreedySelector(),
   # see the literature on 1+1 GA for this parameter recommendation
   mutator.control = list(mutator.flip.prob = 1 / n.params)
 )

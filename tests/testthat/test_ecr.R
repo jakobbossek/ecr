@@ -15,7 +15,10 @@ setUpControlObject = function(n.population,
     monitor = makeNullMonitor(),
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
   )
-  control = setupEvolutionaryOperators(control)
+  control = setupEvolutionaryOperators(
+    control,
+    survival.selector = makeGreedySelector()
+  )
 }
 
 test_that("ecr works with simple soo function", {

@@ -48,12 +48,13 @@ autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = 
       if (n.params == 2L) {
         df.points = as.data.frame(do.call(rbind, population$individuals))
         colnames(df.points) = paste("x", 1:n.params, sep = "")
-        df.points$y = population$fitness
+        df.points$y = as.numeric(population$fitness)
         pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x1", y = "x2"), colour = "tomato")
       } else {
-        df.points = data.frame(x = do.call(c, population$individuals), y = population$fitness)
+        fitness = as.numeric(population$fitness)
+        df.points = data.frame(x = do.call(c, population$individuals), y = fitness)
         pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x", y = "y"), colour = "tomato")
-        pl.fun = pl.fun + geom_hline(yintercept = min(population$fitness), linetype = "dashed", colour = "gray")
+        pl.fun = pl.fun + geom_hline(yintercept = min(fitness), linetype = "dashed", colour = "gray")
       }
 
       #FIXME: this seems to fail!

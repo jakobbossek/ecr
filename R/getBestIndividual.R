@@ -6,7 +6,7 @@
 #'  Individual with best, i. e., lowest fitness value.
 #' @export
 getBestIndividual = function(population) {
-    fitness = population$fitness
+    fitness = as.numeric(population$fitness)
     best.idx = which.min(population$fitness)
     best.fitness = fitness[best.idx]
     best.individual = population$individuals[[best.idx]]

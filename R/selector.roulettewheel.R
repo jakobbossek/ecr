@@ -19,7 +19,7 @@ makeRouletteWheelSelector = function() {
     # (10, 1 / 5.1, 1 / 20)
     # But how to choose the magic number and is this really ok?
     inds = population$individuals
-    fitness = population$fitness
+    fitness = as.numeric(population$fitness)
     if (any(fitness <= 0L)) {
       fitness = fitness + abs(min(fitness)) + 0.1
     }
@@ -27,7 +27,7 @@ makeRouletteWheelSelector = function() {
     n.population = length(inds)
     prob = fitness / sum(fitness)
     idx = sample(n.population, size = n.select, replace = TRUE, prob = prob)
-    return(makePopulation(inds[idx], population$fitness[idx]))
+    return(makePopulation(inds[idx], population$fitness[, idx, drop = FALSE]))
   }
   makeSelector(
     selector = selector,

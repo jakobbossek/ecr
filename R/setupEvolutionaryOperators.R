@@ -37,8 +37,8 @@
 #' @export
 setupEvolutionaryOperators = function(
   control,
-  parent.selector = getDefaultEvolutionaryOperators(control$representation, "selector"),
-  survival.selector = getDefaultEvolutionaryOperators(control$representation, "selector"),
+  parent.selector = getDefaultEvolutionaryOperators(control$representation, "parent.selector"),
+  survival.selector = getDefaultEvolutionaryOperators(control$representation, "survival.selector"),
   generator = getDefaultEvolutionaryOperators(control$representation, "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation, "mutator"),
   #FIXME: this stuff is experimental.
@@ -129,22 +129,25 @@ prepareOperatorParameters = function(operator, input.params) {
 getDefaultEvolutionaryOperators = function(representation, type) {
   defaults = list(
     "float" = list(
-      "selector" = makeRouletteWheelSelector(),
+      "parent.selector" = makeRouletteWheelSelector(),
       "generator" = makeUniformGenerator(),
       "mutator" = makeGaussMutator(),
-      "recombinator" = makeIntermediateRecombinator()
+      "recombinator" = makeIntermediateRecombinator(),
+      "survival.selector" = makeGreedySelector()
     ),
     "binary" = list(
-      "selector" = makeRouletteWheelSelector(),
+      "parent.selector" = makeRouletteWheelSelector(),
       "generator" = makeBinaryGenerator(),
       "mutator" = makeBitFlipMutator(),
-      "recombinator" = makeCrossoverRecombinator()
+      "recombinator" = makeCrossoverRecombinator(),
+      "survival.selector" = makeGreedySelector()
     ),
     "permutation" = list(
-      "selector" = makeRouletteWheelSelector(),
+      "parent.selector" = makeRouletteWheelSelector(),
       "generator" = makePermutationGenerator(),
       "mutator" = makeSwapMutator(),
-      "recombinator" = makePMXRecombinator()
+      "recombinator" = makePMXRecombinator(),
+      "survival.selector" = makeGreedySelector()
     )
   )
 

@@ -7,9 +7,9 @@ your problem.}
 \usage{
 setupEvolutionaryOperators(control,
   parent.selector = getDefaultEvolutionaryOperators(control$representation,
-  "selector"),
+  "parent.selector"),
   survival.selector = getDefaultEvolutionaryOperators(control$representation,
-  "selector"),
+  "survival.selector"),
   generator = getDefaultEvolutionaryOperators(control$representation,
   "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation,

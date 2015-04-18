@@ -38,10 +38,7 @@ control = setupECRControl(
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 2000L))
 )
 # here we select the 100 fittest indiviuals to survive
-control = setupEvolutionaryOperators(
-  control,
-  survival.selector = makeGreedySelector()
-)
+control = setupEvolutionaryOperators(control)
 print(control)
 
 res = doTheEvolution(obj.fun, control = control)

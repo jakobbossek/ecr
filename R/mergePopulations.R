@@ -5,26 +5,12 @@
 # @return [\code{setOfIndividuals}]
 mergePopulations = function(...) {
   populations = list(...)
-  #stop()
+  #print(populations)
 
-  # get n.params
-  n.params = length(populations[[1]]$individuals[[1]])
+  # merge
+  individuals = do.call(c, extractSubList(populations, "individuals", simplify = FALSE))
+  fitness = do.call(cbind, extractSubList(populations, "fitness", simplify = FALSE))
 
-  # summarize over all population sizes
-  pop.size = sum(sapply(populations, function(x) length(x$fitness)))
-
-  # allocate space
-  fitness = numeric()
-  individuals = list()
-
-  # now iterate over populations and generate merged population
-  start = 1L
-  for (i in 1:length(populations)) {
-    j = length(populations[[i]]$individuals[[1]])
-    individuals = c(individuals, populations[[i]]$individuals)
-    fitness = c(fitness, unlist(populations[[i]]$fitness))
-    start = start + j
-  }
   makePopulation(
     individuals = individuals,
     fitness = fitness

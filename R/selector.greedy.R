@@ -8,9 +8,9 @@
 makeGreedySelector = function() {
   selector = function(population, n.select, control) {
     inds = population$individuals
-    fitn = population$fitness
-    idx.select = order(fitn)[seq(n.select)]
-    return(makePopulation(inds[idx.select], fitn[idx.select]))
+    fitness = as.numeric(population$fitness)
+    idx.select = order(fitness)[seq(n.select)]
+    return(makePopulation(inds[idx.select], matrix(fitness[idx.select], nrow = 1L)))
   }
   makeSelector(
     selector = selector,

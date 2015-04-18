@@ -14,7 +14,7 @@ makeTournamentSelector = function(k = 3L) {
 
   selector = function(population, n.select, control) {
     inds = population$individuals
-    fitness = population$fitness
+    fitness = as.numeric(population$fitness)
     n.population = length(fitness)
     pop.idx = seq(n.population)
 
@@ -26,7 +26,7 @@ makeTournamentSelector = function(k = 3L) {
       idx[i] = competitor.idx[which.min(fitness[competitor.idx])]
     }
 
-    return(makePopulation(inds[idx], fitness[idx]))
+    return(makePopulation(inds[idx], matrix(fitness[idx], nrow = 1L)))
   }
   makeSelector(
     selector = selector,

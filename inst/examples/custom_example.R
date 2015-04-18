@@ -39,7 +39,7 @@ ctrl = setupECRControl(
   representation = "custom", # bypass everything
   survival.strategy = "plus",
   monitor = makeConsoleMonitor(),
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 10000L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 100L))
 )
 
 myGenerator = makeGenerator(
@@ -54,7 +54,7 @@ myGenerator = makeGenerator(
 )
 
 myMutator = makeMutator(
-  mutator = function(x, control) {
+  mutator = function(x, mutator.control, control) {
     idx = which(runif(nrow(x)) < 0.1)
     x[idx, ] = matrix(runif(2 * length(idx)), ncol = 2)
     return(x)
@@ -65,7 +65,7 @@ myMutator = makeMutator(
 )
 
 myRecombinator = makeRecombinator(
-  recombinator = function(x) {
+  recombinator = function(x, control) {
     x[[1]]
   },
   name = "Convex-Combination recombinator",
@@ -75,6 +75,7 @@ myRecombinator = makeRecombinator(
 
 ctrl = setupEvolutionaryOperators(
   ctrl,
+  parent.selector = makeTournamentSelector(),
   generator = myGenerator,
   mutator = myMutator,
   recombinator = myRecombinator
