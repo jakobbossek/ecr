@@ -23,15 +23,21 @@
 doTheEvolution = function(objective.fun, control) {
   repr = control$representation
   par.set = NULL
+  n.objectives = 1L
   if (repr != "custom") {
     assertClass(objective.fun, "smoof_function")
     par.set = getParamSet(objective.fun)
+    n.objectivs = getNumberOfObjectives(objective.fun)
+
     #FIXME: is this a good idea to modify control object here?
     control$par.set = par.set
+    control$n.objectives = n.objectives
     control$par.lower = getLower(par.set, with.nr = TRUE)
     control$par.upper = getUpper(par.set, with.nr = TRUE)
 
     # potentially global optimum
+    #FIXME: actually we to not use this here and it is only relevant for the
+    # the corresponding stopping condition.
     global.optimum = NULL
     if (hasGlobalOptimum(objective.fun)) {
       global.optimum = getGlobalOptimum(objective.fun)$param
@@ -44,6 +50,8 @@ doTheEvolution = function(objective.fun, control) {
     # dummy par.set
     par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))
   }
+
+  y.names = paste0("y", seq(n.objectives))
 
   n.population = control$n.population
   n.mating.pool = control$n.mating.pool
@@ -62,7 +70,7 @@ doTheEvolution = function(objective.fun, control) {
 
   pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
-  opt.path = makeOptPathDF(par.set, y.names = "y", minimize = TRUE,
+  opt.path = makeOptPathDF(par.set, y.names = y.names, minimize = rep(TRUE, n.objectives),
     include.extra = TRUE, include.exec.time = TRUE)
 
   opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
@@ -202,7 +210,15 @@ addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.t
   if (control$representation == "custom") {
     best.param.values = list("x" = 0.5)
   }
-  addOptPathEl(opt.path, x = best.param.values, y = unlist(best$fitness), dob = generation,
+  #FIXME: since there is no "best" individual in the multi-objective case we save
+  # a dummy here for now. We need to think about what to save in this case? Save all
+  # individuals of every population?
+  if (!is.null(control$n.objectives) && control$n.objectives > 1L) {
+    y = rep(0.0, control$n.objectives)
+  } else {
+    y = unlist(best$fitness)
+  }
+  addOptPathEl(opt.path, x = best.param.values, y = y, dob = generation,
     exec.time = exec.time, extra = extra, check.feasible = FALSE)
   return(opt.path)
 }
