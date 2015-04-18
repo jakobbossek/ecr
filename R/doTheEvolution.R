@@ -27,7 +27,7 @@ doTheEvolution = function(objective.fun, control) {
   if (repr != "custom") {
     assertClass(objective.fun, "smoof_function")
     par.set = getParamSet(objective.fun)
-    n.objectivs = getNumberOfObjectives(objective.fun)
+    n.objectives = getNumberOfObjectives(objective.fun)
 
     #FIXME: is this a good idea to modify control object here?
     control$par.set = par.set
@@ -66,7 +66,8 @@ doTheEvolution = function(objective.fun, control) {
 
   population = populationGenerator(n.population, control)
   population$fitness = computeFitness(population, objective.fun)
-  best = getBestIndividual(population)
+  best = NULL
+  #best = getBestIndividual(population)
 
   pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
@@ -107,7 +108,8 @@ doTheEvolution = function(objective.fun, control) {
       population.storage[[paste0("gen.", as.character(iter))]] = population
     }
 
-    best = getBestIndividual(population)
+    best = NULL
+    #best = getBestIndividual(population)
     opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
       generation = iter, extra = getListOfExtras(iter, population, start.time, control),
       exec.time = off.gen.time, control)
@@ -122,11 +124,14 @@ doTheEvolution = function(objective.fun, control) {
 
   monitor$after()
 
+  #FIXME: single vs multi-objective result
   return(
     structure(list(
       objective.fun = objective.fun,
       control = control,
       best.param = best$individual,
+      pareto.set = population$individuals,
+      pareto.front = population$fitness,
       # best.param = setColNames(t(data.frame(best$individual)),
       #   getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
       best.value = best$fitness,
@@ -199,7 +204,10 @@ getListOfExtras = function(iter, population, start.time, control) {
 #   Current generation.
 # @return [\code{\link[ParamHelpers]{OptPathDF}}]
 addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.time, extra, control) {
-  if (length(par.set$pars) == 1L) {
+  if (!is.null(control$n.objectives) && control$n.objectives > 1L) {
+    best.param.values = as.list(rep(0, sum(getParamLengths(par.set))))
+    names(best.param.values) = getParamIds(par.set)
+  } else if (length(par.set$pars) == 1L) {
     best.param.values = list(best$individual)
     names(best.param.values) = getParamIds(par.set)
   } else {
