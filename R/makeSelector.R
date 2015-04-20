@@ -10,12 +10,19 @@
 # @param supported [\code{character}]\cr
 #   Vector of strings/names of supported parameter representations. For example
 #   'permutation', 'float', 'binary'.
+# @param supported.objectives [\code{character}]\cr
+#   At least one of \dQuote{single-objective} or \dQuote{multi-objective}.
 # @return [\code{ecr_selector}]
 #   selector object.
-makeSelector = function(selector, name, description,
-  supported = getAvailableRepresentations()) {
+makeSelector = function(
+  selector,
+  name, description,
+  supported = getAvailableRepresentations(),
+  supported.objectives) {
   assertFunction(selector, args = c("population", "n.select", "control"), ordered = TRUE)
+  assertSubset(supported.objectives, c("single-objective", "multi-objective"))
   selector = makeOperator(selector, name, description, supported)
+  selector = setAttribute(selector, "supported.objectives", supported.objectives)
   selector = addClasses(selector, c("ecr_selector"))
   return(selector)
 }

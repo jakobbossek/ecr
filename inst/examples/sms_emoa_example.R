@@ -1,6 +1,14 @@
 library(smoof)
 library(ecr)
 
+# THIS FILE IS WORK-IN-PROGRESS/EXPERIMENAL
+
+# COLLECTION OF FIXME
+#FIXME: integrate NondominatedSetSelector as ecr_selector
+#FIXME: we need to check in setupECRControl or in ecr if the operators can work
+# on multi-objective stuff
+#
+
 # Get set of dominated individuals.
 #
 # @param x [list]
@@ -8,7 +16,8 @@ library(ecr)
 # @param fn [function]
 #   Fitness function.
 # @return [list]
-#FIXME: formulate this for matrices where each column describes one vector
+#FIXME: formulate this for matrices where each column describes one vector. However,
+# this is just a naive imolementation for testing purpose. Will be replaced
 getDominatedSet = function(x) {
   n = length(x)
 
@@ -44,41 +53,38 @@ makeNondominatedSetSelector = function() {
       survive.idx = setdiff(seq(n), idx)
       return(makePopulation(inds[survive.idx], population$fitness[, survive.idx, drop = FALSE]))
     },
-    supported = "float",
+    supported.objectives = "multi-objective",
     name = "Nondominated set selector",
     description = "description"
   )
 }
 
 ctrl = setupECRControl(
-  n.population = 10L,
-  n.offspring = 1L,
+  n.population = 20L,
+  n.offspring = 10L,
   representation = "float",
   monitor = makeConsoleMonitor()
 )
 
 ctrl = setupEvolutionaryOperators(
   ctrl,
+  # tournamend and roulette wheel work on scalar fitness values only
+  # Thus, simply select two random elements for reproduction
   parent.selector = makeSimpleSelector(),
   mutator = makeGaussMutator(),
   recombinator = makeCrossoverRecombinator(),
+  # everything can be used, we just needed a multi-objective-specific survival selector
   survivalSelector = makeNondominatedSetSelector()
 )
 
 obj.fn = smoof::makeZDT1Function(2L)
 
 res = doTheEvolution(obj.fn, ctrl)
+
+pl = smoof::visualizeParetoOptimalFront(obj.fn)
+pf = res$pareto.front
+pf = as.data.frame(t(pf))
+names(pf) = paste0("x", 1:2)
+pl = pl + geom_point(data = pf, aes(x = x1, y = x2), colour = "green")
+print(pl)
 stop("FIN")
-
-
-# Determine the number of elements for each individual by which it is dominated.
-#
-# @param x [list]
-#   Set of fitness values.
-# @return [integer]
-#   Each position contains the number of individuals by which this one is dominated.
-#getDominanceNumber = function()
-inds = list(c(1, 2), c(2, 1), c(2, 2), c(1, 3), c(1.5, 1.3))
-
-print(getDominatedSet(inds))
-

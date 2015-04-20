@@ -1,7 +1,4 @@
-#' Returns the representations which a specific operator supports.
-#'
-#' Operators and representation types are not mandatory compatible. This function
-#' detemines the types an operator can operate on.
+#' Returns the character vector of tags which describe a specific operator.
 #'
 #' @param operator [\code{ecr_operator}]\cr
 #'   Operator object.

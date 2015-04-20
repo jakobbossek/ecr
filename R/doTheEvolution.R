@@ -51,6 +51,16 @@ doTheEvolution = function(objective.fun, control) {
     par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))
   }
 
+  # check compatibility of selectors and #objectives
+  selectors = c(control$parent.selector, control$survival.selector)
+  desired.tag = if (n.objectives == 1L) "single-objective" else "multi-objective"
+  lapply(selectors, function(selector) {
+    if (desired.tag %nin% attr(selector, "supported.objectives")) {
+      stopf("Selector '%s' cannot be applied to problem with %i objectives.",
+        getOperatorName(selector), n.objectives)
+    }
+  })
+
   y.names = paste0("y", seq(n.objectives))
 
   n.population = control$n.population

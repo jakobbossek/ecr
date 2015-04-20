@@ -31,6 +31,7 @@ makeTournamentSelector = function(k = 3L) {
   makeSelector(
     selector = selector,
     name = "k-Tournament selector",
-    description = "Select k individuals at random, choose the best, repeat until mating pool is filled."
+    description = "Select k individuals at random, choose the best, repeat until mating pool is filled.",
+    supported.objectives = c("single-objective")
   )
 }

@@ -17,6 +17,7 @@ makeSimpleSelector = function() {
   makeSelector(
     selector = selector,
     name = "Simple selector",
-    description = "Simply returns the entire population."
+    description = "Simply returns the entire population.",
+    supported.objectives = c("single-objective", "multi-objective")
   )
 }

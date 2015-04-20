@@ -32,6 +32,7 @@ makeRouletteWheelSelector = function() {
   makeSelector(
     selector = selector,
     name = "Roulette-Wheel selector",
-    description = "Selects individuals in a fitness-proportional fashion."
+    description = "Selects individuals in a fitness-proportional fashion.",
+    supported.objectives = c("single-objective")
   )
 }
