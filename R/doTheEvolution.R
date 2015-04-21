@@ -20,18 +20,12 @@
 #' @example examples/ex_doTheEvolution.R
 #' @seealso \code{\link{setupECRControl}}
 #' @export
-#FIXME: get rid of the global optimum stuff. Only useful for single-objective termination
-# criterion
-#FIXME: addBestToOptPath is not a proper name since in the mo case, there is in general no
-# single best. Maybe call it better updateOptPath
 #FIXME: for standard representations: save all stuff in opt.path, i.e., make opt path the
 # population storage?
 #FIXME: optPath funs need option to make x and par.set optional
 #FIXME: we can extract the number of objectives from the smoof function, but what do we
 # do if we use custom representations and there is not par.set? We should force the user to pass
 # n.objectives to the control object!
-#FIXME: for custom representations we need to store the the best parameter since it cannot be
-# saved in the opt path :-(
 doTheEvolution = function(objective.fun, control) {
   repr = control$representation
   par.set = NULL
@@ -46,14 +40,6 @@ doTheEvolution = function(objective.fun, control) {
     control$n.objectives = n.objectives
     control$par.lower = getLower(par.set, with.nr = TRUE)
     control$par.upper = getUpper(par.set, with.nr = TRUE)
-
-    # potentially global optimum
-    #FIXME: actually we to not use this here and it is only relevant for the
-    # the corresponding stopping condition.
-    global.optimum = NULL
-    if (hasGlobalOptimum(objective.fun)) {
-      global.optimum = getGlobalOptimum(objective.fun)$param
-    }
 
     if (repr == "float" && !hasFiniteBoxConstraints(par.set)) {
       stopf("Lower and upper box constraints needed for representation type 'float'.")
@@ -201,45 +187,4 @@ getListOfExtras = function(iter, population, start.time, control) {
     extra = c(extra, user.extra)
   }
   return(extra)
-}
-
-# Adds the parameter values and the y-value(s) of the best individual to the opt.path.
-#
-# @param opt.path [\code{\link[ParamHelpers]{OptPathDF}}]\cr
-#   Optimization path.
-# @param par.set [\code{\link[ParamHelpers]{ParamSet}}]\cr
-#   Parameter set.
-# @param best [\code{setOfIndividuals}]\cr
-#   Best individual in the current generation/iteration.
-# @param fitness [\code{numeric}]\cr
-#   Numeric vector of fitness values for the current generation.
-# @param generation [\code{integer(1)}]\cr
-#   Current generation.
-# @return [\code{\link[ParamHelpers]{OptPathDF}}]
-addBestToOptPath = function(opt.path, par.set, best, fitness, generation, exec.time, extra, control) {
-  if (!is.null(control$n.objectives) && control$n.objectives > 1L) {
-    best.param.values = as.list(rep(0, sum(getParamLengths(par.set))))
-    names(best.param.values) = getParamIds(par.set)
-  } else if (length(par.set$pars) == 1L) {
-    best.param.values = list(best$individual)
-    names(best.param.values) = getParamIds(par.set)
-  } else {
-    best.param.values = as.list(best$individual)
-    names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
-  }
-  #FIXME: dummy value for custom representation
-  if (control$representation == "custom") {
-    best.param.values = list("x" = 0.5)
-  }
-  #FIXME: since there is no "best" individual in the multi-objective case we save
-  # a dummy here for now. We need to think about what to save in this case? Save all
-  # individuals of every population?
-  if (!is.null(control$n.objectives) && control$n.objectives > 1L) {
-    y = rep(0.0, control$n.objectives)
-  } else {
-    y = unlist(best$fitness)
-  }
-  addOptPathEl(opt.path, x = best.param.values, y = y, dob = generation,
-    exec.time = exec.time, extra = extra, check.feasible = FALSE)
-  return(opt.path)
 }
