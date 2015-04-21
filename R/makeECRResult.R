@@ -38,7 +38,8 @@ NULL
 makeECRMultiObjectiveResult = function(
   objective.fun, opt.path, control,
   population.storage, stop.object) {
-  pareto.inds = getOptPathParetoFront(opt.path, index = TRUE)
+  max.dob = max(getOptPathDOB(opt.path))
+  pareto.inds = getOptPathParetoFront(opt.path, index = TRUE, dob = max.dob)
   makeS3Obj(
     objective.fun = objective.fun,
     control = control,

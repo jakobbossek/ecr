@@ -52,6 +52,7 @@ for (i in 1:n.reps) {
     sum(res * w)
   }
   attributes(fitness.fun) = attributes(obj.fun)
+  fitness.fun = setAttribute(fitness.fun, "n.objectives", 1L)
 
   # do the evolutionary magic
   res = doTheEvolution(fitness.fun, control = control)
