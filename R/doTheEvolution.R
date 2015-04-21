@@ -20,6 +20,18 @@
 #' @example examples/ex_doTheEvolution.R
 #' @seealso \code{\link{setupECRControl}}
 #' @export
+#FIXME: get rid of the global optimum stuff. Only useful for single-objective termination
+# criterion
+#FIXME: addBestToOptPath is not a proper name since in the mo case, there is in general no
+# single best. Maybe call it better updateOptPath
+#FIXME: for standard representations: save all stuff in opt.path, i.e., make opt path the
+# population storage?
+#FIXME: optPath funs need option to make x and par.set optional
+#FIXME: we can extract the number of objectives from the smoof function, but what do we
+# do if we use custom representations and there is not par.set? We should force the user to pass
+# n.objectives to the control object!
+#FIXME: for custom representations we need to store the the best parameter since it cannot be
+# saved in the opt path :-(
 doTheEvolution = function(objective.fun, control) {
   repr = control$representation
   par.set = NULL
@@ -48,7 +60,7 @@ doTheEvolution = function(objective.fun, control) {
     }
   } else {
     # dummy par.set
-    par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))
+    control$par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))
   }
 
   # check compatibility of selectors and #objectives
@@ -61,32 +73,29 @@ doTheEvolution = function(objective.fun, control) {
     }
   })
 
+  # extract basic information
   y.names = paste0("y", seq(n.objectives))
-
   n.population = control$n.population
   n.mating.pool = control$n.mating.pool
   n.offspring = control$n.offspring
   monitor = control$monitor
 
+  # extract generator and selector
   populationGenerator = control$generator
   parentSelector = control$parent.selector
 
+  # init some vars
   iter = 1L
   start.time = Sys.time()
 
+  # generate intial population
   population = populationGenerator(n.population, control)
   population$fitness = computeFitness(population, objective.fun)
-  best = NULL
-  #best = getBestIndividual(population)
-
   pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
-  opt.path = makeOptPathDF(par.set, y.names = y.names, minimize = rep(TRUE, n.objectives),
-    include.extra = TRUE, include.exec.time = TRUE)
-
-  opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
-    generation = iter, extra = getListOfExtras(iter, population, start.time, control),
-    exec.time = pop.gen.time, control)
+  # initialize trace (depends on #objectives)
+  trace = initTrace(control, population, n.objectives, y.names)
+  trace = updateTrace(trace, iter, population, start.time, pop.gen.time, control)
 
   population.storage = namedList(paste0("gen.", control$save.population.at))
   # store start population
@@ -97,12 +106,17 @@ doTheEvolution = function(objective.fun, control) {
   monitor$before()
 
   repeat {
+    # monitoring
     monitor$step()
+
+    # measure time of offspring generation
     off.gen.start.time = Sys.time()
 
+    # actually create offspring
     matingPool = parentSelector(population, n.mating.pool)
-    offspring = generateOffspring(matingPool, objective.fun, control, opt.path)
+    offspring = generateOffspring(matingPool, objective.fun, control, trace$opt.path)
 
+    # apply survival selection and set up the (i+1)-th generation
     population = selectForSurvival(
       population,
       offspring,
@@ -114,17 +128,14 @@ doTheEvolution = function(objective.fun, control) {
 
     off.gen.time = difftime(Sys.time(), off.gen.start.time, units = "secs")
 
+    # some bookkeeping
     if (iter %in% control$save.population.at) {
       population.storage[[paste0("gen.", as.character(iter))]] = population
     }
+    trace = updateTrace(trace, iter, population, start.time, off.gen.time, control)
 
-    best = NULL
-    #best = getBestIndividual(population)
-    opt.path = addBestToOptPath(opt.path, par.set, best, population$fitness,
-      generation = iter, extra = getListOfExtras(iter, population, start.time, control),
-      exec.time = off.gen.time, control)
-
-    stop.object = doTerminate(control$stopping.conditions, opt.path)
+    # check if any termination criterion is met
+    stop.object = doTerminate(control$stopping.conditions, trace$opt.path)
     if (length(stop.object) > 0L) {
       break
     }
@@ -134,22 +145,75 @@ doTheEvolution = function(objective.fun, control) {
 
   monitor$after()
 
-  #FIXME: single vs multi-objective result
-  return(
-    structure(list(
-      objective.fun = objective.fun,
-      control = control,
-      best.param = best$individual,
-      pareto.set = population$individuals,
-      pareto.front = population$fitness,
-      # best.param = setColNames(t(data.frame(best$individual)),
-      #   getParamIds(par.set, repeated = TRUE, with.nr = TRUE)),
-      best.value = best$fitness,
+  # generate result object
+  if (n.objectives == 1L) {
+    makeECRSingleObjectiveResult(objective.fun, trace$best, trace$opt.path, control,
+      population.storage = NULL, stop.object)
+  } else {
+    makeECRMultiObjectiveResult(objective.fun, trace$opt.path, control,
+      population.storage, stop.object)
+  }
+}
+
+
+initTrace = function(control, population, n.objectives, y.names) {
+  par.set = control$par.set
+  opt.path = makeOptPathDF(par.set, y.names = y.names, minimize = rep(TRUE, n.objectives), include.extra = TRUE, include.exec.time = TRUE)
+
+  if (n.objectives == 1L) {
+    best = getBestIndividual(population)
+    return(makeS3Obj(
       opt.path = opt.path,
-      population.storage = population.storage,
-      message = stop.object$message
-      ), class = "ecr_result")
-    )
+      best = best,
+      classes = c("ecr_single_objective_trace")
+    ))
+  }
+  return(makeS3Obj(
+    opt.path = opt.path,
+    classes = c("ecr_multi_objective_trace")
+  ))
+}
+
+updateTrace = function(trace, iter, population, start.time, pop.gen.time, control) {
+  UseMethod("updateTrace")
+}
+
+updateTrace.ecr_single_objective_trace = function(trace, iter, population, start.time, pop.gen.time, control) {
+  par.set = control$par.set
+  best = getBestIndividual(population)
+  extras = getListOfExtras(iter, population, start.time, control)
+  if (length(par.set$pars) == 1L) {
+    best.param.values = list(best$individual)
+    names(best.param.values) = getParamIds(par.set)
+  } else {
+    best.param.values = as.list(best$individual)
+    names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
+  }
+  #FIXME: dummy value for custom representation
+  if (control$representation == "custom") {
+    best.param.values = list("x" = 0.5)
+  }
+  addOptPathEl(trace$opt.path, x = best.param.values, y = unlist(best$fitness), dob = iter,
+    exec.time = 0, extra = extras, check.feasible = FALSE)
+  trace$best = best
+  return(trace)
+}
+
+updateTrace.ecr_multi_objective_trace = function(trace, iter, population, start.time, pop.gen.time, control) {
+  par.set = control$par.set
+  extras = getListOfExtras(iter, population, start.time, control)
+  if (control$representation == "custom") {
+    stopf("Multi-objective optimization with custom genotypes is not yet finished.")
+    best.param.values = list("x" = 0.5)
+  }
+  n.population = length(population$individuals)
+  for (i in seq(n.population)) {
+    x = as.list(population$individuals[[i]])
+    names(x) = getParamIds(control$par.set, with.nr = TRUE, repeated = TRUE)
+    addOptPathEl(trace$opt.path, x = x, y = population$fitness[, i], dob = iter,
+    exec.time = 0, extra = extras, check.feasible = FALSE)
+  }
+  return(trace)
 }
 
 #' Print the result of an ecr run.

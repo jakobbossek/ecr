@@ -20,7 +20,7 @@
 #'   Not used.
 #' @return [\code{invisible(TRUE)}]
 #' @export
-autoplot.ecr_result = function(object, xlim = NULL, ylim = NULL, show.process = FALSE
+autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL, show.process = FALSE
                                , log.fitness = FALSE, complete.trace = FALSE, ...) {
   assertFlag(show.process, na.ok = FALSE)
   assertFlag(complete.trace, na.ok = FALSE)

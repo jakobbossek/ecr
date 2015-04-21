@@ -78,7 +78,8 @@ ctrl = setupEvolutionaryOperators(
   parent.selector = makeTournamentSelector(),
   generator = myGenerator,
   mutator = myMutator,
-  recombinator = myRecombinator
+  recombinator = myRecombinator,
+  survival.selector = makeGreedySelector()
 )
 
 res = doTheEvolution(fitness, ctrl)
