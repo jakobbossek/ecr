@@ -19,4 +19,5 @@ Second vector.}
 \description{
 Check if a vector dominates another vector.
 }
+\keyword{optimize}
 
