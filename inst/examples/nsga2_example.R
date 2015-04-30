@@ -27,45 +27,40 @@ makeNSGA2SurvivalSelector = function() {
       # later for C(++)?
       fitness = t(fitness2)
       nondom.layers = doNondominatedSorting(fitness)
-      # this is a very ugly first implementation. Do this more R-like
+
+      # storage for indizes of selected individuals
       new.pop.idxs = integer()
-      i = 1L
-      n = 0L
-      repeat {
-        # get indizes of the points with rank i
-        idxs = which(nondom.layers$ranks == i)
-        # check if adding the whole i-th layer overshoots the population size
-        n = n + length(idxs)
-        if (n > n.select) {
-          n = n - length(idxs)
-          # debugging
-          catf("Domination layer %i is to large. Stopping first criterion.", i)
-          catf("Inds in new pop: %i, Inds needed: %i", n, n.select)
-          break
-        }
-        # add front to new population
-        new.pop.idxs = c(new.pop.idxs, idxs)
-        i = i + 1L
+
+      # get maximum rank, i.e., the number of domination layers
+      max.rank = max(nondom.layers$ranks)
+
+      # get the indizes of points for each domination layer
+      idxs.by.rank = lapply(seq(max.rank), function(r) which(nondom.layers$ranks == r))
+
+      # get the number of points in each domination layer ...
+      front.len = sapply(idxs.by.rank, length)
+
+      # ... cumulate the number of points of the domination layers ...
+      cum.front.len = cumsum(front.len)
+
+      # ... and determine the first domination layer, which does not fit as a whole
+      front.first.nonfit = which.first(cum.front.len > n.select)
+
+      if (front.first.nonfit > 1L) {
+        # in this case at least one nondominated front can be added
+        new.pop.idxs = unlist(idxs.by.rank[1:(front.first.nonfit - 1L)])
       }
 
-      # check whether the second criterion needs to be applied
-      if (n != n.select) {
-        catf("Population size not reached. Applying crowding distance criterion.")
-        # how many elements do we need to select by second criterion?
-        n.diff = n.select - n
-        # crowding distance for the i-th domination front
-        idxs = which(nondom.layers$ranks == i)
-        #print(idxs)
-        cds = computeCrowdingDistance(fitness[idxs, , drop = FALSE])
-        #print(cds)
-        # sort the indizes in decreasing order (higher crowding distance is beneficial)
-        idxs2 = order(cds, decreasing = TRUE)[1:n.diff]
-        # fill in the remaining individuals
-        new.pop.idxs = c(new.pop.idxs, idxs[idxs2])
-      }
+      # how many points to select by second criterion, i.e., crowding distance?
+      n.diff = n.select - length(new.pop.idxs)
+
+      idxs.first.nonfit = idxs.by.rank[[front.first.nonfit]]
+      cds = computeCrowdingDistance(fitness[idxs.first.nonfit, , drop = FALSE])
+      idxs2 = order(cds, decreasing = TRUE)[1:n.diff]
+      new.pop.idxs = c(new.pop.idxs, idxs.first.nonfit[idxs2])
 
       # merge the stuff and return
-      return(makePopulation(inds[new.pop.idxs], fitness2[, new.pop.idxs]))
+      return(makePopulation(inds[new.pop.idxs], fitness2[, new.pop.idxs, drop = FALSE]))
     },
     supported.objectives = "multi-objective",
     name = "NSGA-II survival selector",
@@ -75,7 +70,7 @@ makeNSGA2SurvivalSelector = function() {
 
 # NSGA-II control object
 ctrl = setupECRControl(
-  n.population = 50L,
+  n.population = 10L,
   n.offspring = 10L,
   representation = "float",
   monitor = makeConsoleMonitor(),
