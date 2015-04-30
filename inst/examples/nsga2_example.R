@@ -28,8 +28,7 @@ makeNSGA2SurvivalSelector = function() {
       fitness = t(fitness2)
       nondom.layers = doNondominatedSorting(fitness)
       # this is a very ugly first implementation. Do this more R-like
-      new.pop = list()
-      new.fit = list()
+      new.pop.idxs = integer()
       i = 1L
       n = 0L
       repeat {
@@ -45,8 +44,7 @@ makeNSGA2SurvivalSelector = function() {
           break
         }
         # add front to new population
-        new.pop[[i]] = inds[idxs]
-        new.fit[[i]] = fitness2[, idxs, drop = FALSE]
+        new.pop.idxs = c(new.pop.idxs, idxs)
         i = i + 1L
       }
 
@@ -63,14 +61,11 @@ makeNSGA2SurvivalSelector = function() {
         # sort the indizes in decreasing order (higher crowding distance is beneficial)
         idxs2 = order(cds, decreasing = TRUE)[1:n.diff]
         # fill in the remaining individuals
-        new.pop[[i]] = inds[idxs[idxs2]]
-        new.fit[[i]] = fitness2[, idxs[idxs2], drop = FALSE]
+        new.pop.idxs = c(new.pop.idxs, idxs[idxs2])
       }
 
       # merge the stuff and return
-      new.pop = do.call(c, new.pop)
-      new.fit = do.call(cbind, new.fit)
-      return(makePopulation(new.pop, new.fit))
+      return(makePopulation(inds[new.pop.idxs], fitness2[, new.pop.idxs]))
     },
     supported.objectives = "multi-objective",
     name = "NSGA-II survival selector",
