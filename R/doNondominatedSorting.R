@@ -62,6 +62,6 @@ doNondominatedSorting = function(x) {
 
   return(list(
     ranks = ranks,
-    dom.counter = dom.counter
+    dom.counter = dom.counter2
   ))
 }
