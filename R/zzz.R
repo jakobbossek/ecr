@@ -6,4 +6,5 @@
 #' @import parallelMap
 #' @import reshape2
 #' @import gridExtra
+#' @useDynLib ecr
 NULL
