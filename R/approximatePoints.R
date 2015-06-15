@@ -47,7 +47,7 @@ approximatePoint = function(..., sets = NULL, FUN) {
 
   # sapply returns a matrix with each row corresponding to the nadir point
   # of a single set. We hence apply the FUN rowwise again.
-  point = apply(sapply(sets2, function(set) {
+  point = apply(sapply(sets, function(set) {
     apply(set, 1L, FUN)
   }), 1L, FUN)
 
