@@ -1,4 +1,4 @@
-k/*===========================================================================*
+/*===========================================================================*
  * eps_ind.c: implements the unary epsilon indicator as proposed in
  *            Zitzler, E., Thiele, L., Laumanns, M., Fonseca, C., and
  *            Grunert da Fonseca, V (2003): Performance Assessment of
@@ -30,38 +30,12 @@ k/*===========================================================================*
  */
 
 #include <float.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <R.h>
 #include <Rmath.h>
 #include <Rinternals.h>
 
-//JB: FIXME: remove that or deactivate
-#define error(X,Y)  if (X) fprintf(stderr, Y "\n"), exit(1)
-
-/*
- * R to C interface for the calculation of the unary epsilon-indicator.
- *
- * @param points [matrix]
- *   R matrix (each column contains one points of the approximation set).
- * @param ref_points [matrix]
- *   R matrix (each column contains one point of the reference set).
- * @return [numeric(1)] Unary epsilon-indicator value.
- */
-SEXR calculateEpsilonIndicatorFromR(SEXP points, SEXP ref_points) {
-  // get that stuff from R
-  EXTRACT_NUMERIC_MATRIX(points, c_points, n_objectives, n_points);
-  EXTRACT_NUMERIC_MATRIX(ref_points, c_ref_points, n_ref_objectives, n_ref_points);
-
-  double eps_ind = calculateEpsilonIndicator(
-    c_ref_point, n_ref_points,
-    c_points, n_points,
-    n_objectives,
-    0 // here we pass 0 = "additive" in each case since we always minimize all objectives
-  );
-  return ScalarReal(eps_ind);
-}
+#include "macros.h"
 
 /*
  * Source code for the computation of the unary epsilon-indicator by Zitzler.
@@ -101,11 +75,7 @@ static double calculateEpsilonIndicator(
           case 0:
           eps_temp = b[j * dim + k] - a[i * dim + k];
           break;
-          default:
-          error((a[i * dim + k] < 0 && b[j * dim + k] > 0) ||
-            (a[i * dim + k] > 0 && b[j * dim + k] < 0) ||
-            a[i * dim + k] == 0 || b[j * dim + k] == 0,
-            "error in data file");
+          case 1:
           eps_temp = b[j * dim + k] / a[i * dim + k];
           break;
         }
@@ -125,4 +95,27 @@ static double calculateEpsilonIndicator(
       eps = eps_j;
   }
   return eps;
+}
+
+/*
+ * R to C interface for the calculation of the unary epsilon-indicator.
+ *
+ * @param points [matrix]
+ *   R matrix (each column contains one points of the approximation set).
+ * @param ref_points [matrix]
+ *   R matrix (each column contains one point of the reference set).
+ * @return [numeric(1)] Unary epsilon-indicator value.
+ */
+SEXP calculateEpsilonIndicatorFromR(SEXP points, SEXP ref_points) {
+  // get that stuff from R
+  EXTRACT_NUMERIC_MATRIX(points, c_points, n_objectives, n_points);
+  EXTRACT_NUMERIC_MATRIX(ref_points, c_ref_points, n_ref_objectives, n_ref_points);
+
+  double eps_ind = calculateEpsilonIndicator(
+    c_ref_points, n_ref_points,
+    c_points, n_points,
+    n_objectives,
+    0 // here we pass 0 = "additive" in each case since we always minimize all objectives
+  );
+  return ScalarReal(eps_ind);
 }
