@@ -1,6 +1,6 @@
 Package: ecr
 Type: Package
-Title: Evolutionary Computing in R.
+Title: Evolutionary Computing in R
 Description: This R package provides a powerful framework for Evolutionary
     Computing in R. The user can solve his objective functions using predefined
     evolutionary operators, i. e., operators for mutation, recombination and so
