@@ -33,5 +33,5 @@ computeDominatedHypervolume = function(x, ref.point = NULL) {
     return(NaN)
   }
 
-  return(.Call("computeDominatedHypervolumeC", as.numeric(x), ref.point))
+  return(.Call("computeDominatedHypervolumeC", x, ref.point))
 }
