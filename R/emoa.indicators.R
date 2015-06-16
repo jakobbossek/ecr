@@ -60,3 +60,56 @@ computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
 
   return (hv.ref.points - hv.points)
 }
+
+# @rdname emoa_indicators
+computeRIndicator = function(points, ref.points, ideal.point = NULL, nadir.point = NULL, lambdas = NULL, utility, aggregator) {
+  assertMatrix(points, mode = "numeric", any.missing = FALSE)
+  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
+  if (is.null(ideal.point)) {
+    ideal.point = approximateIdealPoint(points, ref.points)
+  }
+  assertNumeric(ideal.point, any.missing = FALSE)
+  assertMatrix(lambdas, mode = "numeric", any.missing = FALSE)
+  utilities = c("weightedsum", "tschbycheff", "augmented tschbycheff")
+  assertChoice(utility, utilities)
+  assertFunction(aggregator)
+
+  # convert utility to integer index which is used by the C code
+  utility = which((match.arg(utility, utilities)) == utilities)
+  utility = as.integer(utility)
+
+  n.obj = nrow(points)
+
+  if (is.null(ideal.point)) {
+    ideal.point = approximateIdealPoint(points, ref.points)
+  }
+  if (is.null(nadir.point)) {
+    nadir.point = approximateNadirPoint(points, ref.points)
+  }
+
+  if (is.null(lambda)) {
+    lambda = determineLambdaByDimension(n.obj)
+  }
+  lambda = convertInteger(lambda)
+
+  ind.points = .Call(computeRIndicator, points, ideal.point, nadir.point, lambda, utility)
+  ind.ref.points = .Call(computeRIndicator, ref.points, ideal.point, nadir.point, lambda, utility)
+
+  ind = aggregator(ind.points, ind.ref.points)
+
+  return (ind)
+}
+
+determineLambdaByDimension = function(n.obj) {
+  if (n.obj == 2) {
+    500L
+  } else if (n.obj == 3) {
+    30L
+  } else if (n.obj == 4) {
+    12L
+  } else if (n.obj == 5) {
+    8L
+  } else {
+    3L
+  }
+}
