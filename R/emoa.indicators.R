@@ -27,11 +27,7 @@ computeEpsilonIndicator = function(points, ref.points) {
   # sanity checks
   assertMatrix(points, mode = "numeric", any.missing = FALSE)
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
-
-  if (nrow(ref.points) != nrow(points)) {
-    stopf("Set of points and reference points need to have the same dimension, but
-      set of points has dimension %i and reference points has dimension %i.", nrow(points), nrow(ref.points))
-  }
+  assertSameDimensions(points, ref.points)
 
   return(.Call("calculateEpsilonIndicatorFromR", points, ref.points))
 }
@@ -48,11 +44,7 @@ computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
   assertMatrix(points, mode = "numeric", any.missing = FALSE)
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
   assertNumeric(ref.point, any.missing = FALSE)
-
-  n.objs = c(nrow(points), nrow(ref.points), length(ref.point))
-  if (length(unique(n.objs)) > 1L) {
-    stopf("Points, reference set and reference points need to have the same dimension.")
-  }
+  assertSameDimensions(points, ref.points, ref.point)
 
   # actual indicator calculation
   hv.points = computeDominatedHypervolume(points, ref.point)
@@ -62,7 +54,12 @@ computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
 }
 
 # @rdname emoa_indicators
-computeRIndicator = function(points, ref.points, ideal.point = NULL, nadir.point = NULL, lambdas = NULL, utility, aggregator) {
+computeRIndicator = function(
+  points, ref.points,
+  ideal.point = NULL, nadir.point = NULL,
+  lambdas = NULL,
+  utility,
+  aggregator) {
   assertMatrix(points, mode = "numeric", any.missing = FALSE)
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
   if (is.null(ideal.point)) {
@@ -73,6 +70,7 @@ computeRIndicator = function(points, ref.points, ideal.point = NULL, nadir.point
   utilities = c("weightedsum", "tschbycheff", "augmented tschbycheff")
   assertChoice(utility, utilities)
   assertFunction(aggregator)
+  assertSameDimensions(points, ref.points, ideal.point, nadir.point)
 
   # convert utility to integer index which is used by the C code
   utility = which((match.arg(utility, utilities)) == utilities)
