@@ -13,3 +13,4 @@ playground.R
 .travis.yml
 appveyor.yml
 examples
+benchmark.R
