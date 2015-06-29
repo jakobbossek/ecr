@@ -6,7 +6,7 @@
 #' @export
 makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$mutator.flip.pro, lower = 0.000001, upper = 0.999999, na.ok = FALSE)
+    assertNumber(operator.control$mutator.flip.prob, lower = 0.000001, upper = 0.999999, na.ok = FALSE)
   }
 
   force(mutator.flip.prob)
