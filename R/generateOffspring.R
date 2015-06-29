@@ -14,6 +14,7 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   mutationStrategyAdaptor = control$mutationStrategyAdaptor
   mutator.control = control$mutator.control
   recombinator = control$recombinator
+  recombinator.control = control$recombinator.control
   n.offspring = control$n.offspring
 
   offspring = vector("list", n.offspring)
@@ -23,7 +24,7 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     parents = getParents(matingPool)
     #print(parents)
     # pass just the individuals and get a single individual
-    child = recombinator(parents, control)
+    child = recombinator(parents, recombinator.control, control)
     #catf("Child %i", i)
     #print(child)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)

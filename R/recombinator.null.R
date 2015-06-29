@@ -3,7 +3,7 @@
 #' @return [\code{ecr_recombinator}]
 #' @export
 makeNullRecombinator = function() {
-  recombinator = function(inds, control=list()) {
+  recombinator = function(inds, args = list(), control=list()) {
     return(inds[[1L]])
   }
 
