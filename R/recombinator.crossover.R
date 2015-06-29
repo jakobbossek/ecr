@@ -33,8 +33,10 @@ makeCrossoverRecombinator = function(recombinator.crossover.prob = 1) {
       child1[(idx + 1L):n] = parent2[(idx + 1L):n]
       child2[1:idx] = parent1[1:idx]
     }
-    #FIXME: here we just return one offspring for now
-    return(child1)
+    # return two offsprings
+    children = list(child1, child2)
+    attr(children, "children") = TRUE
+    return(children)
   }
 
   makeRecombinator(

@@ -19,7 +19,8 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
 
   offspring = vector("list", n.offspring)
 
-  for (i in seq(n.offspring)) {
+  i = 1
+  while (i < n.offspring) {
     #catf("Parent %i", i)
     parents = getParents(matingPool)
     #print(parents)
@@ -28,9 +29,21 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     #catf("Child %i", i)
     #print(child)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
-    # pass just the individual and get a single individual
-    child = mutator(child, mutator.control, control)
-    offspring[[i]] = child
+    # mutate the child or children
+    if (isTRUE(attr(child, "children"))) {
+      max.children = min(length(child), n.offspring - i + 1)
+      for (ii in seq(max.children)) {
+        # pass just the individual and get a single individual
+        child[[ii]] = mutator(child[[ii]], mutator.control, control)
+        offspring[[i]] = child[[ii]]
+        i = i + 1
+      }
+    } else {
+      # pass just the individual and get a single individual
+      child = mutator(child, mutator.control, control)
+      offspring[[i]] = child
+      i = i + 1
+    }
   }
   #print(offspring)
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
