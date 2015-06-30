@@ -19,30 +19,30 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
 
   offspring = vector("list", n.offspring)
 
-  i = 1
-  while (i < n.offspring) {
-    #catf("Parent %i", i)
+  i.offspring = 1
+  while (i.offspring < n.offspring) {
+    #catf("Parent %i", i.offspring)
     parents = getParents(matingPool)
     #print(parents)
     # pass just the individuals and get a single individual
     child = recombinator(parents, recombinator.control, control)
-    #catf("Child %i", i)
+    #catf("Child %i", i.offspring)
     #print(child)
     mutator.control = mutationStrategyAdaptor(mutator.control, opt.path)
     # mutate the child or children
     if (isTRUE(attr(child, "children"))) {
-      max.children = min(length(child), n.offspring - i + 1)
-      for (ii in seq(max.children)) {
+      max.children = min(length(child), n.offspring - i.offspring + 1)
+      for (i.child in seq(max.children)) {
         # pass just the individual and get a single individual
-        child[[ii]] = mutator(child[[ii]], mutator.control, control)
-        offspring[[i]] = child[[ii]]
-        i = i + 1
+        child[[i.child]] = mutator(child[[i.child]], mutator.control, control)
+        offspring[[i.offspring]] = child[[i.child]]
+        i.offspring = i.offspring + 1
       }
     } else {
       # pass just the individual and get a single individual
       child = mutator(child, mutator.control, control)
-      offspring[[i]] = child
-      i = i + 1
+      offspring[[i.offspring]] = child
+      i.offspring = i.offspring + 1
     }
   }
   #print(offspring)
