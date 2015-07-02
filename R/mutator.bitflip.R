@@ -22,7 +22,7 @@ makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
 
   makeMutator(
     mutator = mutator,
-    name = "Bitplip mutator",
+    name = "Bitflip mutator",
     description = "Flips each bit of the allele with a specific probability.",
     supported = "binary",
     defaults = defaults,
