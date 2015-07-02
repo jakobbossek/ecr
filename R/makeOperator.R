@@ -13,13 +13,14 @@
 #   List of default values for the operators strategy parameters.
 # @return [\code{ecr_operator}]
 #   Operator object.
-makeOperator = function(operator, name, description,
-  supported = getAvailableRepresentations(),
-  defaults = list(),
-  checker = function(operator.control) TRUE) {
+makeOperator = function(operator, name, description
+                        , supported = getAvailableRepresentations()
+                        , defaults = list()
+                        , checker = function(operator.control) TRUE
+                        ) {
   assertFunction(operator)
-  assertCharacter(name, len = 1L, any.missing = FALSE)
-  assertCharacter(description, len = 1L, any.missing = FALSE)
+  assertString(name)
+  assertString(description)
   assertSubset(supported, choices = getAvailableRepresentations(), empty.ok = FALSE)
   assertList(defaults, unique = TRUE, any.missing = FALSE)
   assertFunction(checker, args = "operator.control")

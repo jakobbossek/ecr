@@ -65,7 +65,7 @@ myMutator = makeMutator(
 )
 
 myRecombinator = makeRecombinator(
-  recombinator = function(x, control) {
+  recombinator = function(x, args, control) {
     x[[1]]
   },
   name = "Convex-Combination recombinator",
