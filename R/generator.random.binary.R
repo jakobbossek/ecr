@@ -8,11 +8,13 @@
 makeBinaryGenerator = function() {
   generateBinaryPopulation = function(size, control) {
     par.set = control$par.set
-    n.params = sum(getParamLengths(par.set))
-    population = list()
-    for (i in seq(size)) {
-      population[[i]] = sample(c(0, 1), size = n.params, replace = TRUE)
+    
+    # a list of vectors is an individual
+    createInd = function(param.length) {
+      lapply(param.length, function(x) sample(c(0, 1), size = x, replace = TRUE))
     }
+    population = lapply(seq(size), function(x) createInd(getParamLengths(par.set)))
+    
     makePopulation(population)
   }
   operator = makeOperator(

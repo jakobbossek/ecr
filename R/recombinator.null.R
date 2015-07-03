@@ -4,7 +4,10 @@
 #' @export
 makeNullRecombinator = function() {
   recombinator = function(inds, args = list(), control=list()) {
-    return(inds[[1L]])
+    if (length(inds) > 1)
+      attr(inds, "children") = TRUE
+    
+    return(inds)
   }
 
   makeRecombinator(

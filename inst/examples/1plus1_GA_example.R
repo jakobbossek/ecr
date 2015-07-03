@@ -26,16 +26,18 @@ obj.fun = makeSingleObjectiveFunction(
   fn = obj.fun,
   par.set = makeParamSet(
     makeIntegerVectorParam(len = n.params, id = "x", lower = 0, upper = 1)
+    # , makeIntegerVectorParam(len = n.params, id = "y", lower = 0, upper = 1)
   ),
   name = "ONE-MAX"
 )
 
 # Here we make use of mutations only! The nullRecombinator
 # does nothing.
+# FIXME: does not work with n.population = 1L
 control = setupECRControl(
-  n.population = 1L,
-  n.offspring = 1L,
-  n.mating.pool = 1L,
+  n.population = 2L,
+  n.offspring = 2L,
+  n.mating.pool = 2L,
   representation = "binary",
   survival.strategy = "plus",
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 250L))
@@ -55,4 +57,4 @@ res = doTheEvolution(obj.fun, control = control)
 print(res)
 
 # plot optimization trace
-print(autoplot(res, log.fitness = FALSE, complete.trace = TRUE))
+autoplot(res, log.fitness = FALSE, complete.trace = TRUE)

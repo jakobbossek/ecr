@@ -14,9 +14,14 @@ makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck(defaults)
 
   mutator = function(ind, args = defaults, control) {
-    n.params = length(ind)
-    do.mutate = runif(n.params) < args$mutator.flip.prob
-    ind[do.mutate] = 1 - ind[do.mutate]
+    mutateSubGene = function(sub.gen, prob) {
+      do.mutate = runif(length(sub.gen)) < prob
+      sub.gen[do.mutate] = 1 - sub.gen[do.mutate]
+      sub.gen
+    }
+      
+    ind = lapply(ind, mutateSubGene, prob = args$mutator.flip.prob)
+
     return(ind)
   }
 

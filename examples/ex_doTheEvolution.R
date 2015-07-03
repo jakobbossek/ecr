@@ -8,7 +8,11 @@ library(ggplot2)
 obj.fn = makeSingleObjectiveFunction(
   name = "My obj. function",
   fn = function(x) x * sin(2 * x),
-  par.set = makeParamSet(makeNumericParam("x", lower = 0, upper = 2 * pi))
+  par.set = makeParamSet(
+    makeNumericParam("x", lower = 0, upper = 2 * pi
+                     # , requires = expression(x < 5)
+                     )
+    )
 )
 
 # We want to solve this with a (10 + 10) evolutionary strategy based on
@@ -60,7 +64,7 @@ ctrl = setupECRControl(
   survival.strategy = "plus",
   save.population.at = 0:100L,
   representation = "float",
-  stopping.conditions = setupStoppingConditions(max.iter = 100L),
+  stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
 ctrl = setupEvolutionaryOperators(
  ctrl,
