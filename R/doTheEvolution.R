@@ -76,7 +76,7 @@ doTheEvolution = function(objective.fun, control) {
 
   # generate intial population
   population = populationGenerator(n.population, control)
-  population$fitness = computeFitness(population, objective.fun)
+  population$fitness = computeFitness(population, objective.fun, control)
   pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
   # initialize trace (depends on #objectives)

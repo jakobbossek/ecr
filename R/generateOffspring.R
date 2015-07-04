@@ -20,11 +20,12 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   offspring = vector("list", n.offspring)
 
   i.offspring = 1
-  while (i.offspring < n.offspring) {
+  while (i.offspring <= n.offspring) {
     #catf("Parent %i", i.offspring)
     parents = getParents(matingPool)
     #print(parents)
-    # pass just the individuals and get a single individual
+    # pass just the individuals and get a child or children
+    # children have the attribute "children" = TRUE
     child = recombinator(parents, recombinator.control, control)
     #catf("Child %i", i.offspring)
     #print(child)
@@ -46,7 +47,7 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
     }
   }
   #print(offspring)
-  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
+  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun, control)
 
   #print(makePopulation(offspring, offspring.fitness))
   #stop()

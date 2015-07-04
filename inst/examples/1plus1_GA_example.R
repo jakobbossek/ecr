@@ -35,9 +35,9 @@ obj.fun = makeSingleObjectiveFunction(
 # does nothing.
 # FIXME: does not work with n.population = 1L
 control = setupECRControl(
-  n.population = 2L,
-  n.offspring = 2L,
-  n.mating.pool = 2L,
+  n.population = 3L,
+  n.offspring = 3L,
+  n.mating.pool = 3L,
   representation = "binary",
   survival.strategy = "plus",
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 250L))

@@ -6,7 +6,7 @@
 #' @export
 makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$mutator.flip.prob, lower = 0.000001, upper = 0.999999, na.ok = FALSE)
+    assertNumber(operator.control$mutator.flip.prob, lower = 0, upper = 1, na.ok = FALSE)
   }
 
   force(mutator.flip.prob)
@@ -14,14 +14,18 @@ makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck(defaults)
 
   mutator = function(ind, args = defaults, control) {
-    mutateSubGene = function(sub.gen, prob) {
-      do.mutate = runif(length(sub.gen)) < prob
-      sub.gen[do.mutate] = 1 - sub.gen[do.mutate]
-      sub.gen
+    mutateGene = function(gene, prob) {
+      do.mutate = runif(length(gene)) < prob
+      gene[do.mutate] = 1 - gene[do.mutate]
+      gene
     }
-      
-    ind = lapply(ind, mutateSubGene, prob = args$mutator.flip.prob)
-
+    
+    if (getParamNr(control$par.set) == 1L) {
+      ind = mutateGene(ind, args$mutator.flip.prob)
+    } else {
+      ind = lapply(ind, mutateGene, prob = args$mutator.flip.prob)
+    }
+    
     return(ind)
   }
 

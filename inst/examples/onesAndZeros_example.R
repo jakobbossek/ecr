@@ -3,9 +3,6 @@ rm(list=ls(all=TRUE))
 
 load_all()
 
-# parameters
-chromo.length = 20L
-# n.iter = 20L
 # objective function
 obj.fn = makeSingleObjectiveFunction(
   name = "Number of Ones"
@@ -13,8 +10,8 @@ obj.fn = makeSingleObjectiveFunction(
     (length(x) - sum(x)) + sum(y)
   }
   , par.set = makeParamSet(
-    makeIntegerVectorParam("x", len = chromo.length, lower = 0, upper = 1)
-    , makeIntegerVectorParam("y", len = chromo.length, lower = 0, upper = 1)
+    makeIntegerVectorParam("x", len = 20L, lower = 0, upper = 1)
+    , makeIntegerVectorParam("y", len = 15L, lower = 0, upper = 1)
     )
 )
 makeOptimumAppearsStoppingCondition = function(opt.fitness = 0) {
@@ -36,7 +33,7 @@ control = setupECRControl(
   , save.population.at = c(0L, 10L, 20L, 30L, 40L, 50L, 60L)
   , monitor = makeConsoleMonitor(1L)
   , stopping.conditions = list(
-    # makeMaximumIterationsStoppingCondition(max.iter = n.iter)
+    # makeMaximumIterationsStoppingCondition(max.iter = 100L)
     makeOptimumAppearsStoppingCondition()
   )
 )

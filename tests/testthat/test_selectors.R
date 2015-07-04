@@ -1,9 +1,10 @@
 context("selectors get a population and return part of it")
 
 test_that("parent selectors work as expected", {
+  control = list(par.set = makeParamSet(makeNumericVectorParam(id = "x", len = 5L)))
   population = lapply(1:10, function(i) runif(5L))
   population = makePopulation(population, fitness = NULL)
-  fitness = computeFitness(population, sum)
+  fitness = computeFitness(population, sum, control)
   population$fitness = fitness
 
   n.mating.pool = 5L

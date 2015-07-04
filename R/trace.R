@@ -52,15 +52,16 @@ updateTrace = function(trace, iter, population, start.time, exec.time, control) 
 
 # see generic updateTrace
 updateTrace.ecr_single_objective_trace = function(trace, iter, population, start.time, exec.time, control) {
-  browser()
   par.set = control$par.set
   best = getBestIndividual(population)
   extras = getListOfExtras(iter, population, start.time, control)
-  # FIXME: will be unnecessary soon
-  if (getParamNr(par.set) == 1L && !testList(best$individual)) {
+  
+  if (getParamNr(par.set) == 1L) {
+    # one parameter: one value / vector is an individual
     best.param.values = list(best$individual)
     names(best.param.values) = getParamIds(par.set)
   } else {
+    # many parameters: a list is an individual
     best.param.values = best$individual
   }
   #FIXME: dummy value for custom representation
