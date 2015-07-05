@@ -40,7 +40,11 @@ library(ggplot2)
 obj.fn = makeSingleObjectiveFunction(
   name = "My obj. function",
   fn = function(x) x * sin(2 * x),
-  par.set = makeParamSet(makeNumericParam("x", lower = 0, upper = 2 * pi))
+  par.set = makeParamSet(
+    makeNumericParam("x", lower = 0, upper = 2 * pi
+                     # , requires = expression(x < 5)
+                     )
+    )
 )
 
 # We want to solve this with a (10 + 10) evolutionary strategy based on
@@ -81,6 +85,16 @@ print(res)
 set.seed(1234)
 
 obj.fn = makeRastriginFunction(2L)
+obj.fn = makeSingleObjectiveFunction(
+  name = "2-d Rastrigin Function"
+  , fn = function(x) {
+    n = length(x)
+    10 * n + sum(x^2 - 10 * cos(2 * pi * x))
+  }
+  , par.set = makeParamSet(
+    makeNumericVectorParam("x", len = 2, lower = -5.12, upper = 5.12)
+  )
+)
 autoplot(obj.fn, show.optimum = TRUE)
 # The global optimum is located in x1 = x2 = 0 with a function value of 0.
 
@@ -92,7 +106,7 @@ ctrl = setupECRControl(
   survival.strategy = "plus",
   save.population.at = 0:100L,
   representation = "float",
-  stopping.conditions = setupStoppingConditions(max.iter = 100L),
+  stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
 ctrl = setupEvolutionaryOperators(
  ctrl,

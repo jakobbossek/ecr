@@ -12,10 +12,11 @@
 #'   See \code{\link{setupECRControl}} and \code{\link{setupEvolutionaryOperators}}.
 #' @return [\code{matrix}].
 computeFitness = function(population, fitness.fun, control) {
-  # FIXME: fitness computation for non-list will be unnecessary
   if (getParamNr(control$par.set) == 1L) {
+    # one parameter
     fitness = lapply(population$individuals, fitness.fun)
   } else {
+    # many parameters, which are explicit defined in function
     fitness = lapply(population$individuals, function(ind) do.call(fitness.fun, ind))
   }
   # force fitness to be stored in a matrix (be consistent for single and
