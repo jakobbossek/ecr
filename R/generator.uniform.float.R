@@ -37,12 +37,11 @@ makeUniformGenerator = function() {
     population = lapply(seq(size), function(x) createInd(constraints))
     makePopulation(population)
   }
-  operator = makeOperator(
-    operator = generateUniformPopulation,
+  generator = makeGenerator(
+    generator = generateUniformPopulation,
     name = "Uniform generator",
     description = "Samples uniformally distributed points in the design space.",
     supported = "float"
   )
-  operator = addClasses(operator, c("ecr_generator"))
-  return(operator)
+  return(generator)
 }

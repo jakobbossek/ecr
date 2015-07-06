@@ -12,12 +12,11 @@ makePermutationGenerator = function() {
     }
     makePopulation(population)
   }
-  operator = makeOperator(
-    operator = generatePermutationPopulation,
+  generator = makeGenerator(
+    generator = generatePermutationPopulation,
     name = "Permutation generator",
     description = "Generates random permutations.",
     supported = c("permutation")
   )
-  operator = addClasses(operator, c("ecr_generator"))
-  return(operator)
+  return(generator)
 }

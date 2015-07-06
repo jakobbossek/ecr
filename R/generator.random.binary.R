@@ -25,12 +25,11 @@ makeBinaryGenerator = function() {
     population = lapply(seq(size), function(x) createInd(getParamLengths(par.set)))
     makePopulation(population)
   }
-  operator = makeOperator(
-    operator = generateBinaryPopulation,
+  generator = makeGenerator(
+    generator = generateBinaryPopulation,
     name = "Binary generator",
     description = "Samples uniformally distributed 0, 1 values.",
     supported = c("binary")
   )
-  operator = addClasses(operator, c("ecr_generator"))
-  return(operator)
+  return(generator)
 }
