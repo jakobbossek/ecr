@@ -84,7 +84,7 @@ print(res)
 
 set.seed(1234)
 
-obj.fn = makeRastriginFunction(2L)
+# obj.fn = makeRastriginFunction(2L)
 obj.fn = makeSingleObjectiveFunction(
   name = "2-d Rastrigin Function"
   , fn = function(x) {
