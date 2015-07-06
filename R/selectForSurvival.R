@@ -48,7 +48,7 @@ selectForSurvival = function(population, offspring, n.population, strategy = "pl
       # get elite individuals
       elite = makePopulation(
         individuals = parent.individuals[to.be.elite],
-        fitness = parent.fitness[to.be.elite]
+        fitness = matrix(parent.fitness[1, to.be.elite], nrow = nrow(parent.fitness))
       )
 
       # Adapt number of individuals taken from the offspring and select non-elite individuals
