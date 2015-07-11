@@ -70,8 +70,8 @@ makeNSGA2SurvivalSelector = function() {
 
 # NSGA-II control object
 ctrl = setupECRControl(
-  n.population = 10L,
-  n.offspring = 10L,
+  n.population = 40L,
+  n.offspring = 30L,
   representation = "float",
   monitor = makeConsoleMonitor(),
   stopping.conditions = setupStoppingConditions(max.iter = 100L)
@@ -92,4 +92,4 @@ res = doTheEvolution(obj.fn, ctrl)
 pl = visualizeParetoOptimalFront(obj.fn)
 pf = as.data.frame(res$pareto.front)
 pl = pl + geom_point(data = pf, aes(x = y1, y = y2), colour = "green")
-stop("FIN")
+print(pl)
