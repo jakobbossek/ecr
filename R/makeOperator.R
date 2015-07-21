@@ -1,18 +1,22 @@
-# Helper function which constructs an evolutionary operator.
-#
-# @param operator [\code{function}]\cr
-#   Actual mutation operator.
-# @param name [\code{character(1)}]\cr
-#   Name of the operator.
-# @param description [\code{character(1)}]\cr
-#   Short description of how the mutator works.
-# @param supported [\code{character}]\cr
-#   Vector of names of supported parameter representations. For example
-#   'permutation', 'float', 'binary'.
-# @param defaults [\code{list}]\cr
-#   List of default values for the operators strategy parameters.
-# @return [\code{ecr_operator}]
-#   Operator object.
+#' Helper function which constructs an evolutionary operator.
+#'
+#' @param operator [\code{function}]\cr
+#'   Actual mutation operator.
+#' @param name [\code{character(1)}]\cr
+#'   Name of the operator.
+#' @param description [\code{character(1)}]\cr
+#'   Short description of how the mutator works.
+#' @param supported [\code{character}]\cr
+#'   Vector of names of supported parameter representations. For example
+#'   'permutation', 'float', 'binary'.
+#' @param defaults [\code{list}]\cr
+#'   List of default values for the operators strategy parameters.
+#' @param checker [\code{function}]\cr
+#'   Check object, which performs a sanity check of the strategy parameters
+#'   passed to the control object.
+#'   Operator object.
+#' @return [\code{ecr_operator}]
+#' @export
 makeOperator = function(operator, name, description,
   supported = getAvailableRepresentations(),
   defaults = list(),

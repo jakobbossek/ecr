@@ -1,19 +1,25 @@
-# Helper function which constructs a mutator, i. e., a mutation operator.
-#
-# @param mutator [\code{function}]\cr
-#   Actual mutation operator.
-# @param name [\code{character(1)}]\cr
-#   Name of the mutator.
-# @param description [\code{character(1)}]\cr
-#   Short description of how the mutator works.
-# @param supported [\code{character}]\cr
-#   Vector of strings/names of supported parameter representations. For example
-#   'permutation', 'float', 'binary'.
-# @param checker [\code{function}]\cr
-#   Check object, which performs a sanity check in mutator strategy parameters
-#   passed to the control object.
-# @return [\code{ecr_mutator}]
-#   Mutator object.
+#' @title
+#'   Construct a mutation operator.
+#' @description
+#'   Helper function which constructs a mutator, i. e., a mutation operator.
+#'
+#' @param mutator [\code{function}]\cr
+#'   Actual mutation operator.
+#' @param name [\code{character(1)}]\cr
+#'   Name of the mutator.
+#' @param description [\code{character(1)}]\cr
+#'   Short description of how the mutator works.
+#' @param supported [\code{character}]\cr
+#'   Vector of strings/names of supported parameter representations. For example
+#'   'permutation', 'float', 'binary'.
+#' @param defaults [\code{list}]\cr
+#'   List of default strategy parameter values.
+#' @param checker [\code{function}]\cr
+#'   Check object, which performs a sanity check in mutator strategy parameters
+#'   passed to the control object.
+#' @return [\code{ecr_mutator}]
+#'   Mutator object.
+#' @export
 makeMutator = function(mutator, name, description,
   supported = getAvailableRepresentations(),
   defaults = list(),
