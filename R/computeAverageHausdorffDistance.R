@@ -64,6 +64,7 @@ computeInvertedGenerationalDistance = function(A, B, p = 1) {
 #' @param B [\code{matrix}]\cr
 #'   Point set (each row corresponds to a point).
 #' @return [\code{numeric(1)}]
+#' @export
 computeDistanceFromPointToSetOfPoints = function(a, B) {
   # to avoid loops here we construct a matrix and make use of R's vector
   # computation qualities
