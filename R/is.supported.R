@@ -1,4 +1,5 @@
-#' Helper function to check if ecr operator supports given representation.
+#' @title
+#'  Check if ecr operator supports given representation.
 #'
 #' @param operator [\code{ecr_operator}]\cr
 #'   Object of type \code{ecr_operator}.

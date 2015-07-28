@@ -11,7 +11,7 @@
 ecr result object.}
 
 \item{...}{[any]\cr
-Not used.}
+  Not used.}
 }
 \description{
 Print the result of an ecr run.

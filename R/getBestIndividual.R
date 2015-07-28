@@ -1,4 +1,5 @@
-#' Extracts the best individual of a set of individuals.
+#' @title
+#'   Extracts the best individual of a set of individuals.
 #'
 #' @param population [\code{setOfIndividuals}]\cr
 #'  Population.

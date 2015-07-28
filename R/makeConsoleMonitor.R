@@ -1,12 +1,15 @@
-#' Simple monitoring function.
+#' @title
+#'   Simple stdout monitoring function.
 #'
-#' This is the default monitoring function used by ecr. It simply outputs
-#' the iteration as well as minimal, mean and maximal target values from the current
-#' population.
+#' @description
+#'   This is the default monitoring function used by ecr. It simply outputs
+#'   the iteration as well as minimal, mean and maximal target values from the current
+#'   population.
 #'
 #' @param show.info.stepsize [\code{integer(1)}]\cr
 #'   Adjust the stepsize of iterations with informative messages.
 #' @return [\code{ecr_monitor}]
+#'
 #' @export
 makeConsoleMonitor = function(show.info.stepsize = 5L) {
   force(show.info.stepsize)

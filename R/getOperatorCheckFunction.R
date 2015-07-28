@@ -1,4 +1,5 @@
-#' Returns the parameter check function of a given operator.
+#' @title
+#'   Returns the parameter check function of a given operator.
 #'
 #' @param operator [\code{ecr_operator}]\cr
 #'   Operator object.

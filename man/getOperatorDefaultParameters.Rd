@@ -16,7 +16,7 @@ Operator object.}
 }
 \description{
 Operators can depend on specific evolutionary parameters. If you do not provide
-values for these, specifc defaults are used, which can be determined with this
-function.
+  values for these, specifc defaults are used, which can be determined with this
+  function.
 }
 

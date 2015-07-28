@@ -2,7 +2,7 @@
 % Please edit documentation in R/is.supported.R
 \name{is.supported}
 \alias{is.supported}
-\title{Helper function to check if ecr operator supports given representation.}
+\title{Check if ecr operator supports given representation.}
 \usage{
 is.supported(operator, representation)
 }
@@ -18,6 +18,6 @@ Representation as a string.}
   \code{TRUE}, if operator supports the representation type.
 }
 \description{
-Helper function to check if ecr operator supports given representation.
+Check if ecr operator supports given representation.
 }
 

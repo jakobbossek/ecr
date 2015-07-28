@@ -1,5 +1,9 @@
-# Helper function which checks whether some stopping conditions
-# are met and returns a termination object.
+# @title
+#   Check termination conditions.
+#
+# @description
+#   Helper function which checks whether some stopping conditions
+#   are met and returns a termination object.
 #
 # @param stopping.funs [list]
 #   List of stopping conditions.

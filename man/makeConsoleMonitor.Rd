@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeConsoleMonitor.R
 \name{makeConsoleMonitor}
 \alias{makeConsoleMonitor}
-\title{Simple monitoring function.}
+\title{Simple stdout monitoring function.}
 \usage{
 makeConsoleMonitor(show.info.stepsize = 5L)
 }
@@ -15,7 +15,7 @@ Adjust the stepsize of iterations with informative messages.}
 }
 \description{
 This is the default monitoring function used by ecr. It simply outputs
-the iteration as well as minimal, mean and maximal target values from the current
-population.
+  the iteration as well as minimal, mean and maximal target values from the current
+  population.
 }
 

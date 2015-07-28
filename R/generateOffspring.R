@@ -1,4 +1,5 @@
-# Creates offspring from a given mating pool of parents.
+# @title
+#   Creates offspring from a given mating pool of parents.
 #
 # @param matingPool [\code{setOfIndividuals}]\cr
 #   Set of parents to choose from.
@@ -39,7 +40,8 @@ generateOffspring = function(matingPool, objective.fun, control, opt.path) {
   return(makePopulation(offspring, offspring.fitness))
 }
 
-# Helper method to extract two parents from the mating pool
+# @title
+#   Helper method to extract two parents from the mating pool
 #
 # @param matingPool [ecr_population]
 #   Set of individuals selected for reproduction.

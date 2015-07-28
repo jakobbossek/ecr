@@ -1,5 +1,9 @@
-#' Helper function which constructs a generator, i. e., a function which generates
-#' an initial population.
+#' @title
+#'   Construct a generator.
+#'
+#' @description
+#'   Helper function which constructs a generator, i. e., a function which generates
+#'   an initial population.
 #
 #' @param generator [\code{function}]\cr
 #'   Actual generator function. Should expect the size of the population \code{size}
@@ -13,6 +17,7 @@
 #'   'permutation', 'float', 'binary' or 'custom'.
 #' @return [\code{ecr_generator}]
 #'   Generator object.
+#'
 #' @export
 makeGenerator = function(generator, name, description,
   supported = getAvailableRepresentations()) {

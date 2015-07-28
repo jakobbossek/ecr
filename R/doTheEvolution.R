@@ -1,6 +1,8 @@
-#' Working horse of the ecr package.
+#' @title
+#'   Working horse of the ecr package.
 #'
-#' Takes a function and searches for a global optimum with an evolutionary approach.
+#' @description
+#'   Takes a function and searches for a global optimum with an evolutionary approach.
 #'
 #' @param objective.fun [\code{smoof_function}]\cr
 #'   Single objective target function of type \code{smoof_function}.
@@ -17,8 +19,11 @@
 #'    \item{population.storage \code{list}}{List of populations.}
 #'    \item{message \code{character(1)}}{Message explaining the reason for termination.}
 #'   }
+#'
 #' @example examples/ex_doTheEvolution.R
+#'
 #' @seealso \code{\link{setupECRControl}}
+#'
 #' @export
 #FIXME: for standard representations: save all stuff in opt.path, i.e., make opt path the
 # population storage?
@@ -141,12 +146,14 @@ doTheEvolution = function(objective.fun, control) {
   }
 }
 
-#' Print the result of an ecr run.
+#' @title
+#'   Print the result of an ecr run.
 #'
 #' @param x [\code{ecr_result}]\cr
 #'   ecr result object.
 #' @param ... [any]\cr
 #'   Not used.
+#'
 #' @export
 print.ecr_result = function(x, ...) {
   opt.path = x$opt.path
@@ -157,7 +164,8 @@ print.ecr_result = function(x, ...) {
     x$best.value, sep ="", collapse = ", "))
 }
 
-# Generate 'extras' argument for opt.path.
+# @title
+#   Generate 'extras' argument for opt.path.
 #
 # @param iter [numeric(1)]
 #   Current iteration/generation.

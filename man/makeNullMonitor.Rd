@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeNullMonitor.R
 \name{makeNullMonitor}
 \alias{makeNullMonitor}
-\title{No monitoring at all.}
+\title{Simple no output function.}
 \usage{
 makeNullMonitor()
 }
@@ -10,6 +10,6 @@ makeNullMonitor()
 [\code{ecr_monitor}]
 }
 \description{
-No monitoring at all.
+No monitoring at all. Using this monitor practically deactivates monitoring.
 }
 

@@ -1,4 +1,12 @@
-#' Helper function which constructs an evolutionary operator.
+#' @title
+#'   Construct evolutionary operator.
+#'
+#' @description
+#'   Helper function which constructs an evolutionary operator.
+#'
+#' @note
+#'   In general you will not need this function, but rather one of its
+#'   deriviatives like \code{\link{makeMutator}} or \code{\link{makeSelector}}.
 #'
 #' @param operator [\code{function}]\cr
 #'   Actual mutation operator.
@@ -16,6 +24,7 @@
 #'   passed to the control object.
 #'   Operator object.
 #' @return [\code{ecr_operator}]
+#'
 #' @export
 makeOperator = function(operator, name, description,
   supported = getAvailableRepresentations(),
@@ -38,11 +47,13 @@ makeOperator = function(operator, name, description,
   return(operator)
 }
 
-#' Checks if given function is an ecr operator.
+#' @title
+#'   Check if given function is an ecr operator.
 #'
 #' @param obj [any]\cr
 #'   Arbitrary R object to check.
 #' @return [\code{logical(1)}]
+#'
 #' @export
 isEcrOperator = function(obj) {
   return(inherits(obj, "ecr_operator"))

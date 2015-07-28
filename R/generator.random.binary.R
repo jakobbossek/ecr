@@ -1,9 +1,12 @@
-#' Generates a generator object for the initial population.
+#' @title
+#'   Generates a generator object for the initial population.
 #'
-#' The generated operator samples uniformally distributed points in the design
-#' space of the target function taking care not to violate bounds.
+#' @description
+#'   The generated operator samples uniformally distributed points in the design
+#'   space of the target function taking care not to violate bounds.
 #'
 #' @return [\code{ecr_operator}]
+#'
 #' @export
 makeBinaryGenerator = function() {
   generateBinaryPopulation = function(size, control) {

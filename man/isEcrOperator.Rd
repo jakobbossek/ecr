@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{isEcrOperator}
 \alias{isEcrOperator}
-\title{Checks if given function is an ecr operator.}
+\title{Check if given function is an ecr operator.}
 \usage{
 isEcrOperator(obj)
 }
@@ -14,6 +14,6 @@ Arbitrary R object to check.}
 [\code{logical(1)}]
 }
 \description{
-Checks if given function is an ecr operator.
+Check if given function is an ecr operator.
 }
 

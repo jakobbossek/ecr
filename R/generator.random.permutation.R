@@ -1,4 +1,5 @@
-#' Generates a generator object for the initial population.
+#' @title
+#'   Generates a generator object for the initial population.
 #'
 #' @return [\code{ecr_operator}]
 #' @export

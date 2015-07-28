@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{makeOperator}
 \alias{makeOperator}
-\title{Helper function which constructs an evolutionary operator.}
+\title{Construct evolutionary operator.}
 \usage{
 makeOperator(operator, name, description,
   supported = getAvailableRepresentations(), defaults = list(),
@@ -35,5 +35,9 @@ Operator object.}
 }
 \description{
 Helper function which constructs an evolutionary operator.
+}
+\note{
+In general you will not need this function, but rather one of its
+  deriviatives like \code{\link{makeMutator}} or \code{\link{makeSelector}}.
 }
 

@@ -1,4 +1,8 @@
-#' Implementation of the fast non-dominated sorting algorithm proposed by Deb.
+#' @title
+#'   Non-dominated sorting algorithm.
+#'
+#' @description
+#'   Implementation of the fast non-dominated sorting algorithm proposed by Deb.
 #'
 #' @param x [\code{matrix}]\cr
 #'   Numeric matrix of points. Each row contains on points.
@@ -11,6 +15,7 @@
 #'     \item{dom.counter}{Integer vector of length \code{nrow(x)}. The i-th element
 #'     is the domination counter / domination number of the i-th point.}
 #'   }
+#'
 #' @export
 #FIXME: [later] implement this in C(++)
 doNondominatedSorting = function(x) {

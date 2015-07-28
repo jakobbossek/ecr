@@ -2,8 +2,7 @@
 % Please edit documentation in R/makeGenerator.R
 \name{makeGenerator}
 \alias{makeGenerator}
-\title{Helper function which constructs a generator, i. e., a function which generates
-an initial population.}
+\title{Construct a generator.}
 \usage{
 makeGenerator(generator, name, description,
   supported = getAvailableRepresentations())
@@ -29,6 +28,6 @@ Vector of strings/names of supported parameter representations, i.e.,
 }
 \description{
 Helper function which constructs a generator, i. e., a function which generates
-an initial population.
+  an initial population.
 }
 
