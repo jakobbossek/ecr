@@ -2,7 +2,7 @@
 % Please edit documentation in R/mutator.swap.R
 \name{makeSwapMutator}
 \alias{makeSwapMutator}
-\title{Swap mutation operator.}
+\title{Generator for the Swap mutation operator.}
 \usage{
 makeSwapMutator()
 }
@@ -10,6 +10,6 @@ makeSwapMutator()
 [\code{ecr_mutator}]
 }
 \description{
-Swap mutation operator.
+Chooses two positions at random and swaps the genes.
 }
 

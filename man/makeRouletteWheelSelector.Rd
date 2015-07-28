@@ -11,8 +11,8 @@ makeRouletteWheelSelector()
 }
 \description{
 Selects genes for the mating pool. The chance of an individual to get selected
-is proportional to its fitness, i.e., better individuals get a higher chance
-to take part in the reproduction process. Low-fitness individuals however,
-have a positive fitness as well.
+  is proportional to its fitness, i.e., better individuals get a higher chance
+  to take part in the reproduction process. Low-fitness individuals however,
+  have a positive fitness as well.
 }
 

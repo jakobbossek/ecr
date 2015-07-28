@@ -1,8 +1,10 @@
-#' Generates control object.
+#' @title
+#'    Generates control object.
 #'
-#' The ecr package offers a framework for evolutionary computing and therefore offers
-#' a lot of customization options. The control object is a simple but powerful
-#' wrapper for all these options and sets convenient default options.
+#' @description
+#'   The ecr package offers a framework for evolutionary computing and therefore offers
+#'   a lot of customization options. The control object is a simple but powerful
+#'   wrapper for all these options and sets convenient default options.
 #'
 #' @param n.population [\code{integer(1)}]\cr
 #'   Number of individuals in the population.
@@ -37,6 +39,7 @@
 #'   means that no additional stuff is logged.
 #' @return
 #'   S3 object of type \code{ecr_control}.
+#'
 #' @export
 setupECRControl = function(
   n.population,

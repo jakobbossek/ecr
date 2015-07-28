@@ -1,7 +1,9 @@
-# Helper - Generator for trace objects.
+# @title
+#   Generator for trace objects.
 #
-# Trace objects are kind of a wrapper for optPath and other stuff which is specific
-# to single- and multiobjective tracing respectively.
+# @description
+#   Trace objects are kind of a wrapper for optPath and other stuff which is specific
+#   to single- and multiobjective tracing respectively.
 #
 # @param control [ecr_control]
 #   Control object.
@@ -30,7 +32,8 @@ initTrace = function(control, population, n.objectives, y.names) {
   ))
 }
 
-# Helper - Updates a trace with the information of the current population.
+# @title
+#   Updates a trace with the information of the current population.
 #
 # @param trace [ecr_{single,multi}_objective_trace]
 #   Trace to update.

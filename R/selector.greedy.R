@@ -1,9 +1,12 @@
-#' Simple \dQuote{greedy} selector.
+#' @title
+#'   Simple \dQuote{greedy} selector.
 #'
-#' Sorts the individuals according to their fitness value in increasing order
-#' and selects the best ones.
+#' @description
+#'   Sorts the individuals according to their fitness value in increasing order
+#'   and selects the best ones.
 #'
 #' @return [\code{setOfIndividuals}]
+#'
 #' @export
 makeGreedySelector = function() {
   selector = function(population, n.select, control) {

@@ -11,6 +11,6 @@ makeScrambleMutator()
 }
 \description{
 The Scramble mutation operator selects two positions within the chromosome at
-random and randomly intermixes the subsequence between these positions.
+  random and randomly intermixes the subsequence between these positions.
 }
 

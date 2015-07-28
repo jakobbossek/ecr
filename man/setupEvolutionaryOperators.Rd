@@ -2,8 +2,7 @@
 % Please edit documentation in R/setupEvolutionaryOperators.R
 \name{setupEvolutionaryOperators}
 \alias{setupEvolutionaryOperators}
-\title{Define the toolbix of all the evolutionary operators you wish to operate on
-your problem.}
+\title{Enhance control object with evolutionary operators.}
 \usage{
 setupEvolutionaryOperators(control,
   parent.selector = getDefaultEvolutionaryOperators(control$representation,
@@ -61,11 +60,11 @@ help pages for the recombination operators for the needed values.}
 [\code{ecr_control}] Modified control object.
 }
 \description{
-Define the toolbix of all the evolutionary operators you wish to operate on
-your problem.
+Define the toolbox of all the evolutionary operators you wish to operate on
+  your problem.
 }
 \note{
 Keep in mind, that all of the provided operators need to be compatible
-with the \dQuote{representation} stored in the \code{control} object.
+  with the \dQuote{representation} stored in the \code{control} object.
 }
 

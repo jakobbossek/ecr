@@ -1,9 +1,12 @@
-#' Generator for the Scramble mutation operator.
+#' @title
+#'   Generator for the Scramble mutation operator.
 #'
-#' The Scramble mutation operator selects two positions within the chromosome at
-#' random and randomly intermixes the subsequence between these positions.
+#' @description
+#'   The Scramble mutation operator selects two positions within the chromosome at
+#'   random and randomly intermixes the subsequence between these positions.
 #'
 #' @return [\code{ecr_mutator}]
+#'
 #' @export
 makeScrambleMutator = function() {
   mutator = function(ind, args = list(), control) {

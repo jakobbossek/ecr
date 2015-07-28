@@ -21,6 +21,7 @@
 #'   passed to the control object.
 #' @return [\code{ecr_recombinator}]
 #'   Recombinator object.
+#'
 #' @export
 makeRecombinator = function(
   recombinator, name, description,

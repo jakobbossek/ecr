@@ -58,7 +58,7 @@ S3 object of type \code{ecr_control}.
 }
 \description{
 The ecr package offers a framework for evolutionary computing and therefore offers
-a lot of customization options. The control object is a simple but powerful
-wrapper for all these options and sets convenient default options.
+  a lot of customization options. The control object is a simple but powerful
+  wrapper for all these options and sets convenient default options.
 }
 

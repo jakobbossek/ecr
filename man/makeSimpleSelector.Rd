@@ -11,6 +11,6 @@ makeSimpleSelector()
 }
 \description{
 Just for testing. Actually does not really select, but instead returns the
-entire population to form the mating pool.
+  entire population to form the mating pool.
 }
 

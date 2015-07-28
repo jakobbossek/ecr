@@ -1,8 +1,10 @@
-#' Rescaling of points.
+#' @title
+#'   Rescaling of points.
 #'
-#' Rescales a cloud of points so that all the point are located within the
-#' bounds given by \code{lower} and \code{upper}. If both parameters are missing
-#' the minimal/maximal values per dimension are extracted.
+#' @description
+#'   Rescales a cloud of points so that all the point are located within the
+#'   bounds given by \code{lower} and \code{upper}. If both parameters are missing
+#'   the minimal/maximal values per dimension are extracted.
 #'
 #' @param x [\code{matrix}]\cr
 #'   Matrix of points.
@@ -11,6 +13,7 @@
 #' @param upper [\code{numeric(1)}]\cr
 #'   Upper bound of the new bounding box.
 #' @return [\code{matrix}]
+#'
 #' @export
 rescalePoints = function(x, lower = NULL, upper = NULL) {
   assertMatrix(x, mode = "numeric", any.missing = FALSE)

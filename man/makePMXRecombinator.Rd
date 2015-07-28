@@ -11,8 +11,8 @@ makePMXRecombinator()
 }
 \description{
 This recombination operator is specifically designed for permutations.
-The operators chooses two cut-points at random and generates two offspring
-as follows: a) copy the subsequence of one parent and b) fill the remaining
-positions while preserving the order and position of as many genes as possible.
+  The operators chooses two cut-points at random and generates two offspring
+  as follows: a) copy the subsequence of one parent and b) fill the remaining
+  positions while preserving the order and position of as many genes as possible.
 }
 

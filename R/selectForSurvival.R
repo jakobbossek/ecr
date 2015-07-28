@@ -1,5 +1,9 @@
-# Helper function which selects the individuals of a population which
-# will survive the current generation.
+# @title
+#   Performs survival selection.
+#
+# @description
+#   Helper function which selects the individuals of a population which
+#   will survive the current generation.
 #
 # @param population [\code{setOfIndividuals}]\cr
 #   Population.

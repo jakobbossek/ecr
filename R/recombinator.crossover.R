@@ -1,4 +1,5 @@
-#' Generator of the One-point crossover recombination operator.
+#' @title
+#'   Generator of the One-point crossover recombination operator.
 #'
 #' @return [\code{ecr_recombinator}]
 #' @export

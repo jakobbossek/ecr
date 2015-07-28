@@ -15,8 +15,8 @@ Number of individuals to participate in each tournament. Default is \code{2L}.}
 }
 \description{
 Selects genes for the mating pool. It works as follows: k individuals from the
-population are chosen randomly and the best one is selected to be included into
-the mating pool. This process is repeated until the desired number of individuals
-for the mating pool is reached.
+  population are chosen randomly and the best one is selected to be included into
+  the mating pool. This process is repeated until the desired number of individuals
+  for the mating pool is reached.
 }
 

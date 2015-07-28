@@ -1,8 +1,13 @@
-#' Define the toolbix of all the evolutionary operators you wish to operate on
-#' your problem.
+#' @title
+#'   Enhance control object with evolutionary operators.
 #'
-#' @note Keep in mind, that all of the provided operators need to be compatible
-#' with the \dQuote{representation} stored in the \code{control} object.
+#' @description
+#'   Define the toolbox of all the evolutionary operators you wish to operate on
+#'   your problem.
+#'
+#' @note
+#'   Keep in mind, that all of the provided operators need to be compatible
+#'   with the \dQuote{representation} stored in the \code{control} object.
 #'
 #' @param control [\code{ecr_control}]\cr
 #'   ECR control object generated via \code{\link{setupECRControl}}.
@@ -34,6 +39,7 @@
 #'   List of evolutionary parameters for the corresponding recombination operator. See the
 #'   help pages for the recombination operators for the needed values.
 #' @return [\code{ecr_control}] Modified control object.
+#'
 #' @export
 setupEvolutionaryOperators = function(
   control,

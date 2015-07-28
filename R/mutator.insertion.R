@@ -1,9 +1,12 @@
-#' Generator for the Insertion mutation operator.
+#' @title
+#'   Generator for the Insertion mutation operator.
 #'
-#' The Insertion mutation operator selects a position random and inserts it at
-#' a random position.
+#' @description
+#'   The Insertion mutation operator selects a position random and inserts it at
+#'   a random position.
 #'
 #' @return [\code{ecr_mutator}]
+#'
 #' @export
 makeInsertionMutator = function() {
   mutator = function(ind, args = list(), control) {

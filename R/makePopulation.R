@@ -1,4 +1,5 @@
-# Helper function for wrapping individuals in a 'setOfIndividuals'.
+# @title
+#   Wrap individuals in a 'setOfIndividuals'.
 #
 # @param [\code{matrix}]\cr
 #   Matrix of individuals.

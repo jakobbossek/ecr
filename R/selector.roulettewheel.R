@@ -1,13 +1,16 @@
-#' Generator for Roulette-Wheel-Selection (fitness-proportional selection).
+#' @title
+#'   Generator for Roulette-Wheel-Selection (fitness-proportional selection).
 #'
-#' Selects genes for the mating pool. The chance of an individual to get selected
-#' is proportional to its fitness, i.e., better individuals get a higher chance
-#' to take part in the reproduction process. Low-fitness individuals however,
-#' have a positive fitness as well.
+#' @description
+#'   Selects genes for the mating pool. The chance of an individual to get selected
+#'   is proportional to its fitness, i.e., better individuals get a higher chance
+#'   to take part in the reproduction process. Low-fitness individuals however,
+#'   have a positive fitness as well.
 #'
-# FIMXE: add thorough description of the heuristic used (see below).
 #' @return [\code{setOfIndividuals}]
+#'
 #' @export
+# FIMXE: add thorough description of the heuristic used (see below).
 makeRouletteWheelSelector = function() {
   selector = function(population, n.select, control) {
     #FIXME: We do minimization; Roulette-Wheel selection cannot be used in

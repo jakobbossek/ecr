@@ -1,9 +1,12 @@
-#' Generator for the Inversion mutation operator.
+#' @title
+#'   Generator for the Inversion mutation operator.
 #'
-#' The Inversion mutation operator selects two positions within the chromosome at
-#' random and inverts this sub-permutation.
+#' @description
+#'   The Inversion mutation operator selects two positions within the chromosome at
+#'   random and inverts this sub-permutation.
 #'
 #' @return [\code{ecr_mutator}]
+#'
 #' @export
 makeInversionMutator = function() {
   mutator = function(ind, args = list(), control) {

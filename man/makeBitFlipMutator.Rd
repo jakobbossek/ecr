@@ -2,7 +2,7 @@
 % Please edit documentation in R/mutator.bitflip.R
 \name{makeBitFlipMutator}
 \alias{makeBitFlipMutator}
-\title{Bitplip mutation operator.}
+\title{Generator of a simple bitplip mutation operator.}
 \usage{
 makeBitFlipMutator(mutator.flip.prob = 0.1)
 }
@@ -14,6 +14,7 @@ Probability to flip a single bit. Default is \code{0.1}.}
 [\code{ecr_mutator}]
 }
 \description{
-Bitplip mutation operator.
+This operator works only on binary representation and flips each bit
+  with a given probability.
 }
 

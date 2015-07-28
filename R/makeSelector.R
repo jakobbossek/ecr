@@ -17,6 +17,7 @@
 #'   At least one of \dQuote{single-objective} or \dQuote{multi-objective}.
 #' @return [\code{ecr_selector}]
 #'   selector object.
+#'
 #' @export
 makeSelector = function(
   selector,

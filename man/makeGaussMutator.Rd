@@ -17,6 +17,6 @@ Standard deviance of the Gauss mutation, i. e., the mutation strength.}
 [\code{ecr_mutator}]
 }
 \description{
-Default Gauss mutation operator known from Evolutionary Algorithms.
+Default Gaussian mutation operator known from Evolutionary Algorithms.
 }
 

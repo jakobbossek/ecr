@@ -1,6 +1,11 @@
-#' Swap mutation operator.
+#' @title
+#'   Generator for the Swap mutation operator.
+#'
+#' @description
+#'   Chooses two positions at random and swaps the genes.
 #'
 #' @return [\code{ecr_mutator}]
+#'
 #' @export
 makeSwapMutator = function() {
   mutator = function(ind, args = list(), control) {

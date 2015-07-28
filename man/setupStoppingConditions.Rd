@@ -15,11 +15,11 @@ Time budget in seconds. Default ist \code{Inf}.}
 }
 \value{
 [list]
-List of \code{ecr_stoppingCondition} objects, which can be passed to \code{ecr}.
+  List of \code{ecr_stoppingCondition} objects, which can be passed to \code{ecr}.
 }
 \description{
 Setting up stopping conditions is flexible and straight-forward, but
-it needs a lot of writing. This function generates a list of frequently
-used stopping conditions with just a single function call.
+  it needs a lot of writing. This function generates a list of frequently
+  used stopping conditions with just a single function call.
 }
 

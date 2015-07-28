@@ -1,8 +1,10 @@
-# Check if the number of objectives is the same for given (sets of) points.
+# @title
+#  Assert same dimensions.
 #
-# We frequently need to check whether the dimension of an approximation set is
-# equal to the dimension of the ideal point and/or nadir point. This does exactly
-# that assertion for an arbitrary number of arguments.
+# @description
+#   We frequently need to check whether the dimension of an approximation set is
+#   equal to the dimension of the ideal point and/or nadir point. This does exactly
+#   that assertion for an arbitrary number of arguments.
 #
 # @param ... [any]
 #   Vectors or matrizes.
@@ -18,7 +20,8 @@ assertSameDimensions = function(...) {
   }
 }
 
-# Check whether all elements of an vector are equal.
+# @title
+#   Check whether all elements of an vector are equal.
 #
 # @param x [vector]
 #   Input vector.

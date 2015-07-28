@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeStoppingCondition.R
 \name{makeStoppingCondition}
 \alias{makeStoppingCondition}
-\title{Wrap a function within a stopping condition object.}
+\title{Generate stopping condition.}
 \usage{
 makeStoppingCondition(condition.fun, name, message)
 }

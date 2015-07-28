@@ -1,8 +1,10 @@
-#' Stopping condition: maximum number of iterations.
+#' @title
+#'   Stopping condition: maximum number of iterations.
 #'
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximal number of iterations. Default ist \code{Inf}.
 #' @return [\code{function}]
+#'
 #' @export
 makeMaximumIterationsStoppingCondition = function(max.iter = NULL) {
   if (!is.null(max.iter)) {

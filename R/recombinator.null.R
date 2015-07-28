@@ -1,4 +1,5 @@
-#' The nullRecombinator does not perform any recombination.
+#' @title
+#'   The nullRecombinator does not perform any recombination.
 #'
 #' @return [\code{ecr_recombinator}]
 #' @export
