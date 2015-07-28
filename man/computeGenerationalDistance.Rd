@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeAverageHausdorffDistance.R
 \name{computeGenerationalDistance}
 \alias{computeGenerationalDistance}
-\title{Helper to compute the Generational Distance (GD) between two sets of points.}
+\title{Computes Generational Distance.}
 \usage{
 computeGenerationalDistance(A, B, p = 1)
 }

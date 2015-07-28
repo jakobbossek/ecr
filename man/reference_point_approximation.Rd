@@ -22,6 +22,6 @@ exclusively or combined with \code{...}.}
 }
 \description{
 Helper functions to compute nadir or ideal point from sets of points, e.g.,
-multiple approxiamtion sets.
+  multiple approximation sets.
 }
 

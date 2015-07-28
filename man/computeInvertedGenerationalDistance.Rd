@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeAverageHausdorffDistance.R
 \name{computeInvertedGenerationalDistance}
 \alias{computeInvertedGenerationalDistance}
-\title{Helper to compute the Inverted Generational Distance (IGD) between two sets of points.}
+\title{Computes Inverted Generational Distance.}
 \usage{
 computeInvertedGenerationalDistance(A, B, p = 1)
 }
@@ -21,6 +21,7 @@ for details.}
 [\code{numeric(1)}]
 }
 \description{
-Helper to compute the Inverted Generational Distance (IGD) between two sets of points.
+Helper to compute the Inverted Generational Distance (IGD) between two sets
+  of points.
 }
 

@@ -19,8 +19,8 @@ Numeric (n x d) matrix where n is the number of points and d is the number
 }
 \description{
 Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one
-point per row the \code{which.dominated} returns the row numbers of the dominated points
-and \code{which.nondominated} the row numbers of the nondominated points.
+  point per row the \code{which.dominated} returns the row numbers of the dominated points
+  and \code{which.nondominated} the row numbers of the nondominated points.
 }
 \examples{
 data(mtcars)

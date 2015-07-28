@@ -18,6 +18,6 @@ Fitness function.}
 }
 \description{
 This function gets a population computes the fitness and
-returns the vector of fitness values.
+  returns the vector of fitness values.
 }
 

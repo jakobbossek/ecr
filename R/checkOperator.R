@@ -1,7 +1,9 @@
-# Checks operator attributes for validity
+# @title
+#   Checks operator attributes for validity
 #
 # @param operator
 #   Operator to check.
+# @return Nothing
 checkOperator = function(operator) {
   assertClass(operator, "ecr_operator")
   assertCharacter(attr(operator, "name"), len = 1L, any.missing = FALSE)

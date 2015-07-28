@@ -1,7 +1,9 @@
-#' Plot optimization trace.
+#' @title
+#'   Plot optimization trace.
 #'
-#' Call this function on the result object of an \code{\link{doTheEvolution}} function
-#' call to visualize the optimization trace.
+#' @description
+#'   Call this function on the result object of an \code{\link{doTheEvolution}} function
+#'   call to visualize the optimization trace.
 #'
 #' @param object [\code{ecr_result}]\cr
 #'   ecr result object.
@@ -19,6 +21,7 @@
 #' @param ... [any]\cr
 #'   Not used.
 #' @return [\code{invisible(TRUE)}]
+#'
 #' @export
 autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL, show.process = FALSE
                                , log.fitness = FALSE, complete.trace = FALSE, ...) {

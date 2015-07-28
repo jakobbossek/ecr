@@ -1,13 +1,15 @@
-#' Functions for the calculation of the dominated hypervolume (contribution).
+#' @title
+#'   Functions for the calculation of the dominated hypervolume (contribution).
 #'
-#' The function \code{computeDominatedHypervolume} computes the dominated
-#' hypervolume of a set of points given a reference set whereby
-#' \code{computeHypervolumeContribution} computes the hypervolume contribution
-#' of each point.
+#' @description
+#'   The function \code{computeDominatedHypervolume} computes the dominated
+#'   hypervolume of a set of points given a reference set whereby
+#'   \code{computeHypervolumeContribution} computes the hypervolume contribution
+#'   of each point.
 #'
-#' If no reference point is given the nadir point of the set \code{x} is
-#' determined and a positive offset with default 1 is added. This is to ensure
-#' that the reference point dominates all of the points in the reference set.
+#'   If no reference point is given the nadir point of the set \code{x} is
+#'   determined and a positive offset with default 1 is added. This is to ensure
+#'   that the reference point dominates all of the points in the reference set.
 #'
 #' @param x [\code{matrix}]\cr
 #'   Matrix of points.
@@ -19,7 +21,9 @@
 #' @return [\code{numeric(1)}] Dominated hypervolume in the case of
 #'  \code{computeDominatedHypervolume} and the dominated hypervolume of a single
 #'  point in the case of \code{computeHypervolumeContribution}.
+#'
 #' @export
+#'
 #' @rdname dominated_hypervolume
 computeDominatedHypervolume = function(x, ref.point = NULL) {
   # sanity checks

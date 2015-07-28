@@ -1,4 +1,5 @@
-#' Compute the crowding distance of a set of points.
+#' @title
+#'   Compute the crowding distance of a set of points.
 #'
 #' @param x [\code{matrix}]\cr
 #'   Numeric matrix with each row represneting a points.

@@ -1,7 +1,9 @@
-#' Reference point approximations.
+#' @title
+#'   Reference point approximations.
 #'
-#' Helper functions to compute nadir or ideal point from sets of points, e.g.,
-#' multiple approxiamtion sets.
+#' @description
+#'   Helper functions to compute nadir or ideal point from sets of points, e.g.,
+#'   multiple approximation sets.
 #'
 #' @param ... [any]\cr
 #'   Sets as matrizes.
@@ -9,7 +11,9 @@
 #'   List of sets. This is an alternative way of passing the sets. Can be used
 #'   exclusively or combined with \code{...}.
 #' @return [numeric] Reference point.
+#'
 #' @export
+#'
 #' @rdname reference_point_approximation
 approximateNadirPoint = function(..., sets = NULL) {
   return(approximatePoint(..., sets = sets, FUN = max))
@@ -21,10 +25,12 @@ approximateIdealPoint = function(..., sets = NULL) {
   return(approximatePoint(..., sets = sets, FUN = min))
 }
 
-# Helper to compute the Nadir point.
+# @title
+#   Helper to compute the Nadir point.
 #
-# The nadir point is constructed by the worst objective values of the
-# concatenation of all given point sets.
+# @description
+#   The nadir point is constructed by the worst objective values of the
+#   concatenation of all given point sets.
 #
 # @param ... [any]\cr
 #   Sets as matrizes.
@@ -54,9 +60,12 @@ approximatePoint = function(..., sets = NULL, FUN) {
   return(point)
 }
 
-
-# Helper function to check if all given sets have the same dimension, i.e.,
-# number of objectives.
+# @title
+#   Checks for point set.
+#
+# @description
+#   Helper function to check if all given sets have the same dimension, i.e.,
+#   number of objectives.
 #
 # @param x [list]
 #   List of sets, i.e., matrizes.

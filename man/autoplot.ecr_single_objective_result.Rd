@@ -36,6 +36,6 @@ Not used.}
 }
 \description{
 Call this function on the result object of an \code{\link{doTheEvolution}} function
-call to visualize the optimization trace.
+  call to visualize the optimization trace.
 }
 
