@@ -6,7 +6,7 @@
 #'   multiple approximation sets.
 #'
 #' @param ... [any]\cr
-#'   Sets as matrizes.
+#'   Arbirary number of matrizes.
 #' @param sets [\code{list}]\cr
 #'   List of sets. This is an alternative way of passing the sets. Can be used
 #'   exclusively or combined with \code{...}.
@@ -33,7 +33,7 @@ approximateIdealPoint = function(..., sets = NULL) {
 #   concatenation of all given point sets.
 #
 # @param ... [any]\cr
-#   Sets as matrizes.
+#   Arbitrary number of matrizes.
 # @param sets [\code{list}]\cr
 #   List of sets. This is an alternative way of passing the sets. Can be used
 #   exclusively or combined with \code{...}.
