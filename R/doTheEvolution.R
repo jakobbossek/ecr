@@ -82,6 +82,12 @@ doTheEvolution = function(objective.fun, control) {
   # generate intial population
   population = populationGenerator(n.population, control)
   population$fitness = computeFitness(population, objective.fun)
+
+  # initialize storage object which contains all the stuff needed by the algorithms
+  # (by default it contains just the population, but may contain e.g. an archive or
+  # the covariance matrix in the CMA-ES)
+  STORAGE = new.env()
+
   pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
   # initialize trace (depends on #objectives)
@@ -104,18 +110,20 @@ doTheEvolution = function(objective.fun, control) {
     off.gen.start.time = Sys.time()
 
     # actually create offspring
-    matingPool = parentSelector(population, n.mating.pool)
-    offspring = generateOffspring(matingPool, objective.fun, control, trace$opt.path)
+    matingPool = parentSelector(population, STORAGE, n.mating.pool)
+    offspring = generateOffspring(matingPool, STORAGE, objective.fun, control, trace$opt.path)
 
     # apply survival selection and set up the (i+1)-th generation
     population = selectForSurvival(
       population,
       offspring,
+      STORAGE,
       n.population,
       strategy = control$survival.strategy,
       n.elite = control$n.elite,
       control
     )
+    STORAGE$population = population
 
     off.gen.time = difftime(Sys.time(), off.gen.start.time, units = "secs")
 
@@ -138,10 +146,10 @@ doTheEvolution = function(objective.fun, control) {
 
   # generate result object
   if (n.objectives == 1L) {
-    makeECRSingleObjectiveResult(objective.fun, trace$best, trace$opt.path, control,
+    makeECRSingleObjectiveResult(objective.fun, trace$best, trace$opt.path, STORAGE, control,
       population.storage, stop.object)
   } else {
-    makeECRMultiObjectiveResult(objective.fun, trace$opt.path, control,
+    makeECRMultiObjectiveResult(objective.fun, trace$opt.path, STORAGE, control,
       population.storage, stop.object)
   }
 }

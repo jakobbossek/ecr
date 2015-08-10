@@ -19,7 +19,7 @@ load_all(".")
 # individuals from the i-th front.
 makeNSGA2SurvivalSelector = function() {
   makeSelector(
-    selector = function(population, n.select, control) {
+    selector = function(population, storage, n.select, control) {
       inds = population$individuals
       fitness2 = population$fitness
       #FIXME: f***! We need to transpose here. I should definitely decide myself

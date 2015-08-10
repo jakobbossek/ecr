@@ -3,13 +3,15 @@
 #
 # @param matingPool [\code{setOfIndividuals}]\cr
 #   Set of parents to choose from.
+# @param STORAGE [\code{list}]\cr
+#   List which contains all the algorithm specific stuff.
 # @param objective.fun [\code{function}]\cr
 #   Target fun.
 # @param control [\code{ecr_control}]\cr
 #   Control object containing alle the operators and further parameters.
 # @return [\code{setOfIndividuals}]
 #   Generated offspring.
-generateOffspring = function(matingPool, objective.fun, control, opt.path) {
+generateOffspring = function(matingPool, STORAGE, objective.fun, control, opt.path) {
   generator = control$generator
   mutator = control$mutator
   mutationStrategyAdaptor = control$mutationStrategyAdaptor

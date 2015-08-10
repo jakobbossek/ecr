@@ -48,7 +48,7 @@ getDominatedSet = function(x) {
 
 makeNondominatedSetSelector = function() {
   makeSelector(
-    selector = function(population, n.select, control) {
+    selector = function(population, storage, n.select, control) {
       inds = population$individuals
       n = length(inds)
       #FIXME: ugly as sin. See fixme of getNondominatedSet

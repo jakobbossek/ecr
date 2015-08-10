@@ -24,7 +24,7 @@ makeSelector = function(
   name, description,
   supported = getAvailableRepresentations(),
   supported.objectives) {
-  assertFunction(selector, args = c("population", "n.select", "control"), ordered = TRUE)
+  assertFunction(selector, args = c("population", "storage", "n.select", "control"), ordered = TRUE)
   assertSubset(supported.objectives, c("single-objective", "multi-objective"))
   selector = makeOperator(selector, name, description, supported)
   selector = setAttribute(selector, "supported.objectives", supported.objectives)

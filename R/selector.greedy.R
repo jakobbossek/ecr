@@ -9,7 +9,7 @@
 #'
 #' @export
 makeGreedySelector = function() {
-  selector = function(population, n.select, control) {
+  selector = function(population, storage, n.select, control) {
     inds = population$individuals
     fitness = as.numeric(population$fitness)
     idx.select = order(fitness)[seq(n.select)]

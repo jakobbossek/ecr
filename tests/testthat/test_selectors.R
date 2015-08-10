@@ -10,7 +10,7 @@ test_that("parent selectors work as expected", {
 
   for (selectorGenerator in c(makeRouletteWheelSelector, makeTournamentSelector)) {
     select = selectorGenerator()
-    mating.pool = select(population, n.mating.pool)
+    mating.pool = select(population, list(), n.mating.pool)
     expect_is(mating.pool, "ecrPopulation")
     expect_true(is.list(mating.pool$individuals))
     expect_true(is.numeric(mating.pool$fitness))

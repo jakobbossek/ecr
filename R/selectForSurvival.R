@@ -9,6 +9,8 @@
 #   Population.
 # @param offspring [\code{integer(1)}]\cr
 #   Generated offspring.
+# @param STORAGE [\code{list}]\cr
+#   List which contains all the algorithm specific stuff.
 # @param n.population [\code{integer(1)}]\cr
 #   Number of individuals.
 # @param strategy [\code{character(1)}]\cr
@@ -22,7 +24,7 @@
 #   Number of fittest individuals of the current generation that shall be copied to the
 #   next generation without changing. Default is 0.
 # @return [\code{setOfIndividuals}]
-selectForSurvival = function(population, offspring, n.population, strategy = "plus", n.elite = 0L, control) {
+selectForSurvival = function(population, offspring, STORAGE, n.population, strategy = "plus", n.elite = 0L, control) {
   elite = NULL
   new.population = NULL
   survivalSelector = control$survival.selector
@@ -33,7 +35,7 @@ selectForSurvival = function(population, offspring, n.population, strategy = "pl
     source.population = mergePopulations(population, offspring)
     # print(source.population)
     # stop()
-    new.population = survivalSelector(source.population, n.population, control)
+    new.population = survivalSelector(source.population, STORAGE, n.population, control)
     # source.individuals = source.population$individuals
     # source.fitness = source.population$fitness
     # to.survive = order(source.fitness)[seq(n.population)]
@@ -58,7 +60,7 @@ selectForSurvival = function(population, offspring, n.population, strategy = "pl
       # Adapt number of individuals taken from the offspring and select non-elite individuals
       n.population = n.population - n.elite
     }
-    new.population = survivalSelector(offspring, n.population, control)
+    new.population = survivalSelector(offspring, STORAGE, n.population, control)
     if (length(elite) > 0L) {
       new.population = mergePopulations(new.population, elite)
     }

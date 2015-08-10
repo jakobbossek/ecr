@@ -9,7 +9,7 @@
 #'
 #' @export
 makeSimpleSelector = function() {
-  selector = function(population, n.select, control) {
+  selector = function(population, storage, n.select, control) {
     # inds = population$individuals
     # fitn = population$fitness
     # n = length(inds)
