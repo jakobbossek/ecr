@@ -8,7 +8,7 @@ doNondominatedSorting(x)
 }
 \arguments{
 \item{x}{[\code{matrix}]\cr
-Numeric matrix of points. Each row contains on points.}
+Numeric matrix of points. Each row contains one objective vector.}
 }
 \value{
 [\code{list}]

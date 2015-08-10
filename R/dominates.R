@@ -41,19 +41,19 @@ isDominated = function(x, y) {
 #'   \code{TRUE} if the i-th point is dominated by at least one other point.
 #'
 #' @param x [\code{matrix}]\cr
-#'   Numeric (n x d) matrix where n is the number of points and d is the number
-#'   of objectives.
+#'   Numeric (d x n) matrix where d is the number of objectives and n is the
+#'   number of points.
 #' @return [\code{logical}]
 #'
 #' @export
 dominated = function(x) {
   assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE)
-  n = nrow(x)
+  n = ncol(x)
   dominated = logical(n)
   for (i in seq.int(n)) {
     for (j in seq.int(i, n)) {
-      dominated[i] = dominated[i] || isDominated(x[i, ], x[j, ])
-      dominated[j] = dominated[j] || isDominated(x[j, ], x[i, ])
+      dominated[i] = dominated[i] || isDominated(x[, i], x[, j])
+      dominated[j] = dominated[j] || isDominated(x[, j], x[, i])
     }
   }
   return(dominated)

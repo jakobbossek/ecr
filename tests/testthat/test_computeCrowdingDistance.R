@@ -2,12 +2,12 @@ context("crowding distance")
 
 test_that("crowding distance computation works well", {
   # set of nondominated points
-  x = matrix(c(
+  x = t(matrix(c(
     1, 4, # cd: oo
     2, 3, # cd: 3
     2.5, 2.5, # cd: 3
     4, 2 # cd: oo
-  ), byrow = TRUE, ncol = 2L)
+  ), byrow = TRUE, ncol = 2L))
 
   # compute crowding distances
   cds = computeCrowdingDistance(x)

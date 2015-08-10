@@ -8,8 +8,8 @@ dominated(x)
 }
 \arguments{
 \item{x}{[\code{matrix}]\cr
-Numeric (n x d) matrix where n is the number of points and d is the number
-of objectives.}
+Numeric (d x n) matrix where d is the number of objectives and n is the
+number of points.}
 }
 \value{
 [\code{logical}]

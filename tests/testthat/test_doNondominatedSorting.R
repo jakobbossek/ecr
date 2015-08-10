@@ -3,7 +3,7 @@ context("nondominated sorting")
 test_that("ranking nondominated fronts works as expected", {
   # test set of points with 4 domination layerrs
   n.fronts = 4L
-  x = matrix(
+  x = t(matrix(
     c(# front 1
       1, 4,
       2, 3,
@@ -17,7 +17,7 @@ test_that("ranking nondominated fronts works as expected", {
       3.2, 4.7,
       6, 2,
       # front 4
-      6, 6), byrow = TRUE, ncol = 2L)
+      6, 6), byrow = TRUE, ncol = 2L))
 
   res = doNondominatedSorting(x)
 
@@ -31,7 +31,7 @@ test_that("ranking nondominated fronts works as expected", {
   expect_equal(length(unique(res$ranks)), n.fronts)
 
   # each point can be dominated by at most n-1 points
-  expect_true(all(res$dom.counter < nrow(x)))
+  expect_true(all(res$dom.counter < ncol(x)))
 
   # check if fronts are computed correctly
   tt = as.numeric(table(res$ranks))

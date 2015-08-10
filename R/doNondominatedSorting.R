@@ -5,7 +5,7 @@
 #'   Implementation of the fast non-dominated sorting algorithm proposed by Deb.
 #'
 #' @param x [\code{matrix}]\cr
-#'   Numeric matrix of points. Each row contains on points.
+#'   Numeric matrix of points. Each row contains one objective vector.
 #' @return [\code{list}]
 #'   List with the following components
 #'   \describe{
@@ -23,7 +23,7 @@ doNondominatedSorting = function(x) {
   fronts = list()
   fronts[[1L]] = list()
 
-  n = nrow(x)
+  n = ncol(x)
   dom.counter = integer(n)
   ranks = integer(n)
   dom.els = vector(mode = "list", length = n)
@@ -31,9 +31,9 @@ doNondominatedSorting = function(x) {
   # compute domination numbers and pareto front
   for (i in seq.int(n)) {
     for (j in seq.int(n)) {
-      if (dominates(x[i, ], x[j, ])) {
+      if (dominates(x[, i], x[, j])) {
         dom.els[[i]] = c(dom.els[[i]], j)
-      } else if (isDominated(x[i, ], x[j, ])) {
+      } else if (isDominated(x[, i], x[, j])) {
         dom.counter[i] = dom.counter[i] + 1L
       }
     }

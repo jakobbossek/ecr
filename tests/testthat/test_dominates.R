@@ -11,7 +11,7 @@ test_that("dominates and isDominated works as expected", {
 })
 
 test_that("[which.{non}]dominated works well on matrices", {
-  m = matrix(
+  m = t(matrix(
     c(# utopia point
       1, 1, 1,
       # dominated points
@@ -19,10 +19,10 @@ test_that("[which.{non}]dominated works well on matrices", {
       2, 1, 2,
       2, 6, 1),
     byrow = TRUE, ncol = 3L
-  )
+  ))
   dom = dominated(m)
   # check that there is boolean value for each point
-  expect_equal(length(dom), nrow(m))
+  expect_equal(length(dom), ncol(m))
 
   # check that we really have three dominated points
   expect_equal(sum(dom), 3L)
@@ -33,5 +33,5 @@ test_that("[which.{non}]dominated works well on matrices", {
 
   expect_true(setequal(dom.idxs, 2:4))
   expect_true(nondom.idxs == 1L)
-  expect_true(setequal(c(dom.idxs, nondom.idxs), seq(nrow(m))))
+  expect_true(setequal(c(dom.idxs, nondom.idxs), seq(ncol(m))))
 })

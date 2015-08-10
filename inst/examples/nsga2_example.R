@@ -21,11 +21,8 @@ makeNSGA2SurvivalSelector = function() {
   makeSelector(
     selector = function(population, storage, n.select, control) {
       inds = population$individuals
-      fitness2 = population$fitness
-      #FIXME: f***! We need to transpose here. I should definitely decide myself
-      # for column-wise or row-wise fitness. I guess the former is better suited
-      # later for C(++)?
-      fitness = t(fitness2)
+      fitness = population$fitness
+      #print(fitness)
       nondom.layers = doNondominatedSorting(fitness)
 
       # storage for indizes of selected individuals
@@ -55,12 +52,12 @@ makeNSGA2SurvivalSelector = function() {
       n.diff = n.select - length(new.pop.idxs)
 
       idxs.first.nonfit = idxs.by.rank[[front.first.nonfit]]
-      cds = computeCrowdingDistance(fitness[idxs.first.nonfit, , drop = FALSE])
+      cds = computeCrowdingDistance(fitness[, idxs.first.nonfit, drop = FALSE])
       idxs2 = order(cds, decreasing = TRUE)[1:n.diff]
       new.pop.idxs = c(new.pop.idxs, idxs.first.nonfit[idxs2])
 
       # merge the stuff and return
-      return(makePopulation(inds[new.pop.idxs], fitness2[, new.pop.idxs, drop = FALSE]))
+      return(makePopulation(inds[new.pop.idxs], fitness[, new.pop.idxs, drop = FALSE]))
     },
     supported.objectives = "multi-objective",
     name = "NSGA-II survival selector",

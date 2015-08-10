@@ -8,7 +8,7 @@ computeCrowdingDistance(x)
 }
 \arguments{
 \item{x}{[\code{matrix}]\cr
-Numeric matrix with each row represneting a points.}
+Numeric matrix with each column representing a point.}
 }
 \value{
 [\code{numeric}] Vector of crowding distance values.

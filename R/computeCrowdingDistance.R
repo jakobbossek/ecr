@@ -2,7 +2,7 @@
 #'   Compute the crowding distance of a set of points.
 #'
 #' @param x [\code{matrix}]\cr
-#'   Numeric matrix with each row represneting a points.
+#'   Numeric matrix with each column representing a point.
 #' @return [\code{numeric}] Vector of crowding distance values.
 #'
 #' @references K. Deb, A. Pratap, S. Agarwal, T. Meyarivan, A fast and elitist
@@ -12,19 +12,19 @@
 #'
 #' @export
 computeCrowdingDistance = function(x) {
-  n = nrow(x)
-  d = ncol(x)
+  n = ncol(x)
+  d = nrow(x)
   cds = numeric(n)
 
   for (i in seq.int(d)) {
     # get the order of the points when sorted according to the i-th objective
-    ord = order(x[, i])
+    ord = order(x[i, ])
     # set the extreme values to Inf
     cds[ord[1]] = Inf
     cds[ord[n]] = Inf
     # update the remaining crowding numbers
     for (j in 2:(n - 1L)) {
-      cds[ord[j]] = cds[ord[j]] + (x[ord[j + 1L], i] - x[ord[j - 1L], i])
+      cds[ord[j]] = cds[ord[j]] + (x[i, ord[j + 1L]] - x[i, ord[j - 1L]])
     }
   }
   return(cds)
