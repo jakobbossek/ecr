@@ -44,7 +44,7 @@ computeAverageHausdorffDistance = function(A, B, p = 1) {
 #'
 #' @export
 computeGenerationalDistance = function(A, B, p = 1) {
-  dists = apply(A, 1L, function(a) computeDistanceFromPointToSetOfPoints, B)
+  dists = apply(A, 1L, function(a) computeDistanceFromPointToSetOfPoints(a, B))
   GD = mean(dists^p)^(1 / p)
   return(GD)
 }
