@@ -11,7 +11,7 @@ approximateIdealPoint(..., sets = NULL)
 }
 \arguments{
 \item{...}{[any]\cr
-Sets as matrizes.}
+Arbirary number of matrizes.}
 
 \item{sets}{[\code{list}]\cr
 List of sets. This is an alternative way of passing the sets. Can be used
