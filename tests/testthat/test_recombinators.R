@@ -7,7 +7,8 @@ test_that("recombinators for permutations work as expected", {
   expected = seq(n) # sequence we expect offspring to be a permutation of
 
   # check validity of produced output for each permutation-based recombinator
-  for (recombinatorGenerator in c(makePMXRecombinator)) {
+  available.recombinators = c(makePMXRecombinator, makePMXRecombinator)
+  for (recombinatorGenerator in available.recombinators) {
     recombine = recombinatorGenerator()
     # generate sample permutations
     parent1 = sample(n)

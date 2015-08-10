@@ -8,7 +8,11 @@ test_that("parent selectors work as expected", {
 
   n.mating.pool = 5L
 
-  for (selectorGenerator in c(makeRouletteWheelSelector, makeTournamentSelector)) {
+  avialable.selectors = c(makeGreedySelector,
+    makeRouletteWheelSelector, makeTournamentSelector
+  )
+
+  for (selectorGenerator in avialable.selectors) {
     select = selectorGenerator()
     mating.pool = select(population, list(), n.mating.pool)
     expect_is(mating.pool, "ecrPopulation")
