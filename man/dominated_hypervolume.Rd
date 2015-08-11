@@ -11,7 +11,7 @@ computeHypervolumeContribution(x, ref.point = NULL, offset = 1)
 }
 \arguments{
 \item{x}{[\code{matrix}]\cr
-Matrix of points.}
+Matrix of points (column-wise).}
 
 \item{ref.point}{[\code{numeric} | \code{NULL}]\cr
 Reference point. Set to the maximum in each dimension by default if not provided.}
