@@ -1,7 +1,6 @@
 context("Hypervolume contribution")
 
 test_that("calculation of dominated hypervolume works as expected", {
-  #FIXME: extend this test case!
   # here all the points in the approximation are located on a line
   # |
   # |               o (6,6)
@@ -29,7 +28,40 @@ test_that("calculation of dominated hypervolume works as expected", {
   # now check the hypervolume contributions
   hv.contribs = computeHypervolumeContribution(points, ref.point)
   expect_true(all(hv.contribs == 1))
-  # the computed raference point is should be equal to (6,6) too
+  # the computed reference point should be equal to (6,6) too
   hv.contribs = computeHypervolumeContribution(points)
   expect_true(all(hv.contribs == 1))
+})
+
+test_that("assertions on hypervolume (contribution)", {
+  n.points = 50L
+  n.reps = 5L
+  ref.point = c(11, 11)
+  for (i in seq(n.reps)) {
+    # generate set of points
+    x = matrix(runif(n.points * 2L, min = 0, max = 10), nrow = 2L)
+
+    # Here we do naive nondominated sorting (later replace that with the fast
+    # non-dominated sorting algorithm)
+    # first non-dominanted front
+    nondom.idx = which.nondominated(x)
+    x1 = x[, nondom.idx, drop = FALSE]
+    x = x[, -nondom.idx, drop = FALSE]
+
+    # second non-dominanted front
+    nondom.idx = which.nondominated(x)
+    x2 = x[, nondom.idx, drop = FALSE]
+
+    hv1 = computeDominatedHypervolume(x1, ref.point)
+    hv2 = computeDominatedHypervolume(x2, ref.point)
+
+    expect_true(hv1 >= 0)
+    expect_true(hv2 >= 0)
+    expect_true(hv1 > hv2, info = "HV of first non-dominanted front should be
+      larger than the dominated HV of the second.")
+    hvctrb1 = computeHypervolumeContribution(x1, ref.point)
+    hvctrb2 = computeHypervolumeContribution(x2, ref.point)
+    expect_true(all(hvctrb1 >= 0))
+    expect_true(all(hvctrb2 >= 0))
+  }
 })
