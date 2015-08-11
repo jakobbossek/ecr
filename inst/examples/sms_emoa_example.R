@@ -9,67 +9,42 @@ load_all(".")
 
 # THIS FILE IS WORK-IN-PROGRESS/EXPERIMENAL
 
-# COLLECTION OF FIXME
-#FIXME: integrate NondominatedSetSelector as ecr_selector
 #FIXME: we need to check in setupECRControl or in ecr if the operators can work
 # on multi-objective stuff
-
-
-# Get set of dominated individuals.
-#
-# @param x [list]
-#   Set of 2D fitness values.
-# @param fn [function]
-#   Fitness function.
-# @return [list]
-#FIXME: formulate this for matrices where each column describes one vector
-getDominatedSet = function(x) {
-  n = length(x)
-
-  # initialize set of dominated individuals
-  dom.set = integer()
-  dom.nrs = integer(n)
-
-  for (i in seq(n)) {
-    for (j in seq(n)) {
-      if (i == j) {
-        next
-      }
-      if (all(x[[j]] <= x[[i]])) {
-        dom.nrs[i] = dom.nrs[i] + 1L
-      }
-    }
-  }
-  return(list(
-    dom.set = which(dom.nrs != 0L),
-    dom.nrs = dom.nrs
-  ))
-}
-
-makeNondominatedSetSelector = function() {
+makeHypervolumeSelector = function() {
   makeSelector(
     selector = function(population, storage, n.select, control) {
-      inds = population$individuals
-      n = length(inds)
-      #FIXME: ugly as sin. See fixme of getNondominatedSet
-      fitness = as.list(as.data.frame(population$fitness))
-      res = getDominatedSet(fitness)
-      idx = getMaxIndex(res$dom.nrs)
-      survive.idx = setdiff(seq(n), idx)
-      return(makePopulation(inds[survive.idx], population$fitness[, survive.idx, drop = FALSE]))
+      fitness = population$fitness
+      population = population$individuals
+
+      # do non-dominated sorting
+      nds.res = doNondominatedSorting(fitness)
+      ranks = nds.res$ranks
+      idx.max = which(ranks == max(ranks))
+
+      # there is exactly one individual that is "maximally" dominated
+      if (length(idx.max) == 1L) {
+        return(makePopulation(population[-idx.max], fitness[, -idx.max, drop = FALSE]))
+      }
+
+      # compute exclusive hypervolume contributions and remove the one with the smallest
+      hvctrbs = computeHypervolumeContribution(fitness[, idx.max, drop = FALSE], ref.point = control$ref.point)
+      die.idx = idx.max[getMinIndex(hvctrbs)]
+
+      return(makePopulation(population[-die.idx], fitness[, -die.idx, drop = FALSE]))
     },
     supported.objectives = "multi-objective",
-    name = "Nondominated set selector",
+    name = "Hypervolume contribution selector",
     description = "description"
   )
 }
 
 ctrl = setupECRControl(
-  n.population = 10L,
+  n.population = 25L,
   n.offspring = 1L,
   representation = "float",
   monitor = makeConsoleMonitor(),
-  stopping.conditions = setupStoppingConditions(max.iter = 100L)
+  stopping.conditions = setupStoppingConditions(max.iter = 150L)
 )
 
 ctrl = setupEvolutionaryOperators(
@@ -77,8 +52,10 @@ ctrl = setupEvolutionaryOperators(
   parent.selector = makeSimpleSelector(),
   mutator = makeGaussMutator(),
   recombinator = makeCrossoverRecombinator(),
-  survival.selector = makeNondominatedSetSelector()
+  survival.selector = makeHypervolumeSelector()
 )
+
+ctrl$ref.point = c(11, 11)
 
 obj.fn = smoof::makeZDT1Function(2L)
 
