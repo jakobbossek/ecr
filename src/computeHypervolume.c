@@ -7,7 +7,7 @@
 /* Interface to hypervolume algorithm by Fonseca et al.
  *
  * @param r_points [matrix]
- *   Matrix of points.
+ *   Matrix of points (column-wise).
  * @param ref.point [numeric}]
  *   Reference point.
  * @return [numeric(1)] Dominated hypervolume.
