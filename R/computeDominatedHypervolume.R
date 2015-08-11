@@ -12,7 +12,7 @@
 #'   that the reference point dominates all of the points in the reference set.
 #'
 #' @param x [\code{matrix}]\cr
-#'   Matrix of points.
+#'   Matrix of points (column-wise).
 #' @param ref.point [\code{numeric} | \code{NULL}]\cr
 #'   Reference point. Set to the maximum in each dimension by default if not provided.
 #' @param offset [\code{numeric(1)}]\cr
@@ -40,11 +40,11 @@ computeDominatedHypervolume = function(x, ref.point = NULL) {
 
   if (length(ref.point) != nrow(x)) {
     stopf("Set of points and reference point need to have the same dimension, but
-      set of points has dimension %i and reference points has dimension %i.", nrow(x), length(ref.point))
+      set of points has dimension %i and reference point has dimension %i.", nrow(x), length(ref.point))
   }
 
   if (any(is.infinite(ref.point))) {
-    warningf("Reference point contains infinite %i values.", which(is.infinite(ref.point)))
+    warningf("Reference point contains %i infinite values.", length(which(is.infinite(ref.point))))
     return(NaN)
   }
 
