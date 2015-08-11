@@ -22,4 +22,10 @@ test_that("parent selectors work as expected", {
     expect_true(isSubset(mating.pool$fitness, population$fitness))
     expect_equal(length(mating.pool$individuals), n.mating.pool)
   }
+
+  # simple mating pool selector simply returns the population
+  select = makeSimpleSelector()
+  mating.pool = select(population, list(), n.mating.pool)
+  expect_true(is.list(mating.pool$individuals))
+  expect_equal(length(mating.pool$individuals), length(population$individuals))
 })
