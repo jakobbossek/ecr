@@ -81,6 +81,7 @@ doTheEvolution = function(objective.fun, control) {
   # generate intial population
   population = populationGenerator(n.population, control)
   population$fitness = computeFitness(population, objective.fun)
+  n.evals = n.population
 
   # initialize storage object which contains all the stuff needed by the algorithms
   # (by default it contains just the population, but may contain e.g. an archive or
@@ -91,7 +92,7 @@ doTheEvolution = function(objective.fun, control) {
 
   # initialize trace (depends on #objectives)
   trace = initTrace(control, population, n.objectives, y.names)
-  trace = updateTrace(trace, iter, population, start.time, pop.gen.time, control)
+  trace = updateTrace(trace, iter, n.evals, population, start.time, pop.gen.time, control)
 
   population.storage = namedList(paste0("gen.", control$save.population.at))
   # store start population
@@ -111,6 +112,7 @@ doTheEvolution = function(objective.fun, control) {
     # actually create offspring
     matingPool = parentSelector(population, STORAGE, n.mating.pool)
     offspring = generateOffspring(matingPool, STORAGE, objective.fun, control, trace$opt.path)
+    n.evals = n.evals + n.offspring
 
     # apply survival selection and set up the (i+1)-th generation
     population = selectForSurvival(
@@ -130,7 +132,7 @@ doTheEvolution = function(objective.fun, control) {
     if (iter %in% control$save.population.at) {
       population.storage[[paste0("gen.", as.character(iter))]] = population
     }
-    trace = updateTrace(trace, iter, population, start.time, off.gen.time, control)
+    trace = updateTrace(trace, iter, n.evals, population, start.time, off.gen.time, control)
 
     # check if any termination criterion is met
     stop.object = doTerminate(control$stopping.conditions, trace$opt.path)
@@ -174,8 +176,10 @@ print.ecr_result = function(x, ...) {
 # @title
 #   Generate 'extras' argument for opt.path.
 #
-# @param iter [numeric(1)]
+# @param iter [integer(1)]
 #   Current iteration/generation.
+# @param n.evals [integer(1)]
+#   Number of function evaluations.
 # @param population [ecr_population]
 #   Current population.
 # @param start.time [POSIXct]
@@ -183,11 +187,12 @@ print.ecr_result = function(x, ...) {
 # @pram control [ecr_control]
 #   Control object.
 # @return [list] Named list with scalar values to be stored in opt.path.
-getListOfExtras = function(iter, population, start.time, control) {
+getListOfExtras = function(iter, n.evals, population, start.time, control) {
   fitness = population$fitness
   extra = list(
     past.time = as.numeric(Sys.time() - start.time),
     iter = iter,
+    n.evals = n.evals,
     pop.min.fitness = min(fitness),
     pop.mean.fitness = mean(fitness),
     pop.median.fitness = median(fitness),

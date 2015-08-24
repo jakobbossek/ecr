@@ -39,6 +39,8 @@ initTrace = function(control, population, n.objectives, y.names) {
 #   Trace to update.
 # @param iter [integer(1)]
 #   Current iteration/generation.
+# @param n.evals [integer(1)]
+#   Number of function evaluations.
 # @param population [ecr_population]
 #   Population object.
 # @param start.time [POSIXct]
@@ -49,15 +51,15 @@ initTrace = function(control, population, n.objectives, y.names) {
 # @param control [ecr_control]
 #   Control object.
 # @return [ecr_{single,multi}_objective_trace] Modified trace.
-updateTrace = function(trace, iter, population, start.time, exec.time, control) {
+updateTrace = function(trace, iter, n.evals, population, start.time, exec.time, control) {
   UseMethod("updateTrace")
 }
 
 # see generic updateTrace
-updateTrace.ecr_single_objective_trace = function(trace, iter, population, start.time, exec.time, control) {
+updateTrace.ecr_single_objective_trace = function(trace, iter, n.evals, population, start.time, exec.time, control) {
   par.set = control$par.set
   best = getBestIndividual(population)
-  extras = getListOfExtras(iter, population, start.time, control)
+  extras = getListOfExtras(iter, n.evals, population, start.time, control)
   if (length(par.set$pars) == 1L) {
     best.param.values = list(best$individual)
     names(best.param.values) = getParamIds(par.set)
@@ -76,9 +78,9 @@ updateTrace.ecr_single_objective_trace = function(trace, iter, population, start
 }
 
 # see generic updateTrace
-updateTrace.ecr_multi_objective_trace = function(trace, iter, population, start.time, exec.time, control) {
+updateTrace.ecr_multi_objective_trace = function(trace, iter, n.evals, population, start.time, exec.time, control) {
   par.set = control$par.set
-  extras = getListOfExtras(iter, population, start.time, control)
+  extras = getListOfExtras(iter, n.evals, population, start.time, control)
   #FIXME: handle this specific stuff here.
   if (control$representation == "custom") {
     stopf("Multi-objective optimization with custom genotypes is not yet finished.")
