@@ -29,4 +29,8 @@ test_that("stopping conditions work", {
 	# check for max iterations
 	control$stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 10L))
 	expect_true(grepl("iterations", doTheEvolution(obj.fn, control)$message))
+
+  # check for max evaluations
+  control$stopping.conditions = list(makeMaximumEvaluationsStoppingCondition(max.evals = 10L))
+  expect_true(grepl("evaluations", doTheEvolution(obj.fn, control)$message))
 })
