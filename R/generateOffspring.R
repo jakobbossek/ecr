@@ -17,14 +17,12 @@ generateOffspring = function(matingPool, STORAGE, objective.fun, control, opt.pa
   recombinator = control$recombinator
   n.offspring = control$n.offspring
 
-  offspring = vector("list", n.offspring)
-
-  for (i in seq(n.offspring)) {
+  offspring = lapply(seq(n.offspring), function(idx) {
     parents = getParents(matingPool)
     child = recombinator(parents, control)
     child = mutator(child, control$mutator.control, control)
-    offspring[[i]] = child
-  }
+    return(child)
+  })
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
   return(makePopulation(offspring, offspring.fitness))
