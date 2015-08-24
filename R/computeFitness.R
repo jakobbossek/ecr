@@ -12,7 +12,6 @@
 #' @return [\code{matrix}].
 computeFitness = function(population, fitness.fun) {
   fitness = lapply(population$individuals, fitness.fun)
-  n.objectives = length(fitness[[1]])
   # force fitness to be stored in a matrix (be consistent for single and
   # multi-objective fitness funs)
   fitness = do.call(cbind, fitness)
