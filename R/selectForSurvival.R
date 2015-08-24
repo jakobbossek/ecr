@@ -31,24 +31,14 @@ selectForSurvival = function(population, offspring, STORAGE, n.population, strat
   new.population = NULL
   survivalSelector = control$survival.selector
   if (strategy == "plus") {
-    # print(population)
-    # print(offspring)
-    # stop()
     source.population = mergePopulations(population, offspring)
-    # print(source.population)
-    # stop()
     new.population = survivalSelector(source.population, STORAGE, n.population, control)
-    # source.individuals = source.population$individuals
-    # source.fitness = source.population$fitness
-    # to.survive = order(source.fitness)[seq(n.population)]
   } else if (strategy == "comma") {
     source.population = offspring
     elite = list()
 
     if (n.elite > 0L) {
       #catf("Elitism with %i candidates out of %i", n.elite, n.population)
-      #FIXME: this is principally done already in the "greedy" selector. We could
-      # use it here
       parent.individuals = population$individuals
       parent.fitness = population$fitness
       to.be.elite = order(parent.fitness)[seq(n.elite)]
