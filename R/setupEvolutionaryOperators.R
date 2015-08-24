@@ -117,6 +117,16 @@ prepareOperatorParameters = function(operator, input.params) {
   return(params)
 }
 
+# Helper function which returns the defaults evolutionary operators for the
+# standard representations.
+#
+# @param representation [\code{character(1)}]\cr
+#   Genotype representation of the parameters. Available are binary, real,
+#   permutation and custom.
+# @param type [\code{character(1)}]\cr
+#   Type of evolutionary operator. Possible are parent.selector, generator,
+#   mutator, recombinator and survival.selector.
+# @return [\code{ecr_operator}]
 getDefaultEvolutionaryOperators = function(representation, type) {
   defaults = list(
     "float" = list(
