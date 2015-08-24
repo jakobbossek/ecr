@@ -13,12 +13,12 @@
 doTerminate = function(stopping.funs, opt.path) {
   stopObject = list()
 
-    # if we have not specified any stopping conditions always return the empty object
+  # if we have not specified any stopping conditions always return the empty object
   if (!length(stopping.funs)) {
     return(stopObject)
   }
 
-    # otherwise iterate over stopping conditions and check
+  # otherwise iterate over stopping conditions and check
   for (stopping.fun in stopping.funs) {
     shouldStop = stopping.fun(opt.path = opt.path)
     if (shouldStop) {

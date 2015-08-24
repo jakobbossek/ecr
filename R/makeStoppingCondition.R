@@ -19,8 +19,8 @@ makeStoppingCondition = function(condition.fun, name, message) {
   assertCharacter(name, len = 1L, any.missing = FALSE)
   assertCharacter(message, len = 1L, any.missing = FALSE)
 
-  attr(condition.fun, "name") = name
-  attr(condition.fun, "message") = message
+  condition.fun = setAttribute(condition.fun, "name", name)
+  condition.fun = setAttribute(condition.fun, "message", message)
   condition.fun = addClasses(condition.fun, "ecr_stoppingCondition")
   return(condition.fun)
 }
