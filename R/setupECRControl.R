@@ -95,7 +95,7 @@ setupECRControl = function(
     stopf("Currently only monitor of type 'ecr_monitor' supported")
   }
 
-  makeS3Obj(
+  ctrl = makeS3Obj(
     n.population = n.population,
     n.offspring = n.offspring,
     n.mating.pool = n.mating.pool,
@@ -110,6 +110,13 @@ setupECRControl = function(
     extras.fun = extras.fun,
     classes = "ecr_control"
   )
+
+  # set defaults if one of the standard representations is used
+  if (representation != "custom") {
+    ctrl = setupEvolutionaryOperators(ctrl)
+  }
+
+  return(ctrl)
 }
 
 #' Print ecr control object.
