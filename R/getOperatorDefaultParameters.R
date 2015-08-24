@@ -10,7 +10,6 @@
 #'   Operator object.
 #' @return [\code{list}]
 #'   Key-value pairs of parameters and default values.
-#'
 #' @export
 getOperatorDefaultParameters = function(operator) {
   UseMethod("getOperatorDefaultParameters")

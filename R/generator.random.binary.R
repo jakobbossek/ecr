@@ -6,7 +6,6 @@
 #'   space of the target function taking care not to violate bounds.
 #'
 #' @return [\code{ecr_operator}]
-#'
 #' @export
 makeBinaryGenerator = function() {
   generateBinaryPopulation = function(size, control) {

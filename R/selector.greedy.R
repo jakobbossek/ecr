@@ -6,7 +6,6 @@
 #'   and selects the best ones.
 #'
 #' @return [\code{setOfIndividuals}]
-#'
 #' @export
 makeGreedySelector = function() {
   selector = function(population, storage, n.select, control) {

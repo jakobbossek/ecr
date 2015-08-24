@@ -6,7 +6,6 @@
 #'   a random position.
 #'
 #' @return [\code{ecr_mutator}]
-#'
 #' @export
 makeInsertionMutator = function() {
   mutator = function(ind, args = list(), control) {

@@ -109,4 +109,5 @@ print(res)
 \seealso{
 \code{\link{setupECRControl}}
 }
+\keyword{optimize}
 

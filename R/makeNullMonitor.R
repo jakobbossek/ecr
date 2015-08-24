@@ -5,7 +5,6 @@
 #'   No monitoring at all. Using this monitor practically deactivates monitoring.
 #'
 #' @return [\code{ecr_monitor}]
-#'
 #' @export
 makeNullMonitor = function() {
   makeMonitor(

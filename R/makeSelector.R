@@ -1,5 +1,6 @@
 #' @title
 #'   Construct a selection operator.
+#'
 #' @description
 #'   Helper function which defines a selector method, i. e., an operator which
 #'   takes the population and returns a part of it for mating.
@@ -17,7 +18,6 @@
 #'   At least one of \dQuote{single-objective} or \dQuote{multi-objective}.
 #' @return [\code{ecr_selector}]
 #'   selector object.
-#'
 #' @export
 makeSelector = function(
   selector,

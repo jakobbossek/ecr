@@ -1,15 +1,15 @@
-# @title
-#   Check termination conditions.
-#
-# @description
-#   Helper function which checks whether some stopping conditions
-#   are met and returns a termination object.
-#
-# @param stopping.funs [list]
-#   List of stopping conditions.
-# @param envir [environment]
-#   Environment in which to look for some maybe neccessary variables.
-# @return [stopObject]
+#' @title
+#'   Check termination conditions.
+#'
+#' @description
+#'   Helper function which checks whether some stopping conditions
+#'   are met and returns a termination object.
+#'
+#' @param stopping.funs [list]
+#'   List of stopping conditions.
+#' @param opt.path [OptPath]
+#'   Optimization path.
+#' @return [stopObject]
 doTerminate = function(stopping.funs, opt.path) {
   stopObject = list()
 

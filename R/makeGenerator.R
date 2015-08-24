@@ -17,7 +17,6 @@
 #'   'permutation', 'float', 'binary' or 'custom'.
 #' @return [\code{ecr_generator}]
 #'   Generator object.
-#'
 #' @export
 makeGenerator = function(generator, name, description,
   supported = getAvailableRepresentations()) {

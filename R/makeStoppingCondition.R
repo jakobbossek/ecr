@@ -13,7 +13,6 @@
 #'   Message which should be stored in the termination object, if the stopping
 #'   condition is met.
 #' @return [\code{ecr_stoppingCondition}]
-#'
 #' @export
 makeStoppingCondition = function(condition.fun, name, message) {
   assertFunction(condition.fun, args = c("opt.path"))

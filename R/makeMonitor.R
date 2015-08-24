@@ -13,7 +13,6 @@
 #'   Monitor object.
 #'
 #' @example examples/ex_makeMonitor.R
-#'
 #' @export
 makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
   if (!is.null(before)) assertFunction(before)

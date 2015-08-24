@@ -8,7 +8,6 @@
 #'   have a positive fitness as well.
 #'
 #' @return [\code{setOfIndividuals}]
-#'
 #' @export
 # FIMXE: add thorough description of the heuristic used (see below).
 makeRouletteWheelSelector = function() {

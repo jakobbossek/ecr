@@ -4,7 +4,6 @@
 #' @param max.time [\code{integer(1)}]\cr
 #'   Time budget in seconds. Default ist \code{Inf}.
 #' @return [\code{function}]
-#'
 #' @export
 makeMaximumTimeStoppingCondition = function(max.time = NULL) {
   if (!is.null(max.time)) {

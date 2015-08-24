@@ -8,7 +8,6 @@
 #' @param mutator.flip.prob [\code{numeric(1)}]\cr
 #'   Probability to flip a single bit. Default is \code{0.1}.
 #' @return [\code{ecr_mutator}]
-#'
 #' @export
 makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck = function(operator.control) {

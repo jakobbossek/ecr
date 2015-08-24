@@ -9,7 +9,6 @@
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
 #' @return [\code{numeric(1)}] Average Hausdorff distance of sets \code{A} and \code{B}.
-#'
 #' @export
 computeAverageHausdorffDistance = function(A, B, p = 1) {
   # sanity check imput
@@ -41,7 +40,6 @@ computeAverageHausdorffDistance = function(A, B, p = 1) {
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
 #' @return [\code{numeric(1)}]
-#'
 #' @export
 computeGenerationalDistance = function(A, B, p = 1) {
   dists = apply(A, 2L, function(a) computeDistanceFromPointToSetOfPoints(a, B))
@@ -64,7 +62,6 @@ computeGenerationalDistance = function(A, B, p = 1) {
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
 #' @return [\code{numeric(1)}]
-#'
 #' @export
 computeInvertedGenerationalDistance = function(A, B, p = 1) {
   return(computeGenerationalDistance(B, A, p))
@@ -81,7 +78,6 @@ computeInvertedGenerationalDistance = function(A, B, p = 1) {
 #' @param B [\code{matrix}]\cr
 #'   Point set (each row corresponds to a point).
 #' @return [\code{numeric(1)}]
-#'
 #' @export
 computeDistanceFromPointToSetOfPoints = function(a, B) {
   # to avoid loops here we construct a matrix and make use of R's vector

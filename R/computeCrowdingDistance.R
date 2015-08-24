@@ -1,15 +1,14 @@
 #' @title
 #'   Compute the crowding distance of a set of points.
 #'
-#' @param x [\code{matrix}]\cr
-#'   Numeric matrix with each column representing a point.
-#' @return [\code{numeric}] Vector of crowding distance values.
-#'
 #' @references K. Deb, A. Pratap, S. Agarwal, T. Meyarivan, A fast and elitist
 #' multiobjective genetic algorithm: NSGA-II, IEEE Transactions on Evolutionary
 #' Computation In Evolutionary Computation, IEEE Transactions on, Vol. 6, No. 2.
 #' (07 April 2002), pp. 182-197, doi:10.1109/4235.996017
 #'
+#' @param x [\code{matrix}]\cr
+#'   Numeric matrix with each column representing a point.
+#' @return [\code{numeric}] Vector of crowding distance values.
 #' @export
 computeCrowdingDistance = function(x) {
   n = ncol(x)

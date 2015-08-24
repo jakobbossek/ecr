@@ -23,10 +23,8 @@
 #'   indicator via \code{computeHypervolumeIndicator}. If \code{NULL} the
 #'   nadir point of the union of the \code{points} and \code{ref.points} is used.
 #' @return [\code{numeric(1)}] Epsilon indicator.
-#'
-#' @export
-#'
 #' @rdname emoa_indicators
+#' @export
 computeEpsilonIndicator = function(points, ref.points) {
   # sanity checks
   assertMatrix(points, mode = "numeric", any.missing = FALSE)
@@ -36,8 +34,8 @@ computeEpsilonIndicator = function(points, ref.points) {
   return(.Call("calculateEpsilonIndicatorFromR", points, ref.points))
 }
 
-#' @export
 #' @rdname emoa_indicators
+#' @export
 computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
   # compute nadir point
   if (is.null(ref.point)) {
@@ -58,8 +56,8 @@ computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
 }
 
 #FIXME: finish this
-# @export
 # @rdname emoa_indicators
+# @export
 computeRIndicator = function(
   points, ref.points,
   ideal.point = NULL, nadir.point = NULL,

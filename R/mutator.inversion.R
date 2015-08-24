@@ -6,7 +6,6 @@
 #'   random and inverts this sub-permutation.
 #'
 #' @return [\code{ecr_mutator}]
-#'
 #' @export
 makeInversionMutator = function() {
   mutator = function(ind, args = list(), control) {

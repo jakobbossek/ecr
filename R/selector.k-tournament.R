@@ -10,7 +10,6 @@
 #' @param k [\code{integer(1)}]\cr
 #'   Number of individuals to participate in each tournament. Default is \code{2L}.
 #' @return [\code{setOfIndividuals}]
-#'
 #' @export
 makeTournamentSelector = function(k = 3L) {
   force(k)

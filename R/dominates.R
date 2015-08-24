@@ -8,7 +8,6 @@
 #' @param y [\code{numeric}]\cr
 #'   Second vector.
 #' @return [\code{logical(1)}] Does \code{x} dominate \code{y}?
-#'
 #' @export
 dominates = function(x, y) {
   stopifnot(length(x) == length(y))
@@ -26,7 +25,6 @@ dominates = function(x, y) {
 #'   Second vector.
 #' @return [\code{logical(1)}] Returns \code{TRUE} if \code{x} is dominated by
 #'   \code{y} and \code{FALSE} otherwise.
-#'
 #' @export
 isDominated = function(x, y) {
   return(dominates(y, x))
@@ -44,7 +42,6 @@ isDominated = function(x, y) {
 #'   Numeric (d x n) matrix where d is the number of objectives and n is the
 #'   number of points.
 #' @return [\code{logical}]
-#'
 #' @export
 dominated = function(x) {
   assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE)
@@ -70,27 +67,24 @@ dominated = function(x) {
 #' @keywords optimize
 #'
 #' @param x [\code{matrix}]\cr
-#' Numeric (n x d) matrix where n is the number of points and d is the number
+#'   Numeric (n x d) matrix where n is the number of points and d is the number
 #'   of objectives.
 #' @return [\code{integer}]
 #' @examples
-#' data(mtcars)
-#' # assume we want to maximize horsepower and minimize gas consumption
-#' cars = mtcars[, c("mpg", "hp")]
-#' cars$hp = -cars$hp
-#' idxs = which.nondominated(as.matrix(cars))
-#' print(mtcars[idxs, ])
-#'
-#' @export
-#'
+#'   data(mtcars)
+#'   # assume we want to maximize horsepower and minimize gas consumption
+#'   cars = mtcars[, c("mpg", "hp")]
+#'   cars$hp = -cars$hp
+#'   idxs = which.nondominated(as.matrix(cars))
+#'   print(mtcars[idxs, ])
 #' @rdname which.dominated
+#' @export
 which.dominated = function(x) {
   return(which(dominated(x)))
 }
 
-#' @export
-#'
 #' @rdname which.dominated
+#' @export
 which.nondominated = function(x) {
   return(which(!dominated(x)))
 }

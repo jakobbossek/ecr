@@ -9,7 +9,6 @@
 #'   cut point and b) fill the remaining gaps with this trimmed sequence.
 #'
 #' @return [\code{ecr_recombinator}]
-#'
 #' @export
 makeOXRecombinator = function() {
   recombinator = function(inds, control = list()) {

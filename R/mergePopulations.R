@@ -1,9 +1,9 @@
-# @title
-#   Helper for merging populations.
-#
-# @param ... [\code{list}]\cr
-#  List of objects of type \code{setOfIndividuals}.
-# @return [\code{setOfIndividuals}]
+#' @title
+#'   Helper for merging populations.
+#'
+#' @param ... [\code{list}]\cr
+#'  List of objects of type \code{setOfIndividuals}.
+#' @return [\code{setOfIndividuals}]
 mergePopulations = function(...) {
   populations = list(...)
 

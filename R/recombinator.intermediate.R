@@ -2,7 +2,6 @@
 #'   Generator of the indermediate recombination operator.
 #'
 #' @return [\code{ecr_recombinator}]
-#'
 #' @export
 makeIntermediateRecombinator = function() {
   recombinator = function(inds, control = list()) {

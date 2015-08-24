@@ -7,7 +7,6 @@
 #'   Representation as a string.
 #' @return [\code{logical(1)}]
 #'   \code{TRUE}, if operator supports the representation type.
-#'
 #' @export
 is.supported = function(operator, representation) {
   UseMethod("is.supported")

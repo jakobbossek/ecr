@@ -24,7 +24,6 @@
 #'   passed to the control object.
 #'   Operator object.
 #' @return [\code{ecr_operator}]
-#'
 #' @export
 makeOperator = function(operator, name, description,
   supported = getAvailableRepresentations(),

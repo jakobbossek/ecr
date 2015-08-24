@@ -9,7 +9,6 @@
 #' @param mutator.gauss.sd [\code{numeric(1)}\cr
 #'   Standard deviance of the Gauss mutation, i. e., the mutation strength.
 #' @return [\code{ecr_mutator}]
-#'
 #' @export
 makeGaussMutator = function(mutator.gauss.prob = 1L, mutator.gauss.sd = 0.05) {
   force(mutator.gauss.prob)

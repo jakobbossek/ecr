@@ -1,16 +1,17 @@
-# @title
-#   Creates offspring from a given mating pool of parents.
-#
-# @param matingPool [\code{setOfIndividuals}]\cr
-#   Set of parents to choose from.
-# @param STORAGE [\code{list}]\cr
-#   List which contains all the algorithm specific stuff.
-# @param objective.fun [\code{function}]\cr
-#   Target fun.
-# @param control [\code{ecr_control}]\cr
-#   Control object containing alle the operators and further parameters.
-# @return [\code{setOfIndividuals}]
-#   Generated offspring.
+#' @title
+#'   Creates offspring from a given mating pool of parents.
+#'
+#' @param matingPool [\code{setOfIndividuals}]\cr
+#'   Set of parents to choose from.
+#' @param STORAGE [\code{list}]\cr
+#'   List which contains all the algorithm specific stuff.
+#' @param objective.fun [\code{function}]\cr
+#'   Target fun.
+#' @param control [\code{ecr_control}]\cr
+#'   Control object containing alle the operators and further parameters.
+#' @param opt.path [\code{OptPath}]\cr
+#'   Optimization path.
+#' @return [\code{setOfIndividuals}] Generated offspring.
 generateOffspring = function(matingPool, STORAGE, objective.fun, control, opt.path) {
   generator = control$generator
   mutator = control$mutator
@@ -42,13 +43,12 @@ generateOffspring = function(matingPool, STORAGE, objective.fun, control, opt.pa
   return(makePopulation(offspring, offspring.fitness))
 }
 
-# @title
-#   Helper method to extract two parents from the mating pool
-#
-# @param matingPool [ecr_population]
-#   Set of individuals selected for reproduction.
-# @return [list]
-#FIXME: generalize to more than two parents
+#' @title
+#'   Helper method to extract two parents from the mating pool
+#'
+#' @param matingPool [ecr_population]
+#'   Set of individuals selected for reproduction.
+#' @return [list]
 getParents = function(matingPool) {
   inds = matingPool$individuals
   n = length(inds)

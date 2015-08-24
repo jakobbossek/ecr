@@ -5,7 +5,6 @@
 #'   Operator object.
 #' @return [\code{character}]
 #'   Vector of representation types.
-#'
 #' @export
 getSupportedRepresentations = function(operator) {
   UseMethod("getSupportedRepresentations")

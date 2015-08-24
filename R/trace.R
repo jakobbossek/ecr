@@ -9,7 +9,7 @@
 #   Control object.
 # @param population [ecr_population]
 #   Current population.
-# @param n.objecjtive [integer(1)]
+# @param n.objecjtives [integer(1)]
 #   Number of targets/objectives.
 # @param y.names [character(1)]
 #   Names for the y-columns in the opt.path.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/doNondominatedSorting.R
 \name{doNondominatedSorting}
 \alias{doNondominatedSorting}
-\title{Non-dominated sorting algorithm.}
+\title{Fast non-dominated sorting algorithm.}
 \usage{
 doNondominatedSorting(x)
 }
@@ -18,10 +18,15 @@ Numeric matrix of points. Each row contains one objective vector.}
     the rank, the higher the domination front the corresponding points is
     located on.}
     \item{dom.counter}{Integer vector of length \code{nrow(x)}. The i-th element
-    is the domination counter / domination number of the i-th point.}
+    is the domination number of the i-th point.}
   }
 }
 \description{
 Implementation of the fast non-dominated sorting algorithm proposed by Deb.
+}
+\references{
+Deb, K., Pratap, A., and Agarwal, S. A Fast and Elitist Multiobjective Genetic
+  Algorithm: NSGA-II. IEEE Transactions on Evolutionary Computation, 6 (8) (2002),
+  182-197.
 }
 

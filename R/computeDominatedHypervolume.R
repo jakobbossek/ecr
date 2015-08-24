@@ -21,10 +21,8 @@
 #' @return [\code{numeric(1)}] Dominated hypervolume in the case of
 #'  \code{computeDominatedHypervolume} and the dominated hypervolume of a single
 #'  point in the case of \code{computeHypervolumeContribution}.
-#'
-#' @export
-#'
 #' @rdname dominated_hypervolume
+#' @export
 computeDominatedHypervolume = function(x, ref.point = NULL) {
   # sanity checks
   assertMatrix(x, mode = "numeric", any.missing = FALSE)

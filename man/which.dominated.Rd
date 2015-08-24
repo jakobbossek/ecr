@@ -12,7 +12,7 @@ which.nondominated(x)
 \arguments{
 \item{x}{[\code{matrix}]\cr
 Numeric (n x d) matrix where n is the number of points and d is the number
-  of objectives.}
+of objectives.}
 }
 \value{
 [\code{integer}]
@@ -24,11 +24,11 @@ Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one
 }
 \examples{
 data(mtcars)
-# assume we want to maximize horsepower and minimize gas consumption
-cars = mtcars[, c("mpg", "hp")]
-cars$hp = -cars$hp
-idxs = which.nondominated(as.matrix(cars))
-print(mtcars[idxs, ])
+  # assume we want to maximize horsepower and minimize gas consumption
+  cars = mtcars[, c("mpg", "hp")]
+  cars$hp = -cars$hp
+  idxs = which.nondominated(as.matrix(cars))
+  print(mtcars[idxs, ])
 }
 \keyword{optimize}
 

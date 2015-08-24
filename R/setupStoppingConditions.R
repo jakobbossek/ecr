@@ -12,7 +12,6 @@
 #'   Time budget in seconds. Default ist \code{Inf}.
 #' @return [list]
 #'   List of \code{ecr_stoppingCondition} objects, which can be passed to \code{ecr}.
-#'
 #' @export
 #FIXME: this is not very flexible. What if we add new stopping conditions. In
 # this case we have to change this function every time.

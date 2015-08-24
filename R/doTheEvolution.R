@@ -4,6 +4,8 @@
 #' @description
 #'   Takes a function and searches for a global optimum with an evolutionary approach.
 #'
+#' @keywords optimize
+#'
 #' @param objective.fun [\code{smoof_function}]\cr
 #'   Single objective target function of type \code{smoof_function}.
 #' @param control [\code{setupECRControl}]\cr
@@ -19,11 +21,8 @@
 #'    \item{population.storage \code{list}}{List of populations.}
 #'    \item{message \code{character(1)}}{Message explaining the reason for termination.}
 #'   }
-#'
 #' @example examples/ex_doTheEvolution.R
-#'
 #' @seealso \code{\link{setupECRControl}}
-#'
 #' @export
 #FIXME: for standard representations: save all stuff in opt.path, i.e., make opt path the
 # population storage?

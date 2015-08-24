@@ -39,7 +39,6 @@
 #'   means that no additional stuff is logged.
 #' @return
 #'   S3 object of type \code{ecr_control}.
-#'
 #' @export
 setupECRControl = function(
   n.population,

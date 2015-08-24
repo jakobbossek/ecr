@@ -39,7 +39,6 @@
 #'   List of evolutionary parameters for the corresponding recombination operator. See the
 #'   help pages for the recombination operators for the needed values.
 #' @return [\code{ecr_control}] Modified control object.
-#'
 #' @export
 setupEvolutionaryOperators = function(
   control,

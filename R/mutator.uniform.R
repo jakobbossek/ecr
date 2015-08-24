@@ -11,7 +11,6 @@
 #'   necessary, this feature is disadvantegous.
 #'
 #' @return [\code{ecr_mutator}]
-#'
 #' @export
 makeUniformMutator = function() {
   mutator = function(ind, args = list(), control) {

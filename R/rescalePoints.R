@@ -13,7 +13,6 @@
 #' @param upper [\code{numeric(1)}]\cr
 #'   Upper bound of the new bounding box.
 #' @return [\code{matrix}]
-#'
 #' @export
 rescalePoints = function(x, lower = NULL, upper = NULL) {
   assertMatrix(x, mode = "numeric", any.missing = FALSE)
