@@ -42,47 +42,50 @@ setupEvolutionaryOperators = function(
   mutator.control = list(),
   recombinator.control = list()) {
   assertClass(control, "ecr_control")
-  representation = control$representation
 
-  assertClass(mutator, "ecr_mutator")
-  assertList(mutator.control, any.missing = FALSE)
-  assertList(recombinator.control, any.missing = FALSE)
+  control = setupParentSelector(control, parent.selector)
+  control = setupSurvivalSelector(control, survival.selector)
+  control = setupGenerator(control, generator)
+  control = setupMutator(control, mutator)
+  control = setupRecombinator(control, recombinator)
 
-  # check passed selector(s)
-  checkCorrectOperatorType(parent.selector, "ecr_selector", "Parent selector")
-  checkCorrectOperatorType(survival.selector, "ecr_selector", "Survival selector")
-
-  # Check passed mutator
-  checkCorrectOperatorType(mutator, "ecr_mutator", "Mutator")
-  checkMutator(mutator)
+  # check mutation parameter stuff
   mutator.control = prepareOperatorParameters(mutator, mutator.control)
-
-  # Check arguments of recombinator
-  checkCorrectOperatorType(recombinator, "ecr_recombinator", "Recombinator")
-  checkRecombinator(recombinator)
   recombinator.control = prepareOperatorParameters(recombinator, recombinator.control)
 
-  # check generator
-  checkCorrectOperatorType(generator, "ecr_generator", "Generator")
-
-  sapply(c(generator, mutator, recombinator), function(operator) {
-    if (!is.supported(operator, representation)) {
-      stopf("Operator '%s' is not compatible with representation '%s'",
-        getOperatorName(operator), representation
-      )
-    }
-  })
-
-  # store stuff in control object
-  control$parent.selector = parent.selector
-  control$survival.selector = survival.selector
-  control$generator = generator
-  control$mutator = mutator
-  control$recombinator = recombinator
+  # set control lists
   control$mutator.control = mutator.control
   control$recombinator.control = recombinator.control
 
   return (control)
+}
+
+setupParentSelector = function(control, parent.selector) {
+  setupOperator(control, parent.selector, "ecr_selector", "Parent selector", "parent.selector")
+}
+
+setupSurvivalSelector = function(control, survival.selector) {
+  setupOperator(control, survival.selector, "ecr_selector", "Survival selector", "survival.selector")
+}
+
+setupGenerator = function(control, generator) {
+  setupOperator(control, generator, "ecr_generator", "Generator", "generator")
+}
+
+setupMutator = function(control, mutator) {
+  setupOperator(control, mutator, "ecr_mutator", "Mutator", "mutator")
+}
+
+setupRecombinator = function(control, recombinator) {
+  setupOperator(control, recombinator, "ecr_recombinator", "Recombinator", "recombinator")
+}
+
+setupOperator = function(control, operator, type, description, field) {
+  assertClass(control, "ecr_control")
+  checkCorrectOperatorType(operator, type, description)
+  checkOperatorIsCompatible(operator, control$representation)
+  control[[field]] = operator
+  return(control)
 }
 
 # Check if given operator is of the specified type.
@@ -97,6 +100,14 @@ setupEvolutionaryOperators = function(
 checkCorrectOperatorType = function(operator, class, type) {
   if (!inherits(operator, class)) {
     stopf("%s must be of class '%s', not '%s'.", type, class, collapse(attr(operator, "class"), sep = ", "))
+  }
+}
+
+checkOperatorIsCompatible = function(operator, representation) {
+  if (!is.supported(operator, representation)) {
+    stopf("Operator '%s' is not compatible with representation '%s'",
+      getOperatorName(operator), representation
+    )
   }
 }
 
