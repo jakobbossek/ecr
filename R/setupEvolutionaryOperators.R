@@ -22,14 +22,6 @@
 #'   a given set, which should survive and set up the next generation.
 #' @param mutator [\code{ecr_mutator}]\cr
 #'   Mutation operator of type \code{ecr_mutator}.
-#' @param mutationStrategyAdaptor [\code{function}]\cr
-#'   This is an experimental parameter. Hence, you should be careful when using it.
-#'   Serves to offer the possibility to adapt parameters of the mutation algorithm
-#'   (e. g. mutation stepsize \eqn{\sigma} for Gaussian mutation) in each iteration.
-#'   The function needs to expect the parameters \dQuote{operator.control} and
-#'   \dQuote{opt.path}, the last being of type \code{\link[ParamHelpers]{OptPath}} and
-#'   must return the modified \dQuote{operator.control} object. The default does
-#'   nothing.
 #' @param recombinator [\code{ecr_recombinator}]\cr
 #'   Recombination operator of type \code{ecr_recombinator}.
 #' @param mutator.control [\code{list}]\cr
@@ -46,10 +38,6 @@ setupEvolutionaryOperators = function(
   survival.selector = getDefaultEvolutionaryOperators(control$representation, "survival.selector"),
   generator = getDefaultEvolutionaryOperators(control$representation, "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation, "mutator"),
-  #FIXME: this stuff is experimental.
-  mutationStrategyAdaptor = function(operator.control, opt.path) {
-    return(operator.control)
-  },
   recombinator = getDefaultEvolutionaryOperators(control$representation, "recombinator"),
   mutator.control = list(),
   recombinator.control = list()) {
@@ -58,7 +46,6 @@ setupEvolutionaryOperators = function(
 
   assertClass(mutator, "ecr_mutator")
   assertList(mutator.control, any.missing = FALSE)
-  assertFunction(mutationStrategyAdaptor, args = c("operator.control", "opt.path"), ordered = TRUE)
   assertList(recombinator.control, any.missing = FALSE)
 
   # check passed selector(s)
@@ -91,7 +78,6 @@ setupEvolutionaryOperators = function(
   control$survival.selector = survival.selector
   control$generator = generator
   control$mutator = mutator
-  control$mutationStrategyAdaptor = mutationStrategyAdaptor
   control$recombinator = recombinator
   control$mutator.control = mutator.control
   control$recombinator.control = recombinator.control
