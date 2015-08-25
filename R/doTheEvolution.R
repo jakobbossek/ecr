@@ -60,7 +60,6 @@ doTheEvolution = function(task, control) {
 
   # extract generator and selector
   populationGenerator = control$generator
-  parentSelector = control$parent.selector
 
   # init some vars
   iter = 1L
@@ -98,12 +97,12 @@ doTheEvolution = function(task, control) {
     off.gen.start.time = Sys.time()
 
     # actually create offspring
-    matingPool = parentSelector(population, STORAGE, n.mating.pool)
+    matingPool = selectForMating(control, population, STORAGE, n.mating.pool)
     offspring = generateOffspring(matingPool, STORAGE, task$fitness.fun, control, trace$opt.path)
     n.evals = n.evals + n.offspring
 
     # apply survival selection and set up the (i+1)-th generation
-    population = selectForSurvival(
+    population = getNextGeneration(
       population,
       offspring,
       STORAGE,

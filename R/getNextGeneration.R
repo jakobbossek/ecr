@@ -26,13 +26,12 @@
 #' @param control [\code{ecr_control}]\cr
 #'   Control object.
 #' @return [\code{setOfIndividuals}]
-selectForSurvival = function(population, offspring, STORAGE, n.population, strategy = "plus", n.elite = 0L, control) {
+getNextGeneration = function(population, offspring, STORAGE, n.population, strategy = "plus", n.elite = 0L, control) {
   elite = NULL
   new.population = NULL
-  survivalSelector = control$survival.selector
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
-    new.population = survivalSelector(source.population, STORAGE, n.population, control)
+    new.population = selectForSurvival(control, source.population, STORAGE, n.population)
   } else if (strategy == "comma") {
     source.population = offspring
     elite = list()
@@ -52,8 +51,8 @@ selectForSurvival = function(population, offspring, STORAGE, n.population, strat
       # Adapt number of individuals taken from the offspring and select non-elite individuals
       n.population = n.population - n.elite
     }
-    new.population = survivalSelector(offspring, STORAGE, n.population, control)
-    if (length(elite) > 0L) {
+    new.population = selectForSurvival(control, offspring, STORAGE, n.population)
+    if (n.elite > 0L) {
       new.population = mergePopulations(new.population, elite)
     }
   }

@@ -19,8 +19,8 @@ generateOffspring = function(matingPool, STORAGE, objective.fun, control, opt.pa
 
   offspring = lapply(seq(n.offspring), function(idx) {
     parents = getParents(matingPool)
-    child = recombinator(parents, control)
-    child = mutator(child, control$mutator.control, control)
+    child = recombine(control, parents)
+    child = mutate(control, child)
     return(child)
   })
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
