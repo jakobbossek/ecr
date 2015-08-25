@@ -26,6 +26,7 @@ test_that("preimplemented EMOAs work well", {
   )
   max.evals = 100L
 
+  # test NSGA-II and SMS-EMOA
   for (emoa in c("nsga2", "smsemoa")) {
     for (n.pop in c(5, 10, 15)) {
       for (fn in names(fns)) {
@@ -40,5 +41,18 @@ test_that("preimplemented EMOAs work well", {
         )
       }
     }
+  }
+
+  # test Aspiration-Set EMOA (AS-EMOA)
+  for (n.pop in c(5, 10)) {
+    task = makeOptimizationTask(makeZDT3Function(dimensions = 2L))
+    aspiration.set = matrix(
+      c(0.2, 0.25,
+        0.21, 0.2,
+        0.18, 0.4), ncol = 3L, byrow = FALSE
+    )
+    res = asemoa(task, n.population = n.pop, max.evals = max.evals,
+      aspiration.set = aspiration.set, n.archive = 5L)
+    print(res)
   }
 })
