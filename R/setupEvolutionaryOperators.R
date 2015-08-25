@@ -14,16 +14,10 @@
 #' @param generator [\code{ecr_generator}]\cr
 #'   Generator operator of type \code{ecr_generator} for the generation of the initial
 #'   population.
-#' @param parent.selector [\code{ecr_selector}]\cr
-#'   Selection operator which implements a procedure to copy individuals from a
-#'   given population to the mating pool, i. e., allow them to become parents.
-#' @param survival.selector [\code{ecr_selector}]\cr
-#'   Selection operator which implements a procedurce to extract individuals from
-#'   a given set, which should survive and set up the next generation.
-#' @param mutator [\code{ecr_mutator}]\cr
-#'   Mutation operator of type \code{ecr_mutator}.
-#' @param recombinator [\code{ecr_recombinator}]\cr
-#'   Recombination operator of type \code{ecr_recombinator}.
+#' @template arg_parent_selector
+#' @template arg_survival_selector
+#' @template arg_mutator
+#' @template arg_recombinator
 #' @param mutator.control [\code{list}]\cr
 #'   List of evolutionary parameters for the corresponding mutation operator. See the
 #'   help pages for the mutation operators for the needed values.
