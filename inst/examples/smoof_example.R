@@ -23,7 +23,7 @@ myMonitorStep = function(envir = parent.frame()) {
   population = envir$population
 
   x = seq(-5, 5, by = 0.05)
-  df = data.frame(x = x, y = sapply(x, envir$objective.fun))
+  df = data.frame(x = x, y = sapply(x, envir$task$fitness.fun))
   pl = ggplot(data = df, aes(x = x, y = y)) + geom_line()
 
   population.points = data.frame(x = unlist(population$individuals), y = as.numeric(population$fitness))
