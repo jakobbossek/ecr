@@ -60,26 +60,62 @@ setupEvolutionaryOperators = function(
   return (control)
 }
 
-setupParentSelector = function(control, parent.selector) {
-  setupOperator(control, parent.selector, "ecr_selector", "Parent selector", "parent.selector")
+#' @title
+#'   Collection of functions to set specific evolutionay operators.
+#'
+#' @description
+#'   This functions can be used to append/set specific evolutionary operators
+#'   to the control object. However, multiple operators can be set with one function
+#'   call via \code{\link{setupEvolutionaryOperators}}.
+#'
+#' @param control [\code{ecr_control}]\cr
+#'   ECR control object generated via \code{\link{setupECRControl}}.
+#' @param operator [\code{ecr_operator}]\cr
+#'   The matching ecr operator, e.g., an object of type \code{ecr_mutator} for
+#'   \code{\link{setupMutator}}.
+#' @rdname evolutionary_setters
+#' @export
+setupParentSelector = function(control, operator) {
+  setupOperator(control, operator, "ecr_selector", "Parent selector", "parent.selector")
 }
 
-setupSurvivalSelector = function(control, survival.selector) {
-  setupOperator(control, survival.selector, "ecr_selector", "Survival selector", "survival.selector")
+#' @rdname evolutionary_setters
+#' @export
+setupSurvivalSelector = function(control, operator) {
+  setupOperator(control, operator, "ecr_selector", "Survival selector", "survival.selector")
 }
 
-setupGenerator = function(control, generator) {
-  setupOperator(control, generator, "ecr_generator", "Generator", "generator")
+#' @rdname evolutionary_setters
+#' @export
+setupGenerator = function(control, operator) {
+  setupOperator(control, operator, "ecr_generator", "Generator", "generator")
 }
 
-setupMutator = function(control, mutator) {
-  setupOperator(control, mutator, "ecr_mutator", "Mutator", "mutator")
+#' @rdname evolutionary_setters
+#' @export
+setupMutator = function(control, operator) {
+  setupOperator(control, operator, "ecr_mutator", "Mutator", "mutator")
 }
 
-setupRecombinator = function(control, recombinator) {
-  setupOperator(control, recombinator, "ecr_recombinator", "Recombinator", "recombinator")
+#' @rdname evolutionary_setters
+#' @export
+setupRecombinator = function(control, operator) {
+  setupOperator(control, operator, "ecr_recombinator", "Recombinator", "recombinator")
 }
 
+# Helper function to set operator internally.
+#
+# @param control [ecr_control]
+#   ECR control object.
+# @param operator [ecr_operator]
+#   The corresponding operator to set.
+# @param type [character(1)]
+#   The expected type of the operator.
+# @param description [character(1)]
+#   Short string description of the operator.
+# @param field [character(1)]
+#   Name of the field in the control object where to store the operator.
+# @return [ecr_control]
 setupOperator = function(control, operator, type, description, field) {
   assertClass(control, "ecr_control")
   checkCorrectOperatorType(operator, type, description)
@@ -103,6 +139,13 @@ checkCorrectOperatorType = function(operator, class, type) {
   }
 }
 
+# Check whether an operator can handle a specific representation.
+#
+# @param operator [ecr_operator]
+#   Operator.
+# @param representation [character(1)]
+#   Representation, i.e., float, binary, permutation or custom.
+# @return [logical(1)]
 checkOperatorIsCompatible = function(operator, representation) {
   if (!is.supported(operator, representation)) {
     stopf("Operator '%s' is not compatible with representation '%s'",
