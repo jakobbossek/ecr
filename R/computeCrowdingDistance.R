@@ -22,8 +22,10 @@ computeCrowdingDistance = function(x) {
     cds[ord[1]] = Inf
     cds[ord[n]] = Inf
     # update the remaining crowding numbers
-    for (j in 2:(n - 1L)) {
-      cds[ord[j]] = cds[ord[j]] + (x[i, ord[j + 1L]] - x[i, ord[j - 1L]])
+    if (n > 2L) {
+      for (j in 2:(n - 1L)) {
+        cds[ord[j]] = cds[ord[j]] + (x[i, ord[j + 1L]] - x[i, ord[j - 1L]])
+      }
     }
   }
   return(cds)
