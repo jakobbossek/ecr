@@ -4,11 +4,12 @@
 \alias{doTheEvolution}
 \title{Working horse of the ecr package.}
 \usage{
-doTheEvolution(objective.fun, control)
+doTheEvolution(task, control)
 }
 \arguments{
-\item{objective.fun}{[\code{smoof_function}]\cr
-Single objective target function of type \code{smoof_function}.}
+\item{task}{[\code{ecr_optimization_task}]\cr
+Optimization task. If a \code{smoof_function} is passed it is automatically
+converted into a task.}
 
 \item{control}{[\code{setupECRControl}]\cr
 Control object.}

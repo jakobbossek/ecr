@@ -6,8 +6,9 @@
 #'
 #' @keywords optimize
 #'
-#' @param objective.fun [\code{smoof_function}]\cr
-#'   Single objective target function of type \code{smoof_function}.
+#' @param task [\code{ecr_optimization_task}]\cr
+#'   Optimization task. If a \code{smoof_function} is passed it is automatically
+#'   converted into a task.
 #' @param control [\code{setupECRControl}]\cr
 #'   Control object.
 #' @return [\code{ecrResult}]
@@ -24,34 +25,22 @@
 #' @example examples/ex_doTheEvolution.R
 #' @seealso \code{\link{setupECRControl}}
 #' @export
-#FIXME: for standard representations: save all stuff in opt.path, i.e., make opt path the
-# population storage?
-#FIXME: optPath funs need option to make x and par.set optional
-#FIXME: we can extract the number of objectives from the smoof function, but what do we
-# do if we use custom representations and there is not par.set? We should force the user to pass
-# n.objectives to the control object!
-doTheEvolution = function(objective.fun, control) {
-  repr = control$representation
-  par.set = NULL
-  n.objectives = 1L
-  if (repr != "custom") {
-    assertClass(objective.fun, "smoof_function")
-    par.set = getParamSet(objective.fun)
-    n.objectives = getNumberOfObjectives(objective.fun)
+doTheEvolution = function(task, control) {
+  if (control$representation != "custom") {
+    if (isSmoofFunction(task)) {
+      task = makeOptimizationTask(task)
+    }
+    assertClass(task$fitness.fun, "smoof_function")
 
-    #FIXME: is this a good idea to modify control object here?
-    control$par.set = par.set
-    control$n.objectives = n.objectives
-    control$par.lower = getLower(par.set, with.nr = TRUE)
-    control$par.upper = getUpper(par.set, with.nr = TRUE)
-
-    if (repr == "float" && !hasFiniteBoxConstraints(par.set)) {
+    if (control$representation == "float" && !hasFiniteBoxConstraints(task$par.set)) {
       stopf("Lower and upper box constraints needed for representation type 'float'.")
     }
-  } else {
-    # dummy par.set
-    control$par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))
   }
+  #FIXME: this is ugly. Maybe we should rather pass the task to the operators?
+  control$par.set = task$par.set
+  control$par.upper = task$par.upper
+  control$par.lower = task$par.lower
+  n.objectives = task$n.objectives
 
   # check compatibility of selectors and #objectives
   selectors = c(control$parent.selector, control$survival.selector)
@@ -64,7 +53,6 @@ doTheEvolution = function(objective.fun, control) {
   })
 
   # extract basic information
-  y.names = paste0("y", seq(n.objectives))
   n.population = control$n.population
   n.mating.pool = control$n.mating.pool
   n.offspring = control$n.offspring
@@ -80,7 +68,7 @@ doTheEvolution = function(objective.fun, control) {
 
   # generate intial population
   population = populationGenerator(n.population, control)
-  population$fitness = computeFitness(population, objective.fun)
+  population$fitness = computeFitness(population, task$fitness.fun)
   n.evals = n.population
 
   # initialize storage object which contains all the stuff needed by the algorithms
@@ -91,7 +79,7 @@ doTheEvolution = function(objective.fun, control) {
   pop.gen.time = difftime(Sys.time(), start.time, units = "secs")
 
   # initialize trace (depends on #objectives)
-  trace = initTrace(control, population, n.objectives, y.names)
+  trace = initTrace(control, population, task)
   trace = updateTrace(trace, iter, n.evals, population, start.time, pop.gen.time, control)
 
   population.storage = namedList(paste0("gen.", control$save.population.at))
@@ -111,7 +99,7 @@ doTheEvolution = function(objective.fun, control) {
 
     # actually create offspring
     matingPool = parentSelector(population, STORAGE, n.mating.pool)
-    offspring = generateOffspring(matingPool, STORAGE, objective.fun, control, trace$opt.path)
+    offspring = generateOffspring(matingPool, STORAGE, task$fitness.fun, control, trace$opt.path)
     n.evals = n.evals + n.offspring
 
     # apply survival selection and set up the (i+1)-th generation
@@ -147,10 +135,10 @@ doTheEvolution = function(objective.fun, control) {
 
   # generate result object
   if (n.objectives == 1L) {
-    makeECRSingleObjectiveResult(objective.fun, trace$best, trace$opt.path, STORAGE, control,
+    makeECRSingleObjectiveResult(task$fitness.fun, trace$best, trace$opt.path, STORAGE, control,
       population.storage, stop.object)
   } else {
-    makeECRMultiObjectiveResult(objective.fun, trace$opt.path, STORAGE, control,
+    makeECRMultiObjectiveResult(task$fitness.fun, trace$opt.path, STORAGE, control,
       population.storage, stop.object)
   }
 }

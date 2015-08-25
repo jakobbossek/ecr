@@ -14,11 +14,14 @@
 # @param y.names [character(1)]
 #   Names for the y-columns in the opt.path.
 # @return [ecr_single_objective_trace | ecr_multi_objective_trace]
-initTrace = function(control, population, n.objectives, y.names) {
-  par.set = control$par.set
-  opt.path = makeOptPathDF(par.set, y.names = y.names, minimize = rep(TRUE, n.objectives), include.extra = TRUE, include.exec.time = TRUE)
+initTrace = function(control, population, task) {
+  par.set = task$par.set
+  y.names = paste0("y", seq(task$n.objectives))
+  opt.path = makeOptPathDF(par.set, y.names = y.names, minimize = task$minimize,
+    include.extra = TRUE, include.exec.time = TRUE
+  )
 
-  if (n.objectives == 1L) {
+  if (task$n.objectives == 1L) {
     best = getBestIndividual(population)
     return(makeS3Obj(
       opt.path = opt.path,
