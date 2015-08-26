@@ -21,9 +21,29 @@ test_that("calculation of dominated hypervolume works as expected", {
     nrow = 2L)
   ref.point = c(6, 6)
 
+  # HV with passed reference point
   hv = computeDominatedHypervolume(points, ref.point)
   expect_true(is.numeric(hv))
   expect_equal(hv, hv.exp)
+
+  # HV with self computed reference point
+  hv = computeDominatedHypervolume(points)
+  expect_true(is.numeric(hv))
+
+  # check sanity checks
+  # Unequal dimensions
+  expect_error(computeDominatedHypervolume(points, ref.point[-1L]))
+
+  # check for warnings on infinite values
+  points2 = points
+  points2[1L, 1L] = Inf
+  expect_warning(computeDominatedHypervolume(points2, ref.point), "point", ignore.case = TRUE)
+  expect_true(is.nan(computeDominatedHypervolume(points2, ref.point)))
+
+  ref.point2 = ref.point
+  ref.point2[2L] = Inf
+  expect_warning(computeDominatedHypervolume(points, ref.point2), "Reference point", ignore.case = TRUE)
+  expect_true(is.nan(computeDominatedHypervolume(points, ref.point2)))
 
   # now check the hypervolume contributions
   hv.contribs = computeHypervolumeContribution(points, ref.point)
