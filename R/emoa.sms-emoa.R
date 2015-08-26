@@ -5,8 +5,7 @@
 #'   This helper function hides the regular \pkg{ecr} interface and offers a more
 #'   R like interface of this state of the art EMOA while still being quite adaptable.
 #'
-#' @param task [\code{ecr_optimization_task} | \code{smoof_function}]\cr
-#'   Optimization task or objective function of type \code{smoof_function}.
+#' @template arg_optimization_task
 #' @param n.population [\code{integer(1)}]\cr
 #'   Population size. Default is \code{100}.
 #' @param n.offspring [\code{integer(1)}]\cr
@@ -18,12 +17,9 @@
 #' @template arg_parent_selector
 #' @template arg_mutator
 #' @template arg_recombinator
-#' @param max.iter [\code{integer(1)}]\cr
-#'   Maximal number of iterations. Default ist \code{100L}.
-#' @param max.evals [\code{integer(1)}]\cr
-#'   Maximal number of iterations/generations. Default is \code{Inf}.
-#' @param max.time [\code{integer(1)}]\cr
-#'   Time budget in seconds. Default ist \code{Inf}.
+#' @template arg_max_iter
+#' @template arg_max_evals
+#' @template arg_max_time
 #' @return [\code{ecr_ecr_multi_objective_result}]
 #' @export
 smsemoa = function(

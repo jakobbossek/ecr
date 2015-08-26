@@ -11,8 +11,8 @@ doTheEvolution(task, control)
 Optimization task. If a \code{smoof_function} is passed it is automatically
 converted into a task.}
 
-\item{control}{[\code{setupECRControl}]\cr
-Control object.}
+\item{control}{[\code{ecr_control}]\cr
+ECR control object generated via \code{\link{setupECRControl}}.}
 }
 \value{
 [\code{ecrResult}]

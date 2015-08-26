@@ -9,11 +9,8 @@
 #'   Keep in mind, that all of the provided operators need to be compatible
 #'   with the \dQuote{representation} stored in the \code{control} object.
 #'
-#' @param control [\code{ecr_control}]\cr
-#'   ECR control object generated via \code{\link{setupECRControl}}.
-#' @param generator [\code{ecr_generator}]\cr
-#'   Generator operator of type \code{ecr_generator} for the generation of the initial
-#'   population.
+#' @template arg_control
+#' @template arg_generator
 #' @template arg_parent_selector
 #' @template arg_survival_selector
 #' @template arg_mutator

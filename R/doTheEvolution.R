@@ -6,11 +6,8 @@
 #'
 #' @keywords optimize
 #'
-#' @param task [\code{ecr_optimization_task}]\cr
-#'   Optimization task. If a \code{smoof_function} is passed it is automatically
-#'   converted into a task.
-#' @param control [\code{setupECRControl}]\cr
-#'   Control object.
+#' @template arg_optimization_task
+#' @template arg_control
 #' @return [\code{ecrResult}]
 #'   Object of type \code{ecr_result} containing a list:
 #'   \itemize{

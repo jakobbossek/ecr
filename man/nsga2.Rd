@@ -10,8 +10,9 @@ nsga2(task, n.population = 100L, n.offspring = n.population,
   max.evals = NULL, max.time = NULL)
 }
 \arguments{
-\item{task}{[\code{ecr_optimization_task} | \code{smoof_function}]\cr
-Optimization task or objective function of type \code{smoof_function}.}
+\item{task}{[\code{ecr_optimization_task}]\cr
+Optimization task. If a \code{smoof_function} is passed it is automatically
+converted into a task.}
 
 \item{n.population}{[\code{integer(1)}]\cr
 Population size. Default is \code{100}.}
