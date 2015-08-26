@@ -30,11 +30,12 @@ test_that("preimplemented EMOAs work well", {
   for (emoa in c("nsga2", "smsemoa")) {
     for (n.pop in c(5, 10, 15)) {
       for (fn in names(fns)) {
-        res = do.call(emoa, list(
+        emoa.fun = match.fun(emoa)
+        res = emoa.fun(
           task = makeOptimizationTask(fns[[fn]]),
           n.population = n.pop,
           n.offspring = 5L,
-          max.evals = max.evals)
+          max.evals = max.evals
         )
         expect_is_pareto_approximation(res$pareto.front, 2L, emoa, fn,
           list(n.pop = n.pop, n.offspring = 5L, max.evals = max.evals)
