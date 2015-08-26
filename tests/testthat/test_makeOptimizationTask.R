@@ -1,0 +1,27 @@
+context("generation of optimization tasks works well")
+
+test_that("optimization tasks are properly generated", {
+  # first pass a smoof function and check if all parameters are set appropriately
+  dims = c(2L, 3L, 5L)
+  for (dim in dims) {
+    fn = smoof::makeZDT1Function(dim)
+    task = makeOptimizationTask(fn)
+    # by default all objectives should be minimized
+    expect_true(all(task$minimize))
+    expect_equal(length(task$minimize), 2L)
+    expect_equal(task$n.objectives, 2L)
+    expect_output(print(task), "optimization task", ignore.case = TRUE)
+
+    # now set the stuff randomly
+    exp.minimize = runif(2L) < 0.5
+    task = makeOptimizationTask(fn, minimize = exp.minimize)
+    expect_equal(sum(exp.minimize), sum(task$minimize))
+    expect_equal(task$n.objectives, 2L)
+  }
+
+  fn = makeSphereFunction(2L)
+  # wrong number of objectives
+  expect_error(makeOptimizationTask(fn, n.objectives = 2L))
+  # wrong length of minimize parameter
+  expect_error(makeOptimizationTask(fn, minimize = c(TRUE, FALSE, TRUE)))
+})
