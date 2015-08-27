@@ -24,4 +24,12 @@ test_that("optimization tasks are properly generated", {
   expect_error(makeOptimizationTask(fn, n.objectives = 2L))
   # wrong length of minimize parameter
   expect_error(makeOptimizationTask(fn, minimize = c(TRUE, FALSE, TRUE)))
+
+  # check if warning is printed if function with requires/forbidden is passed
+  fn = makeSingleObjectiveFunction(
+    "FUN",
+    fn = function(x) x,
+    par.set = makeParamSet(makeNumericParam("x", requires = expression(x^2 > 0)))
+  )
+  expect_warning(makeOptimizationTask(fn), "require", ignore.case = TRUE)
 })

@@ -30,6 +30,11 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
         )
       }
     }
+    par.set = getParamSet(fun)
+    if (hasRequires(par.set) || hasForbidden(par.set)) {
+      warningf("The build-in ecr operators do not care about requirements or forbidden regions,
+        but the passed smoof function '%s' exhibits these.", getName(fun))
+    }
   }
   !is.null(n.objectives) && assertInt(n.objectives, lower = 1L, na.ok = FALSE)
   !is.null(minimize) && assertLogical(minimize, any.missing = FALSE)
