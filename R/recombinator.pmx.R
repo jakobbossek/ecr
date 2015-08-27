@@ -53,8 +53,7 @@ makePMXRecombinator = function() {
         c2[i] = ins
       }
     }
-    #FIXME: until now we only allow to return one individual, but we created two
-    return(c1)
+    return(wrapChildren(c1, c2))
   }
 
   makeRecombinator(

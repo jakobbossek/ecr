@@ -15,14 +15,16 @@ test_that("recombinators for permutations work as expected", {
     parent2 = sample(n)
 
     for (i in seq(n.reps)) {
-      child = recombine(list(parent1, parent2))
+      children = recombine(list(parent1, parent2))
       # check that the child is actually a permutation
-      expect_true(setequal(expected, child), info = sprintf(
-        "Offspring ('%s') is not a permutation of sequence (%s) for operator '%s'",
-        collapse(child),
+      for (j in seq(length(children))) {
+        expect_true(setequal(expected, children[[j]]), info = sprintf(
+          "%i-th offspring ('%s') is not a permutation of sequence (%s) for operator '%s'",
+        j,
+        collapse(children[[j]]),
         collapse(expected),
-        getOperatorName(recombine))
-      )
+        getOperatorName(recombine)))
+      }
     }
   }
 })

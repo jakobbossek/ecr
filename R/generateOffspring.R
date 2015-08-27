@@ -13,16 +13,26 @@
 #'   Optimization path.
 #' @return [\code{setOfIndividuals}] Generated offspring.
 generateOffspring = function(matingPool, STORAGE, objective.fun, control, opt.path) {
-  mutator = control$mutator
-  recombinator = control$recombinator
   n.offspring = control$n.offspring
+  offspring = vector(mode = "list", length = n.offspring)
 
-  offspring = lapply(seq(n.offspring), function(idx) {
+  i = 1L
+  while(i <= n.offspring) {
     parents = getParents(matingPool)
-    child = recombine(control, parents)
-    child = mutate(control, child)
-    return(child)
-  })
+    children = recombine(control, parents)
+    # eventually the recombinator returns multiple children
+    if (hasAttributes(children, "multiple")) {
+      max.children = min(length(children), n.offspring - i + 1L)
+      for (j in seq(max.children)) {
+        offspring[[i]] = mutate(control, children[[j]])
+        i = i + 1L
+      }
+    } else {
+      offspring[[i]] = mutate(control, children)
+      i = i + 1L
+    }
+  }
+
   offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
 
   return(makePopulation(offspring, offspring.fitness))

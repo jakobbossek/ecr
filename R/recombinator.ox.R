@@ -52,7 +52,7 @@ makeOXRecombinator = function() {
     c1[(cut2:(cut2 + n.miss) %% n) + 1L] = r1
     c2[(cut2:(cut2 + n.miss) %% n) + 1L] = r2
 
-    return(c1)
+    return(wrapChildren(c1, c2))
   }
 
   makeRecombinator(

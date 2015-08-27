@@ -30,3 +30,21 @@ hasAllEqualElements = function(x) {
   return(length(unique(x)) == 1L)
 }
 
+#' @title
+#'   Wrap the individuals constructed by a recombination operator.
+#'
+#' @description
+#'   Should be used if the recombinator returns multiple children.
+wrapChildren = function(...) {
+  children = list(...)
+  if (length(children) > 1L) {
+    # if multiple children were generated, indicate that with an attribute
+    # and return a list of children
+    children = setAttribute(children, "multiple", TRUE)
+    return(children)
+  }
+  # otherwise simply return the first (and single) child
+  # This branch here is a fallback if somebody makes use of 'wrapChildren'
+  # in a recombinator which returns just a single child.
+  return(children[[1L]])
+}
