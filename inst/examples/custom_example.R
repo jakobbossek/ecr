@@ -43,7 +43,7 @@ ctrl = setupECRControl(
 )
 
 myGenerator = makeGenerator(
-  generator = function(size, control) {
+  generator = function(size, task, control) {
     makePopulation(lapply(seq(size), function(i) {
       matrix(runif(N * 2L), ncol = 2L)
     }))
@@ -54,7 +54,7 @@ myGenerator = makeGenerator(
 )
 
 myMutator = makeMutator(
-  mutator = function(x, mutator.control, control) {
+  mutator = function(x, mutator.control, control, task) {
     idx = which(runif(nrow(x)) < 0.1)
     x[idx, ] = matrix(runif(2 * length(idx)), ncol = 2)
     return(x)
@@ -65,7 +65,7 @@ myMutator = makeMutator(
 )
 
 myRecombinator = makeRecombinator(
-  recombinator = function(x, control) {
+  recombinator = function(x, control, task) {
     x[[1]]
   },
   name = "Convex-Combination recombinator",
@@ -82,5 +82,5 @@ ctrl = setupEvolutionaryOperators(
   survival.selector = makeGreedySelector()
 )
 
-res = doTheEvolution(fitness, ctrl)
+res = doTheEvolution(makeOptimizationTask(fitness, n.objectives = 1L), ctrl)
 plot(res$best.param)

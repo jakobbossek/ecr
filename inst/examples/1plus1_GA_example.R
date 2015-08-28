@@ -43,10 +43,8 @@ control = setupECRControl(
 control = setupEvolutionaryOperators(
   control,
   generator = makeBinaryGenerator(),
-  mutator = makeBitFlipMutator(),
+  mutator = makeBitFlipMutator(mutator.flip.prob = 1 / n.params),
   recombinator = makeCrossoverRecombinator(),
-  # see the literature on 1+1 GA for this parameter recommendation
-  mutator.control = list(mutator.flip.prob = 1 / n.params)
 )
 print(control)
 

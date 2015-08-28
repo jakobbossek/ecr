@@ -48,7 +48,7 @@ control = setupECRControl(
   stopping.conditions = setupStoppingConditions(max.iter = 25L)
 )
 # use default operators
-control = setupEvolutionaryOperators(control)
+control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(mutator.gauss.prob = 0.4, mutator.gauss.sd = 0.000014))
 
 # do the evolutionary magic
 set.seed(123)
