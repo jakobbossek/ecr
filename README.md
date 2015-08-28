@@ -30,10 +30,11 @@ The [smoof](https://github.com/jakobbossek/smoof) R package provides a collectio
 
 ```splus
 library(smoof)
+library(ggplot2)
 library(ecr)
 
 obj.fun = makeRastriginFunction(dimensions = 1L)
-plot(obj.fun)
+autoplot(obj.fun)
 ```
 
 As a next step we generate an ecr *control object*, which holds all the neccessary parameters for the evolutionary algorithm. The construction of this object needs consists of generating the object itself and kind of decorating it with some evolutionary operators.
@@ -53,7 +54,7 @@ control = setupECRControl(
 )
 control = setupEvolutionaryOperators(
   control,
-  mutator = makeGaussMutator(0.005)
+  mutator = makeGaussMutator(mutator.gauss.sd = 0.005)
 )
 print(control)
 ```
@@ -65,7 +66,7 @@ set.seed(123)
 res = doTheEvolution(obj.fun, control = control)
 print(res)
 print(as.data.frame(res$opt.path))
-print(autoplot(res, complete.trace = TRUE, log.fitness = TRUE, show.))
+print(autoplot(res, complete.trace = TRUE, log.fitness = TRUE))
 ```
 
 Take a glance at the examples in the inst/examples directory.
