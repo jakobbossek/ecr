@@ -135,10 +135,10 @@ doTheEvolution = function(task, control, initial.population = NULL) {
 
   # generate result object
   if (n.objectives == 1L) {
-    makeECRSingleObjectiveResult(task$fitness.fun, trace$best, trace$opt.path, STORAGE, control,
+    makeECRSingleObjectiveResult(task, trace$best, trace$opt.path, STORAGE, control,
       population.storage, stop.object)
   } else {
-    makeECRMultiObjectiveResult(task$fitness.fun, trace$opt.path, STORAGE, control,
+    makeECRMultiObjectiveResult(task, trace$opt.path, STORAGE, control,
       population.storage, stop.object)
   }
 }

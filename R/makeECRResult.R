@@ -10,10 +10,10 @@
 NULL
 
 makeECRSingleObjectiveResult = function(
-  objective.fun, best, opt.path, storage, control,
+  task, best, opt.path, storage, control,
   population.storage = NULL, stop.object) {
   makeS3Obj(
-    objective.fun = objective.fun,
+    task = task,
     control = control,
     best.param = best$individual,
     best.value = best$fitness,
@@ -37,12 +37,12 @@ makeECRSingleObjectiveResult = function(
 NULL
 
 makeECRMultiObjectiveResult = function(
-  objective.fun, opt.path, storage, control,
+  task, opt.path, storage, control,
   population.storage, stop.object) {
   max.dob = max(getOptPathDOB(opt.path))
   pareto.inds = getOptPathParetoFront(opt.path, index = TRUE, dob = max.dob)
   makeS3Obj(
-    objective.fun = objective.fun,
+    task = task,
     control = control,
     opt.path = opt.path,
     storage = storage,

@@ -155,7 +155,7 @@ test_that("ecr finds optimum if is is located on the edge of the search space", 
     monitor = makeNullMonitor(),
     stopping.conditions = setupStoppingConditions(max.iter = 100L)
   )
-  control = setupEvolutionaryOperators(control, mutator.control = list(mutator.gauss.sd = 0.05))
+  control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(mutator.gauss.sd = 0.05))
 
   res = doTheEvolution(fn, control = control)
   expect_true(res$best.value < 0.1)

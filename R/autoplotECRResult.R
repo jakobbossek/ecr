@@ -26,7 +26,7 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
                                , log.fitness = FALSE, complete.trace = FALSE, ...) {
   assertFlag(show.process, na.ok = FALSE)
   assertFlag(complete.trace, na.ok = FALSE)
-  obj.fun = object$objective.fun
+  obj.fun = object$task$fitness.fun
   n.params = getNumberOfParameters(obj.fun)
 
   op = as.data.frame(object$opt.path)
@@ -37,7 +37,7 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
   }
   for (dob in unique.dobs) {
     pl.trace = plotTrace(op[which(op$dob <= dob), ], xlim, ylim, log.fitness, ...)
-    pl.trace = pl.trace + ggtitle(sprintf("Optimization trace for function '%s'", getName(object$objective.fun)))
+    pl.trace = pl.trace + ggtitle(sprintf("Optimization trace for function '%s'", getName(obj.fun)))
     if (show.process) {
       if (n.params > 2L || isMultiobjective(obj.fun)) {
         stopf("Visualization not possible for multi-objective functions or functions with greater than 2 parameters.")
