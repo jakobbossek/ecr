@@ -3,6 +3,8 @@
 #'
 #' @param matingPool [\code{setOfIndividuals}]\cr
 #'   Set of parents to choose from.
+#' @param task [\code{ecr_optimization_tasl}]\cr
+#'   Optimization task.
 #' @param STORAGE [\code{list}]\cr
 #'   List which contains all the algorithm specific stuff.
 #' @param objective.fun [\code{function}]\cr
@@ -12,23 +14,23 @@
 #' @param opt.path [\code{OptPath}]\cr
 #'   Optimization path.
 #' @return [\code{setOfIndividuals}] Generated offspring.
-generateOffspring = function(matingPool, STORAGE, objective.fun, control, opt.path) {
+generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, opt.path) {
   n.offspring = control$n.offspring
   offspring = vector(mode = "list", length = n.offspring)
 
   i = 1L
   while(i <= n.offspring) {
     parents = getParents(matingPool)
-    children = recombine(control, parents)
+    children = recombine(control, parents, task)
     # eventually the recombinator returns multiple children
     if (hasAttributes(children, "multiple")) {
       max.children = min(length(children), n.offspring - i + 1L)
       for (j in seq(max.children)) {
-        offspring[[i]] = mutate(control, children[[j]])
+        offspring[[i]] = mutate(control, children[[j]], task)
         i = i + 1L
       }
     } else {
-      offspring[[i]] = mutate(control, children)
+      offspring[[i]] = mutate(control, children, task)
       i = i + 1L
     }
   }

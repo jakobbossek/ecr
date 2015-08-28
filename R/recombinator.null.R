@@ -4,7 +4,7 @@
 #' @return [\code{ecr_recombinator}]
 #' @export
 makeNullRecombinator = function() {
-  recombinator = function(inds, control=list()) {
+  recombinator = function(inds, control = list(), task) {
     return(inds[[1L]])
   }
 

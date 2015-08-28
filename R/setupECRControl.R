@@ -177,18 +177,18 @@ getParametersAsString = function(parameters) {
   return(x)
 }
 
-recombine = function(ctrl, parents) {
-  ctrl$recombinator(parents, ctrl$recombinator.control)
+recombine = function(ctrl, parents, task) {
+  ctrl$recombinator(parents, ctrl$recombinator.control, task)
 }
 
-mutate = function(ctrl, parent) {
-  ctrl$mutator(parent, ctrl$mutator.control, ctrl)
+mutate = function(ctrl, parent, task) {
+  ctrl$mutator(parent, ctrl$mutator.control, ctrl, task)
 }
 
-selectForMating = function(ctrl, population, storage, n.select) {
-  ctrl$parent.selector(population, storage, n.select, ctrl)
+selectForMating = function(ctrl, population, storage, task, n.select) {
+  ctrl$parent.selector(population, storage, task, n.select, ctrl)
 }
 
-selectForSurvival = function(ctrl, population, storage, n.select) {
-  ctrl$survival.selector(population, storage, n.select, ctrl)
+selectForSurvival = function(ctrl, population, storage, task, n.select) {
+  ctrl$survival.selector(population, storage, task, n.select, ctrl)
 }

@@ -8,7 +8,7 @@
 #' @return [\code{ecr_operator}]
 #' @export
 makeBinaryGenerator = function() {
-  generateBinaryPopulation = function(size, control) {
+  generateBinaryPopulation = function(size, task, control) {
     par.set = control$par.set
     n.params = sum(getParamLengths(par.set))
     population = list()

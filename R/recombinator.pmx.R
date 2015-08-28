@@ -10,7 +10,7 @@
 #' @return [\code{ecr_recombinator}]
 #' @export
 makePMXRecombinator = function() {
-  recombinator = function(inds, control = list()) {
+  recombinator = function(inds, control = list(), task) {
     p1 = inds[[1]]
     p2 = inds[[2]]
     n = length(p1)

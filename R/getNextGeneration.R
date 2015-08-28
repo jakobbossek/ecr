@@ -11,6 +11,8 @@
 #'   Generated offspring.
 #' @param STORAGE [\code{list}]\cr
 #'   List which contains all the algorithm specific stuff.
+#' @param task [\code{ecr_optimization_task}]\cr
+#'   Optimization task.
 #' @param n.population [\code{integer(1)}]\cr
 #'   Number of individuals.
 #' @param strategy [\code{character(1)}]\cr
@@ -26,12 +28,12 @@
 #' @param control [\code{ecr_control}]\cr
 #'   Control object.
 #' @return [\code{setOfIndividuals}]
-getNextGeneration = function(population, offspring, STORAGE, n.population, strategy = "plus", n.elite = 0L, control) {
+getNextGeneration = function(population, offspring, STORAGE, task, n.population, strategy = "plus", n.elite = 0L, control) {
   elite = NULL
   new.population = NULL
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
-    new.population = selectForSurvival(control, source.population, STORAGE, n.population)
+    new.population = selectForSurvival(control, source.population, STORAGE, task, n.population)
   } else if (strategy == "comma") {
     source.population = offspring
     elite = list()
@@ -51,7 +53,7 @@ getNextGeneration = function(population, offspring, STORAGE, n.population, strat
       # Adapt number of individuals taken from the offspring and select non-elite individuals
       n.population = n.population - n.elite
     }
-    new.population = selectForSurvival(control, offspring, STORAGE, n.population)
+    new.population = selectForSurvival(control, offspring, STORAGE, task, n.population)
     if (n.elite > 0L) {
       new.population = mergePopulations(new.population, elite)
     }

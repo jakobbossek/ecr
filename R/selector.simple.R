@@ -8,7 +8,7 @@
 #' @return [\code{setOfIndividuals}]
 #' @export
 makeSimpleSelector = function() {
-  selector = function(population, storage, n.select, control) {
+  selector = function(population, storage, task, n.select, control) {
     return(population)
   }
   makeSelector(

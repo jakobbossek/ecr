@@ -4,7 +4,7 @@
 #' @return [\code{ecr_recombinator}]
 #' @export
 makeIntermediateRecombinator = function() {
-  recombinator = function(inds, control = list()) {
+  recombinator = function(inds, control = list(), task) {
     n = length(inds[[1]])
     child = rep(0, n)
     for (i in 1:length(inds)) {

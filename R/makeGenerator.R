@@ -20,7 +20,7 @@
 #' @export
 makeGenerator = function(generator, name, description,
   supported = getAvailableRepresentations()) {
-  assertFunction(generator, args = c("size", "control"), ordered = TRUE)
+  assertFunction(generator, args = c("size", "task", "control"), ordered = TRUE)
   generator = makeOperator(generator, name, description, supported)
   generator = addClasses(generator, c("ecr_generator"))
   return(generator)

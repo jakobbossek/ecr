@@ -14,7 +14,7 @@ test_that("parent selectors work as expected", {
 
   for (selectorGenerator in avialable.selectors) {
     select = selectorGenerator()
-    mating.pool = select(population, list(), n.mating.pool)
+    mating.pool = select(population, NULL, NULL, n.mating.pool, NULL)
     expect_is(mating.pool, "ecrPopulation")
     expect_true(is.list(mating.pool$individuals))
     expect_true(is.numeric(mating.pool$fitness))

@@ -66,7 +66,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   start.time = Sys.time()
 
   # generate intial population
-  population = buildInitialPopulation(n.population, control, initial.population)
+  population = buildInitialPopulation(n.population, task, control, initial.population)
   population$fitness = computeFitness(population, task$fitness.fun)
   n.evals = n.population
 
@@ -97,8 +97,8 @@ doTheEvolution = function(task, control, initial.population = NULL) {
     off.gen.start.time = Sys.time()
 
     # actually create offspring
-    matingPool = selectForMating(control, population, STORAGE, n.mating.pool)
-    offspring = generateOffspring(matingPool, STORAGE, task$fitness.fun, control, trace$opt.path)
+    matingPool = selectForMating(control, population, STORAGE, task, n.mating.pool)
+    offspring = generateOffspring(matingPool, task, STORAGE, task$fitness.fun, control, trace$opt.path)
     n.evals = n.evals + n.offspring
 
     # apply survival selection and set up the (i+1)-th generation
@@ -106,6 +106,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
       population,
       offspring,
       STORAGE,
+      task,
       n.population,
       strategy = control$survival.strategy,
       n.elite = control$n.elite,
@@ -201,12 +202,14 @@ getListOfExtras = function(iter, n.evals, population, start.time, control) {
 #
 # @param n.population [integer(1)]
 #   Size of the population.
+# @param task [ecr_optimization_task]
+#   Optimization task.
 # @param control [ecr_control]
 #   Control object.
 # @param initial.population [list | NULL]
 #   Eventually a list of initial individuals.
 # @return [ecr_population]
-buildInitialPopulation = function(n.population, control, initial.population) {
+buildInitialPopulation = function(n.population, task, control, initial.population) {
   n.to.generate = n.population
   n.initial = 0L
   if (!is.null(initial.population)) {
@@ -220,7 +223,7 @@ buildInitialPopulation = function(n.population, control, initial.population) {
     }
   }
   populationGenerator = control$generator
-  generated.population = populationGenerator(n.population - n.initial, control)
+  generated.population = populationGenerator(n.population - n.initial, task, control)
   if (n.initial > 0L) {
     return(makePopulation(c(generated.population$individuals, initial.population)))
   }

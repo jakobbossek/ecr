@@ -4,7 +4,7 @@
 #' @return [\code{ecr_opeator}]
 #' @export
 makeUniformGenerator = function() {
-  generateUniformPopulation = function(size, control) {
+  generateUniformPopulation = function(size, task, control) {
     par.set = control$par.set
     lower = getLower(par.set)
     upper = getUpper(par.set)

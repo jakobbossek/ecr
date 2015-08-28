@@ -11,7 +11,7 @@
 #' @export
 # FIMXE: add thorough description of the heuristic used (see below).
 makeRouletteWheelSelector = function() {
-  selector = function(population, storage, n.select, control) {
+  selector = function(population, storage, task, n.select, control) {
     #FIXME: We do minimization; Roulette-Wheel selection cannot be used in
     # minimization in general, since low fitness values lead to low selection
     # probabilities. Another problem are negative fitness values.

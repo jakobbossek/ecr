@@ -8,7 +8,7 @@
 #' @return [\code{ecr_mutator}]
 #' @export
 makeScrambleMutator = function() {
-  mutator = function(ind, args = list(), control) {
+  mutator = function(ind, args = list(), control, task) {
     n.params = length(ind)
     # here we select two distinct positions ...
     idx = sample(seq(n.params), size = 2L, replace = FALSE)

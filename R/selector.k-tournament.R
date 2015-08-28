@@ -14,7 +14,7 @@
 makeTournamentSelector = function(k = 3L) {
   force(k)
 
-  selector = function(population, storage, n.select, control) {
+  selector = function(population, storage, task, n.select, control) {
     inds = population$individuals
     fitness = as.numeric(population$fitness)
     n.population = length(fitness)

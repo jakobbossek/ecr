@@ -77,7 +77,7 @@ asemoa = function(
 
   # Implementation of surival selection operator of the AS-EMOA algorithm.
   asemoaSelector = makeSelector(
-    selector = function(population, storage, n.select, control) {
+    selector = function(population, storage, task, n.select, control) {
       fitness = population$fitness
       population = population$individuals
 
@@ -109,9 +109,9 @@ asemoa = function(
   )
 
   asemoaGenerator = makeGenerator(
-    generator = function(size, control) {
+    generator = function(size, task, control) {
       uniformGenerator = makeUniformGenerator()
-      population = uniformGenerator(size, control)
+      population = uniformGenerator(size, task, control)
       #NOTE: here we use the objective function to compute the fitness values
       fitness = computeFitness(population, task$fitness.fun)
       # now filter out dominated solutions

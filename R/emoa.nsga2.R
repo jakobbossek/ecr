@@ -40,7 +40,7 @@ nsga2 = function(
 
   # set up the core of NSGA-II, namely the survival selection
   nsga2SurvivalSelector = makeSelector(
-    selector = function(population, storage, n.select, control) {
+    selector = function(population, storage, task, n.select, control) {
       inds = population$individuals
       fitness = population$fitness
       #print(fitness)

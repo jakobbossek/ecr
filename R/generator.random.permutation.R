@@ -4,7 +4,7 @@
 #' @return [\code{ecr_operator}]
 #' @export
 makePermutationGenerator = function() {
-  generatePermutationPopulation = function(size, control) {
+  generatePermutationPopulation = function(size, task, control) {
     par.set = control$par.set
     n.params = sum(getParamLengths(par.set))
     population = list()

@@ -18,7 +18,7 @@ makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   defaults = list(mutator.flip.prob = mutator.flip.prob)
   mutatorCheck(defaults)
 
-  mutator = function(ind, args = defaults, control) {
+  mutator = function(ind, args = defaults, control, task) {
     n.params = length(ind)
     do.mutate = runif(n.params) < args$mutator.flip.prob
     ind[do.mutate] = 1 - ind[do.mutate]

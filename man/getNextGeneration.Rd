@@ -4,7 +4,7 @@
 \alias{getNextGeneration}
 \title{Performs survival selection.}
 \usage{
-getNextGeneration(population, offspring, STORAGE, n.population,
+getNextGeneration(population, offspring, STORAGE, task, n.population,
   strategy = "plus", n.elite = 0L, control)
 }
 \arguments{
@@ -16,6 +16,9 @@ Generated offspring.}
 
 \item{STORAGE}{[\code{list}]\cr
 List which contains all the algorithm specific stuff.}
+
+\item{task}{[\code{ecr_optimization_task}]\cr
+Optimization task.}
 
 \item{n.population}{[\code{integer(1)}]\cr
 Number of individuals.}

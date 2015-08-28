@@ -4,7 +4,7 @@
 #' @return [\code{ecr_recombinator}]
 #' @export
 makeCrossoverRecombinator = function() {
-  recombinator = function(inds, control = list()) {
+  recombinator = function(inds, control = list(), task) {
     parent1 = inds[[1]]
     parent2 = inds[[2]]
     n = length(parent1)

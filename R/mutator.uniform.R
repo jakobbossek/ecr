@@ -13,7 +13,7 @@
 #' @return [\code{ecr_mutator}]
 #' @export
 makeUniformMutator = function() {
-  mutator = function(ind, args = list(), control) {
+  mutator = function(ind, args = list(), control, task) {
     n.params = length(ind)
     idx = sample(n.params, size = 1L)
     ind[idx] = runif(1L, min = control$par.lower, max = control$par.upper)

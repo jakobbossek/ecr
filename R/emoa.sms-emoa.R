@@ -31,7 +31,7 @@ smsemoa = function(
   max.time = NULL) {
 
   hypervolumeSelector = makeSelector(
-    selector = function(population, storage, n.select, control) {
+    selector = function(population, storage, task, n.select, control) {
       fitness = population$fitness
       population = population$individuals
 

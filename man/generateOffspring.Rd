@@ -4,11 +4,14 @@
 \alias{generateOffspring}
 \title{Creates offspring from a given mating pool of parents.}
 \usage{
-generateOffspring(matingPool, STORAGE, objective.fun, control, opt.path)
+generateOffspring(matingPool, task, STORAGE, objective.fun, control, opt.path)
 }
 \arguments{
 \item{matingPool}{[\code{setOfIndividuals}]\cr
 Set of parents to choose from.}
+
+\item{task}{[\code{ecr_optimization_tasl}]\cr
+Optimization task.}
 
 \item{STORAGE}{[\code{list}]\cr
 List which contains all the algorithm specific stuff.}
