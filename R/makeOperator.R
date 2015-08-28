@@ -57,3 +57,8 @@ makeOperator = function(operator, name, description,
 isEcrOperator = function(obj) {
   return(inherits(obj, "ecr_operator"))
 }
+
+getDefaults = function(operator) {
+  assertClass(operator, "ecr_operator")
+  return(attr(operator, "defaults"))
+}

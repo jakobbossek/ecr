@@ -15,12 +15,6 @@
 #' @template arg_survival_selector
 #' @template arg_mutator
 #' @template arg_recombinator
-#' @param mutator.control [\code{list}]\cr
-#'   List of evolutionary parameters for the corresponding mutation operator. See the
-#'   help pages for the mutation operators for the needed values.
-#' @param recombinator.control [\code{list}]\cr
-#'   List of evolutionary parameters for the corresponding recombination operator. See the
-#'   help pages for the recombination operators for the needed values.
 #' @return [\code{ecr_control}] Modified control object.
 #' @export
 setupEvolutionaryOperators = function(
@@ -29,9 +23,7 @@ setupEvolutionaryOperators = function(
   survival.selector = getDefaultEvolutionaryOperators(control$representation, "survival.selector"),
   generator = getDefaultEvolutionaryOperators(control$representation, "generator"),
   mutator = getDefaultEvolutionaryOperators(control$representation, "mutator"),
-  recombinator = getDefaultEvolutionaryOperators(control$representation, "recombinator"),
-  mutator.control = list(),
-  recombinator.control = list()) {
+  recombinator = getDefaultEvolutionaryOperators(control$representation, "recombinator")) {
   assertClass(control, "ecr_control")
 
   control = setupParentSelector(control, parent.selector)
@@ -39,14 +31,6 @@ setupEvolutionaryOperators = function(
   control = setupGenerator(control, generator)
   control = setupMutator(control, mutator)
   control = setupRecombinator(control, recombinator)
-
-  # check mutation parameter stuff
-  mutator.control = prepareOperatorParameters(mutator, mutator.control)
-  recombinator.control = prepareOperatorParameters(recombinator, recombinator.control)
-
-  # set control lists
-  control$mutator.control = mutator.control
-  control$recombinator.control = recombinator.control
 
   return (control)
 }

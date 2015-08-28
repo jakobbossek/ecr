@@ -14,7 +14,7 @@ setupEvolutionaryOperators(control,
   mutator = getDefaultEvolutionaryOperators(control$representation,
   "mutator"),
   recombinator = getDefaultEvolutionaryOperators(control$representation,
-  "recombinator"), mutator.control = list(), recombinator.control = list())
+  "recombinator"))
 }
 \arguments{
 \item{control}{[\code{ecr_control}]\cr
@@ -37,14 +37,6 @@ Mutation operator of type \code{ecr_mutator}.}
 
 \item{recombinator}{[\code{ecr_recombinator}]\cr
 Recombination operator of type \code{ecr_recombinator}.}
-
-\item{mutator.control}{[\code{list}]\cr
-List of evolutionary parameters for the corresponding mutation operator. See the
-help pages for the mutation operators for the needed values.}
-
-\item{recombinator.control}{[\code{list}]\cr
-List of evolutionary parameters for the corresponding recombination operator. See the
-help pages for the recombination operators for the needed values.}
 }
 \value{
 [\code{ecr_control}] Modified control object.
