@@ -25,6 +25,22 @@ makeECRSingleObjectiveResult = function(
   )
 }
 
+#' @export
+print.ecr_single_objective_result = function(x, ...) {
+  minmax = ifelse(x$task$minimize, "minimization", "maximization")
+  catf("EA applied to solve single-objective %s problem.", minmax)
+  catf("Best found value: %.6f", x$best.value)
+  if (isSmoofFunction(x$task$fitness.fun)) {
+    n = length(x$best.param)
+    l = min(n, 1L)
+    pars = collapse(x$best.param[seq(l)], sep = ", ")
+    if (l < n)
+      pars = paste(pars, ", ...")
+    catf("Best found parameters: %s", pars)
+  }
+  printAdditionalInformation(x)
+}
+
 #' Multi objective result object.
 #'
 #' Object returned by \code{\link{doTheEvolution}} in case of the objective function
@@ -49,6 +65,21 @@ makeECRMultiObjectiveResult = function(
     pareto.front = getOptPathY(opt.path)[pareto.inds, , drop = FALSE],
     pareto.set = lapply(pareto.inds, function(i) getOptPathEl(opt.path, i)$x),
     pareto.inds = pareto.inds,
+    message = stop.object$message,
     classes = "ecr_multi_objective_result"
   )
+}
+
+#' @export
+print.ecr_multi_objective_result = function(x, ...) {
+  obj = ifelse(x$task$n.objectives == 2L, "bi-objective", "many-objective")
+  catf("EA applied to solve %s problem.\n", obj)
+  catf("Number of nondominanted points: %i", nrow(x$pareto.front))
+  printAdditionalInformation(x)
+}
+
+printAdditionalInformation = function(x) {
+  catf(x$message)
+  catf("Generations: %i", max(getOptPathCol(x$opt.path, "iter")))
+  catf("Evaluations: %i", max(getOptPathCol(x$opt.path, "n.evals")))
 }
