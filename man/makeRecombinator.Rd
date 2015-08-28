@@ -6,7 +6,8 @@
 \usage{
 makeRecombinator(recombinator, name, description,
   supported = getAvailableRepresentations(), n.parents = 2L,
-  defaults = list(), checker = function(operator.control) TRUE)
+  multiple.children = TRUE, defaults = list(),
+  checker = function(operator.control) TRUE)
 }
 \arguments{
 \item{recombinator}{[\code{function}]\cr
@@ -25,6 +26,9 @@ Vector of strings/names of supported parameter representations. For example
 \item{n.parents}{[\code{integer(1)}]\cr
 Number of parents supported.}
 
+\item{multiple.children}{[\code{logical(1)}]\cr
+Does the recombinator return more than one child? Default is \code{TRUE}.}
+
 \item{defaults}{[\code{list}]\cr
 List of default strategy parameter values.}
 
@@ -38,5 +42,10 @@ passed to the control object.}
 }
 \description{
 Helper function which constructs a recombinator, i. e., a recombination operator.
+}
+\note{
+If a recombinator returns more than one child, the \code{multiple.children}
+  parameter needs to be \code{TRUE}, which is the default. In case of multiple
+  children produces these have to be placed within a list.
 }
 

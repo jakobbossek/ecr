@@ -13,6 +13,7 @@ makeNullRecombinator = function() {
     name = "NULL recombinator",
     description = "Does not perform any recombination.",
     supported = getAvailableRepresentations(),
-    n.parents = 10L
+    n.parents = 10L,
+    multiple.children = FALSE
   )
 }

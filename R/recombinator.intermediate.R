@@ -18,6 +18,7 @@ makeIntermediateRecombinator = function() {
     name = "Intermediate recombinator",
     description = "Performs intermediate recombination.",
     supported = "float",
-    n.parents = 10L
+    n.parents = 10L,
+    multiple.children = FALSE
   )
 }
