@@ -24,23 +24,34 @@ test_that("preimplemented EMOAs work well", {
     zdt2 = smoof::makeZDT2Function(dimensions = 2L),
     zdt3 = smoof::makeZDT3Function(dimensions = 2L)
   )
-  max.evals = 100L
+  max.evals = 50L
 
-  # test NSGA-II and SMS-EMOA
-  for (emoa in c("nsga2", "smsemoa")) {
-    for (n.pop in c(5, 10, 15)) {
-      for (fn in names(fns)) {
-        emoa.fun = match.fun(emoa)
-        res = emoa.fun(
-          task = makeOptimizationTask(fns[[fn]]),
-          n.population = n.pop,
-          n.offspring = 5L,
-          max.evals = max.evals
-        )
-        expect_is_pareto_approximation(res$pareto.front, 2L, emoa, fn,
-          list(n.pop = n.pop, n.offspring = 5L, max.evals = max.evals)
-        )
-      }
+  # test NSGA-II
+  for (n.pop in c(5, 10, 15)) {
+    for (fn in names(fns)) {
+      res = nsga2(
+        task = makeOptimizationTask(fns[[fn]]),
+        n.population = n.pop,
+        n.offspring = 5L,
+        max.evals = max.evals
+      )
+      expect_is_pareto_approximation(res$pareto.front, 2L, "nsga2", fn,
+        list(n.pop = n.pop, n.offspring = 5L, max.evals = max.evals)
+      )
+    }
+  }
+
+  # test SMS-EMOA
+  for (n.pop in c(5, 10, 15)) {
+    for (fn in names(fns)) {
+      res = smsemoa(
+        task = makeOptimizationTask(fns[[fn]]),
+        n.population = n.pop,
+        max.evals = max.evals
+      )
+      expect_is_pareto_approximation(res$pareto.front, 2L, "smsemoa", fn,
+        list(n.pop = n.pop, n.offspring = 5L, max.evals = max.evals)
+      )
     }
   }
 
