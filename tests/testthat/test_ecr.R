@@ -161,3 +161,27 @@ test_that("ecr finds optimum if is is located on the edge of the search space", 
   expect_true(res$best.value < 0.1)
   expect_true(all(res$best.param < 0.1))
 })
+
+test_that("ecr can handle initial populations", {
+  fn = makeSphereFunction(2L)
+  initial.population = list(c(1, 1), c(2, 2), c(3, 3))
+
+  control = setupECRControl(
+    n.population = 3L,
+    n.offspring = 1L,
+    save.population.at = 0L,
+    representation = "float",
+    monitor = makeNullMonitor(),
+    stopping.conditions = setupStoppingConditions(max.iter = 1L)
+  )
+
+  # stop if initial population is to large
+  expect_error(doTheEvolution(fn, control, c(initial.population, c(2, 2.5))), "exceeds", ignore.case = TRUE)
+
+  # check if initial population is indeed used
+  res = doTheEvolution(fn, control, initial.population)
+  first.population = res$population.storage[[1L]]
+  for (i in seq(length(first.population))) {
+    expect_true(all(first.population$individuals[[i]] == initial.population[[i]]), info = sprintf("%i-th element not equal to intial population.", i))
+  }
+})
