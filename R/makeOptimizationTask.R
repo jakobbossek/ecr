@@ -47,6 +47,13 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
     stopf("Number of objectives does not correspond to the length of the minimize argument.")
   }
 
+  if (n.objectives >= 2L && any(!minimize)) {
+    stopf("At the moment in many-objective optimization ecr needs all objectives to be minimized,
+      but %i objectives shall be maximized. Consider a transformation of you objective function.",
+      sum(!minimize)
+    )
+  }
+
   task = makeS3Obj(
     fitness.fun = fun,
     n.objectives = n.objectives,

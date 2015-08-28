@@ -11,12 +11,6 @@ test_that("optimization tasks are properly generated", {
     expect_equal(length(task$minimize), 2L)
     expect_equal(task$n.objectives, 2L)
     expect_output(print(task), "optimization task", ignore.case = TRUE)
-
-    # now set the stuff randomly
-    exp.minimize = runif(2L) < 0.5
-    task = makeOptimizationTask(fn, minimize = exp.minimize)
-    expect_equal(sum(exp.minimize), sum(task$minimize))
-    expect_equal(task$n.objectives, 2L)
   }
 
   fn = makeSphereFunction(2L)
@@ -24,6 +18,11 @@ test_that("optimization tasks are properly generated", {
   expect_error(makeOptimizationTask(fn, n.objectives = 2L))
   # wrong length of minimize parameter
   expect_error(makeOptimizationTask(fn, minimize = c(TRUE, FALSE, TRUE)))
+
+  fn = makeZDT3Function(3L)
+  # ecr for now in multi-objective optimization needs all objectives to be minimized
+  expect_error(makeOptimizationTask(fn, minimize = c(TRUE, FALSE)), "all objectives to be minimized",
+    ignore.case = TRUE)
 
   # check if warning is printed if function with requires/forbidden is passed
   fn = makeSingleObjectiveFunction(
