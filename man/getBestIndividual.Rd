@@ -11,8 +11,12 @@ getBestIndividual(population)
 Population.}
 }
 \value{
-[\code{essoIndividual}]
- Individual with best, i. e., lowest fitness value.
+[list]
+ List with the following entries
+ \describe{
+   \item{individual}{Genotype of the best individual.}
+   \item{fitness}{Fitness of the individual.}
+ }
 }
 \description{
 Extracts the best individual of a set of individuals.
