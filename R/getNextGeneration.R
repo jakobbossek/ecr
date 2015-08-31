@@ -39,7 +39,6 @@ getNextGeneration = function(population, offspring, STORAGE, task, n.population,
     elite = list()
 
     if (n.elite > 0L) {
-      #catf("Elitism with %i candidates out of %i", n.elite, n.population)
       parent.individuals = population$individuals
       parent.fitness = population$fitness
       to.be.elite = order(parent.fitness)[seq(n.elite)]
