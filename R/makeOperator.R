@@ -52,12 +52,18 @@ makeOperator = function(operator, name, description,
 #' @param obj [any]\cr
 #'   Arbitrary R object to check.
 #' @return [\code{logical(1)}]
-#'
 #' @export
 isEcrOperator = function(obj) {
   return(inherits(obj, "ecr_operator"))
 }
 
+#' @title
+#'   Get a list of the default operator parameters.
+#'
+#' @param operator [\code{ecr_operator}]\cr
+#'   Operator.
+#' @return [\code{list}]
+#' @export
 getDefaults = function(operator) {
   assertClass(operator, "ecr_operator")
   return(attr(operator, "defaults"))
