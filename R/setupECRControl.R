@@ -157,18 +157,22 @@ print.ecr_control = function(x, ...) {
   catf("")
   catf("Evolutionary operators:")
   catf("Generator object             : %s", getOperatorName(x$generator))
-  catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator), getParametersAsString(getDefaults(x$mutator)))
-  catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator), getParametersAsString(getDefaults(x$recombinator)))
+  catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator),
+    getParametersAsString(getOperatorDefaultParameters(x$mutator))
+  )
+  catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator),
+    getParametersAsString(getOperatorDefaultParameters(x$recombinator))
+  )
 }
 
 recombine = function(ctrl, parents, task) {
   #FIXME: here we pass always the default parameters
-  ctrl$recombinator(parents, getDefaults(ctrl$recombinator), task)
+  ctrl$recombinator(parents, getOperatorDefaultParameters(ctrl$recombinator), task)
 }
 
 mutate = function(ctrl, parent, task) {
   #FIXME: here we pass always the default parameters
-  ctrl$mutator(parent, getDefaults(ctrl$mutator), ctrl, task)
+  ctrl$mutator(parent, getOperatorDefaultParameters(ctrl$mutator), ctrl, task)
 }
 
 selectForMating = function(ctrl, population, storage, task, n.select) {

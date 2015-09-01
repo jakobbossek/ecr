@@ -47,6 +47,23 @@ makeOperator = function(operator, name, description,
 }
 
 #' @title
+#'   Determine the name of a given operator.
+#'
+#' @param operator [\code{ecr_operator}]\cr
+#'   Operator object.
+#' @return [\code{character(1)}]
+#'   Name of the operator.
+#' @export
+getOperatorName = function(operator) {
+  UseMethod("getOperatorName")
+}
+
+#' @export
+getOperatorName.ecr_operator = function(operator) {
+  attr(operator, "name")
+}
+
+#' @title
 #'   Check if given function is an ecr operator.
 #'
 #' @param obj [any]\cr
@@ -57,24 +74,12 @@ isEcrOperator = function(obj) {
   return(inherits(obj, "ecr_operator"))
 }
 
-#' @title
-#'   Get a list of the default operator parameters.
-#'
-#' @param operator [\code{ecr_operator}]\cr
-#'   Operator.
-#' @return [\code{list}]
-#' @export
-getDefaults = function(operator) {
-  assertClass(operator, "ecr_operator")
-  return(attr(operator, "defaults"))
-}
-
 #' @export
 print.ecr_operator = function(x, ...) {
   catf("Name: %s", getOperatorName(x))
   catf("Description: %s", attr(x, "description"))
-  catf("Supported representations: %s", collapse(attr(x, "supported")))
-  catf("Default parameters: %s", getParametersAsString(getDefaults(x)))
+  catf("Supported representations: %s", collapse(getSupportedRepresentations(x)))
+  catf("Default parameters: %s", getParametersAsString(getOperatorDefaultParameters(x)))
 }
 
 #' @export
@@ -87,4 +92,82 @@ print.ecr_recombinator = function(x, ...) {
 print.ecr_selector = function(x, ...) {
   print.ecr_operator(x)
   catf("Supported #objectives: %s", attr(x, "supported.objectives"))
+}
+
+#' @title
+#'   Returns a list with the default parameter values for a given operator.
+#'
+#' @description
+#'   Operators can depend on specific evolutionary parameters. If you do not provide
+#'   values for these, specifc defaults are used, which can be determined with this
+#'   function.
+#'
+#' @param operator [\code{ecr_operator}]\cr
+#'   Operator object.
+#' @return [\code{list}]
+#'   Key-value pairs of parameters and default values.
+#' @export
+getOperatorDefaultParameters = function(operator) {
+  UseMethod("getOperatorDefaultParameters")
+}
+
+#' @export
+getOperatorDefaultParameters.ecr_operator = function(operator) {
+  if (hasAttributes(operator, "defaults")) {
+    return(attr(operator, "defaults"))
+  }
+  return("")
+}
+
+#' @title
+#'   Returns the parameter check function of a given operator.
+#'
+#' @param operator [\code{ecr_operator}]\cr
+#'   Operator object.
+#' @return [\code{character(1)}]
+#'   Function for parameter check.
+#' @export
+getOperatorCheckFunction = function(operator) {
+  UseMethod("getOperatorCheckFunction")
+}
+
+#' @export
+getOperatorCheckFunction.ecr_operator = function(operator) {
+  attr(operator, "checker")
+}
+
+#' @title
+#'   Returns the character vector of tags which describe a specific operator.
+#'
+#' @param operator [\code{ecr_operator}]\cr
+#'   Operator object.
+#' @return [\code{character}]
+#'   Vector of representation types.
+#' @export
+getSupportedRepresentations = function(operator) {
+  UseMethod("getSupportedRepresentations")
+}
+
+#' @export
+getSupportedRepresentations.ecr_operator = function(operator) {
+  attr(operator, "supported")
+}
+
+#' @title
+#'  Check if ecr operator supports given representation.
+#'
+#' @param operator [\code{ecr_operator}]\cr
+#'   Object of type \code{ecr_operator}.
+#' @param representation [\code{character(1)}]\cr
+#'   Representation as a string.
+#' @return [\code{logical(1)}]
+#'   \code{TRUE}, if operator supports the representation type.
+#' @export
+is.supported = function(operator, representation) {
+  UseMethod("is.supported")
+}
+
+#' @export
+is.supported.ecr_operator = function(operator, representation) {
+  return (representation %in% getSupportedRepresentations(operator))
 }
