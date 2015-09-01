@@ -161,22 +161,6 @@ print.ecr_control = function(x, ...) {
   catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator), getParametersAsString(getDefaults(x$recombinator)))
 }
 
-getParametersAsString = function(parameters) {
-  x = ""
-  n = length(parameters)
-  if (n == 0) {
-    return("no parameters")
-  }
-  for (i in seq(n)) {
-    name = names(parameters)[i]
-    x = paste(x, " ", name, ": ", parameters[[name]], sep = "")
-    if (i < n) {
-      x = paste(x, ",", sep = "")
-    }
-  }
-  return(x)
-}
-
 recombine = function(ctrl, parents, task) {
   #FIXME: here we pass always the default parameters
   ctrl$recombinator(parents, getDefaults(ctrl$recombinator), task)

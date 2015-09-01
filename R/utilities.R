@@ -35,6 +35,11 @@ hasAllEqualElements = function(x) {
 #'
 #' @description
 #'   Should be used if the recombinator returns multiple children.
+#'
+#' @param ... [any]\cr
+#'   Individuals.
+#' @return [\code{list}] List of individuals.
+#' @export
 wrapChildren = function(...) {
   children = list(...)
   if (length(children) > 1L) {
@@ -47,4 +52,26 @@ wrapChildren = function(...) {
   # This branch here is a fallback if somebody makes use of 'wrapChildren'
   # in a recombinator which returns just a single child.
   return(children[[1L]])
+}
+
+#' @title
+#'   Convert parameter list to string.
+#'
+#' @param parameters [\code{list}]\cr
+#'   Named list of parameters.
+#' @return Nothing
+getParametersAsString = function(parameters) {
+  x = ""
+  n = length(parameters)
+  if (n == 0) {
+    return("no parameters")
+  }
+  for (i in seq(n)) {
+    name = names(parameters)[i]
+    x = paste(x, " ", name, ": ", parameters[[name]], sep = "")
+    if (i < n) {
+      x = paste(x, ",", sep = "")
+    }
+  }
+  return(x)
 }

@@ -6,6 +6,13 @@
 \usage{
 wrapChildren(...)
 }
+\arguments{
+\item{...}{[any]\cr
+Individuals.}
+}
+\value{
+[\code{list}] List of individuals.
+}
 \description{
 Should be used if the recombinator returns multiple children.
 }
