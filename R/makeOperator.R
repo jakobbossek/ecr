@@ -68,3 +68,23 @@ getDefaults = function(operator) {
   assertClass(operator, "ecr_operator")
   return(attr(operator, "defaults"))
 }
+
+#' @export
+print.ecr_operator = function(x, ...) {
+  catf("Name: %s", getOperatorName(x))
+  catf("Description: %s", attr(x, "description"))
+  catf("Supported representations: %s", collapse(attr(x, "supported")))
+  catf("Default parameters: %s", getParametersAsString(getDefaults(x)))
+}
+
+#' @export
+print.ecr_recombinator = function(x, ...) {
+  print.ecr_operator(x)
+  catf("Number of returned children: %i", attr(x, "n.parents"))
+}
+
+#' @export
+print.ecr_selector = function(x, ...) {
+  print.ecr_operator(x)
+  catf("Supported #objectives: %s", attr(x, "supported.objectives"))
+}
