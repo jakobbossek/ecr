@@ -30,8 +30,8 @@ makeOperator = function(operator, name, description,
   defaults = list(),
   checker = function(operator.control) TRUE) {
   assertFunction(operator)
-  assertCharacter(name, len = 1L, any.missing = FALSE)
-  assertCharacter(description, len = 1L, any.missing = FALSE)
+  assertString(name)
+  assertString(description)
   assertSubset(supported, choices = getAvailableRepresentations(), empty.ok = FALSE)
   assertList(defaults, unique = TRUE, any.missing = FALSE)
   assertFunction(checker, args = "operator.control")
