@@ -4,7 +4,11 @@
 \alias{makeCrossoverRecombinator}
 \title{Generator of the One-point crossover recombination operator.}
 \usage{
-makeCrossoverRecombinator()
+makeCrossoverRecombinator(recombinator.crossover.prob = 1)
+}
+\arguments{
+\item{recombinator.crossover.prob}{[\code{numeric(1)}]\cr
+Cross over probability to form an offspring. Default is \code{1}.}
 }
 \value{
 [\code{ecr_recombinator}]

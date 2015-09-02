@@ -20,7 +20,7 @@ List which contains all the algorithm specific stuff.}
 Target fun.}
 
 \item{control}{[\code{ecr_control}]\cr
-Control object containing alle the operators and further parameters.}
+Control object containing all operators and further parameters.}
 
 \item{opt.path}{[\code{OptPath}]\cr
 Optimization path.}
