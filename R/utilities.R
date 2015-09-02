@@ -39,7 +39,7 @@ hasAllEqualElements = function(x) {
 #' @param ... [any]\cr
 #'   Individuals.
 #' @return [\code{list}] List of individuals.
-#' @export
+#' @export
 wrapChildren = function(...) {
   children = list(...)
   if (length(children) > 1L) {
