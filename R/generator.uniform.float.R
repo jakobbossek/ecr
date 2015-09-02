@@ -1,7 +1,7 @@
 #' @title
 #'   Generates a generator object for the initial population.
 #'
-#' @return [\code{ecr_opeator}]
+#' @return [\code{ecr_generator}]
 #' @export
 makeUniformGenerator = function() {
   generateUniformPopulation = function(size, task, control) {

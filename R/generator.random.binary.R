@@ -5,24 +5,34 @@
 #'   The generated operator samples uniformally distributed points in the design
 #'   space of the target function taking care not to violate bounds.
 #'
-#' @return [\code{ecr_operator}]
+#' @return [\code{ecr_generator}]
 #' @export
 makeBinaryGenerator = function() {
   generateBinaryPopulation = function(size, task, control) {
     par.set = control$par.set
-    n.params = sum(getParamLengths(par.set))
-    population = list()
-    for (i in seq(size)) {
-      population[[i]] = sample(c(0, 1), size = n.params, replace = TRUE)
+    
+    if (getParamNr(par.set) == 1L) {
+      # one vector is an individual
+      createInd = function(param.length) {
+        sample(c(0, 1), size = param.length, replace = TRUE)
+      }
+    } else {
+      # a list of vectors is an individual
+      createInd = function(param.length) {
+        lapply(param.length, function(x) sample(c(0, 1), size = x, replace = TRUE))
+      }
     }
+    
+    # create population list
+    population = lapply(seq(size), function(x) createInd(getParamLengths(par.set)))
     makePopulation(population)
   }
-  operator = makeOperator(
-    operator = generateBinaryPopulation,
+  
+  generator = makeGenerator(
+    generator = generateBinaryPopulation,
     name = "Binary generator",
     description = "Samples uniformally distributed 0, 1 values.",
     supported = c("binary")
   )
-  operator = addClasses(operator, c("ecr_generator"))
-  return(operator)
+  return(generator)
 }

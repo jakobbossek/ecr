@@ -7,7 +7,7 @@
 makeUniformGenerator()
 }
 \value{
-[\code{ecr_opeator}]
+[\code{ecr_generator}]
 }
 \description{
 Generates a generator object for the initial population.
