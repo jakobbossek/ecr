@@ -78,6 +78,34 @@ print.ecr_multi_objective_result = function(x, ...) {
   printAdditionalInformation(x)
 }
 
+# @title
+#   Summary function for multi objective ecr result.
+#
+# @param object [\code{ecr_multi_objective_result}]\cr
+#   Result object.
+# @param ref.points [\code{matrix}]\cr
+#   Matrix of reference points (one point per column) used for the emoa quality
+#   indicators, i.e., epsilon indicator and hypervolume indicator.
+# @return [\code{ecr_multi_objective_result_summary}]
+# @export
+summary.ecr_multi_objective_result = function(object, ref.points = NULL, ...) {
+  # convert the data frame to matrix
+  pf = t(object$pareto.front)
+  #FIXME: maybe add the possibility to pass ref point to control and use it here?
+  makeS3Obj(
+    n.nondom = ncol(pf),
+    dom.hv = computeDominatedHypervolume(pf),
+    eps.ind = if (!is.null(ref.points)) computeEpsilonIndicator(pf, ref.points) else NA,
+    hv.ind = if (!is.null(ref.points)) computeHypervolumeIndicator(pf, ref.points) else NA,
+    classes = c("list", "ecr_multi_objective_result_summary")
+  )
+}
+
+# @export
+print.ecr_multi_objective_result_summary = function(x, ...) {
+  print(as.data.frame(x))
+}
+
 printAdditionalInformation = function(x) {
   catf(x$message)
   catf("Generations: %i", max(getOptPathCol(x$opt.path, "iter")))
