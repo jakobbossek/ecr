@@ -4,7 +4,7 @@
 \alias{computeFitness}
 \title{Computes the fitness values for each member of a given population.}
 \usage{
-computeFitness(population, fitness.fun)
+computeFitness(population, fitness.fun, control)
 }
 \arguments{
 \item{population}{[\code{matrix}]\cr
@@ -12,6 +12,10 @@ Population.}
 
 \item{fitness.fun}{[\code{function}]\cr
 Fitness function.}
+
+\item{control}{[\code{ecr_control}]\cr
+Control object containing all operators and further parameters.
+See \code{\link{setupECRControl}} and \code{\link{setupEvolutionaryOperators}}.}
 }
 \value{
 [\code{matrix}].

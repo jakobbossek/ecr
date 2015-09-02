@@ -67,7 +67,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
 
   # generate intial population
   population = buildInitialPopulation(n.population, task, control, initial.population)
-  population$fitness = computeFitness(population, task$fitness.fun)
+  population$fitness = computeFitness(population, task$fitness.fun, control)
   n.evals = n.population
 
   # initialize storage object which contains all the stuff needed by the algorithms
