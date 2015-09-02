@@ -11,7 +11,7 @@
 #' @export
 makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$mutator.flip.prob, lower = 0.000001, upper = 0.999999, na.ok = FALSE)
+    assertNumber(operator.control$mutator.flip.prob, lower = 0, upper = 1)
   }
 
   force(mutator.flip.prob)
@@ -19,12 +19,21 @@ makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
   mutatorCheck(defaults)
 
   mutator = function(ind, args = defaults, control, task) {
-    n.params = length(ind)
-    do.mutate = runif(n.params) < args$mutator.flip.prob
-    ind[do.mutate] = 1 - ind[do.mutate]
+    mutateGene = function(gene, prob) {
+      do.mutate = runif(length(gene)) < prob
+      gene[do.mutate] = 1 - gene[do.mutate]
+      gene
+    }
+    
+    if (getParamNr(control$par.set) == 1L) {
+      ind = mutateGene(ind, args$mutator.flip.prob)
+    } else {
+      ind = lapply(ind, mutateGene, prob = args$mutator.flip.prob)
+    }
+    
     return(ind)
   }
-
+  
   makeMutator(
     mutator = mutator,
     name = "Bitflip mutator",
