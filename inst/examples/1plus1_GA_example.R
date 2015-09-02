@@ -44,7 +44,7 @@ control = setupEvolutionaryOperators(
   control,
   generator = makeBinaryGenerator(),
   mutator = makeBitFlipMutator(mutator.flip.prob = 1 / n.params),
-  recombinator = makeCrossoverRecombinator(),
+  recombinator = makeCrossoverRecombinator(recombinator.crossover.prob = 0.8),
 )
 print(control)
 
