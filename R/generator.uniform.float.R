@@ -13,7 +13,6 @@ makeUniformGenerator = function() {
       stopf("Uniform generator needs box constraints.")
     }
     
-    browser()
     lower = getLower(par.set)
     upper = getUpper(par.set)
     
