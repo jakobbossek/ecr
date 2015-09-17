@@ -14,5 +14,4 @@ playground.R
 appveyor.yml
 examples
 man-roxygen
-*.o
 benchmark.R
