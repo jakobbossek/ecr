@@ -13,4 +13,6 @@ playground.R
 .travis.yml
 appveyor.yml
 examples
+man-roxygen
+*.o
 benchmark.R
