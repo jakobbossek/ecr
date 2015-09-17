@@ -442,10 +442,10 @@ hv_recursive(dlnode_t *list, int dim, int c, const double * ref,
         return (ref[0] - list->next[0]->x[0]);
     }
     else {
-        fprintf(stderr, "%s:%d: unreachable condition! \n"
+        Rprintf("%s:%d: unreachable condition! \n"
                 "This is a bug, please report it to "
                 "manuel.lopez-ibanez@ulb.ac.be\n", __FILE__, __LINE__);
-        exit(EXIT_FAILURE);
+        error("Fatal error in HV computation.");
     }
 }
 
