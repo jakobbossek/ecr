@@ -5,22 +5,22 @@
 #'   This operator works only on binary representation and flips each bit
 #'   with a given probability.
 #'
-#' @param mutator.flip.prob [\code{numeric(1)}]\cr
+#' @param p [\code{numeric(1)}]\cr
 #'   Probability to flip a single bit. Default is \code{0.1}.
 #' @return [\code{ecr_mutator}]
 #' @export
-makeBitFlipMutator = function(mutator.flip.prob = 0.1) {
+makeBitFlipMutator = function(p = 0.1) {
   mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$mutator.flip.prob, lower = 0.000001, upper = 0.999999, na.ok = FALSE)
+    assertNumber(operator.control$p, lower = 0.000001, upper = 0.999999, na.ok = FALSE)
   }
 
-  force(mutator.flip.prob)
-  defaults = list(mutator.flip.prob = mutator.flip.prob)
+  force(p)
+  defaults = list(p = p)
   mutatorCheck(defaults)
 
   mutator = function(ind, args = defaults, control, task) {
     n.params = length(ind)
-    do.mutate = runif(n.params) < args$mutator.flip.prob
+    do.mutate = runif(n.params) < args$p
     ind[do.mutate] = 1 - ind[do.mutate]
     return(ind)
   }

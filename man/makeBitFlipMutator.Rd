@@ -4,10 +4,10 @@
 \alias{makeBitFlipMutator}
 \title{Generator of a simple bitplip mutation operator.}
 \usage{
-makeBitFlipMutator(mutator.flip.prob = 0.1)
+makeBitFlipMutator(p = 0.1)
 }
 \arguments{
-\item{mutator.flip.prob}{[\code{numeric(1)}]\cr
+\item{p}{[\code{numeric(1)}]\cr
 Probability to flip a single bit. Default is \code{0.1}.}
 }
 \value{

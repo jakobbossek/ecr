@@ -43,7 +43,7 @@ control = setupECRControl(
 control = setupEvolutionaryOperators(
   control,
   generator = makeBinaryGenerator(),
-  mutator = makeBitFlipMutator(mutator.flip.prob = 1 / n.params),
+  mutator = makeBitFlipMutator(p = 1 / n.params),
   recombinator = makeCrossoverRecombinator(),
 )
 print(control)

@@ -4,13 +4,13 @@
 \alias{makeGaussMutator}
 \title{Generator of the Gauss mutation operator.}
 \usage{
-makeGaussMutator(mutator.gauss.prob = 1L, mutator.gauss.sd = 0.05)
+makeGaussMutator(p = 1L, sdev = 0.05)
 }
 \arguments{
-\item{mutator.gauss.prob}{[\code{numeric(1)}]\cr
+\item{p}{[\code{numeric(1)}]\cr
 Probability of mutation for the gauss mutation operator.}
 
-\item{mutator.gauss.sd}{[\code{numeric(1)}\cr
+\item{sdev}{[\code{numeric(1)}\cr
 Standard deviance of the Gauss mutation, i. e., the mutation strength.}
 }
 \value{

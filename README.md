@@ -54,7 +54,7 @@ control = setupECRControl(
 )
 control = setupEvolutionaryOperators(
   control,
-  mutator = makeGaussMutator(mutator.gauss.sd = 0.005)
+  mutator = makeGaussMutator(sdev = 0.005)
 )
 print(control)
 ```

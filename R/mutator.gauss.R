@@ -4,28 +4,28 @@
 #' @description
 #'   Default Gaussian mutation operator known from Evolutionary Algorithms.
 #'
-#' @param mutator.gauss.prob [\code{numeric(1)}]\cr
+#' @param p [\code{numeric(1)}]\cr
 #'   Probability of mutation for the gauss mutation operator.
-#' @param mutator.gauss.sd [\code{numeric(1)}\cr
+#' @param sdev [\code{numeric(1)}\cr
 #'   Standard deviance of the Gauss mutation, i. e., the mutation strength.
 #' @return [\code{ecr_mutator}]
 #' @export
-makeGaussMutator = function(mutator.gauss.prob = 1L, mutator.gauss.sd = 0.05) {
-  force(mutator.gauss.prob)
-  force(mutator.gauss.sd)
+makeGaussMutator = function(p = 1L, sdev = 0.05) {
+  force(p)
+  force(sdev)
 
   mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$mutator.gauss.prob, lower = 0, finite = TRUE, na.ok = FALSE)
-    assertNumber(operator.control$mutator.gauss.sd, lower = 0, finite = TRUE, na.ok = FALSE)
+    assertNumber(operator.control$p, lower = 0, finite = TRUE, na.ok = FALSE)
+    assertNumber(operator.control$sdev, lower = 0, finite = TRUE, na.ok = FALSE)
   }
 
-  defaults = list(mutator.gauss.prob = mutator.gauss.prob, mutator.gauss.sd = mutator.gauss.sd)
+  defaults = list(p = p, sdev = sdev)
   mutatorCheck(defaults)
 
   mutator = function(ind, args = defaults, control, task) {
     n.params = length(ind)
-    idx = which(runif(n.params) < args$mutator.gauss.prob)
-    mut = rnorm(length(idx), mean = 0, sd = args$mutator.gauss.sd)
+    idx = which(runif(n.params) < args$p)
+    mut = rnorm(length(idx), mean = 0, sd = args$sdev)
     ind[idx] = ind[idx] + mut
     # correct bounds
     ind = pmin(pmax(control$par.lower, ind), control$par.upper)
