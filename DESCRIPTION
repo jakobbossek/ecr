@@ -1,19 +1,23 @@
 Package: ecr
 Type: Package
 Title: Evolutionary Computing in R
-Description: This R package provides a powerful framework for Evolutionary
-    Computing in R. The user can solve his objective functions using predefined
-    evolutionary operators, i. e., operators for mutation, recombination and so
-    on for several common representations, with only a few lines of code.
-    Extending the framework with own operators is also possible. Additionaly
-    there are various control options such as the survival strategy, elitism,
-    which allows for maximal flexibility.
+Description: This R package provides a powerful framework for evolutionary
+    computing in R. The user can easily construct powerful evolutionary algorithms
+    for tackling both single- and multi-objective problems by pluging in different
+    predefined evolutionary building blocks, e. g., operators
+    for mutation, recombination and selection with just a few lines of code.
+    Your problem cannot be easily solved with a standard EA which works on real-valued
+    vectors, permutations or binary strings? No problem, ecr has been developed
+    with that in mind. Extending the framework with own operators is also possible.
+    Additionaly there are various comfort functions, like monitoring, logging and more.
 Version: 1.0
-Date: 2014-03-15
+Date: 2015-09-18
 Authors@R: c(person("Jakob", "Bossek", email = "j.bossek@gmail.com", role =
     c("aut", "cre")), person("Dirk", "Surmann", email = "surmann@statistik.tu-dortmund.de", role = "ctb"))
 Maintainer: Jakob Bossek <j.bossek@gmail.com>
 License: BSD_2_clause + file LICENSE
+URL: https://github.com/jakobbossek/ecr
+BugReports: https://github.com/jakobbossek/ecr/issues
 Depends:
     ParamHelpers (>= 1.3),
     BBmisc (>= 1.6),
