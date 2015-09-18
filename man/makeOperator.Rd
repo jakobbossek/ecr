@@ -4,7 +4,7 @@
 \alias{makeOperator}
 \title{Construct evolutionary operator.}
 \usage{
-makeOperator(operator, name, description,
+makeOperator(operator, name, description = NULL,
   supported = getAvailableRepresentations(), defaults = list(),
   checker = function(operator.control) TRUE)
 }
@@ -16,22 +16,22 @@ Actual mutation operator.}
 Name of the operator.}
 
 \item{description}{[\code{character(1)}]\cr
-Short description of how the mutator works.}
+Short description of how the mutator works.
+Default is \code{NULL} which means no description at all.}
 
 \item{supported}{[\code{character}]\cr
-Vector of names of supported parameter representations. For example
-'permutation', 'float', 'binary'.}
+Vector of names of supported parameter representations. Possible choices:
+\dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}}
 
 \item{defaults}{[\code{list}]\cr
 List of default values for the operators strategy parameters.}
 
 \item{checker}{[\code{function}]\cr
 Check object, which performs a sanity check of the strategy parameters
-passed to the control object.
-Operator object.}
+passed to the control object.}
 }
 \value{
-[\code{ecr_operator}]
+[\code{ecr_operator}] Operator object.
 }
 \description{
 Helper function which constructs an evolutionary operator.

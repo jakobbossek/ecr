@@ -14,30 +14,32 @@
 #'   Name of the operator.
 #' @param description [\code{character(1)}]\cr
 #'   Short description of how the mutator works.
+#'   Default is \code{NULL} which means no description at all.
 #' @param supported [\code{character}]\cr
-#'   Vector of names of supported parameter representations. For example
-#'   'permutation', 'float', 'binary'.
+#'   Vector of names of supported parameter representations. Possible choices:
+#'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}
 #' @param defaults [\code{list}]\cr
 #'   List of default values for the operators strategy parameters.
 #' @param checker [\code{function}]\cr
 #'   Check object, which performs a sanity check of the strategy parameters
 #'   passed to the control object.
-#'   Operator object.
-#' @return [\code{ecr_operator}]
+#' @return [\code{ecr_operator}] Operator object.
 #' @export
-makeOperator = function(operator, name, description,
+makeOperator = function(operator, name, description = NULL,
   supported = getAvailableRepresentations(),
   defaults = list(),
   checker = function(operator.control) TRUE) {
   assertFunction(operator)
   assertCharacter(name, len = 1L, any.missing = FALSE)
-  assertCharacter(description, len = 1L, any.missing = FALSE)
+  if (!is.null(description)) {
+    assertCharacter(description, len = 1L, any.missing = FALSE)
+  }
   assertSubset(supported, choices = getAvailableRepresentations(), empty.ok = FALSE)
   assertList(defaults, unique = TRUE, any.missing = FALSE)
   assertFunction(checker, args = "operator.control")
 
   attr(operator, "name") = name
-  attr(operator, "description") = description
+  attr(operator, "description") = coalesce(description, "-")
   attr(operator, "supported") = supported
   attr(operator, "defaults") = defaults
   attr(operator, "checker") = checker
