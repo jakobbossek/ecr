@@ -11,9 +11,7 @@
 makePopulation = function(individuals, fitness = NULL) {
   assertList(individuals, any.missing = FALSE)
   if (!testNull(fitness)) {
-    assert(checkMatrix(fitness, any.missing = FALSE, nrows = 1, ncols = length(individuals))
-           , checkNumber(fitness)
-           )
+    checkMatrix(fitness, any.missing = FALSE, nrows = 2L, ncols = length(individuals))
   }
 
   makeS3Obj(
