@@ -115,7 +115,7 @@ asemoa = function(
       uniformGenerator = makeUniformGenerator()
       population = uniformGenerator(size, task, control)
       #NOTE: here we use the objective function to compute the fitness values
-      fitness = computeFitness(population, task$fitness.fun)
+      fitness = computeFitness(population, task$fitness.fun, control)
       # now filter out dominated solutions
       nondom.idx = which.nondominated(fitness)
       population$individuals = population$individuals[nondom.idx]
