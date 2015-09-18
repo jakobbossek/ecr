@@ -4,7 +4,11 @@
 \alias{makeIntermediateRecombinator}
 \title{Generator of the indermediate recombination operator.}
 \usage{
-makeIntermediateRecombinator()
+makeIntermediateRecombinator(k = 2L)
+}
+\arguments{
+\item{k}{[integer(1)]\cr
+Number of parents required for mating. Default is \code{2}.}
 }
 \value{
 [\code{ecr_recombinator}]

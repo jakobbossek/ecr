@@ -55,3 +55,7 @@ generatesMultipleChildren = function(recombinator) {
 generatesMultipleChildren.ecr_recombinator = function(recombinator) {
   return(attr(recombinator, "multiple.children"))
 }
+
+getNumberOfParentsNeededForMating = function(control) {
+  return(attr(control$recombinator, "n.parents"))
+}

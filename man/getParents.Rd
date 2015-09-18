@@ -4,11 +4,14 @@
 \alias{getParents}
 \title{Helper method to extract two parents from the mating pool}
 \usage{
-getParents(matingPool)
+getParents(matingPool, n.parents = 2L)
 }
 \arguments{
 \item{matingPool}{[ecr_population]
 Set of individuals selected for reproduction.}
+
+\item{n.parents}{[integer(1)]
+Number of individuals to select.}
 }
 \value{
 [list]

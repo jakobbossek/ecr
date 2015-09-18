@@ -20,7 +20,7 @@ generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, 
 
   i = 1L
   while(i <= n.offspring) {
-    parents = getParents(matingPool)
+    parents = getParents(matingPool, n.parents = getNumberOfParentsNeededForMating(control))
     children = recombine(control, parents, task)
     # eventually the recombinator returns multiple children
     if (hasAttributes(children, "multiple")) {
@@ -45,14 +45,16 @@ generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, 
 #'
 #' @param matingPool [ecr_population]
 #'   Set of individuals selected for reproduction.
+#' @param n.parents [integer(1)]
+#'   Number of individuals to select.
 #' @return [list]
-getParents = function(matingPool) {
+getParents = function(matingPool, n.parents = 2L) {
   inds = matingPool$individuals
   n = length(inds)
   # if we have only one individual, return it twice
   if (n == 1L) {
-    return(inds[c(1, 1)])
+    return(inds[rep(1, n.parents)])
   }
-  idx = sample(n, size = 2L, replace = FALSE)
+  idx = sample(n, size = n.parents, replace = TRUE)
   return(inds[idx])
 }
