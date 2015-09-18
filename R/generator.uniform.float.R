@@ -1,5 +1,10 @@
 #' @title
-#'   Generates a generator object for the initial population.
+#'   Generates the uniform generator object for the initial population.
+#'
+#' @description
+#'   The returned population contains individuals which are uniformly distributed
+#'   within the bounds specified by the paramter set of the \pkg{smoof} objective
+#'   function passed to the \code{\link{doTheEvolution}} function.
 #'
 #' @return [\code{ecr_opeator}]
 #' @export

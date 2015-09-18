@@ -54,7 +54,7 @@ The AS-EMOA, short for aspiration set evolutionary multi-objective algorithm,
   utilizing the average Hausdorff distance.
 }
 \note{
-This is a pure R implementation of the NSGA-II algorithm. It hides the regular
+This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
   \pkg{ecr} interface and offers a more R like interface while still being quite
   adaptable.
 }
@@ -62,4 +62,5 @@ This is a pure R implementation of the NSGA-II algorithm. It hides the regular
 Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
   EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.
 }
+\keyword{optimize}
 

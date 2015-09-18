@@ -2,7 +2,7 @@
 % Please edit documentation in R/generator.uniform.float.R
 \name{makeUniformGenerator}
 \alias{makeUniformGenerator}
-\title{Generates a generator object for the initial population.}
+\title{Generates the uniform generator object for the initial population.}
 \usage{
 makeUniformGenerator()
 }
@@ -10,6 +10,8 @@ makeUniformGenerator()
 [\code{ecr_opeator}]
 }
 \description{
-Generates a generator object for the initial population.
+The returned population contains individuals which are uniformly distributed
+  within the bounds specified by the paramter set of the \pkg{smoof} objective
+  function passed to the \code{\link{doTheEvolution}} function.
 }
 

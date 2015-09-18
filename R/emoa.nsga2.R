@@ -14,6 +14,8 @@
 #'   \pkg{ecr} interface and offers a more R like interface while still being quite
 #'   adaptable.
 #'
+#' @keywords optimize
+#'
 #' @template arg_optimization_task
 #' @param n.population [\code{integer(1)}]\cr
 #'   Population size. Default is \code{100}.

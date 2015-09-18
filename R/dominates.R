@@ -38,6 +38,8 @@ isDominated = function(x, y) {
 #'   a point and returns a logical vector. The i-th position of the latter is
 #'   \code{TRUE} if the i-th point is dominated by at least one other point.
 #'
+#' @keywords optimize
+#'
 #' @param x [\code{matrix}]\cr
 #'   Numeric (d x n) matrix where d is the number of objectives and n is the
 #'   number of points.

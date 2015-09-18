@@ -22,7 +22,7 @@ Numeric matrix of points. Each row contains one objective vector.}
   }
 }
 \description{
-Implementation of the fast non-dominated sorting algorithm proposed by Deb.
+Pure R implementation of the fast non-dominated sorting algorithm proposed by Deb.
 }
 \references{
 Deb, K., Pratap, A., and Agarwal, S. A Fast and Elitist Multiobjective Genetic

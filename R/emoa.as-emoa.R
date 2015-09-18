@@ -9,9 +9,11 @@
 #'   utilizing the average Hausdorff distance.
 #'
 #' @note
-#'   This is a pure R implementation of the NSGA-II algorithm. It hides the regular
+#'   This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
 #'   \pkg{ecr} interface and offers a more R like interface while still being quite
 #'   adaptable.
+#'
+#' @keywords optimize
 #'
 #' @references
 #'   Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set

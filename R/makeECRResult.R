@@ -3,10 +3,19 @@
 #' Object returned by \code{\link{doTheEvolution}} in case of the objective function
 #' being single-objective.
 #'
-#' It contains ...
+#' The S3 object containts the following members:
+#' \describe{
+#'   \item{task}{The \code{ecr_optimization_task}.}
+#'   \item{control}{The \code{ecr_control} object passed to \code{\link{doTheEvolution}}.}
+#'   \item{best.param}{Overall best parameters.}
+#'   \item{best.value}{Overall best objective value.}
+#'   \item{storage}{List of additional stuff saved within the evolutionary process (EA dependent).}
+#'   \item{opt.path}{Optimization path \code{\link[ParamHelpers]{OptPath}}.}
+#'   \item{population.storage}{Named list of populations stored during the process.}
+#'   \item{message}{Character string describing the reason of termination.}
+#' }
 #' @name ECRSingleObjectiveResult
 #' @rdname ECRSingleObjectiveResult
-#FIXME: finish this
 NULL
 
 makeECRSingleObjectiveResult = function(
@@ -44,7 +53,7 @@ print.ecr_single_objective_result = function(x, ...) {
 #' Multi objective result object.
 #'
 #' Object returned by \code{\link{doTheEvolution}} in case of the objective function
-#' being single-objective.
+#' being multi-objective.
 #'
 #' It contains ...
 #' @name ECRMultiObjectiveResult
@@ -88,6 +97,7 @@ print.ecr_multi_objective_result = function(x, ...) {
 #   indicators, i.e., epsilon indicator and hypervolume indicator.
 # @return [\code{ecr_multi_objective_result_summary}]
 # @export
+#FIXME: finish and export
 summary.ecr_multi_objective_result = function(object, ref.points = NULL, ...) {
   # convert the data frame to matrix
   pf = t(object$pareto.front)

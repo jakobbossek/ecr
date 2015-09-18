@@ -44,10 +44,15 @@ Time budget in seconds. Default ist \code{Inf}.}
 [\code{ecr_ecr_multi_objective_result}]
 }
 \description{
-Implementation of the SMS-EMOA by Emmerich et al.
+Pure R implementation of the SMS-EMOA. This algorithm belongs to the group
+  of indicator based multi-objective evolutionary algorithms. In each generation,
+  the SMS-EMOA selects two parents uniformly at, applies recombination and mutation
+  and finally selects the best subset of individuals among all subsets by maximizing
+  the Hypervolume indicator.
 }
 \note{
 This helper function hides the regular \pkg{ecr} interface and offers a more
-  R like interface of this state of the art EMOA while still being quite adaptable.
+  R like interface of this state of the art EMOA.
 }
+\keyword{optimize}
 

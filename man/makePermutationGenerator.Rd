@@ -10,6 +10,6 @@ makePermutationGenerator()
 [\code{ecr_operator}]
 }
 \description{
-Generates a generator object for the initial population.
+This generator generates a population of permutations.
 }
 

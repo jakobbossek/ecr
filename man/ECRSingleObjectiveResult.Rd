@@ -8,6 +8,16 @@ Object returned by \code{\link{doTheEvolution}} in case of the objective functio
 being single-objective.
 }
 \details{
-It contains ...
+The S3 object containts the following members:
+\describe{
+  \item{task}{The \code{ecr_optimization_task}.}
+  \item{control}{The \code{ecr_control} object passed to \code{\link{doTheEvolution}}.}
+  \item{best.param}{Overall best parameters.}
+  \item{best.value}{Overall best objective value.}
+  \item{storage}{List of additional stuff saved within the evolutionary process (EA dependent).}
+  \item{opt.path}{Optimization path \code{\link[ParamHelpers]{OptPath}}.}
+  \item{population.storage}{Named list of populations stored during the process.}
+  \item{message}{Character string describing the reason of termination.}
+}
 }
 

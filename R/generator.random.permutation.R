@@ -1,6 +1,9 @@
 #' @title
 #'   Generates a generator object for the initial population.
 #'
+#' @description
+#'   This generator generates a population of permutations.
+#'
 #' @return [\code{ecr_operator}]
 #' @export
 makePermutationGenerator = function() {

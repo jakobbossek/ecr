@@ -17,7 +17,7 @@ Fitness function.}
 [\code{matrix}].
 }
 \description{
-This function gets a population computes the fitness and
-  returns the vector of fitness values.
+This function expects a population, computes the fitness and
+  returns the matrix of fitness values.
 }
 

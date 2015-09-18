@@ -5,7 +5,7 @@
 \title{Multi objective result object.}
 \description{
 Object returned by \code{\link{doTheEvolution}} in case of the objective function
-being single-objective.
+being multi-objective.
 }
 \details{
 It contains ...
