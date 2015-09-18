@@ -7,7 +7,7 @@
 makePermutationGenerator()
 }
 \value{
-[\code{ecr_generator}]
+[\code{ecr_operator}]
 }
 \description{
 This generator generates a population of permutations.

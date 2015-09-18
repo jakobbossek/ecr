@@ -98,8 +98,8 @@ updateTrace.ecr_multi_objective_trace = function(trace, iter, n.evals, populatio
   # }
 
   for (i in seq(n.population)) {
-    x = as.list(population$individuals[[i]])
-    names(x) = getParamIds(control$par.set, with.nr = TRUE, repeated = TRUE)
+    x = list(population$individuals[[i]])
+    names(x) = getParamIds(control$par.set, with.nr = FALSE, repeated = FALSE)
     addOptPathEl(trace$opt.path, x = x, y = population$fitness[, i], dob = iter,
     exec.time = 0, extra = extras, check.feasible = FALSE)
   }
