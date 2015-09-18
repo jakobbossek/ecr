@@ -15,4 +15,9 @@ Selects genes for the mating pool. The chance of an individual to get selected
   to take part in the reproduction process. Low-fitness individuals however,
   have a positive fitness as well.
 }
+\seealso{
+Other selectors: \code{\link{makeGreedySelector}};
+  \code{\link{makeSimpleSelector}};
+  \code{\link{makeTournamentSelector}}
+}
 

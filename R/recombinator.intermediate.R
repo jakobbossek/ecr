@@ -4,6 +4,7 @@
 #' @param k [integer(1)]\cr
 #'   Number of parents required for mating. Default is \code{2}.
 #' @return [\code{ecr_recombinator}]
+#' @family recombinators
 #' @export
 makeIntermediateRecombinator = function(k = 2L) {
   assertInt(k, na.ok = FALSE, lower = 2L)

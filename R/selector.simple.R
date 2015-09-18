@@ -6,6 +6,7 @@
 #'   entire population to form the mating pool.
 #'
 #' @return [\code{setOfIndividuals}]
+#' @family selectors
 #' @export
 makeSimpleSelector = function() {
   selector = function(population, storage, task, n.select, control) {

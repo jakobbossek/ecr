@@ -30,6 +30,6 @@ At least one of \dQuote{single-objective} or \dQuote{multi-objective}.}
 }
 \description{
 Helper function which defines a selector method, i. e., an operator which
-  takes the population and returns a part of it for mating.
+  takes the population and returns a part of it for mating or survival.
 }
 

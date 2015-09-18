@@ -8,6 +8,7 @@
 #'   positions while preserving the order and position of as many genes as possible.
 #'
 #' @return [\code{ecr_recombinator}]
+#' @family recombinators
 #' @export
 makePMXRecombinator = function() {
   recombinator = function(inds, control = list(), task) {

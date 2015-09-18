@@ -13,4 +13,11 @@ makeInsertionMutator()
 The Insertion mutation operator selects a position random and inserts it at
   a random position.
 }
+\seealso{
+Other mutators: \code{\link{makeBitFlipMutator}};
+  \code{\link{makeGaussMutator}};
+  \code{\link{makeScrambleMutator}};
+  \code{\link{makeSwapMutator}};
+  \code{\link{makeUniformMutator}}
+}
 

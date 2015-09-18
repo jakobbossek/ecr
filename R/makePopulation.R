@@ -1,5 +1,5 @@
 #' @title
-#'   Wrap individuals in a 'setOfIndividuals'.
+#'   Wrap individuals in a \code{setOfIndividuals}.
 #'
 #' @param individuals [\code{matrix}]\cr
 #'   Matrix of individuals.

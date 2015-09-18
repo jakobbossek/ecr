@@ -1,6 +1,7 @@
 #' @title
 #'   Generator of the One-point crossover recombination operator.
 #'
+#' @family recombinators
 #' @return [\code{ecr_recombinator}]
 #' @export
 makeCrossoverRecombinator = function() {

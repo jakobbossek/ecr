@@ -24,7 +24,11 @@ Not used.}
   Monitor object.
 }
 \description{
-Factory method for monitor objects.
+Monitor objects serve for monitoring the optimization process. Each monitor
+  object expects the parameters \code{before}, \code{step} and \code{after},
+  each being a function and expecting \code{envir = parent.frame()} as the
+  only parameter. This way one can access all the variables used within the
+  evolutionary cycle.
 }
 \examples{
 # We want to find the minimum of the function f(x) = x sin(2x) on the intervall

@@ -13,4 +13,9 @@ makeSimpleSelector()
 Just for testing. Actually does not really select, but instead returns the
   entire population to form the mating pool.
 }
+\seealso{
+Other selectors: \code{\link{makeGreedySelector}};
+  \code{\link{makeRouletteWheelSelector}};
+  \code{\link{makeTournamentSelector}}
+}
 

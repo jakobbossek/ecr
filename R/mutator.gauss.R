@@ -9,6 +9,7 @@
 #' @param sdev [\code{numeric(1)}\cr
 #'   Standard deviance of the Gauss mutation, i. e., the mutation strength.
 #' @return [\code{ecr_mutator}]
+#' @family mutators
 #' @export
 makeGaussMutator = function(p = 1L, sdev = 0.05) {
   force(p)

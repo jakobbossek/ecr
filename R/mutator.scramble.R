@@ -6,6 +6,7 @@
 #'   random and randomly intermixes the subsequence between these positions.
 #'
 #' @return [\code{ecr_mutator}]
+#' @family mutators
 #' @export
 makeScrambleMutator = function() {
   mutator = function(ind, args = list(), control, task) {

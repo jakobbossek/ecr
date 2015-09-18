@@ -12,4 +12,11 @@ makeSwapMutator()
 \description{
 Chooses two positions at random and swaps the genes.
 }
+\seealso{
+Other mutators: \code{\link{makeBitFlipMutator}};
+  \code{\link{makeGaussMutator}};
+  \code{\link{makeInsertionMutator}};
+  \code{\link{makeScrambleMutator}};
+  \code{\link{makeUniformMutator}}
+}
 

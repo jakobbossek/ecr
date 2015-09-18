@@ -12,4 +12,10 @@ makeCrossoverRecombinator()
 \description{
 Generator of the One-point crossover recombination operator.
 }
+\seealso{
+Other recombinators: \code{\link{makeIntermediateRecombinator}};
+  \code{\link{makeNullRecombinator}};
+  \code{\link{makeOXRecombinator}};
+  \code{\link{makePMXRecombinator}}
+}
 

@@ -17,4 +17,11 @@ Probability to flip a single bit. Default is \code{0.1}.}
 This operator works only on binary representation and flips each bit
   with a given probability.
 }
+\seealso{
+Other mutators: \code{\link{makeGaussMutator}};
+  \code{\link{makeInsertionMutator}};
+  \code{\link{makeScrambleMutator}};
+  \code{\link{makeSwapMutator}};
+  \code{\link{makeUniformMutator}}
+}
 

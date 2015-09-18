@@ -1,7 +1,8 @@
 #' @title
-#'   The nullRecombinator does not perform any recombination.
+#'   This recombinator does not perform any recombination.
 #'
 #' @return [\code{ecr_recombinator}]
+#' @family recombinators
 #' @export
 makeNullRecombinator = function() {
   recombinator = function(inds, control = list(), task) {

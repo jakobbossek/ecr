@@ -2,7 +2,7 @@
 % Please edit documentation in R/recombinator.null.R
 \name{makeNullRecombinator}
 \alias{makeNullRecombinator}
-\title{The nullRecombinator does not perform any recombination.}
+\title{This recombinator does not perform any recombination.}
 \usage{
 makeNullRecombinator()
 }
@@ -10,6 +10,12 @@ makeNullRecombinator()
 [\code{ecr_recombinator}]
 }
 \description{
-The nullRecombinator does not perform any recombination.
+This recombinator does not perform any recombination.
+}
+\seealso{
+Other recombinators: \code{\link{makeCrossoverRecombinator}};
+  \code{\link{makeIntermediateRecombinator}};
+  \code{\link{makeOXRecombinator}};
+  \code{\link{makePMXRecombinator}}
 }
 

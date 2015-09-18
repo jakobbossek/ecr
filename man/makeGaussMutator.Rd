@@ -19,4 +19,11 @@ Standard deviance of the Gauss mutation, i. e., the mutation strength.}
 \description{
 Default Gaussian mutation operator known from Evolutionary Algorithms.
 }
+\seealso{
+Other mutators: \code{\link{makeBitFlipMutator}};
+  \code{\link{makeInsertionMutator}};
+  \code{\link{makeScrambleMutator}};
+  \code{\link{makeSwapMutator}};
+  \code{\link{makeUniformMutator}}
+}
 

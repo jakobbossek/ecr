@@ -19,4 +19,9 @@ Selects genes for the mating pool. It works as follows: k individuals from the
   the mating pool. This process is repeated until the desired number of individuals
   for the mating pool is reached.
 }
+\seealso{
+Other selectors: \code{\link{makeGreedySelector}};
+  \code{\link{makeRouletteWheelSelector}};
+  \code{\link{makeSimpleSelector}}
+}
 

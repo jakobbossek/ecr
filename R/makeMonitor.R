@@ -1,6 +1,13 @@
 #' @title
 #'   Factory method for monitor objects.
 #'
+#' @description
+#'   Monitor objects serve for monitoring the optimization process. Each monitor
+#'   object expects the parameters \code{before}, \code{step} and \code{after},
+#'   each being a function and expecting \code{envir = parent.frame()} as the
+#'   only parameter. This way one can access all the variables used within the
+#'   evolutionary cycle.
+#'
 #' @param before [\code{function}]\cr
 #'   Function called one time after initialization of the EA.
 #' @param step [\code{function}]\cr

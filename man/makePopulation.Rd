@@ -2,7 +2,7 @@
 % Please edit documentation in R/makePopulation.R
 \name{makePopulation}
 \alias{makePopulation}
-\title{Wrap individuals in a 'setOfIndividuals'.}
+\title{Wrap individuals in a \code{setOfIndividuals}.}
 \usage{
 makePopulation(individuals, fitness = NULL)
 }
@@ -17,6 +17,6 @@ Matrix of fitness values for the individuals.}
 [\code{setOfIndividuals}]
 }
 \description{
-Wrap individuals in a 'setOfIndividuals'.
+Wrap individuals in a \code{setOfIndividuals}.
 }
 

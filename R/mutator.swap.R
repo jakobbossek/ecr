@@ -5,6 +5,7 @@
 #'   Chooses two positions at random and swaps the genes.
 #'
 #' @return [\code{ecr_mutator}]
+#' @family mutators
 #' @export
 makeSwapMutator = function() {
   mutator = function(ind, args = list(), control, task) {

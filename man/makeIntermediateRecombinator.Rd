@@ -16,4 +16,10 @@ Number of parents required for mating. Default is \code{2}.}
 \description{
 Generator of the indermediate recombination operator.
 }
+\seealso{
+Other recombinators: \code{\link{makeCrossoverRecombinator}};
+  \code{\link{makeNullRecombinator}};
+  \code{\link{makeOXRecombinator}};
+  \code{\link{makePMXRecombinator}}
+}
 

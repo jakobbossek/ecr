@@ -11,6 +11,7 @@
 #'   necessary, this feature is disadvantegous.
 #'
 #' @return [\code{ecr_mutator}]
+#' @family mutators
 #' @export
 makeUniformMutator = function() {
   mutator = function(ind, args = list(), control, task) {

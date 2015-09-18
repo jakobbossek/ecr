@@ -16,4 +16,10 @@ This recombination operator is specifically designed for permutations.
   node indizes from the entire sequence of the second parent from the sescond
   cut point and b) fill the remaining gaps with this trimmed sequence.
 }
+\seealso{
+Other recombinators: \code{\link{makeCrossoverRecombinator}};
+  \code{\link{makeIntermediateRecombinator}};
+  \code{\link{makeNullRecombinator}};
+  \code{\link{makePMXRecombinator}}
+}
 

@@ -13,4 +13,11 @@ makeScrambleMutator()
 The Scramble mutation operator selects two positions within the chromosome at
   random and randomly intermixes the subsequence between these positions.
 }
+\seealso{
+Other mutators: \code{\link{makeBitFlipMutator}};
+  \code{\link{makeGaussMutator}};
+  \code{\link{makeInsertionMutator}};
+  \code{\link{makeSwapMutator}};
+  \code{\link{makeUniformMutator}}
+}
 

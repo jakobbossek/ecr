@@ -6,7 +6,7 @@
 #' @note
 #'   If a recombinator returns more than one child, the \code{multiple.children}
 #'   parameter needs to be \code{TRUE}, which is the default. In case of multiple
-#'   children produces these have to be placed within a list.
+#'   children produced these have to be placed within a list.
 #'
 #' @param recombinator [\code{function}]\cr
 #'   Actual mutation operator.

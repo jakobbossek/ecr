@@ -18,4 +18,11 @@ This mutation operator works on real-valued genotypes only. It selects a positio
   hinder premature convergence. However, in later stages - when fine tuning is
   necessary, this feature is disadvantegous.
 }
+\seealso{
+Other mutators: \code{\link{makeBitFlipMutator}};
+  \code{\link{makeGaussMutator}};
+  \code{\link{makeInsertionMutator}};
+  \code{\link{makeScrambleMutator}};
+  \code{\link{makeSwapMutator}}
+}
 
