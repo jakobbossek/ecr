@@ -9,6 +9,10 @@
 makePermutationGenerator = function() {
   generatePermutationPopulation = function(size, task, control) {
     par.set = control$par.set
+    if (getParamNr(par.set) > 1L) {
+      stopf("The Permutation Generator works only with one parameter(-vector).")
+    }
+
     n.params = sum(getParamLengths(par.set))
     population = list()
     for(i in seq(size)) {
@@ -16,12 +20,12 @@ makePermutationGenerator = function() {
     }
     makePopulation(population)
   }
-  operator = makeOperator(
-    operator = generatePermutationPopulation,
+
+  generator = makeGenerator(
+    generator = generatePermutationPopulation,
     name = "Permutation generator",
     description = "Generates random permutations.",
     supported = c("permutation")
   )
-  operator = addClasses(operator, c("ecr_generator"))
-  return(operator)
+  return(generator)
 }

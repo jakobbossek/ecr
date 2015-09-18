@@ -60,7 +60,7 @@ ctrl = setupECRControl(
   survival.strategy = "plus",
   save.population.at = 0:100L,
   representation = "float",
-  stopping.conditions = setupStoppingConditions(max.iter = 100L),
+  stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
 ctrl = setupEvolutionaryOperators(
  ctrl,

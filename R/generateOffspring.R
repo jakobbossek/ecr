@@ -10,7 +10,7 @@
 #' @param objective.fun [\code{function}]\cr
 #'   Target fun.
 #' @param control [\code{ecr_control}]\cr
-#'   Control object containing alle the operators and further parameters.
+#'   Control object containing all operators and further parameters.
 #' @param opt.path [\code{OptPath}]\cr
 #'   Optimization path.
 #' @return [\code{setOfIndividuals}] Generated offspring.
@@ -18,24 +18,24 @@ generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, 
   n.offspring = control$n.offspring
   offspring = vector(mode = "list", length = n.offspring)
 
-  i = 1L
-  while(i <= n.offspring) {
+  i.offspring = 1L
+  while(i.offspring <= n.offspring) {
     parents = getParents(matingPool, n.parents = getNumberOfParentsNeededForMating(control))
     children = recombine(control, parents, task)
     # eventually the recombinator returns multiple children
     if (hasAttributes(children, "multiple")) {
-      max.children = min(length(children), n.offspring - i + 1L)
+      max.children = min(length(children), n.offspring - i.offspring + 1L)
       for (j in seq(max.children)) {
-        offspring[[i]] = mutate(control, children[[j]], task)
-        i = i + 1L
+        offspring[[i.offspring]] = mutate(control, children[[j]], task)
+        i.offspring = i.offspring + 1L
       }
     } else {
-      offspring[[i]] = mutate(control, children, task)
-      i = i + 1L
+      offspring[[i.offspring]] = mutate(control, children, task)
+      i.offspring = i.offspring + 1L
     }
   }
 
-  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun)
+  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun, control)
 
   return(makePopulation(offspring, offspring.fitness))
 }

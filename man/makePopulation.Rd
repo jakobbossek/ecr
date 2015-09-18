@@ -8,10 +8,11 @@ makePopulation(individuals, fitness = NULL)
 }
 \arguments{
 \item{individuals}{[\code{matrix}]\cr
-Matrix of individuals.}
+List of individuals.}
 
 \item{fitness}{[\code{matrix}]\cr
-Matrix of fitness values for the individuals.}
+Matrix with one row of fitness values for the individuals.
+Default is \code{NULL}.}
 }
 \value{
 [\code{setOfIndividuals}]

@@ -7,7 +7,7 @@
 makeBinaryGenerator()
 }
 \value{
-[\code{ecr_operator}]
+[\code{ecr_generator}]
 }
 \description{
 The generated operator samples uniformally distributed points in the design

@@ -67,8 +67,8 @@ updateTrace.ecr_single_objective_trace = function(trace, iter, n.evals, populati
     best.param.values = list(best$individual)
     names(best.param.values) = getParamIds(par.set)
   } else {
-    best.param.values = as.list(best$individual)
-    names(best.param.values) = getParamIds(par.set, repeated = TRUE, with.nr = TRUE)
+    # many parameters: a list is an individual
+    best.param.values = best$individual
   }
   #FIXME: dummy value for custom representation
   if (control$representation == "custom") {

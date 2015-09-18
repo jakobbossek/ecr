@@ -12,7 +12,7 @@
 #' @export
 makeBitFlipMutator = function(p = 0.1) {
   mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$p, lower = 0.000001, upper = 0.999999, na.ok = FALSE)
+    assertNumber(operator.control$p, lower = 0, upper = 1)
   }
 
   force(p)
@@ -23,6 +23,18 @@ makeBitFlipMutator = function(p = 0.1) {
     n.params = length(ind)
     do.mutate = runif(n.params) < args$p
     ind[do.mutate] = 1 - ind[do.mutate]
+    mutateGene = function(gene, prob) {
+      do.mutate = runif(length(gene)) < prob
+      gene[do.mutate] = 1 - gene[do.mutate]
+      gene
+    }
+
+    if (getParamNr(control$par.set) == 1L) {
+      ind = mutateGene(ind, args$p)
+    } else {
+      ind = lapply(ind, mutateGene, prob = args$p)
+    }
+
     return(ind)
   }
 

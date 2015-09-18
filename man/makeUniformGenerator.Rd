@@ -7,7 +7,7 @@
 makeUniformGenerator()
 }
 \value{
-[\code{ecr_opeator}]
+[\code{ecr_generator}]
 }
 \description{
 The returned population contains individuals which are uniformly distributed

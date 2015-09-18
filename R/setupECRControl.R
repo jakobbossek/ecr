@@ -62,7 +62,7 @@ setupECRControl = function(
   assertCharacter(target.name, len = 1L, any.missing = FALSE)
 
   if (length(save.population.at) > 0) {
-    assertInteger(save.population.at, lower = 0L, any.missing = FALSE)
+    assertIntegerish(save.population.at, lower = 0L, any.missing = FALSE)
   }
 
   if (!is.null(extras.fun)) {
