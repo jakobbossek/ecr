@@ -55,13 +55,35 @@ computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
   return (hv.ref.points - hv.points)
 }
 
-#FIXME: finish this
+#' @rdname emoa_indicators
+#' @export
+computeR1Indicator = function(points, ref.points, ideal.point = NULL,
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
+  computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
+    aggregator = function(ua, ur) mean(ua > ur) + mean(ua == ur) / 2)
+}
+
+#' @rdname emoa_indicators
+#' @export
+computeR2Indicator = function(points, ref.points, ideal.point = NULL,
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
+  computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
+    aggregator = function(ua, ur) mean(ur - ua))
+}
+
+#' @rdname emoa_indicators
+#' @export
+computeR3Indicator = function(points, ref.points, ideal.point = NULL,
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff") {
+  computeRIndicator(points, ref.points, ideal.point, nadir.point, lambda, utility,
+    aggregator = function(ua, ur) mean((ur - ua) / ur))
+}
+
 # @rdname emoa_indicators
-# @export
 computeRIndicator = function(
   points, ref.points,
   ideal.point = NULL, nadir.point = NULL,
-  lambdas = NULL,
+  lambda = NULL,
   utility,
   aggregator) {
   assertMatrix(points, mode = "numeric", any.missing = FALSE)
@@ -70,11 +92,9 @@ computeRIndicator = function(
     ideal.point = approximateIdealPoint(points, ref.points)
   }
   assertNumeric(ideal.point, any.missing = FALSE)
-  assertMatrix(lambdas, mode = "numeric", any.missing = FALSE)
-  utilities = c("weightedsum", "tschbycheff", "augmented tschbycheff")
+  utilities = c("weightedsum", "tschebycheff", "augmented tschbycheff")
   assertChoice(utility, utilities)
   assertFunction(aggregator)
-  assertSameDimensions(points, ref.points, ideal.point, nadir.point)
 
   # convert utility to integer index which is used by the C code
   utility = which((match.arg(utility, utilities)) == utilities)
@@ -89,13 +109,15 @@ computeRIndicator = function(
     nadir.point = approximateNadirPoint(points, ref.points)
   }
 
+  assertSameDimensions(points, ref.points, ideal.point, nadir.point)
+
   if (is.null(lambda)) {
     lambda = determineLambdaByDimension(n.obj)
   }
   lambda = convertInteger(lambda)
 
-  ind.points = .Call(computeRIndicator, points, ideal.point, nadir.point, lambda, utility)
-  ind.ref.points = .Call(computeRIndicator, ref.points, ideal.point, nadir.point, lambda, utility)
+  ind.points = .Call("computeRIndicatorC", points, ideal.point, nadir.point, lambda, utility)
+  ind.ref.points = .Call("computeRIndicatorC", ref.points, ideal.point, nadir.point, lambda, utility)
 
   ind = aggregator(ind.points, ind.ref.points)
 

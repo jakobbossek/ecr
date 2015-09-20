@@ -85,3 +85,19 @@ test_that("assertions on hypervolume (contribution)", {
     expect_true(all(hvctrb2 >= 0))
   }
 })
+
+test_that("R{1,2,3} indicators are computed correctly.", {
+  #FIXME: this is copy and paste from the HV test
+  points = matrix(
+    c(1, 5,
+      2, 4,
+      3, 3,
+      4, 2,
+      5, 1),
+    nrow = 2L)
+
+  # some basic checks
+  expect_equal(computeR1Indicator(points = points, ref.points = points), 0.5)
+  expect_equal(computeR2Indicator(points = points, ref.points = points), 0)
+  expect_equal(computeR3Indicator(points = points, ref.points = points), 0)
+})

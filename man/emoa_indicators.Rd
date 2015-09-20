@@ -3,11 +3,23 @@
 \name{computeEpsilonIndicator}
 \alias{computeEpsilonIndicator}
 \alias{computeHypervolumeIndicator}
+\alias{computeR1Indicator}
+\alias{computeR2Indicator}
+\alias{computeR3Indicator}
 \title{Computation of the unary epsilon-indicator.}
 \usage{
 computeEpsilonIndicator(points, ref.points)
 
 computeHypervolumeIndicator(points, ref.points, ref.point = NULL)
+
+computeR1Indicator(points, ref.points, ideal.point = NULL,
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff")
+
+computeR2Indicator(points, ref.points, ideal.point = NULL,
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff")
+
+computeR3Indicator(points, ref.points, ideal.point = NULL,
+  nadir.point = NULL, lambda = NULL, utility = "tschebycheff")
 }
 \arguments{
 \item{points}{[\code{matrix}]\cr
