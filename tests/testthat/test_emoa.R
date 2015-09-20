@@ -69,3 +69,26 @@ test_that("preimplemented EMOAs work well", {
       list(n.pop = n.pop, n.archive = 5L))
   }
 })
+
+test_that("Summary function for EMOA result works", {
+  # Check multiple parents support
+  zdt1 = smoof::makeZDT1Function(dimensions = 2L)
+  # test NSGA-II
+  res = nsga2(
+    task = makeOptimizationTask(zdt1),
+    n.population = 30L,
+    n.offspring = 10L,
+    max.evals = 200L
+  )
+
+  xx = summary(res)
+  expect_class(xx, c("list", "ecr_multi_objective_result_summary"))
+  expect_true(is.integer(xx$n.nondom))
+  expect_true(is.numeric(xx$dom.hv) && xx$dom.hv >= 0)
+
+  # since we did not pass any any reference points, all the other indicators are NA
+  expect_true(all(is.na(xx[which(names(xx) %nin% c("n.nondom", "dom.hv"))])))
+
+  xx = summary(res, ref.points = t(res$pareto.front))
+  expect_true(all(xx >= 0))
+})

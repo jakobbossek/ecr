@@ -87,26 +87,30 @@ print.ecr_multi_objective_result = function(x, ...) {
   printAdditionalInformation(x)
 }
 
-# @title
-#   Summary function for multi objective ecr result.
-#
-# @param object [\code{ecr_multi_objective_result}]\cr
-#   Result object.
-# @param ref.points [\code{matrix}]\cr
-#   Matrix of reference points (one point per column) used for the emoa quality
-#   indicators, i.e., epsilon indicator and hypervolume indicator.
-# @return [\code{ecr_multi_objective_result_summary}]
-# @export
-#FIXME: finish and export
+#' @title
+#'   Summary function for multi objective ecr result.
+#'
+#' @param object [\code{ecr_multi_objective_result}]\cr
+#'   Result object.
+#' @param ref.points [\code{matrix}]\cr
+#'   Matrix of reference points (one point per column) used for the emoa quality
+#'   indicators, i.e., epsilon indicator and hypervolume indicator.
+#' @param ... [any]\cr
+#'   Furhter parameters passed to R\{1,2,3\} computation functions. See e.g.
+#'   \code{\link{computeR1Indicator}} for details.
+#' @return [\code{ecr_multi_objective_result_summary}]
+#' @export
 summary.ecr_multi_objective_result = function(object, ref.points = NULL, ...) {
   # convert the data frame to matrix
   pf = t(object$pareto.front)
-  #FIXME: maybe add the possibility to pass ref point to control and use it here?
   makeS3Obj(
     n.nondom = ncol(pf),
     dom.hv = computeDominatedHypervolume(pf),
     eps.ind = if (!is.null(ref.points)) computeEpsilonIndicator(pf, ref.points) else NA,
     hv.ind = if (!is.null(ref.points)) computeHypervolumeIndicator(pf, ref.points) else NA,
+    r1.ind = if (!is.null(ref.points)) computeR1Indicator(pf, ref.points, ...) else NA,
+    r2.ind = if (!is.null(ref.points)) computeR2Indicator(pf, ref.points, ...) else NA,
+    r3.ind = if (!is.null(ref.points)) computeR3Indicator(pf, ref.points, ...) else NA,
     classes = c("list", "ecr_multi_objective_result_summary")
   )
 }
