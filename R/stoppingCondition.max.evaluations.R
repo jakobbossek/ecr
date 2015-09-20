@@ -6,12 +6,13 @@
 #' @return [\code{function}]
 #' @export
 makeMaximumEvaluationsStoppingCondition = function(max.evals = NULL) {
+  force(max.evals)
+
   if (!is.null(max.evals)) {
     assertInt(max.evals, lower = 1L, na.ok = FALSE)
   } else {
     max.evals = Inf
   }
-  force(max.evals)
 
   condition.fun = function(opt.path) {
     vals = getOptPathCol(opt.path, "n.evals")
@@ -21,6 +22,7 @@ makeMaximumEvaluationsStoppingCondition = function(max.evals = NULL) {
   makeStoppingCondition(
     condition.fun,
     name = "FunctionEvaluationsLimit",
-    message = sprintf("Maximum number of objective function evaluations reached: '%i'", max.evals)
+    message = sprintf("Maximum number of objective function evaluations reached: %s",
+      if (is.infinite(max.evals)) "Inf" else as.integer(max.evals))
   )
 }
