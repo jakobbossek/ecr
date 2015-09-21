@@ -31,7 +31,7 @@ computeEpsilonIndicator = function(points, ref.points) {
   assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
   assertSameDimensions(points, ref.points)
 
-  return(.Call("calculateEpsilonIndicatorFromR", points, ref.points))
+  return(.Call("computeEpsilonIndicatorC", points, ref.points))
 }
 
 #' @rdname emoa_indicators
