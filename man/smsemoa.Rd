@@ -7,7 +7,7 @@
 smsemoa(task, n.population = 100L, ref.point = NULL,
   parent.selector = makeSimpleSelector(), mutator = makeGaussMutator(),
   recombinator = makeCrossoverRecombinator(), max.iter = NULL,
-  max.evals = NULL, max.time = NULL)
+  max.evals = NULL, max.time = NULL, ...)
 }
 \arguments{
 \item{task}{[\code{ecr_optimization_task}]\cr
@@ -39,6 +39,9 @@ Maximal number of iterations/generations. Default is \code{Inf}.}
 
 \item{max.time}{[\code{integer(1)}]\cr
 Time budget in seconds. Default ist \code{Inf}.}
+
+\item{...}{[any]\cr
+Further arguments passed to \code{\link{setupECRControl}}.}
 }
 \value{
 [\code{ecr_ecr_multi_objective_result}]

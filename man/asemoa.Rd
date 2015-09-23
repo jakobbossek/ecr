@@ -7,7 +7,7 @@
 asemoa(task, n.population = 100L, aspiration.set = NULL, n.archive,
   parent.selector = makeSimpleSelector(), mutator = makeGaussMutator(),
   recombinator = makeCrossoverRecombinator(), max.iter = 100L,
-  max.evals = NULL, max.time = NULL)
+  max.evals = NULL, max.time = NULL, ...)
 }
 \arguments{
 \item{task}{[\code{ecr_optimization_task}]\cr
@@ -42,6 +42,9 @@ Maximal number of iterations/generations. Default is \code{Inf}.}
 
 \item{max.time}{[\code{integer(1)}]\cr
 Time budget in seconds. Default ist \code{Inf}.}
+
+\item{...}{[any]\cr
+Further arguments passed to \code{\link{setupECRControl}}.}
 }
 \value{
 [\code{ecr_ecr_multi_objective_result}]

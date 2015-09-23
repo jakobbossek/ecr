@@ -28,6 +28,8 @@
 #' @template arg_max_iter
 #' @template arg_max_evals
 #' @template arg_max_time
+#' @param ... [any]\cr
+#'   Further arguments passed to \code{\link{setupECRControl}}.
 #' @return [\code{ecr_ecr_multi_objective_result}]
 #' @export
 nsga2 = function(
@@ -38,7 +40,8 @@ nsga2 = function(
   recombinator = makeCrossoverRecombinator(),
   max.iter = 100L,
   max.evals = NULL,
-  max.time = NULL) {
+  max.time = NULL,
+  ...) {
 
   # set up the core of NSGA-II, namely the survival selection
   nsga2SurvivalSelector = makeSelector(
@@ -99,12 +102,12 @@ nsga2 = function(
     n.population = n.population,
     n.offspring = n.offspring,
     representation = "float",
-    monitor = makeConsoleMonitor(),
     stopping.conditions = list(
       makeMaximumEvaluationsStoppingCondition(max.evals),
       makeMaximumTimeStoppingCondition(max.time),
       makeMaximumIterationsStoppingCondition(max.iter)
-    )
+    ),
+    ...
   )
   ctrl = setupEvolutionaryOperators(
     ctrl,

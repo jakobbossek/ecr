@@ -26,6 +26,8 @@
 #' @template arg_max_iter
 #' @template arg_max_evals
 #' @template arg_max_time
+#' @param ... [any]\cr
+#'   Further arguments passed to \code{\link{setupECRControl}}.
 #' @return [\code{ecr_ecr_multi_objective_result}]
 #' @export
 smsemoa = function(
@@ -37,7 +39,7 @@ smsemoa = function(
   recombinator = makeCrossoverRecombinator(),
   max.iter = NULL,
   max.evals = NULL,
-  max.time = NULL) {
+  max.time = NULL, ...) {
 
   hypervolumeSelector = makeSelector(
     selector = function(population, storage, task, n.select, control) {
@@ -75,12 +77,12 @@ smsemoa = function(
     n.population = n.population,
     n.offspring = 1L,
     representation = "float",
-    monitor = makeConsoleMonitor(),
     stopping.conditions = list(
       makeMaximumEvaluationsStoppingCondition(max.evals),
       makeMaximumTimeStoppingCondition(max.time),
       makeMaximumIterationsStoppingCondition(max.iter)
-    )
+    ),
+    ...
   )
   ctrl = setupEvolutionaryOperators(
     ctrl,
