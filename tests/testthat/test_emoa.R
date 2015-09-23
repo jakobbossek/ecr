@@ -33,7 +33,8 @@ test_that("preimplemented EMOAs work well", {
         task = makeOptimizationTask(fns[[fn]]),
         n.population = n.pop,
         n.offspring = 5L,
-        max.evals = max.evals
+        max.evals = max.evals,
+        monitor = makeNullMonitor()
       )
       expect_is_pareto_approximation(res$pareto.front, 2L, "nsga2", fn,
         list(n.pop = n.pop, n.offspring = 5L, max.evals = max.evals)
@@ -47,7 +48,8 @@ test_that("preimplemented EMOAs work well", {
       res = smsemoa(
         task = makeOptimizationTask(fns[[fn]]),
         n.population = n.pop,
-        max.evals = max.evals
+        max.evals = max.evals,
+        monitor = makeNullMonitor()
       )
       expect_is_pareto_approximation(res$pareto.front, 2L, "smsemoa", fn,
         list(n.pop = n.pop, n.offspring = 5L, max.evals = max.evals)
@@ -64,7 +66,7 @@ test_that("preimplemented EMOAs work well", {
         0.18, 0.4), ncol = 3L, byrow = FALSE
     )
     res = asemoa(task, n.population = n.pop, max.evals = max.evals,
-      aspiration.set = aspiration.set, n.archive = 5L)
+      aspiration.set = aspiration.set, n.archive = 5L, monitor = makeNullMonitor())
     expect_is_pareto_approximation(res$pareto.front, 2L, "asemoa", "ZDT3",
       list(n.pop = n.pop, n.archive = 5L))
   }
@@ -78,7 +80,8 @@ test_that("Summary function for EMOA result works", {
     task = makeOptimizationTask(zdt1),
     n.population = 30L,
     n.offspring = 10L,
-    max.evals = 200L
+    max.evals = 200L,
+    monitor = makeNullMonitor()
   )
 
   xx = summary(res)
