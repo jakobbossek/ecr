@@ -20,7 +20,7 @@ inst = random_instance(size = n.nodes)
 
 # The target fun is the length of a given tour
 obj.fun = function(tour) {
-  tour_length(x = inst, order = as.integer(tour))
+  tour_length(x = TSP(inst$dists), order = as.integer(tour))
 }
 
 # now we wrap the objective function with the smoof package
