@@ -30,7 +30,7 @@ makeECRSingleObjectiveResult = function(
     opt.path = opt.path,
     population.storage = population.storage,
     message = stop.object$message,
-    classes = "ecr_single_objective_result"
+    classes = c("ecr_single_objective_result", "ecr_result")
   )
 }
 
@@ -75,7 +75,7 @@ makeECRMultiObjectiveResult = function(
     pareto.set = lapply(pareto.inds, function(i) getOptPathEl(opt.path, i)$x),
     pareto.inds = pareto.inds,
     message = stop.object$message,
-    classes = "ecr_multi_objective_result"
+    classes = c("ecr_multi_objective_result", "ecr_result")
   )
 }
 
@@ -122,6 +122,27 @@ print.ecr_multi_objective_result_summary = function(x, ...) {
 
 printAdditionalInformation = function(x) {
   catf(x$message)
-  catf("Generations: %i", max(getOptPathCol(x$opt.path, "iter")))
-  catf("Evaluations: %i", max(getOptPathCol(x$opt.path, "n.evals")))
+  catf("Generations: %i", getGenerations(x))
+  catf("Evaluations: %i", getEvaluations(x))
+}
+
+#' @title Determine number of function evaluations needed.
+#'
+#' @param result [\code{ecr_result}]\cr
+#'   \pkg{ecr} result object.
+#' @return [integer(1)]
+#' @export
+getEvaluations = function(result) {
+  assertClass(result, "ecr_result")
+  return(max(getOptPathCol(result$opt.path, "n.evals")))
+}
+
+#' @title Determine number of generations.
+#'
+#' @param result [\code{ecr_result}]\cr
+#'   \pkg{ecr} result object.
+#' @return [integer(1)]
+#' @export
+getGenerations = function(result) {
+  return(max(getOptPathCol(result$opt.path, "iter")))
 }

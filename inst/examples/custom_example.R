@@ -39,7 +39,7 @@ ctrl = setupECRControl(
   representation = "custom", # bypass everything
   survival.strategy = "plus",
   monitor = makeConsoleMonitor(),
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 100L))
+  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 1000L))
 )
 
 myGenerator = makeGenerator(

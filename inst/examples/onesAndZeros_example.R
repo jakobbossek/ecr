@@ -48,8 +48,8 @@ control = setupEvolutionaryOperators(
   control
   , parent.selector = makeRouletteWheelSelector()
   , generator = makeBinaryGenerator()
-  , mutator = makeBitFlipMutator(mutator.flip.prob = 0.001)
-  , recombinator = makeCrossoverRecombinator(recombinator.crossover.prob = 0.7)
+  , mutator = makeBitFlipMutator(p = 0.001)
+  , recombinator = makeCrossoverRecombinator(p = 0.7)
 )
 
 # Show all column names in opt.path:

@@ -30,26 +30,25 @@ myMonitorStep = function(envir = parent.frame()) {
   pl = pl + geom_point(data = population.points, colour = "tomato", size = 2.2)
   pl = pl + geom_hline(yintercept = min(population$fitness), linetype = "dotted", colour = "tomato")
   print(pl)
-  #Sys.sleep(0.3)
-  pause()
+  Sys.sleep(0.3)
 }
 
-myMonitor = makeMonitor(step = myMonitorStep)
+myMonitor = makeConsoleMonitor()#makeMonitor(step = myMonitorStep)
 
 # generate objective function
-obj.fun = makeRastriginFunction(dimensions = 1L)
+obj.fun = makeRastriginFunction(dimensions = 2L)
 
 # initialize control object
 control = setupECRControl(
-  n.population = 20L,
-  n.offspring = 5L,
+  n.population = 100L,
+  n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
   monitor = myMonitor,
-  stopping.conditions = setupStoppingConditions(max.iter = 25L)
+  stopping.conditions = setupStoppingConditions(max.iter = 1000L)
 )
 # use default operators
-control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(p = 1, sdev = 0.014))
+control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(p = 1, sdev = 0.14))
 
 # do the evolutionary magic
 set.seed(123)
