@@ -42,8 +42,6 @@ test_that("autoplot for log axis and show process", {
       mutator = makeGaussMutator(sdev = 0.005)
     )
     res = doTheEvolution(obj.fun, control = control)
-    expect_message(autoplot(res, log.fitness = TRUE, complete.trace = TRUE)
-                   , regexp = "Scale for 'y' is already present. Adding another scale for 'y', which will replace the existing scale.")
-    expect_true(autoplot(res, show.process = TRUE, complete.trace = TRUE))
+    expect_true(autoplot(res, log.fitness = TRUE, complete.trace = TRUE))
   }
 })
