@@ -21,7 +21,7 @@ BugReports: https://github.com/jakobbossek/ecr/issues
 Depends:
     ParamHelpers (>= 1.6),
     BBmisc (>= 1.6),
-    smoof (>= 1.0),
+    smoof (>= 1.1),
     ggplot2 (>= 1.0.0)
 Imports:
     checkmate (>= 1.1),
