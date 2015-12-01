@@ -19,7 +19,7 @@ License: BSD_2_clause + file LICENSE
 URL: https://github.com/jakobbossek/ecr
 BugReports: https://github.com/jakobbossek/ecr/issues
 Depends:
-    ParamHelpers (>= 1.3),
+    ParamHelpers (>= 1.6),
     BBmisc (>= 1.6),
     smoof (>= 1.0),
     ggplot2 (>= 1.0.0)
