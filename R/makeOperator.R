@@ -15,34 +15,29 @@
 #' @param description [\code{character(1)}]\cr
 #'   Short description of how the mutator works.
 #'   Default is \code{NULL} which means no description at all.
+#' @param params [\code{list}]\cr
+#'   Named list of the parameters the operator has been initialized with.
+#'   Default is the empty list.
 #' @param supported [\code{character}]\cr
 #'   Vector of names of supported parameter representations. Possible choices:
 #'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}
-#' @param defaults [\code{list}]\cr
-#'   List of default values for the operators strategy parameters.
-#' @param checker [\code{function}]\cr
-#'   Check object, which performs a sanity check of the strategy parameters
-#'   passed to the control object.
 #' @return [\code{ecr_operator}] Operator object.
 #' @export
 makeOperator = function(operator, name, description = NULL,
   supported = getAvailableRepresentations(),
-  defaults = list(),
-  checker = function(operator.control) TRUE) {
+  params = list()) {
   assertFunction(operator)
   assertString(name)
   if (!is.null(description)) {
     assertString(description)
   }
   assertSubset(supported, choices = getAvailableRepresentations(), empty.ok = FALSE)
-  assertList(defaults, unique = TRUE, any.missing = FALSE)
-  assertFunction(checker, args = "operator.control")
+  assertList(params, unique = TRUE, any.missing = FALSE, all.missing = FALSE)
 
   attr(operator, "name") = name
   attr(operator, "description") = coalesce(description, "-")
   attr(operator, "supported") = supported
-  attr(operator, "defaults") = defaults
-  attr(operator, "checker") = checker
+  attr(operator, "params") = params
 
   operator = addClasses(operator, c("ecr_operator"))
   return(operator)
@@ -81,7 +76,7 @@ print.ecr_operator = function(x, ...) {
   catf("Name: %s", getOperatorName(x))
   catf("Description: %s", attr(x, "description"))
   catf("Supported representations: %s", collapse(getSupportedRepresentations(x)))
-  catf("Default parameters: %s", getParametersAsString(getOperatorDefaultParameters(x)))
+  catf("Parameters: %s", getParametersAsString(getOperatorParameters(x)))
 }
 
 #' @export
@@ -94,48 +89,6 @@ print.ecr_recombinator = function(x, ...) {
 print.ecr_selector = function(x, ...) {
   print.ecr_operator(x)
   catf("Supported #objectives: %s", attr(x, "supported.objectives"))
-}
-
-#' @title
-#'   Returns a list with the default parameter values for a given operator.
-#'
-#' @description
-#'   Operators can depend on specific evolutionary parameters. If you do not provide
-#'   values for these, specifc defaults are used, which can be determined with this
-#'   function.
-#'
-#' @param operator [\code{ecr_operator}]\cr
-#'   Operator object.
-#' @return [\code{list}]
-#'   Key-value pairs of parameters and default values.
-#' @export
-getOperatorDefaultParameters = function(operator) {
-  UseMethod("getOperatorDefaultParameters")
-}
-
-#' @export
-getOperatorDefaultParameters.ecr_operator = function(operator) {
-  if (hasAttributes(operator, "defaults")) {
-    return(attr(operator, "defaults"))
-  }
-  return("")
-}
-
-#' @title
-#'   Returns the parameter check function of a given operator.
-#'
-#' @param operator [\code{ecr_operator}]\cr
-#'   Operator object.
-#' @return [\code{character(1)}]
-#'   Function for parameter check.
-#' @export
-getOperatorCheckFunction = function(operator) {
-  UseMethod("getOperatorCheckFunction")
-}
-
-#' @export
-getOperatorCheckFunction.ecr_operator = function(operator) {
-  attr(operator, "checker")
 }
 
 #' @title
@@ -172,4 +125,20 @@ is.supported = function(operator, representation) {
 #' @export
 is.supported.ecr_operator = function(operator, representation) {
   return (representation %in% getSupportedRepresentations(operator))
+}
+
+#' @title Return a list of parameters the operator was initialized with.
+#'
+#' @param operator [\code{ecr_operator}]\cr
+#'   Operator object.
+#' @return [\code{list}]
+#'   Named list of parameters.
+#' @export
+getOperatorParameters = function(operator) {
+  UseMethod("getOperatorParameters")
+}
+
+#' @export
+getOperatorParameters.ecr_operator = function(operator) {
+  attr(operator, "params")
 }

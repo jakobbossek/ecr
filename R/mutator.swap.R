@@ -8,7 +8,7 @@
 #' @family mutators
 #' @export
 makeSwapMutator = function() {
-  mutator = function(ind, args = list(), control, task) {
+  mutator = function(ind, task, control) {
     n.params = length(ind)
     pos = sample(1:n.params, size = 2)
     pos1 = pos[1]
@@ -24,6 +24,6 @@ makeSwapMutator = function() {
     mutator = mutator,
     name = "Swap mutator",
     description = "Swaps two alleles",
-    supported = "permutation",
+    supported = "permutation"
   )
 }

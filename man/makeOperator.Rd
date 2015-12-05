@@ -5,8 +5,7 @@
 \title{Construct evolutionary operator.}
 \usage{
 makeOperator(operator, name, description = NULL,
-  supported = getAvailableRepresentations(), defaults = list(),
-  checker = function(operator.control) TRUE)
+  supported = getAvailableRepresentations(), params = list())
 }
 \arguments{
 \item{operator}{[\code{function}]\cr
@@ -23,12 +22,9 @@ Default is \code{NULL} which means no description at all.}
 Vector of names of supported parameter representations. Possible choices:
 \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}}
 
-\item{defaults}{[\code{list}]\cr
-List of default values for the operators strategy parameters.}
-
-\item{checker}{[\code{function}]\cr
-Check object, which performs a sanity check of the strategy parameters
-passed to the control object.}
+\item{params}{[\code{list}]\cr
+Named list of the parameters the operator has been initialized with.
+Default is the empty list.}
 }
 \value{
 [\code{ecr_operator}] Operator object.

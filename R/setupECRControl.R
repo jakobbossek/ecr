@@ -163,27 +163,25 @@ print.ecr_control = function(x, ...) {
   catf("Evolutionary operators:")
   catf("Generator object             : %s", getOperatorName(x$generator))
   catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator),
-    getParametersAsString(getOperatorDefaultParameters(x$mutator))
+    getParametersAsString(getOperatorParameters(x$mutator))
   )
   catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator),
-    getParametersAsString(getOperatorDefaultParameters(x$recombinator))
+    getParametersAsString(getOperatorParameters(x$recombinator))
   )
 }
 
-recombine = function(ctrl, parents, task) {
-  #FIXME: here we pass always the default parameters
-  ctrl$recombinator(parents, getOperatorDefaultParameters(ctrl$recombinator), task)
+recombine = function(parents, task, control) {
+  control$recombinator(parents, task, control)
 }
 
-mutate = function(ctrl, parent, task) {
-  #FIXME: here we pass always the default parameters
-  ctrl$mutator(parent, getOperatorDefaultParameters(ctrl$mutator), ctrl, task)
+mutate = function(parent, task, control) {
+  control$mutator(parent, task, control)
 }
 
-selectForMating = function(ctrl, population, storage, task, n.select) {
-  ctrl$parent.selector(population, storage, task, n.select, ctrl)
+selectForMating = function(control, population, storage, task, n.select) {
+  control$parent.selector(population, storage, task, n.select, control)
 }
 
-selectForSurvival = function(ctrl, population, storage, task, n.select) {
-  ctrl$survival.selector(population, storage, task, n.select, ctrl)
+selectForSurvival = function(control, population, storage, task, n.select) {
+  control$survival.selector(population, storage, task, n.select, control)
 }

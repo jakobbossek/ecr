@@ -21,16 +21,16 @@ generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, 
   i.offspring = 1L
   while(i.offspring <= n.offspring) {
     parents = getParents(matingPool, n.parents = getNumberOfParentsNeededForMating(control))
-    children = recombine(control, parents, task)
+    children = recombine(parents, task, control)
     # eventually the recombinator returns multiple children
     if (hasAttributes(children, "multiple")) {
       max.children = min(length(children), n.offspring - i.offspring + 1L)
       for (j in seq(max.children)) {
-        offspring[[i.offspring]] = mutate(control, children[[j]], task)
+        offspring[[i.offspring]] = mutate(children[[j]], task, control)
         i.offspring = i.offspring + 1L
       }
     } else {
-      offspring[[i.offspring]] = mutate(control, children, task)
+      offspring[[i.offspring]] = mutate(children, task, control)
       i.offspring = i.offspring + 1L
     }
   }

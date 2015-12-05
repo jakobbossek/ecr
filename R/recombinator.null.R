@@ -5,7 +5,7 @@
 #' @family recombinators
 #' @export
 makeNullRecombinator = function() {
-  recombinator = function(inds, control = list(), task) {
+  recombinator = function(inds, task, control) {
     return(inds[[1L]])
   }
 

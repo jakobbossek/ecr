@@ -7,15 +7,10 @@
 #' @family recombinators
 #' @export
 makeCrossoverRecombinator = function(p = 1) {
-  recombinatorCheck = function(operator.control) {
-    assertNumber(operator.control$p, lower = 0, upper = 1)
-  }
-
+  assertNumber(p, lower = 0, upper = 1)
   force(p)
-  defaults = list(p = p)
-  recombinatorCheck(defaults)
 
-  recombinator = function(inds, args = defaults, control = list(), task) {
+  recombinator = function(inds, task, control) {
     par.set = control$par.set
     n.params = getParamLengths(par.set)
     # we have to make sure, that the gene has length > 1. This should not
@@ -25,7 +20,7 @@ makeCrossoverRecombinator = function(p = 1) {
     }
 
     # do a cross-over or not
-    if (runif(1L) >= args$p) {
+    if (runif(1L) >= p) {
       return(wrapChildren(inds[[1]], inds[[2]]))
     }
 
@@ -62,7 +57,6 @@ makeCrossoverRecombinator = function(p = 1) {
     description = "Performs classical one-point crossover.",
     n.parents = 2L,
     supported = c("float", "binary"),
-    defaults = defaults,
-    checker = recombinatorCheck
+    params = list(p = p)
   )
 }

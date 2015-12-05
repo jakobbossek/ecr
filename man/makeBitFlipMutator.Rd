@@ -15,7 +15,7 @@ Probability to flip a single bit. Default is \code{0.1}.}
 }
 \description{
 This operator works only on binary representation and flips each bit
-  with a given probability.
+with a given probability.
 }
 \seealso{
 Other mutators: \code{\link{makeGaussMutator}},

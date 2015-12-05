@@ -1,9 +1,8 @@
-#' @title
-#'   Generator of a simple bitplip mutation operator.
+#' @title Generator of a simple bitplip mutation operator.
 #'
 #' @description
-#'   This operator works only on binary representation and flips each bit
-#'   with a given probability.
+#' This operator works only on binary representation and flips each bit
+#' with a given probability.
 #'
 #' @param p [\code{numeric(1)}]\cr
 #'   Probability to flip a single bit. Default is \code{0.1}.
@@ -11,17 +10,13 @@
 #' @family mutators
 #' @export
 makeBitFlipMutator = function(p = 0.1) {
-  mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$p, lower = 0, upper = 1)
-  }
+  assertNumber(p, lower = 0, upper = 1)
 
   force(p)
-  defaults = list(p = p)
-  mutatorCheck(defaults)
 
-  mutator = function(ind, args = defaults, control, task) {
+  mutator = function(ind, task, control) {
     n.params = length(ind)
-    do.mutate = runif(n.params) < args$p
+    do.mutate = runif(n.params) < p
     ind[do.mutate] = 1 - ind[do.mutate]
     mutateGene = function(gene, prob) {
       do.mutate = runif(length(gene)) < prob
@@ -30,9 +25,9 @@ makeBitFlipMutator = function(p = 0.1) {
     }
 
     if (getParamNr(control$par.set) == 1L) {
-      ind = mutateGene(ind, args$p)
+      ind = mutateGene(ind, p)
     } else {
-      ind = lapply(ind, mutateGene, prob = args$p)
+      ind = lapply(ind, mutateGene, prob = p)
     }
 
     return(ind)
@@ -43,7 +38,6 @@ makeBitFlipMutator = function(p = 0.1) {
     name = "Bitflip mutator",
     description = "Flips each bit of the allele with a specific probability.",
     supported = "binary",
-    defaults = defaults,
-    checker = mutatorCheck
+    params = list(p = p)
   )
 }

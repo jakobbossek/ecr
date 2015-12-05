@@ -16,7 +16,7 @@ test_that("mutation operators working on permutation genes create valid offsprin
     mutate = mutatorGenerator() # no mutation control parameters to check here
     test.seq = sample(seq(100L), 10L, replace = FALSE)
     for (i in seq(n.reps)) {
-      perm.seq = mutate(test.seq)
+      perm.seq = mutate(test.seq, task = NULL, control = NULL)
       expect_true(setequal(test.seq, perm.seq), info = sprintf("Mutator '%s' did not produce a valid
         permutation! Input: (%s), Output: (%s)", getOperatorName(mutate),
         collapse(test.seq), collapse(perm.seq)))
@@ -35,7 +35,7 @@ test_that("mutation operators working on real-numbered representation create val
     test.seq = runif(5L)
     control = list(par.lower = 0, par.upper = 1)
     for (i in seq(n.reps)) {
-      mut.seq = mutate(test.seq, control = control)
+      mut.seq = mutate(test.seq, task = NULL, control = control)
       expect_true(all(mut.seq >= 0 && mut.seq <= 1), info = sprintf("Mutator '%s' did not stick to the
         box constraints! Input: (%s), Output: (%s)", getOperatorName(mutate), collapse(test.seq), collapse(mut.seq)))
     }

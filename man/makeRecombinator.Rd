@@ -5,9 +5,8 @@
 \title{Construct a recombination operator.}
 \usage{
 makeRecombinator(recombinator, name, description,
-  supported = getAvailableRepresentations(), n.parents = 2L,
-  multiple.children = TRUE, defaults = list(),
-  checker = function(operator.control) TRUE)
+  supported = getAvailableRepresentations(), params = list(),
+  n.parents = 2L, multiple.children = TRUE)
 }
 \arguments{
 \item{recombinator}{[\code{function}]\cr
@@ -23,18 +22,15 @@ Short description of how the recombinator works.}
 Vector of strings/names of supported parameter representations. For example
 'permutation', 'float', 'binary'.}
 
+\item{params}{[\code{list}]\cr
+Named list of the parameters the operator has been initialized with.
+Default is the empty list.}
+
 \item{n.parents}{[\code{integer(1)}]\cr
 Number of parents supported.}
 
 \item{multiple.children}{[\code{logical(1)}]\cr
 Does the recombinator return more than one child? Default is \code{TRUE}.}
-
-\item{defaults}{[\code{list}]\cr
-List of default strategy parameter values.}
-
-\item{checker}{[\code{function}]\cr
-Check object, which performs a sanity check in mutator strategy parameters
-passed to the control object.}
 }
 \value{
 [\code{ecr_recombinator}]
@@ -45,7 +41,7 @@ Helper function which constructs a recombinator, i. e., a recombination operator
 }
 \note{
 If a recombinator returns more than one child, the \code{multiple.children}
-  parameter needs to be \code{TRUE}, which is the default. In case of multiple
-  children produced these have to be placed within a list.
+parameter needs to be \code{TRUE}, which is the default. In case of multiple
+children produced these have to be placed within a list.
 }
 

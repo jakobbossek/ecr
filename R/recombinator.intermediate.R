@@ -9,8 +9,9 @@
 makeIntermediateRecombinator = function(k = 2L) {
   assertInt(k, na.ok = FALSE, lower = 2L)
 
-  defaults = list(k = k)
-  recombinator = function(inds, control = defaults, task) {
+  force(k)
+
+  recombinator = function(inds, task, control) {
     n = length(inds[[1]])
     child = rep(0, n)
     for (i in 1:length(inds)) {
@@ -25,6 +26,7 @@ makeIntermediateRecombinator = function(k = 2L) {
     description = "Performs intermediate recombination.",
     supported = "float",
     n.parents = k,
-    multiple.children = FALSE
+    multiple.children = FALSE,
+    params = list(k = k)
   )
 }

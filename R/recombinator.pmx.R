@@ -11,7 +11,7 @@
 #' @family recombinators
 #' @export
 makePMXRecombinator = function() {
-  recombinator = function(inds, control = list(), task) {
+  recombinator = function(inds, task, control) {
     p1 = inds[[1]]
     p2 = inds[[2]]
     n = length(p1)

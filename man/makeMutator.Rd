@@ -5,8 +5,7 @@
 \title{Construct a mutation operator.}
 \usage{
 makeMutator(mutator, name, description,
-  supported = getAvailableRepresentations(), defaults = list(),
-  checker = function(operator.control) TRUE)
+  supported = getAvailableRepresentations(), params = list())
 }
 \arguments{
 \item{mutator}{[\code{function}]\cr
@@ -22,12 +21,9 @@ Short description of how the mutator works.}
 Vector of strings/names of supported parameter representations. For example
 'permutation', 'float', 'binary'.}
 
-\item{defaults}{[\code{list}]\cr
-List of default strategy parameter values.}
-
-\item{checker}{[\code{function}]\cr
-Check object, which performs a sanity check in mutator strategy parameters
-passed to the control object.}
+\item{params}{[\code{list}]\cr
+Named list of the parameters the operator has been initialized with.
+Default is the empty list.}
 }
 \value{
 [\code{ecr_mutator}]

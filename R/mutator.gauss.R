@@ -12,21 +12,16 @@
 #' @family mutators
 #' @export
 makeGaussMutator = function(p = 1L, sdev = 0.05) {
+  assertNumber(p, lower = 0, finite = TRUE, na.ok = FALSE)
+  assertNumber(sdev, lower = 0, finite = TRUE, na.ok = FALSE)
+
   force(p)
   force(sdev)
 
-  mutatorCheck = function(operator.control) {
-    assertNumber(operator.control$p, lower = 0, finite = TRUE, na.ok = FALSE)
-    assertNumber(operator.control$sdev, lower = 0, finite = TRUE, na.ok = FALSE)
-  }
-
-  defaults = list(p = p, sdev = sdev)
-  mutatorCheck(defaults)
-
-  mutator = function(ind, args = defaults, control, task) {
+  mutator = function(ind, task, control) {
     n.params = length(ind)
-    idx = which(runif(n.params) < args$p)
-    mut = rnorm(length(idx), mean = 0, sd = args$sdev)
+    idx = which(runif(n.params) < p)
+    mut = rnorm(length(idx), mean = 0, sd = sdev)
     ind[idx] = ind[idx] + mut
     # correct bounds
     ind = pmin(pmax(control$par.lower, ind), control$par.upper)
@@ -38,7 +33,6 @@ makeGaussMutator = function(p = 1L, sdev = 0.05) {
     name = "Gauss mutator",
     description = "Adds gaussian noise to each gene",
     supported = "float",
-    defaults = defaults,
-    checker = mutatorCheck
+    params = list(p = p, sdev = sdev)
   )
 }

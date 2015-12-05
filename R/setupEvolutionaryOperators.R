@@ -129,23 +129,6 @@ checkOperatorIsCompatible = function(operator, representation) {
   }
 }
 
-# Helper function which constructs control object for a given operator
-# and checks the user parameters for validity.
-#
-# @param operator [\code{ecr_operator}]\cr
-#   Operator object.
-# @param parameters [\code{list}]\cr
-#   List of parameters provedided by the user for the operator.
-# @return [\code{list}]
-#   List of checked parameters.
-prepareOperatorParameters = function(operator, input.params) {
-  defaults = getOperatorDefaultParameters(operator)
-  params = insert(defaults, input.params)
-  params[setdiff(names(params), names(defaults))] = NULL
-  do.call(getOperatorCheckFunction(operator), list(params))
-  return(params)
-}
-
 # Helper function which returns the defaults evolutionary operators for the
 # standard representations.
 #
