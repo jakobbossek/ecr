@@ -24,7 +24,7 @@ makeBitFlipMutator = function(p = 0.1) {
       gene
     }
 
-    if (getParamNr(control$par.set) == 1L) {
+    if (getParamNr(task$par.set) == 1L) {
       ind = mutateGene(ind, p)
     } else {
       ind = lapply(ind, mutateGene, prob = p)

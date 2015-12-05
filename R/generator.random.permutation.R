@@ -8,7 +8,7 @@
 #' @export
 makePermutationGenerator = function() {
   generatePermutationPopulation = function(size, task, control) {
-    par.set = control$par.set
+    par.set = task$par.set
     if (getParamNr(par.set) > 1L) {
       stopf("The Permutation Generator works only with one parameter(-vector).")
     }

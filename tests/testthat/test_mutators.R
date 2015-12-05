@@ -14,9 +14,10 @@ test_that("mutation operators working on permutation genes create valid offsprin
   # check validity of produced output for each permutation-based mutator
   for (mutatorGenerator in available.mutators) {
     mutate = mutatorGenerator() # no mutation control parameters to check here
-    test.seq = sample(seq(100L), 10L, replace = FALSE)
+    test.seq = sample(s, 10L, replace = FALSE)
+    task = list(par.set = makeNumericParamSet(len = 10L, id = "c", lower = 1L, upper = 10L))
     for (i in seq(n.reps)) {
-      perm.seq = mutate(test.seq, task = NULL, control = NULL)
+      perm.seq = mutate(test.seq, task, control = NULL)
       expect_true(setequal(test.seq, perm.seq), info = sprintf("Mutator '%s' did not produce a valid
         permutation! Input: (%s), Output: (%s)", getOperatorName(mutate),
         collapse(test.seq), collapse(perm.seq)))
@@ -33,9 +34,9 @@ test_that("mutation operators working on real-numbered representation create val
   for (mutatorGenerator in available.mutators) {
     mutate = mutatorGenerator()
     test.seq = runif(5L)
-    control = list(par.lower = 0, par.upper = 1)
+    task = list(par.set = makeNumericParamSet("x", len = 5L, lower = 0, upper = 10))
     for (i in seq(n.reps)) {
-      mut.seq = mutate(test.seq, task = NULL, control = control)
+      mut.seq = mutate(test.seq, task, control = NUL)
       expect_true(all(mut.seq >= 0 && mut.seq <= 1), info = sprintf("Mutator '%s' did not stick to the
         box constraints! Input: (%s), Output: (%s)", getOperatorName(mutate), collapse(test.seq), collapse(mut.seq)))
     }

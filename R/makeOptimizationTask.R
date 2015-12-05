@@ -63,8 +63,6 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
 
   if (isSmoofFunction(fun)) {
     task$par.set = getParamSet(fun)
-    task$par.lower = getLower(task$par.set, with.nr = TRUE)
-    task$par.upper = getUpper(task$par.set, with.nr = TRUE)
   } else {
     # dummy parameter set if the passed function if not of type smoof
     task$par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))

@@ -11,7 +11,7 @@ makeCrossoverRecombinator = function(p = 1) {
   force(p)
 
   recombinator = function(inds, task, control) {
-    par.set = control$par.set
+    par.set = task$par.set
     n.params = getParamLengths(par.set)
     # we have to make sure, that the gene has length > 1. This should not
     # be the case in pratice use, but it causes errors

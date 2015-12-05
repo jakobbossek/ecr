@@ -39,10 +39,6 @@ doTheEvolution = function(task, control, initial.population = NULL) {
       stopf("Lower and upper box constraints needed for representation type 'float'.")
     }
   }
-  #FIXME: this is ugly. Maybe we should rather pass the task to the operators?
-  control$par.set = task$par.set
-  control$par.upper = task$par.upper
-  control$par.lower = task$par.lower
   n.objectives = task$n.objectives
 
   # check compatibility of selectors and #objectives
@@ -67,7 +63,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
 
   # generate intial population
   population = buildInitialPopulation(n.population, task, control, initial.population)
-  population$fitness = computeFitness(population, task$fitness.fun, control)
+  population$fitness = computeFitness(population, task$fitness.fun, task, control)
   n.evals = n.population
 
   # initialize storage object which contains all the stuff needed by the algorithms
@@ -79,7 +75,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
 
   # initialize trace (depends on #objectives)
   trace = initTrace(control, population, task)
-  trace = updateTrace(trace, iter, n.evals, population, start.time, pop.gen.time, control)
+  trace = updateTrace(trace, iter, n.evals, population, start.time, pop.gen.time, task, control)
 
   population.storage = namedList(paste0("gen.", control$save.population.at))
   # store start population
@@ -120,7 +116,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
     if (iter %in% control$save.population.at) {
       population.storage[[paste0("gen.", as.character(iter))]] = population
     }
-    trace = updateTrace(trace, iter, n.evals, population, start.time, off.gen.time, control)
+    trace = updateTrace(trace, iter, n.evals, population, start.time, off.gen.time, task, control)
 
     # check if any termination criterion is met
     stop.object = doTerminate(control$stopping.conditions, trace$opt.path)

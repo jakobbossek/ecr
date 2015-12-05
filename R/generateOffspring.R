@@ -35,7 +35,7 @@ generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, 
     }
   }
 
-  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun, control)
+  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun, task, control)
 
   return(makePopulation(offspring, offspring.fitness))
 }

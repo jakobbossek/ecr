@@ -24,7 +24,7 @@ makeGaussMutator = function(p = 1L, sdev = 0.05) {
     mut = rnorm(length(idx), mean = 0, sd = sdev)
     ind[idx] = ind[idx] + mut
     # correct bounds
-    ind = pmin(pmax(control$par.lower, ind), control$par.upper)
+    ind = pmin(pmax(getLower(task$par.set), ind), getUpper(task$par.set))
     return(ind)
   }
 

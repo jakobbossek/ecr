@@ -10,17 +10,17 @@
 #' @export
 makeUniformGenerator = function() {
   generateUniformPopulation = function(size, task, control) {
-    par.set = control$par.set
+    par.set = task$par.set
     if (!isNumeric(par.set)) {
       stopf("Uniform generator needs a numeric parameter set.")
     }
     if (!hasFiniteBoxConstraints(par.set)) {
       stopf("Uniform generator needs box constraints.")
     }
-    
+
     lower = getLower(par.set)
     upper = getUpper(par.set)
-    
+
     # create one gene
     createGene = function(constr) {
       mapply(runif, n = 1L, min = constr$low, max = constr$up)
@@ -44,17 +44,17 @@ makeUniformGenerator = function() {
         lapply(constr, createGene)
       }
     }
-    
+
     population = lapply(seq(size), function(x) createInd(constraints))
     makePopulation(population)
   }
-  
+
   generator = makeGenerator(
     generator = generateUniformPopulation,
     name = "Uniform generator",
     description = "Samples uniformally distributed points in the design space.",
     supported = "float"
   )
-  
+
   return(generator)
 }

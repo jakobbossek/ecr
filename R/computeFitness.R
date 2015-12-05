@@ -9,12 +9,14 @@
 #'   Population.
 #' @param fitness.fun [\code{function}]\cr
 #'   Fitness function.
+#' @param task [\code{ecr_optimization_task}]\cr
+#'   Optimization task.
 #' @param control [\code{ecr_control}]\cr
 #'   Control object containing all operators and further parameters.
 #'   See \code{\link{setupECRControl}} and \code{\link{setupEvolutionaryOperators}}.
 #' @return [\code{matrix}].
-computeFitness = function(population, fitness.fun, control) {
-  if (getParamNr(control$par.set) == 1L) {
+computeFitness = function(population, fitness.fun, task, control) {
+  if (getParamNr(task$par.set) == 1L) {
     # one parameter
     fitness = lapply(population$individuals, fitness.fun)
   } else {

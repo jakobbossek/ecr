@@ -51,16 +51,18 @@ initTrace = function(control, population, task) {
 # @param exec.time [numeric(1)]
 #   Time it took to generate the initial population or set up the new population
 #   respectively.
+# @param task [ecr_optimization_task]
+#   Optimization task.
 # @param control [ecr_control]
 #   Control object.
 # @return [ecr_{single,multi}_objective_trace] Modified trace.
-updateTrace = function(trace, iter, n.evals, population, start.time, exec.time, control) {
+updateTrace = function(trace, iter, n.evals, population, start.time, exec.time, task, control) {
   UseMethod("updateTrace")
 }
 
 # see generic updateTrace
-updateTrace.ecr_single_objective_trace = function(trace, iter, n.evals, population, start.time, exec.time, control) {
-  par.set = control$par.set
+updateTrace.ecr_single_objective_trace = function(trace, iter, n.evals, population, start.time, exec.time, task, control) {
+  par.set = task$par.set
   best = getBestIndividual(population)
   extras = getListOfExtras(iter, n.evals, population, start.time, control)
   if (length(par.set$pars) == 1L) {
@@ -81,8 +83,8 @@ updateTrace.ecr_single_objective_trace = function(trace, iter, n.evals, populati
 }
 
 # see generic updateTrace
-updateTrace.ecr_multi_objective_trace = function(trace, iter, n.evals, population, start.time, exec.time, control) {
-  par.set = control$par.set
+updateTrace.ecr_multi_objective_trace = function(trace, iter, n.evals, population, start.time, exec.time, task, control) {
+  par.set = task$par.set
   extras = getListOfExtras(iter, n.evals, population, start.time, control)
   #FIXME: handle this specific stuff here.
   if (control$representation == "custom") {
@@ -99,7 +101,7 @@ updateTrace.ecr_multi_objective_trace = function(trace, iter, n.evals, populatio
 
   for (i in seq(n.population)) {
     x = list(population$individuals[[i]])
-    names(x) = getParamIds(control$par.set, with.nr = FALSE, repeated = FALSE)
+    names(x) = getParamIds(task$par.set, with.nr = FALSE, repeated = FALSE)
     addOptPathEl(trace$opt.path, x = x, y = population$fitness[, i], dob = iter,
     exec.time = 0, extra = extras, check.feasible = FALSE)
   }

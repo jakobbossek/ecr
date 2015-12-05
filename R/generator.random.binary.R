@@ -9,8 +9,8 @@
 #' @export
 makeBinaryGenerator = function() {
   generateBinaryPopulation = function(size, task, control) {
-    par.set = control$par.set
-    
+    par.set = task$par.set
+
     if (getParamNr(par.set) == 1L) {
       # one vector is an individual
       createInd = function(param.length) {
@@ -22,12 +22,12 @@ makeBinaryGenerator = function() {
         lapply(param.length, function(x) sample(c(0, 1), size = x, replace = TRUE))
       }
     }
-    
+
     # create population list
     population = lapply(seq(size), function(x) createInd(getParamLengths(par.set)))
     makePopulation(population)
   }
-  
+
   generator = makeGenerator(
     generator = generateBinaryPopulation,
     name = "Binary generator",

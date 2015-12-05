@@ -17,7 +17,7 @@ makeUniformMutator = function() {
   mutator = function(ind, task, control) {
     n.params = length(ind)
     idx = sample(n.params, size = 1L)
-    ind[idx] = runif(1L, min = control$par.lower, max = control$par.upper)
+    ind[idx] = runif(1L, min = getLower(task$par.set), max = getUpper(task$par.set))
     return(ind)
   }
 
