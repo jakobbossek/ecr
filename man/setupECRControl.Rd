@@ -8,7 +8,8 @@ setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
   survival.strategy = "plus", n.elite = 0L, target.name = "y",
   save.population.at = integer(0), monitor = makeConsoleMonitor(),
-  stopping.conditions = list(), extras.fun = NULL)
+  stopping.conditions = list(), extras.fun = NULL,
+  custom.constants = list())
 }
 \arguments{
 \item{n.population}{[\code{integer(1)}]\cr
@@ -52,13 +53,17 @@ computed based on the individual genomes or the fitness values, e.g., standard
 deviation of the fitness. The function is called once in each generation.
 The results are stored in the optimization path. Default is \code{NULL}, which
 means that no additional stuff is logged.}
+
+\item{custom.constants}{[\code{list}]\cr
+Additional constants which should be available to all generators and operators.
+Defaults to empty list.}
 }
 \value{
 S3 object of type \code{ecr_control}.
 }
 \description{
 The ecr package offers a framework for evolutionary computing and therefore offers
-  a lot of customization options. The control object is a simple but powerful
-  wrapper for all these options and sets convenient default options.
+a lot of customization options. The control object is a simple but powerful
+wrapper for all these options and sets convenient default options.
 }
 

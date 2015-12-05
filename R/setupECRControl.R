@@ -1,10 +1,9 @@
-#' @title
-#'    Generates control object.
+#' @title Generates control object.
 #'
 #' @description
-#'   The ecr package offers a framework for evolutionary computing and therefore offers
-#'   a lot of customization options. The control object is a simple but powerful
-#'   wrapper for all these options and sets convenient default options.
+#' The ecr package offers a framework for evolutionary computing and therefore offers
+#' a lot of customization options. The control object is a simple but powerful
+#' wrapper for all these options and sets convenient default options.
 #'
 #' @param n.population [\code{integer(1)}]\cr
 #'   Number of individuals in the population.
@@ -37,6 +36,9 @@
 #'   deviation of the fitness. The function is called once in each generation.
 #'   The results are stored in the optimization path. Default is \code{NULL}, which
 #'   means that no additional stuff is logged.
+#' @param custom.constants [\code{list}]\cr
+#'   Additional constants which should be available to all generators and operators.
+#'   Defaults to empty list.
 #' @return
 #'   S3 object of type \code{ecr_control}.
 #' @export
@@ -51,7 +53,8 @@ setupECRControl = function(
   save.population.at = integer(0),
   monitor = makeConsoleMonitor(),
   stopping.conditions = list(),
-  extras.fun = NULL) {
+  extras.fun = NULL,
+  custom.constants = list()) {
   assertCount(n.population, positive = TRUE, na.ok = FALSE)
   assertCount(n.offspring, positive = TRUE, na.ok = FALSE)
   n.mating.pool = convertInteger(n.mating.pool)
@@ -60,6 +63,7 @@ setupECRControl = function(
   assertChoice(survival.strategy, choices = c("plus", "comma"))
   assertCount(n.elite, na.ok = FALSE)
   assertCharacter(target.name, len = 1L, any.missing = FALSE)
+  assertList(custom.constants, unique = TRUE, any.missing = FALSE, all.missing = FALSE)
 
   if (length(save.population.at) > 0) {
     assertIntegerish(save.population.at, lower = 0L, any.missing = FALSE)
@@ -108,6 +112,7 @@ setupECRControl = function(
     stopping.conditions = stopping.conditions,
     monitor = monitor,
     extras.fun = extras.fun,
+    custom.constants = custom.constants,
     classes = "ecr_control"
   )
 
