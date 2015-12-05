@@ -20,12 +20,13 @@
 #'   Default is the empty list.
 #' @param supported [\code{character}]\cr
 #'   Vector of names of supported parameter representations. Possible choices:
-#'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}
+#'   \dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.
 #' @return [\code{ecr_operator}] Operator object.
 #' @export
 makeOperator = function(operator, name, description = NULL,
   supported = getAvailableRepresentations(),
-  params = list()) {
+  params = list(),
+  supported.opt.direction = c("minimize", "maximize")) {
   assertFunction(operator)
   assertString(name)
   if (!is.null(description)) {
