@@ -16,8 +16,6 @@ makeBitFlipMutator = function(p = 0.1) {
 
   mutator = function(ind, task, control) {
     n.params = length(ind)
-    do.mutate = runif(n.params) < p
-    ind[do.mutate] = 1 - ind[do.mutate]
     mutateGene = function(gene, prob) {
       do.mutate = runif(length(gene)) < prob
       gene[do.mutate] = 1 - gene[do.mutate]
