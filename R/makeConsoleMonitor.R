@@ -30,7 +30,6 @@ makeConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
       iter = envir$iter
       if ((iter %% show.info.stepsize) == 0L) {
         call.format = sprintf("Iter %s | y (min: %s, mean: %s, max: %s)", "%i", num.format, num.format, num.format)
-        print(call.format)
         catf(call.format, iter, min(fitness), mean(fitness), max(fitness))
       }
     },
