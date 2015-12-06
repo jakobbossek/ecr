@@ -28,7 +28,7 @@ makeSelector = function(
   supported = getAvailableRepresentations(),
   supported.objectives,
   supported.opt.directions = c("minimize", "maximze")) {
-  assertFunction(selector, args = c("population", "storage", "task", "n.select", "control"), ordered = TRUE)
+  assertFunction(selector, args = c("fitness", "n.select", "task", "control", "storage"), ordered = TRUE)
   assertSubset(supported.objectives, c("single-objective", "multi-objective"))
   assertSubset(supported.opt.directions, c("maximze", "minimize"))
   selector = makeOperator(selector, name, description, supported)

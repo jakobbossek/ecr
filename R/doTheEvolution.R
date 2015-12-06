@@ -34,6 +34,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
       task = makeOptimizationTask(task)
     }
     assertClass(task$fitness.fun, "smoof_function")
+    assertClass(task, "ecr_optimization_task")
 
     if (control$representation == "float" && !hasFiniteBoxConstraints(task$par.set)) {
       stopf("Lower and upper box constraints needed for representation type 'float'.")
@@ -93,7 +94,8 @@ doTheEvolution = function(task, control, initial.population = NULL) {
     off.gen.start.time = Sys.time()
 
     # actually create offspring
-    matingPool = selectForMating(control, population, STORAGE, task, n.mating.pool)
+    idx.mating = selectForMating(population$fitness, n.mating.pool, task, control, STORAGE)
+    matingPool = subsetPopulation(population, idx = idx.mating)
     offspring = generateOffspring(matingPool, task, STORAGE, task$fitness.fun, control, trace$opt.path)
     n.evals = n.evals + n.offspring
 

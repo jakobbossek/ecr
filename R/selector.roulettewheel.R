@@ -32,19 +32,17 @@ makeRouletteWheelSelector = function(offset = 0.1) {
 
   force(offset)
 
-  selector = function(population, storage, task, n.select, control) {
-    inds = population$individuals
-    fitness = as.numeric(population$fitness)
+  selector = function(fitness, n.select, task, control, storage) {
+    fitness = as.numeric(fitness)
     # shift negative values
     if (any(fitness <= 0L)) {
       fitness = fitness + abs(min(fitness)) + offset
     }
     #FIXME: this selector supports maximization only at the moment
     fitness = 1 / fitness
-    n.population = length(inds)
     prob = fitness / sum(fitness)
-    idx = sample(n.population, size = n.select, replace = TRUE, prob = prob)
-    return(makePopulation(inds[idx], population$fitness[, idx, drop = FALSE]))
+    idx = sample(seq_along(fitness), size = n.select, replace = TRUE, prob = prob)
+    return(idx)
   }
   makeSelector(
     selector = selector,

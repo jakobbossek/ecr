@@ -33,10 +33,10 @@ getNextGeneration = function(population, offspring, STORAGE, task, n.population,
   new.population = NULL
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
-    new.population = selectForSurvival(control, source.population, STORAGE, task, n.population)
+    idx.survival = selectForSurvival(source.population$fitness, n.population, task, control, STORAGE)
+    new.population = subsetPopulation(source.population, idx = idx.survival)
   } else if (strategy == "comma") {
     source.population = offspring
-    elite = list()
 
     if (n.elite > 0L) {
       parent.individuals = population$individuals
@@ -44,7 +44,7 @@ getNextGeneration = function(population, offspring, STORAGE, task, n.population,
       to.be.elite = order(parent.fitness)[seq(n.elite)]
 
       # get elite individuals
-      elite = makePopulation(
+      elite.population = makePopulation(
         individuals = parent.individuals[to.be.elite],
         fitness = parent.fitness[to.be.elite]
       )
@@ -52,10 +52,17 @@ getNextGeneration = function(population, offspring, STORAGE, task, n.population,
       # Adapt number of individuals taken from the offspring and select non-elite individuals
       n.population = n.population - n.elite
     }
-    new.population = selectForSurvival(control, offspring, STORAGE, task, n.population)
+    idx.survival = selectForSurvival(source.population$fitness, n.population, task, control, STORAGE)
+    new.population = subsetPopulation(source.population, idx = idx.survival)
     if (n.elite > 0L) {
-      new.population = mergePopulations(new.population, elite)
+      new.population = mergePopulations(new.population, elite.population)
     }
   }
   return(new.population)
+}
+
+subsetPopulation = function(population, idx) {
+  population$individuals = population$individuals[idx]
+  population$fitness = population$fitness[, idx, drop = FALSE]
+  return(population)
 }

@@ -82,31 +82,30 @@ asemoa = function(
 
   # Implementation of surival selection operator of the AS-EMOA algorithm.
   asemoaSelector = makeSelector(
-    selector = function(population, storage, task, n.select, control) {
-      fitness = population$fitness
-      population = population$individuals
+    selector = function(fitness, n.select, task, control, storage) {
+      all.idx = 1:ncol(fitness)
 
       # filter nondominated points
       nondom.idx = which.nondominated(fitness)
-      population = population[nondom.idx]
+      pop.idx = all.idx[nondom.idx]
       fitness = fitness[, nondom.idx, drop = FALSE]
 
       n.archive = control$n.archive
       # if maximal number of individuals is not exceeded yet
       # simply return
-      if (length(population) <= n.archive) {
-        return(makePopulation(population, fitness))
+      if (length(pop.idx) <= n.archive) {
+        return(pop.idx)
       }
 
       # Otherwise we need to do the computationally more expensive part
-      hausdorffDistances = lapply(seq(length(population)), function(idx) {
+      hausdorffDistances = lapply(all.idx, function(idx) {
         deltaOneUpdate(fitness[, -idx, drop = FALSE], control$aspiration.set)
       })
 
       #FIXME: here we need to check if there are multiple elements with this distance
       tmp = getMinIndex(hausdorffDistances)
 
-      return(makePopulation(population[-tmp], fitness[, -tmp, drop = FALSE]))
+      return(setdiff(all.idx, tmp))
     },
     supported.objectives = "multi-objective",
     name = "AS-EMOA selector",

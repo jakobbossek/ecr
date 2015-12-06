@@ -178,10 +178,10 @@ mutate = function(parent, task, control) {
   control$mutator(parent, task, control)
 }
 
-selectForMating = function(control, population, storage, task, n.select) {
-  control$parent.selector(population, storage, task, n.select, control)
+selectForMating = function(fitness, n.select, task, control, storage) {
+  control$parent.selector(fitness, n.select, task, control, storage)
 }
 
-selectForSurvival = function(control, population, storage, task, n.select) {
-  control$survival.selector(population, storage, task, n.select, control)
+selectForSurvival = function(fitness, n.select, task, control, storage) {
+  control$survival.selector(fitness, n.select, task, control, storage)
 }

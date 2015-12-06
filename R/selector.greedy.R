@@ -9,11 +9,10 @@
 #' @family selectors
 #' @export
 makeGreedySelector = function() {
-  selector = function(population, storage, task, n.select, control) {
-    inds = population$individuals
-    fitness = as.numeric(population$fitness)
-    idx.select = order(fitness)[seq(n.select)]
-    return(makePopulation(inds[idx.select], matrix(fitness[idx.select], nrow = 1L)))
+  selector = function(fitness, n.select, task, control, storage) {
+    fitness = as.numeric(fitness)
+    idx = order(fitness)[seq(n.select)]
+    return(idx)
   }
   makeSelector(
     selector = selector,

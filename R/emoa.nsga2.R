@@ -45,10 +45,7 @@ nsga2 = function(
 
   # set up the core of NSGA-II, namely the survival selection
   nsga2SurvivalSelector = makeSelector(
-    selector = function(population, storage, task, n.select, control) {
-      inds = population$individuals
-      fitness = population$fitness
-      #print(fitness)
+    selector = function(fitness, n.select, task, control, storage) {
       nondom.layers = doNondominatedSorting(fitness)
 
       # storage for indizes of selected individuals
@@ -85,7 +82,7 @@ nsga2 = function(
       }
 
       # merge the stuff and return
-      return(makePopulation(inds[new.pop.idxs], fitness[, new.pop.idxs, drop = FALSE]))
+      return(new.pop.idxs)
     },
     supported.objectives = "multi-objective",
     name = "NSGA-II survival selector",

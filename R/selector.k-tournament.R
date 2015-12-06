@@ -17,12 +17,9 @@ makeTournamentSelector = function(k = 3L) {
 
   force(k)
 
-  selector = function(population, storage, task, n.select, control) {
-    inds = population$individuals
-    fitness = as.numeric(population$fitness)
-    n.population = length(fitness)
-    pop.idx = seq(n.population)
-
+  selector = function(fitness, n.select, task, control, storage) {
+    fitness = as.numeric(fitness)
+    pop.idx = seq_along(fitness)
     idx = integer(n.select)
     for (i in seq(n.select)) {
       # choose k individuals at random ...
@@ -30,8 +27,7 @@ makeTournamentSelector = function(k = 3L) {
       # ... and store the best
       idx[i] = competitor.idx[which.min(fitness[competitor.idx])]
     }
-
-    return(makePopulation(inds[idx], matrix(fitness[idx], nrow = 1L)))
+    return(idx)
   }
   makeSelector(
     selector = selector,

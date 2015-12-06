@@ -15,18 +15,15 @@ test_that("parent selectors work as expected", {
 
   for (selectorGenerator in avialable.selectors) {
     select = selectorGenerator()
-    mating.pool = select(population, NULL, NULL, n.mating.pool, NULL)
-    expect_is(mating.pool, "ecrPopulation")
-    expect_true(is.list(mating.pool$individuals))
-    expect_true(is.numeric(mating.pool$fitness))
-    expect_equal(length(mating.pool$fitness), n.mating.pool)
-    expect_true(isSubset(mating.pool$fitness, population$fitness))
-    expect_equal(length(mating.pool$individuals), n.mating.pool)
+    mating.pool.idx = select(population$fitness, n.mating.pool, NULL, NULL, NULL)
+    expect_true(is.integer(mating.pool.idx))
+    expect_equal(length(mating.pool.idx), n.mating.pool)
+    expect_true(isSubset(mating.pool.idx, 1:length(fitness)))
   }
 
   # simple mating pool selector simply returns the population
   select = makeSimpleSelector()
-  mating.pool = select(population, list(), n.mating.pool)
-  expect_true(is.list(mating.pool$individuals))
-  expect_equal(length(mating.pool$individuals), length(population$individuals))
+  mating.pool.idx = select(fitness, n.mating.pool, NULL, NULL, NULL)
+  expect_true(is.integer(mating.pool.idx))
+  expect_equal(length(mating.pool.idx), length(fitness))
 })

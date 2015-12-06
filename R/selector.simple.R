@@ -1,16 +1,16 @@
 #' @title
-#'   Simple (naive) mating pool generator.
+#' Simple (naive) mating pool generator.
 #'
 #' @description
-#'   Just for testing. Actually does not really select, but instead returns the
-#'   entire population to form the mating pool.
+#' Just for testing. Actually does not really select, but instead returns the
+#' entire population to form the mating pool.
 #'
 #' @return [\code{setOfIndividuals}]
 #' @family selectors
 #' @export
 makeSimpleSelector = function() {
-  selector = function(population, storage, task, n.select, control) {
-    return(population)
+  selector = function(fitness, n.select, task, control, storage) {
+    return(1:ncol(fitness))
   }
   makeSelector(
     selector = selector,
