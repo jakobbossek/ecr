@@ -1,11 +1,11 @@
 #' @title
-#'   Generator for k-Tournament selection.
+#' Generator for k-Tournament selection.
 #'
 #' @description
-#'   Selects genes for the mating pool. It works as follows: k individuals from the
-#'   population are chosen randomly and the best one is selected to be included into
-#'   the mating pool. This process is repeated until the desired number of individuals
-#'   for the mating pool is reached.
+#' Selects genes for the mating pool. It works as follows: k individuals from the
+#' population are chosen randomly and the best one is selected to be included into
+#' the mating pool. This process is repeated until the desired number of individuals
+#' for the mating pool is reached.
 #'
 #' @param k [\code{integer(1)}]\cr
 #'   Number of individuals to participate in each tournament. Default is \code{2L}.
@@ -13,6 +13,8 @@
 #' @family selectors
 #' @export
 makeTournamentSelector = function(k = 3L) {
+  assertInt(k, na.ok = FALSE, lower = 2L)
+
   force(k)
 
   selector = function(population, storage, task, n.select, control) {
