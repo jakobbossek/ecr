@@ -7,7 +7,7 @@
 makeRouletteWheelSelector(offset = 0.1)
 }
 \arguments{
-\item{offset}{[\numeric(1)]\cr
+\item{offset}{[\code{numeric(1)}]\cr
 In case of negative fitness values all values are shifted towards positive
 values by adding the negative of the minimal fitness value. However, in this
 case the minimal fitness value after the shifting process is zero. The

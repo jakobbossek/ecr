@@ -16,7 +16,7 @@
 #' value to be zero and thus have a zero probability of being selected an additional
 #' positive constant \code{offset} is added (see parameters).
 #'
-#' @param offset [\numeric(1)]\cr
+#' @param offset [\code{numeric(1)}]\cr
 #'   In case of negative fitness values all values are shifted towards positive
 #'   values by adding the negative of the minimal fitness value. However, in this
 #'   case the minimal fitness value after the shifting process is zero. The
