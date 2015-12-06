@@ -43,14 +43,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   n.objectives = task$n.objectives
 
   # check compatibility of selectors and #objectives
-  selectors = c(control$parent.selector, control$survival.selector)
-  desired.tag = if (n.objectives == 1L) "single-objective" else "multi-objective"
-  lapply(selectors, function(selector) {
-    if (desired.tag %nin% attr(selector, "supported.objectives")) {
-      stopf("Selector '%s' cannot be applied to problem with %i objectives.",
-        getOperatorName(selector), n.objectives)
-    }
-  })
+  checkSelectorCompatibility(n.objectives, task, control, control$parent.selector, control$survival.selector)
 
   # extract basic information
   n.population = control$n.population
@@ -226,4 +219,21 @@ buildInitialPopulation = function(n.population, task, control, initial.populatio
     return(makePopulation(c(generated.population$individuals, initial.population)))
   }
   return(generated.population)
+}
+
+checkSelectorCompatibility = function(n.objectives, task, control, ...) {
+  selectors = list(...)
+  desired.obj = if (n.objectives == 1L) "single-objective" else "multi-objective"
+  # FIXME: case where we have mixed stuff not supported!
+  desired.opt = if (all(task$minimize)) "minimize" else "maximize"
+  lapply(selectors, function(selector) {
+    if (desired.obj %nin% attr(selector, "supported.objectives")) {
+      stopf("Selector '%s' cannot be applied to problem with %i objectives.",
+        getOperatorName(selector), n.objectives)
+    }
+    if (desired.opt %nin% attr(selector, "supported.opt.directions")) {
+      stopf("Selector '%s' cannot be applied to %s a task.",
+        getOperatorName(selector), desired.opt)
+    }
+  })
 }
