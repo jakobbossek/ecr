@@ -5,7 +5,8 @@
 \title{Construct a selection operator.}
 \usage{
 makeSelector(selector, name, description,
-  supported = getAvailableRepresentations(), supported.objectives)
+  supported = getAvailableRepresentations(), supported.objectives,
+  supported.opt.directions = c("minimize", "maximze"))
 }
 \arguments{
 \item{selector}{[\code{function}]\cr
@@ -23,13 +24,18 @@ Vector of strings/names of supported parameter representations. For example
 
 \item{supported.objectives}{[\code{character}]\cr
 At least one of \dQuote{single-objective} or \dQuote{multi-objective}.}
+
+\item{supported.opt.directions}{[\code{character(1-2)}]\cr
+Does the selector work for maximization tasks xor minimization tasks or both?
+Default is \code{c("maximze", "minimize")}, which means both optimization
+\dQuote{directions} are supported.}
 }
 \value{
 [\code{ecr_selector}]
-  selector object.
+  Selector object.
 }
 \description{
 Helper function which defines a selector method, i. e., an operator which
-  takes the population and returns a part of it for mating or survival.
+takes the population and returns a part of it for mating or survival.
 }
 

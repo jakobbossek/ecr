@@ -20,7 +20,7 @@ Default is \code{NULL} which means no description at all.}
 
 \item{supported}{[\code{character}]\cr
 Vector of names of supported parameter representations. Possible choices:
-\dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}}
+\dQuote{permutation}, \dQuote{float}, \dQuote{binary} or \dQuote{custom}.}
 
 \item{params}{[\code{list}]\cr
 Named list of the parameters the operator has been initialized with.
@@ -34,6 +34,6 @@ Helper function which constructs an evolutionary operator.
 }
 \note{
 In general you will not need this function, but rather one of its
-  deriviatives like \code{\link{makeMutator}} or \code{\link{makeSelector}}.
+deriviatives like \code{\link{makeMutator}} or \code{\link{makeSelector}}.
 }
 
