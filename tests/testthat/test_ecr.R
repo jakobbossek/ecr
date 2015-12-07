@@ -5,7 +5,7 @@ setUpControlObject = function(n.population,
   survival.strategy = "plus",
   n.elite = 1L,
   n.mating.pool = round(n.population / 2),
-  max.iter = 100L) {
+  max.iter = 60L) {
   control = setupECRControl(
     n.population = n.population,
     n.offspring = n.offspring,
@@ -24,8 +24,8 @@ setUpControlObject = function(n.population,
 test_that("ecr works with simple soo function", {
   obj.fun = smoof::makeSphereFunction(dimensions = 2L)
 
-  for (n.population in c(10, 20)) {
-    for (n.offspring in c(10, 20)) {
+  for (n.population in c(15, 30)) {
+    for (n.offspring in c(15, 30)) {
       for (survival.strategy in c("plus", "comma")) {
 
         if (survival.strategy == "comma") {
@@ -73,7 +73,7 @@ test_that("ecr works for maximization", {
 
 test_that("ecr works on binary representations", {
   n.params = 10L
-  max.iter = 150L
+  max.iter = 50L
   obj.fun = makeOneMinFunction(dimensions = n.params)
 
   for (n.population in c(10, 15)) {
@@ -110,7 +110,7 @@ test_that("ecr works on binary representations", {
 test_that("ecr works on permutation genomes", {
   # defs
   n.params = 5L
-  max.iter = 100L
+  max.iter = 50L
 
   # objective
   obj.fun = makeSingleObjectiveFunction(
@@ -175,7 +175,7 @@ test_that("ecr finds optimum if is is located on the edge of the search space", 
     survival.strategy = "plus",
     representation = "float",
     monitor = makeNullMonitor(),
-    stopping.conditions = setupStoppingConditions(max.iter = 100L)
+    stopping.conditions = setupStoppingConditions(max.iter = 50L)
   )
   control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(sdev = 0.05))
 

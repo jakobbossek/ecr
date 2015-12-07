@@ -1,4 +1,4 @@
-set.seed(123)
+set.seed(1234)
 
 makeOneMinFunction = function(dimensions) {
   assertInteger(dimensions, len = 1L, lower = 2L, upper = 100L)

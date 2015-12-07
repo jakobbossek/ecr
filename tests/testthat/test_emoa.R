@@ -21,8 +21,7 @@ test_that("preimplemented EMOAs work well", {
 
   fns = list(
     zdt1 = smoof::makeZDT1Function(dimensions = 2L),
-    zdt2 = smoof::makeZDT2Function(dimensions = 2L),
-    zdt3 = smoof::makeZDT3Function(dimensions = 2L)
+    zdt2 = smoof::makeZDT2Function(dimensions = 3L)
   )
   max.evals = 50L
 
@@ -80,7 +79,7 @@ test_that("Summary function for EMOA result works", {
     task = makeOptimizationTask(zdt1),
     n.population = 30L,
     n.offspring = 10L,
-    max.evals = 200L,
+    max.evals = 150L,
     monitor = makeNullMonitor()
   )
 
