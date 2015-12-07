@@ -49,12 +49,10 @@ makeUniformGenerator = function() {
     makePopulation(population)
   }
 
-  generator = makeGenerator(
+  makeGenerator(
     generator = generateUniformPopulation,
     name = "Uniform generator",
     description = "Samples uniformally distributed points in the design space.",
     supported = "float"
   )
-
-  return(generator)
 }
