@@ -21,11 +21,10 @@ makePermutationGenerator = function() {
     makePopulation(population)
   }
 
-  generator = makeGenerator(
+  makeGenerator(
     generator = generatePermutationPopulation,
     name = "Permutation generator",
     description = "Generates random permutations.",
     supported = c("permutation")
   )
-  return(generator)
 }

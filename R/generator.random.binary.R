@@ -28,11 +28,10 @@ makeBinaryGenerator = function() {
     makePopulation(population)
   }
 
-  generator = makeGenerator(
+  makeGenerator(
     generator = generateBinaryPopulation,
     name = "Binary generator",
     description = "Samples uniformally distributed 0, 1 values.",
     supported = c("binary")
   )
-  return(generator)
 }
