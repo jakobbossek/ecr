@@ -17,4 +17,7 @@ Representation as a string.}
 [\code{logical(1)}]
   \code{TRUE}, if operator supports the representation type.
 }
+\description{
+Check if the given operator supportds a certain representation, e.g., \dQuote{float}.
+}
 

@@ -88,7 +88,10 @@ print.ecr_multi_objective_result = function(x, ...) {
 }
 
 #' @title
-#'   Summary function for multi objective ecr result.
+#' Summary function for multi objective ecr result.
+#'
+#' @description
+#' Computes a table of EMOA indicators based on a multi-objective ecr result object.
 #'
 #' @param object [\code{ecr_multi_objective_result}]\cr
 #'   Result object.
@@ -126,7 +129,11 @@ printAdditionalInformation = function(x) {
   catf("Evaluations: %i", getEvaluations(x))
 }
 
-#' @title Determine number of function evaluations needed.
+#' @title
+#' Get number of function evaluations.
+#'
+#' @description
+#' Determine the number of function evaluations needed by the EA.
 #'
 #' @param result [\code{ecr_result}]\cr
 #'   \pkg{ecr} result object.
@@ -137,7 +144,11 @@ getEvaluations = function(result) {
   return(max(getOptPathCol(result$opt.path, "n.evals")))
 }
 
-#' @title Determine number of generations.
+#' @title
+#' Get number of generations.
+#'
+#' @description
+#' Determine the number of function evaluations needed by the EA.
 #'
 #' @param result [\code{ecr_result}]\cr
 #'   \pkg{ecr} result object.

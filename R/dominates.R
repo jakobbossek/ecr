@@ -1,5 +1,9 @@
 #' @title
-#'   Check if a vector dominates another vector.
+#' Dominance relation check.
+#'
+#' @description
+#' Check if a vector dominates another (\code{dominates}) or is dominated by
+#' another (\code{isDominated}).
 #'
 #' @keywords optimize
 #'
@@ -7,36 +11,27 @@
 #'   First vector.
 #' @param y [\code{numeric}]\cr
 #'   Second vector.
-#' @return [\code{logical(1)}] Does \code{x} dominate \code{y}?
+#' @return [\code{logical(1)}]
+#' @rdname dominates
 #' @export
 dominates = function(x, y) {
   stopifnot(length(x) == length(y))
   return(all(x <= y) && any(x < y))
 }
 
-#' @title
-#'   Check whether a vector is dominated by another vector.
-#'
-#' @keywords optimize
-#'
-#' @param x [\code{numeric}]\cr
-#'   First vector.
-#' @param y [\code{numeric}]\cr
-#'   Second vector.
-#' @return [\code{logical(1)}] Returns \code{TRUE} if \code{x} is dominated by
-#'   \code{y} and \code{FALSE} otherwise.
+#' @rdname dominates
 #' @export
 isDominated = function(x, y) {
   return(dominates(y, x))
 }
 
 #' @title
-#'   Check for pareto dominance.
+#' Check for pareto dominance.
 #'
 #' @description
-#'   This function takes a numeric matrix \code{x} where each row corresponds to
-#'   a point and returns a logical vector. The i-th position of the latter is
-#'   \code{TRUE} if the i-th point is dominated by at least one other point.
+#' This function takes a numeric matrix \code{x} where each row corresponds to
+#' a point and returns a logical vector. The i-th position of the latter is
+#' \code{TRUE} if the i-th point is dominated by at least one other point.
 #'
 #' @keywords optimize
 #'
@@ -59,12 +54,12 @@ dominated = function(x) {
 }
 
 #' @title
-#'   Determine which points of a set are not (non)dominated.
+#' Determine which points of a set are not (non)dominated.
 #'
 #' @description
-#'   Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one
-#'   point per row the \code{which.dominated} returns the row numbers of the dominated points
-#'   and \code{which.nondominated} the row numbers of the nondominated points.
+#' Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one
+#' point per row the \code{which.dominated} returns the row numbers of the dominated points
+#' and \code{which.nondominated} the row numbers of the nondominated points.
 #'
 #' @keywords optimize
 #'

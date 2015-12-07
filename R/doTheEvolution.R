@@ -134,24 +134,6 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   }
 }
 
-#' @title
-#'   Print the result of an ecr run.
-#'
-#' @param x [\code{ecr_result}]\cr
-#'   ecr result object.
-#' @param ... [any]\cr
-#'   Not used.
-#'
-#' @export
-print.ecr_result = function(x, ...) {
-  opt.path = x$opt.path
-  par.set = opt.path$par.set
-  catf("Parameters: %s", paste(getParamIds(par.set, repeated = TRUE, with.nr = TRUE),
-    "=", x$best.param, sep = "", collapse = ", "))
-  catf("Objective function value: %s\n", paste(x$control$target.name, "=",
-    x$best.value, sep ="", collapse = ", "))
-}
-
 # @title
 # Generate 'extras' argument for opt.path.
 #

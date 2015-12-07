@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeECRResult.R
 \name{getGenerations}
 \alias{getGenerations}
-\title{Determine number of generations.}
+\title{Get number of generations.}
 \usage{
 getGenerations(result)
 }
@@ -12,5 +12,8 @@ getGenerations(result)
 }
 \value{
 [integer(1)]
+}
+\description{
+Determine the number of function evaluations needed by the EA.
 }
 

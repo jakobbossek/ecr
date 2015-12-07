@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{getOperatorName}
 \alias{getOperatorName}
-\title{Determine the name of a given operator.}
+\title{Get name of a operator.}
 \usage{
 getOperatorName(operator)
 }
@@ -13,5 +13,8 @@ Operator object.}
 \value{
 [\code{character(1)}]
   Name of the operator.
+}
+\description{
+Returns the name of the passed operator.
 }
 

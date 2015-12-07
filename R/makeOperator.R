@@ -45,7 +45,11 @@ makeOperator = function(
   return(operator)
 }
 
-#' @title Determine the name of a given operator.
+#' @title
+#' Get name of a operator.
+#'
+#' @description
+#' Returns the name of the passed operator.
 #'
 #' @param operator [\code{ecr_operator}]\cr
 #'   Operator object.
@@ -61,7 +65,11 @@ getOperatorName.ecr_operator = function(operator) {
   attr(operator, "name")
 }
 
-#' @title Check if given function is an ecr operator.
+#' @title
+#' Check if given function is an ecr operator.
+#'
+#' @description
+#' Checks if the passed object is of type \code{ecr_operator}.
 #'
 #' @param obj [any]\cr
 #'   Arbitrary R object to check.
@@ -91,7 +99,12 @@ print.ecr_selector = function(x, ...) {
   catf("Supported #objectives: %s", attr(x, "supported.objectives"))
 }
 
-#' @title Returns the character vector of tags which describe a specific operator.
+#' @title
+#' Get supported representations.
+#'
+#' @description
+#' Returns the character vector of representation which the operator supports.
+#'
 #'
 #' @param operator [\code{ecr_operator}]\cr
 #'   Operator object.
@@ -107,7 +120,11 @@ getSupportedRepresentations.ecr_operator = function(operator) {
   attr(operator, "supported")
 }
 
-#' @title Check if ecr operator supports given representation.
+#' @title
+#' Check if ecr operator supports given representation.
+#'
+#' @description
+#' Check if the given operator supportds a certain representation, e.g., \dQuote{float}.
 #'
 #' @param operator [\code{ecr_operator}]\cr
 #'   Object of type \code{ecr_operator}.
@@ -125,7 +142,11 @@ is.supported.ecr_operator = function(operator, representation) {
   return (representation %in% getSupportedRepresentations(operator))
 }
 
-#' @title Return a list of parameters the operator was initialized with.
+#' @title
+#' Get the operator's parameters.
+#'
+#' @description
+#' Return a named list of parameters the operator was initialized with.
 #'
 #' @param operator [\code{ecr_operator}]\cr
 #'   Operator object.

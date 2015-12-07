@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeECRResult.R
 \name{getEvaluations}
 \alias{getEvaluations}
-\title{Determine number of function evaluations needed.}
+\title{Get number of function evaluations.}
 \usage{
 getEvaluations(result)
 }
@@ -12,5 +12,8 @@ getEvaluations(result)
 }
 \value{
 [integer(1)]
+}
+\description{
+Determine the number of function evaluations needed by the EA.
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{getOperatorParameters}
 \alias{getOperatorParameters}
-\title{Return a list of parameters the operator was initialized with.}
+\title{Get the operator's parameters.}
 \usage{
 getOperatorParameters(operator)
 }
@@ -13,5 +13,8 @@ Operator object.}
 \value{
 [\code{list}]
   Named list of parameters.
+}
+\description{
+Return a named list of parameters the operator was initialized with.
 }
 

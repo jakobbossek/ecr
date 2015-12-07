@@ -2,7 +2,7 @@
 % Please edit documentation in R/makePopulation.R
 \name{makePopulation}
 \alias{makePopulation}
-\title{Wrap individuals in a \code{setOfIndividuals}.}
+\title{Generate a population.}
 \usage{
 makePopulation(individuals, fitness = NULL)
 }
@@ -16,5 +16,10 @@ Default is \code{NULL}.}
 }
 \value{
 [\code{setOfIndividuals}]
+}
+\description{
+Wrap individuals in a \code{setOfIndividuals}. This function is of particular
+interest when one wants to write population generators for non-standard
+representations.
 }
 

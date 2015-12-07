@@ -1,5 +1,8 @@
 #' @title
-#'   Helper for merging populations.
+#' Merge populations.
+#'
+#' @description
+#' Make one population out of multiple.
 #'
 #' @param ... [\code{list}]\cr
 #'  List of objects of type \code{setOfIndividuals}.

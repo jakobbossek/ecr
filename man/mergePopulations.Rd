@@ -2,7 +2,7 @@
 % Please edit documentation in R/mergePopulations.R
 \name{mergePopulations}
 \alias{mergePopulations}
-\title{Helper for merging populations.}
+\title{Merge populations.}
 \usage{
 mergePopulations(...)
 }
@@ -12,5 +12,8 @@ List of objects of type \code{setOfIndividuals}.}
 }
 \value{
 [\code{setOfIndividuals}]
+}
+\description{
+Make one population out of multiple.
 }
 

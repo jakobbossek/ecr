@@ -16,8 +16,8 @@ number of points.}
 }
 \description{
 This function takes a numeric matrix \code{x} where each row corresponds to
-  a point and returns a logical vector. The i-th position of the latter is
-  \code{TRUE} if the i-th point is dominated by at least one other point.
+a point and returns a logical vector. The i-th position of the latter is
+\code{TRUE} if the i-th point is dominated by at least one other point.
 }
 \keyword{optimize}
 

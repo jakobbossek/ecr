@@ -1,19 +1,19 @@
-#' @title
-#'   Creates offspring from a given mating pool of parents.
-#'
-#' @param matingPool [\code{setOfIndividuals}]\cr
-#'   Set of parents to choose from.
-#' @param task [\code{ecr_optimization_tasl}]\cr
-#'   Optimization task.
-#' @param STORAGE [\code{list}]\cr
-#'   List which contains all the algorithm specific stuff.
-#' @param objective.fun [\code{function}]\cr
-#'   Target fun.
-#' @param control [\code{ecr_control}]\cr
-#'   Control object containing all operators and further parameters.
-#' @param opt.path [\code{OptPath}]\cr
-#'   Optimization path.
-#' @return [\code{setOfIndividuals}] Generated offspring.
+# @title
+#   Creates offspring from a given mating pool of parents.
+#
+# @param matingPool [\code{setOfIndividuals}]\cr
+#   Set of parents to choose from.
+# @param task [\code{ecr_optimization_tasl}]\cr
+#   Optimization task.
+# @param STORAGE [\code{list}]\cr
+#   List which contains all the algorithm specific stuff.
+# @param objective.fun [\code{function}]\cr
+#   Target fun.
+# @param control [\code{ecr_control}]\cr
+#   Control object containing all operators and further parameters.
+# @param opt.path [\code{OptPath}]\cr
+#   Optimization path.
+# @return [\code{setOfIndividuals}] Generated offspring.
 generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, opt.path) {
   n.offspring = control$n.offspring
   offspring = vector(mode = "list", length = n.offspring)
@@ -40,14 +40,14 @@ generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, 
   return(makePopulation(offspring, offspring.fitness))
 }
 
-#' @title
-#'   Helper method to extract two parents from the mating pool
-#'
-#' @param matingPool [ecr_population]
-#'   Set of individuals selected for reproduction.
-#' @param n.parents [integer(1)]
-#'   Number of individuals to select.
-#' @return [list]
+# @title
+#   Helper method to extract two parents from the mating pool
+#
+# @param matingPool [ecr_population]
+#   Set of individuals selected for reproduction.
+# @param n.parents [integer(1)]
+#   Number of individuals to select.
+# @return [list]
 getParents = function(matingPool, n.parents = 2L) {
   inds = matingPool$individuals
   n = length(inds)

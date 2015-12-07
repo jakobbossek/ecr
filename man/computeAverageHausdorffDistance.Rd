@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeAverageHausdorffDistance.R
 \name{computeAverageHausdorffDistance}
 \alias{computeAverageHausdorffDistance}
-\title{Computes the Average Hausdorff Distance.}
+\title{Average Hausdorff Distance computation.}
 \usage{
 computeAverageHausdorffDistance(A, B, p = 1)
 }
@@ -19,5 +19,8 @@ for details.}
 }
 \value{
 [\code{numeric(1)}] Average Hausdorff distance of sets \code{A} and \code{B}.
+}
+\description{
+Computes the average Hausdroff distance measure between two point sets.
 }
 

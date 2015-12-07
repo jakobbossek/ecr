@@ -1,5 +1,8 @@
 #' @title
-#'   Computes the Average Hausdorff Distance.
+#' Average Hausdorff Distance computation.
+#'
+#' @description
+#' Computes the average Hausdroff distance measure between two point sets.
 #'
 #' @param A [\code{matrix}]\cr
 #'   First point set (each column corresponds to a point).

@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeOperator.R
 \name{getSupportedRepresentations}
 \alias{getSupportedRepresentations}
-\title{Returns the character vector of tags which describe a specific operator.}
+\title{Get supported representations.}
 \usage{
 getSupportedRepresentations(operator)
 }
@@ -13,5 +13,8 @@ Operator object.}
 \value{
 [\code{character}]
   Vector of representation types.
+}
+\description{
+Returns the character vector of representation which the operator supports.
 }
 

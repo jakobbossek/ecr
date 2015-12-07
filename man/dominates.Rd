@@ -2,9 +2,12 @@
 % Please edit documentation in R/dominates.R
 \name{dominates}
 \alias{dominates}
-\title{Check if a vector dominates another vector.}
+\alias{isDominated}
+\title{Dominance relation check.}
 \usage{
 dominates(x, y)
+
+isDominated(x, y)
 }
 \arguments{
 \item{x}{[\code{numeric}]\cr
@@ -14,7 +17,11 @@ First vector.}
 Second vector.}
 }
 \value{
-[\code{logical(1)}] Does \code{x} dominate \code{y}?
+[\code{logical(1)}]
+}
+\description{
+Check if a vector dominates another (\code{dominates}) or is dominated by
+another (\code{isDominated}).
 }
 \keyword{optimize}
 

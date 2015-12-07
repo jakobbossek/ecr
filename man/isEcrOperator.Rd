@@ -13,4 +13,7 @@ Arbitrary R object to check.}
 \value{
 [\code{logical(1)}]
 }
+\description{
+Checks if the passed object is of type \code{ecr_operator}.
+}
 
