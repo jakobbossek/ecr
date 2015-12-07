@@ -19,11 +19,6 @@ test_that("optimization tasks are properly generated", {
   # wrong length of minimize parameter
   expect_error(makeOptimizationTask(fn, minimize = c(TRUE, FALSE, TRUE)))
 
-  fn = makeZDT3Function(3L)
-  # ecr for now in multi-objective optimization needs all objectives to be minimized
-  expect_error(makeOptimizationTask(fn, minimize = c(TRUE, FALSE)), "all objectives to be minimized",
-    ignore.case = TRUE)
-
   # check if warning is printed if function with requires/forbidden is passed
   fn = makeSingleObjectiveFunction(
     "FUN",

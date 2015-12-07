@@ -15,10 +15,10 @@
 #'   'permutation', 'float', 'binary'.
 #' @param supported.objectives [\code{character}]\cr
 #'   At least one of \dQuote{single-objective} or \dQuote{multi-objective}.
-#' @param supported.opt.directions [\code{character(1-2)}]\cr
+#' @param supported.opt.direction [\code{character(1-2)}]\cr
 #'   Does the selector work for maximization tasks xor minimization tasks or both?
-#'   Default is \code{c("maximze", "minimize")}, which means both optimization
-#'   \dQuote{directions} are supported.
+#'   Default is \dQuote{\code{minimize}}, which means that the selector selects
+#'   in favour of low fitness values.
 #' @return [\code{ecr_selector}]
 #'   Selector object.
 #' @export
@@ -27,13 +27,13 @@ makeSelector = function(
   name, description,
   supported = getAvailableRepresentations(),
   supported.objectives,
-  supported.opt.directions = c("minimize", "maximze")) {
+  supported.opt.direction = "minimize") {
   assertFunction(selector, args = c("fitness", "n.select", "task", "control", "storage"), ordered = TRUE)
   assertSubset(supported.objectives, c("single-objective", "multi-objective"))
-  assertSubset(supported.opt.directions, c("maximze", "minimize"))
+  assertChoice(supported.opt.direction, choices = c("maximize", "minimize"))
   selector = makeOperator(selector, name, description, supported)
   selector = setAttribute(selector, "supported.objectives", supported.objectives)
-  selector = setAttribute(selector, "supported.opt.directions", supported.opt.directions)
+  selector = setAttribute(selector, "supported.opt.direction", supported.opt.direction)
   selector = addClasses(selector, c("ecr_selector"))
   return(selector)
 }

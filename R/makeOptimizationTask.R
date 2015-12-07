@@ -40,19 +40,23 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
   !is.null(minimize) && assertLogical(minimize, any.missing = FALSE)
 
   if (is.null(minimize)) {
-    minimize = rep(TRUE, n.objectives)
+    if (isSmoofFunction(fun)) {
+      minimize = shouldBeMinimized(fun)
+    } else {
+      minimize = rep(TRUE, n.objectives)
+    }
   }
 
   if (n.objectives != length(minimize)) {
     stopf("Number of objectives does not correspond to the length of the minimize argument.")
   }
 
-  if (n.objectives >= 2L && any(!minimize)) {
-    stopf("At the moment in many-objective optimization ecr needs all objectives to be minimized,
-      but %i objectives shall be maximized. Consider a transformation of you objective function.",
-      sum(!minimize)
-    )
-  }
+  # if (n.objectives >= 2L && any(!minimize)) {
+  #   stopf("At the moment in many-objective optimization ecr needs all objectives to be minimized,
+  #     but %i objectives shall be maximized. Consider a transformation of you objective function.",
+  #     sum(!minimize)
+  #   )
+  # }
 
   task = makeS3Obj(
     fitness.fun = fun,

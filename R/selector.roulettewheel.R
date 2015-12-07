@@ -39,7 +39,7 @@ makeRouletteWheelSelector = function(offset = 0.1) {
       fitness = fitness + abs(min(fitness)) + offset
     }
     #FIXME: this selector supports maximization only at the moment
-    fitness = 1 / fitness
+    #fitness = 1 / fitness
     prob = fitness / sum(fitness)
     idx = sample(seq_along(fitness), size = n.select, replace = TRUE, prob = prob)
     return(idx)
@@ -48,6 +48,7 @@ makeRouletteWheelSelector = function(offset = 0.1) {
     selector = selector,
     name = "Roulette-Wheel selector",
     description = "Selects individuals in a fitness-proportional fashion.",
-    supported.objectives = c("single-objective")
+    supported.objectives = c("single-objective"),
+    supported.opt.direction = "maximize"
   )
 }

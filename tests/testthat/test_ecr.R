@@ -52,6 +52,25 @@ test_that("ecr works with simple soo function", {
   }
 })
 
+test_that("ecr works for maximization", {
+  obj.fun = makeSingleObjectiveFunction(
+    name = "maximize me",
+    fn = function(x) -sum(x^2),
+    par.set = makeNumericParamSet("x", len = 1L, lower = -10, upper = 10),
+    minimize = FALSE # we want to maximize here
+  )
+  control = setupECRControl(
+    n.population = 10L,
+    n.offspring = 10L,
+    survival.strategy = "plus",
+    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L)),
+    monitor = makeNullMonitor(),
+    representation = "float"
+  )
+  res = doTheEvolution(obj.fun, control = control)
+  expect_true(abs(res$best.value - 0) < 0.05)
+})
+
 test_that("ecr works on binary representations", {
   n.params = 10L
   max.iter = 150L

@@ -1,8 +1,8 @@
 #' @title
-#'   Working horse of the ecr package.
+#' Working horse of the ecr package.
 #'
 #' @description
-#'   Takes a function and searches for a global optimum with an evolutionary approach.
+#' Takes a function and searches for a global optimum with an evolutionary approach.
 #'
 #' @keywords optimize
 #'
@@ -153,7 +153,7 @@ print.ecr_result = function(x, ...) {
 }
 
 # @title
-#   Generate 'extras' argument for opt.path.
+# Generate 'extras' argument for opt.path.
 #
 # @param iter [integer(1)]
 #   Current iteration/generation.
@@ -189,7 +189,7 @@ getListOfExtras = function(iter, n.evals, population, start.time, control) {
 }
 
 # @title
-#   Helper function to build initial population.
+# Helper function to build initial population.
 #
 # @param n.population [integer(1)]
 #   Size of the population.
@@ -221,19 +221,25 @@ buildInitialPopulation = function(n.population, task, control, initial.populatio
   return(generated.population)
 }
 
+# @title
+# Check selectors for compatibility with objectives.
+#
+# @param n.objectives [integer(1)]
+#   Number of objectives of the optimization task.
+# @param task [ecr_optimization_task]
+#   Optimization task.
+# @param control [ecr_control]
+#   Control object.
+# @param ... [any]
+#   List of ecr_selector objects.
+# @return Nothing
 checkSelectorCompatibility = function(n.objectives, task, control, ...) {
   selectors = list(...)
   desired.obj = if (n.objectives == 1L) "single-objective" else "multi-objective"
-  # FIXME: case where we have mixed stuff not supported!
-  desired.opt = if (all(task$minimize)) "minimize" else "maximize"
   lapply(selectors, function(selector) {
     if (desired.obj %nin% attr(selector, "supported.objectives")) {
       stopf("Selector '%s' cannot be applied to problem with %i objectives.",
         getOperatorName(selector), n.objectives)
-    }
-    if (desired.opt %nin% attr(selector, "supported.opt.directions")) {
-      stopf("Selector '%s' cannot be applied to %s a task.",
-        getOperatorName(selector), desired.opt)
     }
   })
 }
