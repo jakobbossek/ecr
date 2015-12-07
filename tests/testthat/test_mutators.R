@@ -34,9 +34,9 @@ test_that("mutation operators working on real-numbered representation create val
   for (mutatorGenerator in available.mutators) {
     mutate = mutatorGenerator()
     test.seq = runif(5L)
-    task = list(par.set = makeNumericParamSet("x", len = 5L, lower = 0, upper = 10))
+    task = list(par.set = makeNumericParamSet("x", len = 5L, lower = 0, upper = 1))
     for (i in seq(n.reps)) {
-      mut.seq = mutate(test.seq, task, control = NUL)
+      mut.seq = mutate(test.seq, task, control = NULL)
       expect_true(all(mut.seq >= 0 && mut.seq <= 1), info = sprintf("Mutator '%s' did not stick to the
         box constraints! Input: (%s), Output: (%s)", getOperatorName(mutate), collapse(test.seq), collapse(mut.seq)))
     }
