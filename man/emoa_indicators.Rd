@@ -32,6 +32,20 @@ Set of reference points.}
 A single reference point used e.g. for the computation of the hypervolume
 indicator via \code{computeHypervolumeIndicator}. If \code{NULL} the
 nadir point of the union of the \code{points} and \code{ref.points} is used.}
+
+\item{ideal.point}{[\code{numeric}]\cr
+The utopia point of the true Pareto front, i.e., each component of the point
+contains the best value if the other objectives are neglected.}
+
+\item{nadir.point}{[\code{numeric}]\cr
+Nadir point of the true Pareto front.}
+
+\item{lambda}{[\code{integer(1)}]\cr
+Number of weight vectors to use in estimating the utility function.}
+
+\item{utility}{[\code{character(1)}]\cr
+Name of the utility function to use. Must be one of \dQuote{weightedsum},
+\dQuote{tschebycheff} or \dQuote{augmented tschbycheff}.}
 }
 \value{
 [\code{numeric(1)}] Epsilon indicator.

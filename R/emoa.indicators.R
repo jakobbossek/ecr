@@ -1,18 +1,18 @@
 #' @title
-#'   Computation of the unary epsilon-indicator.
+#' Computation of the unary epsilon-indicator.
 #'
 #' @description
-#'   Functions for the computation of unary and binary measures which are useful for
-#'   the evaluation of the performace of EMOAs. See the references section for literature on these
-#'   indicators.
+#' Functions for the computation of unary and binary measures which are useful for
+#' the evaluation of the performace of EMOAs. See the references section for literature on these
+#' indicators.
 #'
-#'   Given a set of points \code{points}, \code{computeEpsilonIndicator} computes the
-#'   unary epsilon-indicator provided a set of reference points \code{ref.points}.
+#' Given a set of points \code{points}, \code{computeEpsilonIndicator} computes the
+#' unary epsilon-indicator provided a set of reference points \code{ref.points}.
 #'
-#'   The \code{computeHypervolumeIndicator} function computes the hypervolume indicator
-#'   Hyp(X, R, r). Given a set of point X (\code{points}), another set of reference
-#'   points R (\code{ref.points}) (which maybe the true Pareto front) and a reference
-#'   point r (\code{ref.point}) it is defined as Hyp(X, R, r) = HV(X, r) - HV(R, r).
+#' The \code{computeHypervolumeIndicator} function computes the hypervolume indicator
+#' Hyp(X, R, r). Given a set of point X (\code{points}), another set of reference
+#' points R (\code{ref.points}) (which maybe the true Pareto front) and a reference
+#' point r (\code{ref.point}) it is defined as Hyp(X, R, r) = HV(X, r) - HV(R, r).
 #'
 #' @param points [\code{matrix}]\cr
 #'   Matrix of points.
@@ -22,6 +22,16 @@
 #'   A single reference point used e.g. for the computation of the hypervolume
 #'   indicator via \code{computeHypervolumeIndicator}. If \code{NULL} the
 #'   nadir point of the union of the \code{points} and \code{ref.points} is used.
+#' @param ideal.point [\code{numeric}]\cr
+#'   The utopia point of the true Pareto front, i.e., each component of the point
+#'   contains the best value if the other objectives are neglected.
+#' @param nadir.point [\code{numeric}]\cr
+#'   Nadir point of the true Pareto front.
+#' @param lambda [\code{integer(1)}]\cr
+#'   Number of weight vectors to use in estimating the utility function.
+#' @param utility [\code{character(1)}]\cr
+#'   Name of the utility function to use. Must be one of \dQuote{weightedsum},
+#'   \dQuote{tschebycheff} or \dQuote{augmented tschbycheff}.
 #' @return [\code{numeric(1)}] Epsilon indicator.
 #' @rdname emoa_indicators
 #' @export
