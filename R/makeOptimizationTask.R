@@ -36,8 +36,12 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
         but the passed smoof function '%s' exhibits these.", getName(fun))
     }
   }
-  !is.null(n.objectives) && assertInt(n.objectives, lower = 1L, na.ok = FALSE)
-  !is.null(minimize) && assertLogical(minimize, any.missing = FALSE)
+  if (!is.null(n.objectives)) {
+    assertInt(n.objectives, lower = 1L, na.ok = FALSE)
+  }
+  if (!is.null(minimize)) {
+    assertLogical(minimize, any.missing = FALSE)
+  }
 
   if (is.null(minimize)) {
     if (isSmoofFunction(fun)) {
