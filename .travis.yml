@@ -7,7 +7,7 @@ r_github_packages:
   - jakobbossek/smoof
 
 after_success:
-  - Rscript -e 'library(covr);coveralls()'
+  - Rscript -e 'library(covr);coveralls(exclusions = c("src/avl.c", "src/r_ind.c", "src/hv.c"))'
 
 notifications:
   email:
