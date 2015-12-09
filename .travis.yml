@@ -2,6 +2,10 @@
 
 language: r
 
+os:
+  - linux
+  - osx
+
 r_github_packages:
   - jimhester/covr
   - jakobbossek/smoof
