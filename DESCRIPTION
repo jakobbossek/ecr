@@ -11,7 +11,8 @@ Description: This R package provides a powerful framework for evolutionary
     mind. Extending the framework with own operators is also possible. Additionaly
     there are various comfort functions, like monitoring, logging and more.
 Version: 1.0
-Date: 2015-09-18
+Encoding: UTF-8
+Date: 2015-12-09
 Authors@R: c(person("Jakob", "Bossek", email = "j.bossek@gmail.com", role =
     c("aut", "cre")), person("Dirk", "Surmann", email = "surmann@statistik.tu-dortmund.de", role = "ctb"))
 Maintainer: Jakob Bossek <j.bossek@gmail.com>
