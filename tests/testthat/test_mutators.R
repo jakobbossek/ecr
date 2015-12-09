@@ -14,6 +14,8 @@ test_that("mutation operators working on permutation genes create valid offsprin
   # check validity of produced output for each permutation-based mutator
   for (mutatorGenerator in available.mutators) {
     mutate = mutatorGenerator() # no mutation control parameters to check here
+    expect_true(isEcrOperator(mutate))
+    expect_output(print(mutate), regexp = "Name")
     test.seq = sample(s, 10L, replace = FALSE)
     task = list(par.set = makeNumericParamSet(len = 10L, id = "c", lower = 1L, upper = 10L))
     for (i in seq(n.reps)) {

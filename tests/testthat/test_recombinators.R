@@ -10,6 +10,8 @@ test_that("recombinators for permutations work as expected", {
   available.recombinators = c(makePMXRecombinator, makeOXRecombinator)
   for (recombinatorGenerator in available.recombinators) {
     recombine = recombinatorGenerator()
+    expect_true(isEcrOperator(recombine))
+    expect_output(print(recombine), regexp = "Name")
     # generate sample permutations
     parent1 = sample(n)
     parent2 = sample(n)
