@@ -5,7 +5,7 @@
 \title{Construct a generator.}
 \usage{
 makeGenerator(generator, name, description,
-  supported = getAvailableRepresentations())
+  supported = getAvailableRepresentations(), params = list())
 }
 \arguments{
 \item{generator}{[\code{function}]\cr
@@ -21,6 +21,10 @@ Short description of how the generator works.}
 \item{supported}{[\code{character}]\cr
 Vector of strings/names of supported parameter representations, i.e.,
 'permutation', 'float', 'binary' or 'custom'.}
+
+\item{params}{[\code{list}]\cr
+Named list of the parameters the generator has been initialized with.
+Default is the empty list.}
 }
 \value{
 [\code{ecr_generator}]
