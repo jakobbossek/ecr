@@ -1,9 +1,13 @@
 #' @title
-#'   Stopping condition: maximum number of function evaluations.
+#' Stopping condition: maximum number of function evaluations.
+#'
+#' @description
+#' Stop the EA after at most \code{max.evals} evaluations of the fitness function.
 #'
 #' @param max.evals [\code{integer(1)}]\cr
 #'   Maximal number of function evaluations. Default ist \code{Inf}.
 #' @return [\code{function}]
+#' @family stopping conditions
 #' @export
 makeMaximumEvaluationsStoppingCondition = function(max.evals = NULL) {
   force(max.evals)

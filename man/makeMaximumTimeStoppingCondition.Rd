@@ -13,4 +13,11 @@ Time budget in seconds. Default ist \code{Inf}.}
 \value{
 [\code{function}]
 }
+\description{
+Stop the EA after a maximal time budget.
+}
+\seealso{
+Other stopping conditions: \code{\link{makeMaximumEvaluationsStoppingCondition}},
+  \code{\link{makeMaximumIterationsStoppingCondition}}
+}
 

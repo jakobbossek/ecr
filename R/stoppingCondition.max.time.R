@@ -1,9 +1,13 @@
 #' @title
-#'   Stopping condition: time limit.
+#' Stopping condition: time limit.
+#'
+#' @description
+#' Stop the EA after a maximal time budget.
 #'
 #' @param max.time [\code{integer(1)}]\cr
 #'   Time budget in seconds. Default ist \code{Inf}.
 #' @return [\code{function}]
+#' @family stopping conditions
 #' @export
 makeMaximumTimeStoppingCondition = function(max.time = NULL) {
   if (!is.null(max.time)) {
