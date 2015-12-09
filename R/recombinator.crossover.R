@@ -1,5 +1,16 @@
 #' @title
-#'   Generator of the One-point crossover recombination operator.
+#' Generator of the one-point crossover recombination operator.
+#'
+#' @description
+#' The one-point crossover recombinator is defined for float and binary
+#' representations. Given two real-valued/binary vectors of length n, the
+#' selector samples a random position i between 1 and n-1. In the next step
+#' it creates two children. The first part of the first child contains of the
+#' subvector from position 1 to position i of the first parent, the second part
+#' from position i+1 to n is taken from the second parent. The second child
+#' is build analogously.
+#' If the parents are list of real-valued/binary vectors, the procedure described
+#' above is applied to each element of the list.
 #'
 #' @param p [\code{numeric(1)}]\cr
 #'   Cross over probability to form an offspring. Default is \code{1}.

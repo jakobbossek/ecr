@@ -2,12 +2,16 @@
 % Please edit documentation in R/recombinator.null.R
 \name{makeNullRecombinator}
 \alias{makeNullRecombinator}
-\title{This recombinator does not perform any recombination.}
+\title{Generator of the \dQuote{null} recombination operator.}
 \usage{
 makeNullRecombinator()
 }
 \value{
 [\code{ecr_recombinator}]
+}
+\description{
+This recombinator does not perform any recombination. It simply returns the
+first of the passed parents.
 }
 \seealso{
 Other recombinators: \code{\link{makeCrossoverRecombinator}},

@@ -1,5 +1,9 @@
 #' @title
-#'   This recombinator does not perform any recombination.
+#' Generator of the \dQuote{null} recombination operator.
+#'
+#' @description
+#' This recombinator does not perform any recombination. It simply returns the
+#' first of the passed parents.
 #'
 #' @return [\code{ecr_recombinator}]
 #' @family recombinators
