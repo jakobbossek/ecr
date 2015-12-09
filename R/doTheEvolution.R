@@ -175,7 +175,7 @@ getListOfExtras = function(iter, n.evals, population, start.time, control) {
 #
 # @param n.population [integer(1)]
 #   Size of the population.
-# @param task [ecr_optimization_task]
+# @param task [ecr_optimization_task]
 #   Optimization task.
 # @param control [ecr_control]
 #   Control object.
