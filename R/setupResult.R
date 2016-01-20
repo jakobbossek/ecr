@@ -64,6 +64,8 @@ setupResult.ecr_multi_objective_opt_state = function(opt.state, stop.object, con
   population = opt.state$population
   fitness = population$fitness
   pareto.idx = which.nondominated(fitness)
+  pareto.front = t(fitness[, pareto.idx, drop = FALSE])
+  colnames(pareto.front) = opt.state$task$objective.names
   makeS3Obj(
     final.opt.state = opt.state,
     task = opt.state$task,

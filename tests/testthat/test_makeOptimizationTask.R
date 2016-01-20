@@ -13,6 +13,15 @@ test_that("optimization tasks are properly generated", {
     expect_output(print(task), "optimization task", ignore.case = TRUE)
   }
 
+  # now generate a task by hand
+  fn = makeZDT2Function(2L)
+  task = makeOptimizationTask(fn, minimize = c(TRUE, FALSE), objective.names = c("warmth", "elasticity"))
+  expect_true(any(task$minimize))
+  expect_true(any(!task$minimize))
+  expect_true(all(task$objective.names == c("warmth", "elasticity")))
+  expect_equal(task$n.objectives, 2L)
+
+  # now check for errors
   fn = makeSphereFunction(2L)
   # wrong number of objectives
   expect_error(makeOptimizationTask(fn, n.objectives = 2L))

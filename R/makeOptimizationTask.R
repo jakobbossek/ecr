@@ -3,8 +3,9 @@
 #'
 #' @description
 #' An optimization task consists of the fitness/objective function, the
-#' number of objectives and the \dQuote{direction} of optimization, i.e.,
-#' which objectives should be minimized/maximized.
+#' number of objectives, the \dQuote{direction} of optimization, i.e.,
+#' which objectives should be minimized/maximized and the names of the
+#' objectives.
 #'
 #' @param fun [\code{function} | \code{smoof_function}]\cr
 #'   Fitness/objective function.
@@ -14,10 +15,13 @@
 #' @param minimize [\code{logical}]\cr
 #'   A logical vector indicating which objectives to minimize/maximize. By default
 #'   all objectives are assumed to be minimized.
+#' @param objective.names [\code{character}]\cr
+#'   Names for the objectuves.
+#'   Default is \code{NULL}. In this case the names are set to y1, ..., yn with
+#'   n equal to \code{n.objectives} and simply y in the single-objective case.
 #' @return [\code{ecr_optimization_task}]
 #' @export
-makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
-  #FIXME: what parameters do we force it to have?
+makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL, objective.names = NULL) {
   assertFunction(fun)
   if (isSmoofFunction(fun)) {
     if (is.null(n.objectives)) {
@@ -36,11 +40,10 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
         but the passed smoof function '%s' exhibits these.", getName(fun))
     }
   }
-  if (!is.null(n.objectives)) {
-    assertInt(n.objectives, lower = 1L, na.ok = FALSE)
-  }
-  if (!is.null(minimize)) {
-    assertLogical(minimize, any.missing = FALSE)
+  assertInt(n.objectives, lower = 1L, na.ok = FALSE)
+
+  if (is.null(objective.names)) {
+    objective.names = if (n.objectives == 1L) "y" else paste0("y", seq(n.objectives))
   }
 
   if (is.null(minimize)) {
@@ -50,6 +53,8 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
       minimize = rep(TRUE, n.objectives)
     }
   }
+  assertLogical(minimize, any.missing = FALSE)
+  assertCharacter(objective.names, len = n.objectives, any.missing = FALSE, all.missing = FALSE)
 
   if (n.objectives != length(minimize)) {
     stopf("Number of objectives does not correspond to the length of the minimize argument.")
@@ -66,6 +71,7 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
     fitness.fun = fun,
     n.objectives = n.objectives,
     minimize = minimize,
+    objective.names = objective.names,
     classes = c("ecr_optimization_task")
   )
 

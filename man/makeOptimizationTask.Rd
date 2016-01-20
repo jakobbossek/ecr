@@ -4,7 +4,8 @@
 \alias{makeOptimizationTask}
 \title{Creates an optimization task.}
 \usage{
-makeOptimizationTask(fun, n.objectives = NULL, minimize = NULL)
+makeOptimizationTask(fun, n.objectives = NULL, minimize = NULL,
+  objective.names = NULL)
 }
 \arguments{
 \item{fun}{[\code{function} | \code{smoof_function}]\cr
@@ -17,13 +18,19 @@ is of type \code{smoof_function}.}
 \item{minimize}{[\code{logical}]\cr
 A logical vector indicating which objectives to minimize/maximize. By default
 all objectives are assumed to be minimized.}
+
+\item{objective.names}{[\code{character}]\cr
+Names for the objectuves.
+Default is \code{NULL}. In this case the names are set to y1, ..., yn with
+n equal to \code{n.objectives} and simply y in the single-objective case.}
 }
 \value{
 [\code{ecr_optimization_task}]
 }
 \description{
 An optimization task consists of the fitness/objective function, the
-number of objectives and the \dQuote{direction} of optimization, i.e.,
-which objectives should be minimized/maximized.
+number of objectives, the \dQuote{direction} of optimization, i.e.,
+which objectives should be minimized/maximized and the names of the
+objectives.
 }
 
