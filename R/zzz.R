@@ -8,3 +8,7 @@
 #' @import gridExtra
 #' @useDynLib ecr
 NULL
+
+.onAttach = function(libname, pkgname) {
+  parallelRegisterLevels(package = "ecr", levels = c("evaluateFitness"))
+}
