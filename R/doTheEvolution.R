@@ -42,7 +42,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   monitor = control$monitor
 
   population = buildInitialPopulation(control$n.population, task, control, initial.population)
-  population$fitness = computeFitness(population, task$fitness.fun, task, control)
+  population$fitness = evaluateFitness(population, task$fitness.fun, task, control)
   opt.state = setupOptState(task, population, control)
 
   monitor$before()

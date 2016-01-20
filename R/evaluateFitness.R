@@ -17,7 +17,25 @@
 #   Control object containing all operators and further parameters.
 #   See \code{\link{setupECRControl}} and \code{\link{setupEvolutionaryOperators}}.
 # @return [\code{matrix}].
-computeFitness = function(population, fitness.fun, task, control) {
+evaluateFitness = function(population, fitness.fun, task, control) {
+  # first check if objective/fitness function accepts lists/vectors
+  if (control$vectorized.evaluation) {
+    if (isSmoofFunction(fitness.fun)) {
+      if (!isVectorized(fitness.fun)) {
+        stopf("Vectorized evaluation of fitness function is activated, but fitness
+          function '%s' is not vectorized.", getName(fitness.fun))
+      }
+      fitness = fitness.fun(do.call(cbind, population$individuals))
+    } else {
+      fitness = fitness.fun(population$individuals)
+    }
+    if (!is.matrix(fitness)) {
+      fitness = matrix(fitness, nrow = 1L)
+    }
+    return(fitness)
+  }
+
+  # otherwise do or do not parallelization
   if (getParamNr(task$par.set) == 1L) {
     # one parameter
     fitness = parallelMap(fitness.fun, population$individuals, level = "ecr.evaluateFitness")

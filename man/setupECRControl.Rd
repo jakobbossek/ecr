@@ -9,7 +9,7 @@ setupECRControl(n.population, n.offspring,
   survival.strategy = "plus", n.elite = 0L, target.name = "y",
   save.population.at = integer(0), monitor = makeConsoleMonitor(),
   stopping.conditions = list(), extras.fun = NULL,
-  custom.constants = list())
+  custom.constants = list(), vectorized.evaluation = FALSE)
 }
 \arguments{
 \item{n.population}{[\code{integer(1)}]\cr
@@ -57,6 +57,20 @@ means that no additional stuff is logged.}
 \item{custom.constants}{[\code{list}]\cr
 Additional constants which should be available to all generators and operators.
 Defaults to empty list.}
+
+\item{vectorized.evaluation}{[\code{logical(1L)}]\cr
+Is the fitness/objective function vectorized? I.e., does the fitness function accept
+a list? This allows for faster execution or parallelization by hand.
+If \code{TRUE} the following destinction on the type of the objective function is made:
+\describe{
+  \item{Is \code{smoof_function}}{If the objective function is of type \code{smoof_function} from package \pkg{smoof}
+  and the smoof function is vectorized, the population - which is a list internally -
+  is reduced to a matrix and passed to the smoof function (vectorization in smoof
+  is allowed for continuous functions only).}
+  \item{Is not a \code{smoof_function}}{In this case the individuals of
+  the population are passed entirely as a list to the objective function.}
+}
+Default is \code{FALSE}.}
 }
 \value{
 S3 object of type \code{ecr_control}.

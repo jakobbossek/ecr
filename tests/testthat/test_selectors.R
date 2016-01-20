@@ -4,7 +4,7 @@ test_that("parent selectors work as expected", {
   task = list(par.set = makeParamSet(makeNumericVectorParam(id = "x", len = 5L)))
   population = lapply(1:10, function(i) runif(5L))
   population = makePopulation(population, fitness = NULL)
-  fitness = computeFitness(population, sum, task, NULL)
+  fitness = evaluateFitness(population, sum, task, list(vectorized.evaluation = FALSE))
   population$fitness = fitness
 
   n.mating.pool = 5L
