@@ -50,16 +50,16 @@ Further arguments passed to \code{\link{setupECRControl}}.}
 [\code{ecr_ecr_multi_objective_result}]
 }
 \description{
-The AS-EMOA, short for aspiration set evolutionary multi-objective algorithm,
-  aims to incorporate expert knowledge into multi-objective optimization [1].
-  The algorithm expects an aspiration set, i.e., a set of reference points. It
-  then creates an appriximation of the pareto front close to the aspiration set
-  utilizing the average Hausdorff distance.
+The AS-EMOA, short for aspiration set evolutionary multi-objective
+algorithm aims to incorporate expert knowledge into multi-objective optimization [1].
+The algorithm expects an aspiration set, i.e., a set of reference points. It
+then creates an appriximation of the pareto front close to the aspiration set
+utilizing the average Hausdorff distance.
 }
 \note{
 This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
-  \pkg{ecr} interface and offers a more R like interface while still being quite
-  adaptable.
+\pkg{ecr} interface and offers a more R like interface while still being quite
+adaptable.
 }
 \references{
 Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set

@@ -1,17 +1,17 @@
 #' @title
-#'   Implementation of the NSGA-II EMOA algorithm by Deb.
+#' Implementation of the NSGA-II EMOA algorithm by Deb.
 #'
 #' @description
-#'   The AS-EMOA, short for aspiration set evolutionary multi-objective algorithm,
-#'   aims to incorporate expert knowledge into multi-objective optimization [1].
-#'   The algorithm expects an aspiration set, i.e., a set of reference points. It
-#'   then creates an appriximation of the pareto front close to the aspiration set
-#'   utilizing the average Hausdorff distance.
+#' The AS-EMOA, short for aspiration set evolutionary multi-objective
+#' algorithm aims to incorporate expert knowledge into multi-objective optimization [1].
+#' The algorithm expects an aspiration set, i.e., a set of reference points. It
+#' then creates an appriximation of the pareto front close to the aspiration set
+#' utilizing the average Hausdorff distance.
 #'
 #' @note
-#'   This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
-#'   \pkg{ecr} interface and offers a more R like interface while still being quite
-#'   adaptable.
+#' This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
+#' \pkg{ecr} interface and offers a more R like interface while still being quite
+#' adaptable.
 #'
 #' @keywords optimize
 #'

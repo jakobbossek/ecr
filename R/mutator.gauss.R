@@ -1,8 +1,8 @@
 #' @title
-#'   Generator of the Gauss mutation operator.
+#' Generator of the Gauss mutation operator.
 #'
 #' @description
-#'   Default Gaussian mutation operator known from Evolutionary Algorithms.
+#' Default Gaussian mutation operator known from Evolutionary Algorithms.
 #'
 #' @param p [\code{numeric(1)}]\cr
 #'   Probability of mutation for the gauss mutation operator.

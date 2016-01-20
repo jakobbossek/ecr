@@ -2,9 +2,9 @@
 #' Computation of the unary epsilon-indicator.
 #'
 #' @description
-#' Functions for the computation of unary and binary measures which are useful for
-#' the evaluation of the performace of EMOAs. See the references section for literature on these
-#' indicators.
+#' Functions for the computation of unary and binary measures which
+#' are useful for the evaluation of the performace of EMOAs. See the references
+#' section for literature on these indicators.
 #'
 #' Given a set of points \code{points}, \code{computeEpsilonIndicator} computes the
 #' unary epsilon-indicator provided a set of reference points \code{ref.points}.

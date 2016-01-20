@@ -2,11 +2,10 @@
 #' Simple (mu + lambda) EA implementation.
 #'
 #' @description
-#' A simple evolutionary (mu + lambda) strategy for the optimization of real-valued
-#' functions.
+#' A simple evolutionary (mu + lambda) strategy for the optimization
+#' of real-valued functions.
 #'
-#' @note
-#' This helper function hides the regular \pkg{ecr} interface and offers a more
+#' @note This helper function hides the regular \pkg{ecr} interface and offers a more
 #' R like interface to a simple evolutionary algorithm which works on real valued
 #' vectors.
 #'
@@ -57,6 +56,7 @@ simpleEA = function(
   ctrl = setupECRControl(
     n.population = n.population,
     n.offspring = n.offspring,
+    survival.strategy = "plus",
     representation = "float",
     stopping.conditions = list(
       makeMaximumEvaluationsStoppingCondition(max.evals),

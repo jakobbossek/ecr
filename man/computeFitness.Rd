@@ -25,6 +25,6 @@ See \code{\link{setupECRControl}} and \code{\link{setupEvolutionaryOperators}}.}
 }
 \description{
 This function expects a population, computes the fitness and
-  returns the matrix of fitness values.
+returns the matrix of fitness values.
 }
 

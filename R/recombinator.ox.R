@@ -1,12 +1,12 @@
 #' @title
-#'   Generator of the Ordered-Crossover (OX) recombination operator.
+#' Generator of the Ordered-Crossover (OX) recombination operator.
 #'
 #' @description
-#'   This recombination operator is specifically designed for permutations.
-#'   The operators chooses two cut-points at random and generates two offspring
-#'   as follows: a) copy the subsequence of one parent and b) remove the copied
-#'   node indizes from the entire sequence of the second parent from the sescond
-#'   cut point and b) fill the remaining gaps with this trimmed sequence.
+#' This recombination operator is specifically designed for permutations.
+#' The operators chooses two cut-points at random and generates two offspring
+#' as follows: a) copy the subsequence of one parent and b) remove the copied
+#' node indizes from the entire sequence of the second parent from the sescond
+#' cut point and b) fill the remaining gaps with this trimmed sequence.
 #'
 #' @return [\code{ecr_recombinator}]
 #' @family recombinators

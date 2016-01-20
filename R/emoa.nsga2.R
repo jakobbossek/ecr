@@ -1,18 +1,18 @@
 #' @title
-#'   Implementation of the NSGA-II EMOA algorithm by Deb.
+#' Implementation of the NSGA-II EMOA algorithm by Deb.
 #'
 #' @description
-#'   The NSGA-II merges the current population and the generated offspring and
-#'   reduces it by means of the following procedure: It first applies the non
-#'   dominated sorting algorithm to obtain the nondominated fronts. Starting with
-#'   the first front, it fills the new population until the i-th front does not fit.
-#'   It then applies the secondary crowding distance criterion to select the missing
-#'   individuals from the i-th front.
+#' The NSGA-II merges the current population and the generated offspring and
+#' reduces it by means of the following procedure: It first applies the non
+#' dominated sorting algorithm to obtain the nondominated fronts. Starting with
+#' the first front, it fills the new population until the i-th front does not fit.
+#' It then applies the secondary crowding distance criterion to select the missing
+#' individuals from the i-th front.
 #'
 #' @note
-#'   This is a pure R implementation of the NSGA-II algorithm. It hides the regular
-#'   \pkg{ecr} interface and offers a more R like interface while still being quite
-#'   adaptable.
+#' This is a pure R implementation of the NSGA-II algorithm. It hides the regular
+#' \pkg{ecr} interface and offers a more R like interface while still being quite
+#' adaptable.
 #'
 #' @keywords optimize
 #'

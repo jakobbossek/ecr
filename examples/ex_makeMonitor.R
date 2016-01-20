@@ -12,8 +12,9 @@ obj.fn = makeSingleObjectiveFunction(
 # Monitor functions expect the parent environment as the only parameter
 # This way we can access all the variables saved there.
 monitorStep = function(envir = parent.frame()) {
-  iter = envir$iter
-  best.fitness = envir$best$fitness
+  opt.state = envir$opt.state
+  iter = opt.state$iter
+  best.fitness = opt.state$best.value
   if (iter == 1L) {
     envir$first.best = best.fitness
   }

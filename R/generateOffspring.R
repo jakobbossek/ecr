@@ -1,21 +1,17 @@
 # @title
-#   Creates offspring from a given mating pool of parents.
+# Creates offspring from a given mating pool of parents.
 #
-# @param matingPool [\code{setOfIndividuals}]\cr
-#   Set of parents to choose from.
-# @param task [\code{ecr_optimization_tasl}]\cr
-#   Optimization task.
-# @param STORAGE [\code{list}]\cr
-#   List which contains all the algorithm specific stuff.
-# @param objective.fun [\code{function}]\cr
-#   Target fun.
+# @param opt.state [\code{ecr_opt_state}]\cr
+#   Optimization state.
+# @param matingPool [\code{ecr_population}]\cr
+#   Mating pool to select individuals from.
 # @param control [\code{ecr_control}]\cr
-#   Control object containing all operators and further parameters.
-# @param opt.path [\code{OptPath}]\cr
-#   Optimization path.
+#   Control object.
 # @return [\code{setOfIndividuals}] Generated offspring.
-generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, opt.path) {
+generateOffspring = function(opt.state, matingPool, control) {
   n.offspring = control$n.offspring
+  task = opt.state$task
+  fitness.fun = task$fitness.fun
   offspring = vector(mode = "list", length = n.offspring)
 
   i.offspring = 1L
@@ -35,19 +31,19 @@ generateOffspring = function(matingPool, task, STORAGE, objective.fun, control, 
     }
   }
 
-  offspring.fitness = computeFitness(makePopulation(offspring), objective.fun, task, control)
+  offspring.fitness = computeFitness(makePopulation(offspring), fitness.fun, task, control)
 
   return(makePopulation(offspring, offspring.fitness))
 }
 
 # @title
-#   Helper method to extract two parents from the mating pool
+# Helper method to extract two parents from the mating pool
 #
-# @param matingPool [ecr_population]
+# @param matingPool [\code{ecr_population}]
 #   Set of individuals selected for reproduction.
-# @param n.parents [integer(1)]
+# @param n.parents [\code{integer(1)}]
 #   Number of individuals to select.
-# @return [list]
+# @return [\code{list}]
 getParents = function(matingPool, n.parents = 2L) {
   inds = matingPool$individuals
   n = length(inds)

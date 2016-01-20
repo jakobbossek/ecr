@@ -9,21 +9,20 @@ load_all(".", reset = TRUE)
 
 # objective function
 obj.fn = makeSingleObjectiveFunction(
-  name = "Number of Ones"
-  , fn = function(x, y) {
+  name = "Number of Ones",
+  fn = function(x, y) {
     (length(x) - sum(x)) + sum(y)
-  }
-  , par.set = makeParamSet(
-    makeIntegerVectorParam("x", len = 20L, lower = 0, upper = 1)
-    , makeIntegerVectorParam("y", len = 15L, lower = 0, upper = 1)
+  },
+  par.set = makeParamSet(
+    makeIntegerVectorParam("x", len = 20L, lower = 0, upper = 1),
+    makeIntegerVectorParam("y", len = 15L, lower = 0, upper = 1)
   )
 )
 
 makeOptimumAppearsStoppingCondition = function(opt.fitness = 0) {
-  condition.fun = function(opt.path) {
-    # i.best = getOptPathBestIndex(opt.path)
-    min.fitness.vector = getOptPathCol(opt.path, "pop.min.fitness")
-    return(min(min.fitness.vector) == 0)
+  condition.fun = function(opt.state) {
+    min.fitness = min(opt.state$population$fitness)
+    return(min.fitness == 0)
   }
   makeStoppingCondition(
     condition.fun,
@@ -56,4 +55,4 @@ control = setupEvolutionaryOperators(
 # names(as.data.frame(res$opt.path))
 res = doTheEvolution(obj.fn, control = control)
 print(res)
-autoplot(res, complete.trace = TRUE)
+#autoplot(res, complete.trace = TRUE)

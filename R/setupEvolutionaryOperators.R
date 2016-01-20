@@ -1,13 +1,13 @@
 #' @title
-#'   Enhance control object with evolutionary operators.
+#' Enhance control object with evolutionary operators.
 #'
 #' @description
-#'   Define the toolbox of all the evolutionary operators you wish to operate on
-#'   your problem.
+#' Define the toolbox of all the evolutionary operators you wish to operate on
+#' your problem.
 #'
 #' @note
-#'   Keep in mind, that all of the provided operators need to be compatible
-#'   with the \dQuote{representation} stored in the \code{control} object.
+#' Keep in mind, that all of the provided operators need to be compatible
+#' with the \dQuote{representation} stored in the \code{control} object.
 #'
 #' @template arg_control
 #' @template arg_generator

@@ -17,9 +17,8 @@ makeMaximumIterationsStoppingCondition = function(max.iter = NULL) {
   }
   force(max.iter)
 
-  condition.fun = function(opt.path) {
-    iter.vector = getOptPathCol(opt.path, "iter")
-    return(max(iter.vector) >= max.iter)
+  condition.fun = function(opt.state) {
+    return(opt.state$iter >= max.iter)
   }
 
   makeStoppingCondition(

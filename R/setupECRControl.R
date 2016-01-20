@@ -179,14 +179,22 @@ mutate = function(parent, task, control) {
   control$mutator(parent, task, control)
 }
 
-selectForMating = function(fitness, n.select, task, control, storage) {
+selectForMating = function(opt.state, control) {
+  population = opt.state$population
+  task = opt.state$task
+  fitness = population$fitness
   fitness2 = transformFitness(fitness, task, control$parent.selector)
-  control$parent.selector(fitness2, n.select, task, control, storage)
+  idx.mating = control$parent.selector(fitness2, control$n.mating.pool, task, control, NULL)
+  subsetPopulation(population, idx = idx.mating)
 }
 
-selectForSurvival = function(fitness, n.select, task, control, storage) {
+selectForSurvival = function(opt.state, population, control, n.select = control$n.population) {
+  n.population = control$n.population
+  fitness = population$fitness
+  task = opt.state$task
   fitness2 = transformFitness(fitness, task, control$survival.selector)
-  control$survival.selector(fitness2, n.select, task, control, storage)
+  idx.survival = control$survival.selector(fitness2, n.population, task, control, NULL)
+  subsetPopulation(population, idx = idx.survival)
 }
 
 # @title

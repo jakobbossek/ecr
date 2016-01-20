@@ -43,10 +43,10 @@ Recombination operator of type \code{ecr_recombinator}.}
 }
 \description{
 Define the toolbox of all the evolutionary operators you wish to operate on
-  your problem.
+your problem.
 }
 \note{
 Keep in mind, that all of the provided operators need to be compatible
-  with the \dQuote{representation} stored in the \code{control} object.
+with the \dQuote{representation} stored in the \code{control} object.
 }
 

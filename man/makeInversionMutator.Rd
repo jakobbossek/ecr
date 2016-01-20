@@ -11,6 +11,6 @@ makeInversionMutator()
 }
 \description{
 The Inversion mutation operator selects two positions within the chromosome at
-  random and inverts this sub-permutation.
+random and inverts this sub-permutation.
 }
 

@@ -11,10 +11,10 @@ makeOXRecombinator()
 }
 \description{
 This recombination operator is specifically designed for permutations.
-  The operators chooses two cut-points at random and generates two offspring
-  as follows: a) copy the subsequence of one parent and b) remove the copied
-  node indizes from the entire sequence of the second parent from the sescond
-  cut point and b) fill the remaining gaps with this trimmed sequence.
+The operators chooses two cut-points at random and generates two offspring
+as follows: a) copy the subsequence of one parent and b) remove the copied
+node indizes from the entire sequence of the second parent from the sescond
+cut point and b) fill the remaining gaps with this trimmed sequence.
 }
 \seealso{
 Other recombinators: \code{\link{makeCrossoverRecombinator}},

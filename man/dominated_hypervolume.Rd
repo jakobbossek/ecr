@@ -27,12 +27,12 @@ where no reference is provided and one is calculated automatically.}
 }
 \description{
 The function \code{computeDominatedHypervolume} computes the dominated
-  hypervolume of a set of points given a reference set whereby
-  \code{computeHypervolumeContribution} computes the hypervolume contribution
-  of each point.
+hypervolume of a set of points given a reference set whereby
+\code{computeHypervolumeContribution} computes the hypervolume contribution
+of each point.
 
-  If no reference point is given the nadir point of the set \code{x} is
-  determined and a positive offset with default 1 is added. This is to ensure
-  that the reference point dominates all of the points in the reference set.
+If no reference point is given the nadir point of the set \code{x} is
+determined and a positive offset with default 1 is added. This is to ensure
+that the reference point dominates all of the points in the reference set.
 }
 

@@ -2,8 +2,8 @@
 #' Dominance relation check.
 #'
 #' @description
-#' Check if a vector dominates another (\code{dominates}) or is dominated by
-#' another (\code{isDominated}).
+#' Check if a vector dominates another (\code{dominates}) or is
+#' dominated by another (\code{isDominated}).
 #'
 #' @keywords optimize
 #'

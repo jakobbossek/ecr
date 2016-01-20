@@ -1,4 +1,5 @@
-#' @title Simple stdout monitoring function.
+#' @title
+#' Simple stdout monitoring function.
 #'
 #' @description
 #' This is the default monitoring function used by ecr. It simply outputs
@@ -25,9 +26,10 @@ makeConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
       cat("Initialization finished! Starting optimization process ...\n")
     },
     step = function(envir = parent.frame()) {
+      opt.state = envir$opt.state
       max.iter = envir$control$max.iter
-      fitness = envir$population$fitness
-      iter = envir$iter
+      fitness = opt.state$population$fitness
+      iter = opt.state$iter
       if ((iter %% show.info.stepsize) == 0L) {
         call.format = sprintf("Iter %s | y (min: %s, mean: %s, max: %s)", "%i", num.format, num.format, num.format)
         catf(call.format, iter, min(fitness), mean(fitness), max(fitness))

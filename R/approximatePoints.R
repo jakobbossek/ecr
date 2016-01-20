@@ -1,9 +1,9 @@
 #' @title
-#'   Reference point approximations.
+#' Reference point approximations.
 #'
 #' @description
-#'   Helper functions to compute nadir or ideal point from sets of points, e.g.,
-#'   multiple approximation sets.
+#' Helper functions to compute nadir or ideal point from sets of
+#' points, e.g., multiple approximation sets.
 #'
 #' @param ... [any]\cr
 #'   Arbirary number of matrizes.
@@ -23,12 +23,10 @@ approximateIdealPoint = function(..., sets = NULL) {
   return(approximatePoint(..., sets = sets, FUN = min))
 }
 
-#' @title
-#'   Helper to compute the Nadir point.
+#' @title Helper to compute the Nadir point.
 #'
-#' @description
-#'   The nadir point is constructed by the worst objective values of the
-#'   concatenation of all given point sets.
+#' @description The nadir point is constructed by the worst objective values of the
+#' concatenation of all given point sets.
 #'
 #' @param ... [any]\cr
 #'   Arbitrary number of matrizes.

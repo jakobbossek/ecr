@@ -1,9 +1,9 @@
 #' @title
-#'   Generator for the Scramble mutation operator.
+#' Generator for the Scramble mutation operator.
 #'
 #' @description
-#'   The Scramble mutation operator selects two positions within the chromosome at
-#'   random and randomly intermixes the subsequence between these positions.
+#' The Scramble mutation operator selects two positions within the chromosome at
+#' random and randomly intermixes the subsequence between these positions.
 #'
 #' @return [\code{ecr_mutator}]
 #' @family mutators

@@ -1,9 +1,9 @@
 #' @title
-#'   Generates a generator object for the initial population.
+#' Generates a generator object for the initial population.
 #'
 #' @description
-#'   The generated operator samples uniformally distributed points in the design
-#'   space of the target function taking care not to violate bounds.
+#' The generated operator samples uniformally distributed points in the design
+#' space of the target function taking care not to violate bounds.
 #'
 #' @return [\code{ecr_generator}]
 #' @export

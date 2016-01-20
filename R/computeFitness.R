@@ -1,9 +1,9 @@
 #' @title
-#'   Computes the fitness values for each member of a given population.
+#' Computes the fitness values for each member of a given population.
 #'
 #' @description
-#'   This function expects a population, computes the fitness and
-#'   returns the matrix of fitness values.
+#' This function expects a population, computes the fitness and
+#' returns the matrix of fitness values.
 #'
 #' @param population [\code{matrix}]\cr
 #'   Population.

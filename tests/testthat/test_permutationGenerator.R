@@ -12,7 +12,7 @@ test_that("permutation generator works properly", {
   # a permutation of 1, ..., 10
   size = 3L
   population = permGen(size, task, control = NULL)
-  expect_is(population, "ecrPopulation")
+  expect_is(population, "ecr_population")
   population = population$individuals
   expect_is(population, "list")
   expect_equal(length(population), size)

@@ -1,10 +1,10 @@
 #' @title
-#'   Generator for some frequently used stopping conditions.
+#' Generator for some frequently used stopping conditions.
 #'
 #' @description
-#'   Setting up stopping conditions is flexible and straight-forward, but
-#'   it needs a lot of writing. This function generates a list of frequently
-#'   used stopping conditions with just a single function call.
+#' Setting up stopping conditions is flexible and straight-forward, but
+#' it needs a lot of writing. This function generates a list of frequently
+#' used stopping conditions with just a single function call.
 #'
 #' @param max.iter [\code{integer(1)}]\cr
 #'   Maximal number of iterations. Default ist \code{Inf}.

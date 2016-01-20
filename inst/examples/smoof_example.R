@@ -20,10 +20,11 @@ load_all(".", reset = TRUE)
 # see the help pages for makeMonitor and makeConsoleMonitor.
 myMonitorStep = function(envir = parent.frame()) {
   n.targets = envir$control$n.targets
-  population = envir$population
+  population = envir$opt.state$population
+  task = envir$opt.state$task
 
   x = seq(-5, 5, by = 0.05)
-  df = data.frame(x = x, y = sapply(x, envir$task$fitness.fun))
+  df = data.frame(x = x, y = sapply(x, task$fitness.fun))
   pl = ggplot(data = df, aes(x = x, y = y)) + geom_line()
 
   population.points = data.frame(x = unlist(population$individuals), y = as.numeric(population$fitness))

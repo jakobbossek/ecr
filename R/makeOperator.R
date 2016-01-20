@@ -1,4 +1,5 @@
-#' @title Construct evolutionary operator.
+#' @title
+#' Construct evolutionary operator.
 #'
 #' @description
 #' Helper function which constructs an evolutionary operator.

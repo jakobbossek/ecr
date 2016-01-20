@@ -53,8 +53,8 @@ Further arguments passed to \code{\link{setupECRControl}}.}
 [\code{ecr_single_objective_result}]
 }
 \description{
-A simple evolutionary (mu + lambda) strategy for the optimization of real-valued
-functions.
+A simple evolutionary (mu + lambda) strategy for the optimization
+of real-valued functions.
 }
 \note{
 This helper function hides the regular \pkg{ecr} interface and offers a more

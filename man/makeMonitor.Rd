@@ -25,10 +25,10 @@ Not used.}
 }
 \description{
 Monitor objects serve for monitoring the optimization process. Each monitor
-  object expects the parameters \code{before}, \code{step} and \code{after},
-  each being a function and expecting \code{envir = parent.frame()} as the
-  only parameter. This way one can access all the variables used within the
-  evolutionary cycle.
+object expects the parameters \code{before}, \code{step} and \code{after},
+each being a function and expecting \code{envir = parent.frame()} as the
+only parameter. This way one can access all the variables used within the
+evolutionary cycle.
 }
 \examples{
 # We want to find the minimum of the function f(x) = x sin(2x) on the intervall
@@ -45,8 +45,9 @@ obj.fn = makeSingleObjectiveFunction(
 # Monitor functions expect the parent environment as the only parameter
 # This way we can access all the variables saved there.
 monitorStep = function(envir = parent.frame()) {
-  iter = envir$iter
-  best.fitness = envir$best$fitness
+  opt.state = envir$opt.state
+  iter = opt.state$iter
+  best.fitness = opt.state$best.value
   if (iter == 1L) {
     envir$first.best = best.fitness
   }

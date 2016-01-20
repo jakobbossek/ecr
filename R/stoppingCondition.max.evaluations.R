@@ -18,9 +18,8 @@ makeMaximumEvaluationsStoppingCondition = function(max.evals = NULL) {
     max.evals = Inf
   }
 
-  condition.fun = function(opt.path) {
-    vals = getOptPathCol(opt.path, "n.evals")
-    return(vals[length(vals)] >= max.evals)
+  condition.fun = function(opt.state) {
+    return(opt.state$n.evals >= max.evals)
   }
 
   makeStoppingCondition(

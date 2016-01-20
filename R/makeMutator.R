@@ -1,8 +1,8 @@
 #' @title
-#'   Construct a mutation operator.
+#' Construct a mutation operator.
 #'
 #' @description
-#'   Helper function which constructs a mutator, i. e., a mutation operator.
+#' Helper function which constructs a mutator, i. e., a mutation operator.
 #'
 #' @param mutator [\code{function}]\cr
 #'   Actual mutation operator.

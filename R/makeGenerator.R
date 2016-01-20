@@ -1,9 +1,9 @@
 #' @title
-#'   Construct a generator.
+#' Construct a generator.
 #'
 #' @description
-#'   Helper function which constructs a generator, i. e., a function which generates
-#'   an initial population.
+#' Helper function which constructs a generator, i. e., a function which generates
+#' an initial population.
 #
 #' @param generator [\code{function}]\cr
 #'   Actual generator function. Should expect the size of the population \code{size}

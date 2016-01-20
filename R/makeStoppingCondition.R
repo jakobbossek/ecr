@@ -1,8 +1,8 @@
 #' @title
-#'   Generate stopping condition.
+#' Generate stopping condition.
 #'
 #' @description
-#'   Wrap a function within a stopping condition object.
+#' Wrap a function within a stopping condition object.
 #'
 #' @param condition.fun [\code{function}]\cr
 #'   Function which takes an environment \code{\link[ParamHelpers]{OptPath}} as its
@@ -15,7 +15,7 @@
 #' @return [\code{ecr_stoppingCondition}]
 #' @export
 makeStoppingCondition = function(condition.fun, name, message) {
-  assertFunction(condition.fun, args = c("opt.path"))
+  assertFunction(condition.fun, args = c("opt.state"))
   assertCharacter(name, len = 1L, any.missing = FALSE)
   assertCharacter(message, len = 1L, any.missing = FALSE)
 

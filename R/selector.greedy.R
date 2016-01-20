@@ -1,9 +1,9 @@
 #' @title
-#'   Simple \dQuote{greedy} selector.
+#' Simple \dQuote{greedy} selector.
 #'
 #' @description
-#'   Sorts the individuals according to their fitness value in increasing order
-#'   and selects the best ones.
+#' Sorts the individuals according to their fitness value in increasing order
+#' and selects the best ones.
 #'
 #' @return [\code{setOfIndividuals}]
 #' @family selectors

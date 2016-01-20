@@ -1,40 +1,30 @@
 # @title
-#   Performs survival selection.
+# Performs survival selection.
 #
 # @description
-#   Helper function which selects the individuals of a population which
-#   will survive the current generation.
+# Helper function which selects the individuals of a population which
+# will survive the current generation.
 #
-# @param population [\code{setOfIndividuals}]\cr
-#   Population.
-# @param offspring [\code{integer(1)}]\cr
+# @param opt.state [\code{ecr_opt_state}]\cr
+#   Optimization state.
+# @param offspring [\code{ecr_population}]\cr
 #   Generated offspring.
-# @param STORAGE [\code{list}]\cr
-#   List which contains all the algorithm specific stuff.
-# @param task [\code{ecr_optimization_task}]\cr
-#   Optimization task.
-# @param n.population [\code{integer(1)}]\cr
-#   Number of individuals.
-# @param strategy [\code{character(1)}]\cr
-#   Strategy used for selection. Possible strategies are:
-#   \describe{
-#     \item{plus}{A classical (mu + lambda) strategy.}
-#     \item{comma}{A classical (mu, lambda) strategy.}
-#   }
-#   Default is \code{plus}. Another is not implemented yet.
-# @param n.elite [\code{integer(1)}]\cr
-#   Number of fittest individuals of the current generation that shall be copied to the
-#   next generation without changing. Default is 0.
 # @param control [\code{ecr_control}]\cr
 #   Control object.
-# @return [\code{setOfIndividuals}]
-getNextGeneration = function(population, offspring, STORAGE, task, n.population, strategy = "plus", n.elite = 0L, control) {
+# @return [\code{ecr_population}]
+getNextGeneration = function(opt.state, offspring, control) {
+  n.elite = control$n.elite
+  strategy = control$survival.strategy
+  n.population = control$n.population
+
+  population = opt.state$population
+  task = opt.state$task
+
   elite = NULL
   new.population = NULL
   if (strategy == "plus") {
     source.population = mergePopulations(population, offspring)
-    idx.survival = selectForSurvival(source.population$fitness, n.population, task, control, STORAGE)
-    new.population = subsetPopulation(source.population, idx = idx.survival)
+    new.population = selectForSurvival(opt.state, source.population, control)
   } else if (strategy == "comma") {
     source.population = offspring
 
@@ -52,8 +42,7 @@ getNextGeneration = function(population, offspring, STORAGE, task, n.population,
       # Adapt number of individuals taken from the offspring and select non-elite individuals
       n.population = n.population - n.elite
     }
-    idx.survival = selectForSurvival(source.population$fitness, n.population, task, control, STORAGE)
-    new.population = subsetPopulation(source.population, idx = idx.survival)
+    new.population = selectForSurvival(opt.state, source.population, control, n.select = n.population)
     if (n.elite > 0L) {
       new.population = mergePopulations(new.population, elite.population)
     }

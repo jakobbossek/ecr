@@ -1,12 +1,13 @@
 #' @title
-#'   Compute the crowding distance of a set of points.
+#' Compute the crowding distance of a set of points.
 #'
 #' @description
-#'   The crowding distance is a measure of spread of solutions in the approximation
-#'   of the Pareto front. It is used, e.g., in the NSGA-II algorithm as a second
-#'   selection criterion.
+#' The crowding distance is a measure of spread of solutions in the
+#' approximation of the Pareto front. It is used, e.g., in the NSGA-II algorithm
+#' as a second selection criterion.
 #'
-#' @references K. Deb, A. Pratap, S. Agarwal, T. Meyarivan, A fast and elitist
+#' @references
+#' K. Deb, A. Pratap, S. Agarwal, T. Meyarivan, A fast and elitist
 #' multiobjective genetic algorithm: NSGA-II, IEEE Transactions on Evolutionary
 #' Computation In Evolutionary Computation, IEEE Transactions on, Vol. 6, No. 2.
 #' (07 April 2002), pp. 182-197, doi:10.1109/4235.996017

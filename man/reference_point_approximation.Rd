@@ -21,7 +21,7 @@ exclusively or combined with \code{...}.}
 [numeric] Reference point.
 }
 \description{
-Helper functions to compute nadir or ideal point from sets of points, e.g.,
-  multiple approximation sets.
+Helper functions to compute nadir or ideal point from sets of
+points, e.g., multiple approximation sets.
 }
 

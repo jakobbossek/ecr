@@ -22,6 +22,6 @@ Either min or max function.}
 }
 \description{
 The nadir point is constructed by the worst objective values of the
-  concatenation of all given point sets.
+concatenation of all given point sets.
 }
 

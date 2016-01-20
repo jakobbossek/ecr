@@ -14,9 +14,9 @@ Numeric matrix with each column representing a point.}
 [\code{numeric}] Vector of crowding distance values.
 }
 \description{
-The crowding distance is a measure of spread of solutions in the approximation
-  of the Pareto front. It is used, e.g., in the NSGA-II algorithm as a second
-  selection criterion.
+The crowding distance is a measure of spread of solutions in the
+approximation of the Pareto front. It is used, e.g., in the NSGA-II algorithm
+as a second selection criterion.
 }
 \references{
 K. Deb, A. Pratap, S. Agarwal, T. Meyarivan, A fast and elitist

@@ -20,20 +20,22 @@ load_all(".", reset = TRUE)
 # see the help pages for makeMonitor and makeConsoleMonitor.
 myMonitorStep = function(envir = parent.frame()) {
   n.targets = envir$control$n.targets
-  population = envir$population
+  population = envir$opt.state$population
+  task = envir$opt.state$task
 
   x = seq(-5, 5, by = 0.05)
-  df = data.frame(x = x, y = sapply(x, envir$task$fitness.fun))
-  pl = ggplot(data = df, aes(x = x, y = y)) + geom_line()
+  df = expand.grid(x, x)
+  names(df) = paste0("x", 1:2)
+  df.points = as.data.frame(do.call(rbind, population$individuals))
+  names(df.points) = names(df)
+  df$y = apply(df, 1L, task$fitness.fun)
 
-  population.points = data.frame(x = unlist(population$individuals), y = as.numeric(population$fitness))
-  pl = pl + geom_point(data = population.points, colour = "tomato", size = 2.2)
-  pl = pl + geom_hline(yintercept = min(population$fitness), linetype = "dotted", colour = "tomato")
+  pl = ggplot(data = df, aes(x = x1, y = x2, z = y)) + geom_contour(colour = "gray")
+  pl = pl + geom_point(data = df.points, aes(z = NULL), colour = "tomato")
   print(pl)
-  Sys.sleep(0.3)
 }
 
-myMonitor = makeConsoleMonitor()#makeMonitor(step = myMonitorStep)
+myMonitor = makeMonitor(step = myMonitorStep)
 
 # generate objective function
 obj.fun = makeRastriginFunction(dimensions = 2L)
@@ -45,7 +47,7 @@ control = setupECRControl(
   survival.strategy = "plus",
   representation = "float",
   monitor = myMonitor,
-  stopping.conditions = setupStoppingConditions(max.iter = 1000L)
+  stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
 # use default operators
 control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(p = 1, sdev = 0.14))

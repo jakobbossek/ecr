@@ -23,7 +23,7 @@ test_that("preimplemented EMOAs work well", {
     zdt1 = smoof::makeZDT1Function(dimensions = 2L),
     zdt2 = smoof::makeZDT2Function(dimensions = 3L)
   )
-  max.evals = 50L
+  max.evals = 70L
 
   # test NSGA-II
   for (n.pop in c(5, 10, 15)) {
@@ -35,7 +35,7 @@ test_that("preimplemented EMOAs work well", {
         max.evals = max.evals,
         monitor = makeNullMonitor()
       )
-      expect_is_pareto_approximation(res$pareto.front, 2L, "nsga2", fn,
+      expect_is_pareto_approximation(res$pareto.front, getNumberOfObjectives(fns[[fn]]), "nsga2", fn,
         list(n.pop = n.pop, n.offspring = 5L, max.evals = max.evals)
       )
     }
@@ -57,7 +57,7 @@ test_that("preimplemented EMOAs work well", {
   }
 
   # test Aspiration-Set EMOA (AS-EMOA)
-  for (n.pop in c(5, 10)) {
+  for (n.pop in c(10, 20)) {
     task = makeOptimizationTask(makeZDT3Function(dimensions = 2L))
     aspiration.set = matrix(
       c(0.2, 0.25,
@@ -65,9 +65,9 @@ test_that("preimplemented EMOAs work well", {
         0.18, 0.4), ncol = 3L, byrow = FALSE
     )
     res = asemoa(task, n.population = n.pop, max.evals = max.evals,
-      aspiration.set = aspiration.set, n.archive = 5L, monitor = makeNullMonitor())
+      aspiration.set = aspiration.set, n.archive = 10L, monitor = makeNullMonitor())
     expect_is_pareto_approximation(res$pareto.front, 2L, "asemoa", "ZDT3",
-      list(n.pop = n.pop, n.archive = 5L))
+      list(n.pop = n.pop, n.archive = 10L))
   }
 })
 

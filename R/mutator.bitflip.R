@@ -1,4 +1,5 @@
-#' @title Generator of a simple bitplip mutation operator.
+#' @title
+#' Generator of a simple bitplip mutation operator.
 #'
 #' @description
 #' This operator works only on binary representation and flips each bit

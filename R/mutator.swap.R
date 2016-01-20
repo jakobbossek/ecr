@@ -1,8 +1,8 @@
 #' @title
-#'   Generator for the Swap mutation operator.
+#' Generator for the Swap mutation operator.
 #'
 #' @description
-#'   Chooses two positions at random and swaps the genes.
+#' Chooses two positions at random and swaps the genes.
 #'
 #' @return [\code{ecr_mutator}]
 #' @family mutators

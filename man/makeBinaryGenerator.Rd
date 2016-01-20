@@ -11,6 +11,6 @@ makeBinaryGenerator()
 }
 \description{
 The generated operator samples uniformally distributed points in the design
-  space of the target function taking care not to violate bounds.
+space of the target function taking care not to violate bounds.
 }
 

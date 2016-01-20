@@ -1,10 +1,10 @@
 #' @title
-#'   Rescaling of points.
+#' Rescaling of points.
 #'
 #' @description
-#'   Rescales a cloud of points so that all the point are located within the
-#'   bounds given by \code{lower} and \code{upper}. If both parameters are missing
-#'   the minimal/maximal values per dimension are extracted.
+#' Rescales a cloud of points so that all the point are located within the
+#' bounds given by \code{lower} and \code{upper}. If both parameters are missing
+#' the minimal/maximal values per dimension are extracted.
 #'
 #' @param x [\code{matrix}]\cr
 #'   Matrix of points.

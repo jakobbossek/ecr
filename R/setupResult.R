@@ -9,26 +9,36 @@
 #'   \item{control}{The \code{ecr_control} object passed to \code{\link{doTheEvolution}}.}
 #'   \item{best.param}{Overall best parameters.}
 #'   \item{best.value}{Overall best objective value.}
-#'   \item{storage}{List of additional stuff saved within the evolutionary process (EA dependent).}
 #'   \item{opt.path}{Optimization path \code{\link[ParamHelpers]{OptPath}}.}
 #'   \item{population.storage}{Named list of populations stored during the process.}
 #'   \item{message}{Character string describing the reason of termination.}
 #' }
-#' @name ECRSingleObjectiveResult
-#' @rdname ECRSingleObjectiveResult
+#' @name ecr_result
+#' @rdname ecr_result
 NULL
 
-makeECRSingleObjectiveResult = function(
-  task, best, opt.path, storage, control,
-  population.storage = NULL, stop.object) {
+# @title Generator for result object.
+#
+# @param opt.state [\code{ecr_opt_state}]\cr
+#   Optimization state.
+# @param stop.object [\code{list}]\cr
+#   List of triggered stopping conditions.
+# @param control [\code{ecr_control}]\cr
+#   Control object.
+# @return [\code{ecr_single_objective_result} | \code{ecr_multi_objective_result}]
+setupResult = function(opt.state, stop.object, control) {
+  UseMethod("setupResult")
+}
+
+setupResult.ecr_single_objective_opt_state = function(opt.state, stop.object, control) {
   makeS3Obj(
-    task = task,
+    final.opt.state = opt.state,
+    task = opt.state$task,
     control = control,
-    best.param = best$individual,
-    best.value = best$fitness,
-    storage = storage,
-    opt.path = opt.path,
-    population.storage = population.storage,
+    best.param = opt.state$best.param,
+    best.value = opt.state$best.value,
+    opt.path = opt.state$opt.path,
+    population.storage = opt.state$population.storage,
     message = stop.object$message,
     classes = c("ecr_single_objective_result", "ecr_result")
   )
@@ -50,30 +60,19 @@ print.ecr_single_objective_result = function(x, ...) {
   printAdditionalInformation(x)
 }
 
-#' Multi objective result object.
-#'
-#' Object returned by \code{\link{doTheEvolution}} in case of the objective function
-#' being multi-objective.
-#'
-#' It contains ...
-#' @name ECRMultiObjectiveResult
-#' @rdname ECRMultiObjectiveResult
-#FIXME: finish this
-NULL
-
-makeECRMultiObjectiveResult = function(
-  task, opt.path, storage, control,
-  population.storage, stop.object) {
-  max.dob = max(getOptPathDOB(opt.path))
-  pareto.inds = getOptPathParetoFront(opt.path, index = TRUE, dob = max.dob)
+setupResult.ecr_multi_objective_opt_state = function(opt.state, stop.object, control) {
+  population = opt.state$population
+  fitness = population$fitness
+  pareto.idx = which.nondominated(fitness)
   makeS3Obj(
-    task = task,
+    final.opt.state = opt.state,
+    task = opt.state$task,
     control = control,
-    opt.path = opt.path,
-    storage = storage,
-    pareto.front = getOptPathY(opt.path)[pareto.inds, , drop = FALSE],
-    pareto.set = lapply(pareto.inds, function(i) getOptPathEl(opt.path, i)$x),
-    pareto.inds = pareto.inds,
+    opt.path = opt.state$opt.path,
+    pareto.idx = pareto.idx,
+    pareto.front = t(fitness[, pareto.idx, drop = FALSE]),
+    pareto.set = population[pareto.idx],
+    last.population = population,
     message = stop.object$message,
     classes = c("ecr_multi_objective_result", "ecr_result")
   )
@@ -125,15 +124,13 @@ print.ecr_multi_objective_result_summary = function(x, ...) {
 
 printAdditionalInformation = function(x) {
   catf(x$message)
-  catf("Generations: %i", getGenerations(x))
-  catf("Evaluations: %i", getEvaluations(x))
+  catf("Generations: %i", x$final.opt.state$iter)
+  catf("Evaluations: %i", x$final.opt.state$n.evals)
 }
 
-#' @title
-#' Get number of function evaluations.
+#' @title Get number of function evaluations.
 #'
-#' @description
-#' Determine the number of function evaluations needed by the EA.
+#' @description Determine the number of function evaluations needed by the EA.
 #'
 #' @param result [\code{ecr_result}]\cr
 #'   \pkg{ecr} result object.
@@ -141,19 +138,17 @@ printAdditionalInformation = function(x) {
 #' @export
 getEvaluations = function(result) {
   assertClass(result, "ecr_result")
-  return(max(getOptPathCol(result$opt.path, "n.evals")))
+  return(result$final.opt.state$n.evals)
 }
 
-#' @title
-#' Get number of generations.
+#' @title Get number of generations.
 #'
-#' @description
-#' Determine the number of function evaluations needed by the EA.
+#' @description Determine the number of function evaluations needed by the EA.
 #'
 #' @param result [\code{ecr_result}]\cr
 #'   \pkg{ecr} result object.
 #' @return [integer(1)]
 #' @export
 getGenerations = function(result) {
-  return(max(getOptPathCol(result$opt.path, "iter")))
+  return(result$final.opt.state$iter)
 }

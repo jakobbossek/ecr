@@ -1,10 +1,10 @@
 #' @title
-#'   Creates an optimization task.
+#' Creates an optimization task.
 #'
 #' @description
-#'   An optimization task consists of the fitness/objective function, the
-#'   number of objectives and the \dQuote{direction} of optimization, i.e.,
-#'   which objectives should be minimized/maximized.
+#' An optimization task consists of the fitness/objective function, the
+#' number of objectives and the \dQuote{direction} of optimization, i.e.,
+#' which objectives should be minimized/maximized.
 #'
 #' @param fun [\code{function} | \code{smoof_function}]\cr
 #'   Fitness/objective function.
@@ -73,7 +73,7 @@ makeOptimizationTask = function(fun, n.objectives = NULL, minimize = NULL) {
     task$par.set = getParamSet(fun)
   } else {
     # dummy parameter set if the passed function if not of type smoof
-    task$par.set = makeParamSet(makeNumericParam("dummy", lower = 0, upper = 1))
+    task$par.set = makeParamSet(makeCharacterParam("serialized"))
   }
 
   return(task)

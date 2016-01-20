@@ -1,9 +1,9 @@
 #' @title
-#'   Generator for the Insertion mutation operator.
+#' Generator for the Insertion mutation operator.
 #'
 #' @description
-#'   The Insertion mutation operator selects a position random and inserts it at
-#'   a random position.
+#' The Insertion mutation operator selects a position random and inserts it at
+#' a random position.
 #'
 #' @return [\code{ecr_mutator}]
 #' @family mutators

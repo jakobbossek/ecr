@@ -53,6 +53,7 @@ for (i in 1:n.reps) {
   }
   attributes(fitness.fun) = attributes(obj.fun)
   fitness.fun = setAttribute(fitness.fun, "n.objectives", 1L)
+  fitness.fun = setAttribute(fitness.fun, "minimize", TRUE)
 
   # do the evolutionary magic
   res = doTheEvolution(fitness.fun, control = control)

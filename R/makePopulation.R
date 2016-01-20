@@ -22,6 +22,6 @@ makePopulation = function(individuals, fitness = NULL) {
   makeS3Obj(
     individuals = individuals,
     fitness = fitness,
-    classes = c("ecrPopulation", "setOfIndividuals")
+    classes = c("ecr_population", "setOfIndividuals")
   )
 }

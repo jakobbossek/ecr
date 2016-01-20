@@ -1,4 +1,5 @@
-#' @title Construct a recombination operator.
+#' @title
+#' Construct a recombination operator.
 #'
 #' @description
 #' Helper function which constructs a recombinator, i. e., a recombination operator.

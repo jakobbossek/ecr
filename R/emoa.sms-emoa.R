@@ -1,18 +1,19 @@
 #' @title
-#'   Implementation of the SMS-EMOA by Emmerich et al.
+#' Implementation of the SMS-EMOA by Emmerich et al.
 #'
 #' @description
-#'   Pure R implementation of the SMS-EMOA. This algorithm belongs to the group
-#'   of indicator based multi-objective evolutionary algorithms. In each generation,
-#'   the SMS-EMOA selects two parents uniformly at, applies recombination and mutation
-#'   and finally selects the best subset of individuals among all subsets by maximizing
-#'   the Hypervolume indicator.
+#' Pure R implementation of the SMS-EMOA. This algorithm belongs to the group
+#' of indicator based multi-objective evolutionary algorithms. In each generation,
+#' the SMS-EMOA selects two parents uniformly at, applies recombination and mutation
+#' and finally selects the best subset of individuals among all subsets by maximizing
+#' the Hypervolume indicator.
 #'
 #' @note
-#'   This helper function hides the regular \pkg{ecr} interface and offers a more
-#'   R like interface of this state of the art EMOA.
+#' This helper function hides the regular \pkg{ecr} interface and offers a more
+#' R like interface of this state of the art EMOA.
 #'
 #' @keywords optimize
+#FIXME: add reference
 #'
 #' @template arg_optimization_task
 #' @param n.population [\code{integer(1)}]\cr

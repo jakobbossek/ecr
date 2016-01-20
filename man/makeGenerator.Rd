@@ -32,6 +32,6 @@ Default is the empty list.}
 }
 \description{
 Helper function which constructs a generator, i. e., a function which generates
-  an initial population.
+an initial population.
 }
 

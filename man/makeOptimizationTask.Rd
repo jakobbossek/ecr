@@ -23,7 +23,7 @@ all objectives are assumed to be minimized.}
 }
 \description{
 An optimization task consists of the fitness/objective function, the
-  number of objectives and the \dQuote{direction} of optimization, i.e.,
-  which objectives should be minimized/maximized.
+number of objectives and the \dQuote{direction} of optimization, i.e.,
+which objectives should be minimized/maximized.
 }
 

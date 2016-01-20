@@ -11,7 +11,7 @@ makeInsertionMutator()
 }
 \description{
 The Insertion mutation operator selects a position random and inserts it at
-  a random position.
+a random position.
 }
 \seealso{
 Other mutators: \code{\link{makeBitFlipMutator}},

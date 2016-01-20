@@ -17,9 +17,8 @@ makeMaximumTimeStoppingCondition = function(max.time = NULL) {
   }
   force(max.time)
 
-  condition.fun = function(opt.path) {
-    times.vec = getOptPathCol(opt.path, "past.time")
-    max(times.vec) >= max.time
+  condition.fun = function(opt.state) {
+    return(opt.state$time.passed >= max.time)
   }
 
   makeStoppingCondition(

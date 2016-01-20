@@ -22,11 +22,12 @@ Numeric matrix of points. Each row contains one objective vector.}
   }
 }
 \description{
-Pure R implementation of the fast non-dominated sorting algorithm proposed by Deb.
+Pure R implementation of the fast non-dominated sorting algorithm
+proposed by Deb.
 }
 \references{
 Deb, K., Pratap, A., and Agarwal, S. A Fast and Elitist Multiobjective Genetic
-  Algorithm: NSGA-II. IEEE Transactions on Evolutionary Computation, 6 (8) (2002),
-  182-197.
+Algorithm: NSGA-II. IEEE Transactions on Evolutionary Computation, 6 (8) (2002),
+182-197.
 }
 
