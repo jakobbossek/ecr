@@ -37,8 +37,8 @@
 #' @export
 computeEpsilonIndicator = function(points, ref.points) {
   # sanity checks
-  assertMatrix(points, mode = "numeric", any.missing = FALSE)
-  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
+  assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertSameDimensions(points, ref.points)
 
   return(.Call("computeEpsilonIndicatorC", points, ref.points))
@@ -53,9 +53,9 @@ computeHypervolumeIndicator = function(points, ref.points, ref.point = NULL) {
   }
 
   # sanity checks
-  assertMatrix(points, mode = "numeric", any.missing = FALSE)
-  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
-  assertNumeric(ref.point, any.missing = FALSE)
+  assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+  assertNumeric(ref.point, any.missing = FALSE, all.missing = FALSE)
   assertSameDimensions(points, ref.points, ref.point)
 
   # actual indicator calculation
@@ -96,12 +96,12 @@ computeRIndicator = function(
   lambda = NULL,
   utility,
   aggregator) {
-  assertMatrix(points, mode = "numeric", any.missing = FALSE)
-  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE)
+  assertMatrix(points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+  assertMatrix(ref.points, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   if (is.null(ideal.point)) {
     ideal.point = approximateIdealPoint(points, ref.points)
   }
-  assertNumeric(ideal.point, any.missing = FALSE)
+  assertNumeric(ideal.point, any.missing = FALSE, all.missing = FALSE)
   utilities = c("weightedsum", "tschebycheff", "augmented tschbycheff")
   assertChoice(utility, utilities)
   assertFunction(aggregator)

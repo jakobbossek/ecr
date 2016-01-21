@@ -36,12 +36,12 @@ setupEvolutionaryOperators = function(
 }
 
 #' @title
-#'   Collection of functions to set specific evolutionay operators.
+#' Collection of functions to set specific evolutionay operators.
 #'
 #' @description
-#'   This functions can be used to append/set specific evolutionary operators
-#'   to the control object. However, multiple operators can be set with one function
-#'   call via \code{\link{setupEvolutionaryOperators}}.
+#' This functions can be used to append/set specific evolutionary operators
+#' to the control object. However, multiple operators can be set with one function
+#' call via \code{\link{setupEvolutionaryOperators}}.
 #'
 #' @param control [\code{ecr_control}]\cr
 #'   ECR control object generated via \code{\link{setupECRControl}}.
@@ -99,6 +99,7 @@ setupOperator = function(control, operator, type, description, field) {
   return(control)
 }
 
+# @title
 # Check if given operator is of the specified type.
 #
 # @param operator [ecr_operator]
@@ -114,6 +115,7 @@ checkCorrectOperatorType = function(operator, class, type) {
   }
 }
 
+# @title
 # Check whether an operator can handle a specific representation.
 #
 # @param operator [ecr_operator]
@@ -129,6 +131,7 @@ checkOperatorIsCompatible = function(operator, representation) {
   }
 }
 
+# @title
 # Helper function which returns the defaults evolutionary operators for the
 # standard representations.
 #

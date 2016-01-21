@@ -1,6 +1,6 @@
 # @title Checks operator attributes for validity
 #
-# @param operator
+# @param operator [\code{ecr_operator}]\cr
 #   Operator to check.
 checkOperator = function(operator) {
   assertClass(operator, "ecr_operator")
@@ -12,7 +12,7 @@ checkOperator = function(operator) {
 
 # @title Checks mutator attributes for validity
 #
-# @param operator
+# @param operator [\code{ecr_operator}]\cr
 #   Operator to check.
 checkMutator = function(mutator) {
   checkOperator(mutator)
@@ -21,7 +21,7 @@ checkMutator = function(mutator) {
 
 # @title Checks recombinator attributes for validity
 #
-# @param operator
+# @param operator [\code{ecr_operator}]\cr
 #   Operator to check.
 checkRecombinator = function(recombinator) {
   checkOperator(recombinator)

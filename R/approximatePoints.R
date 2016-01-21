@@ -23,19 +23,19 @@ approximateIdealPoint = function(..., sets = NULL) {
   return(approximatePoint(..., sets = sets, FUN = min))
 }
 
-#' @title Helper to compute the Nadir point.
-#'
-#' @description The nadir point is constructed by the worst objective values of the
-#' concatenation of all given point sets.
-#'
-#' @param ... [any]\cr
-#'   Arbitrary number of matrizes.
-#' @param sets [\code{list}]\cr
-#'   List of sets. This is an alternative way of passing the sets. Can be used
-#'   exclusively or combined with \code{...}.
-#' @param FUN [\code{function}]\cr
-#'   Either min or max function.
-#' @return [numeric]
+# @title
+# Helper to compute the nadir/ideal point.
+#
+# @description The functions expects a set of sets and a function FUN to apply.
+#
+# @param ... [any]\cr
+#   Arbitrary number of matrizes.
+# @param sets [\code{list}]\cr
+#   List of sets. This is an alternative way of passing the sets. Can be used
+#   exclusively or combined with \code{...}.
+# @param FUN [\code{function}]\cr
+#   Either min or max function.
+# @return [\code{numeric}]
 approximatePoint = function(..., sets = NULL, FUN) {
   assertFunction(FUN)
 
@@ -56,16 +56,15 @@ approximatePoint = function(..., sets = NULL, FUN) {
   return(point)
 }
 
-#' @title
-#'   Checks for point set.
-#'
-#' @description
-#'   Helper function to check if all given sets have the same dimension, i.e.,
-#'   number of objectives.
-#'
-#' @param x [list]
-#'   List of sets, i.e., matrizes.
-#' @return Nothing
+# @title
+# Checks for point set.
+#
+# @description
+# Helper function to check if all given sets have the same dimension, i.e.,
+# number of objectives.
+#
+# @param x [list]
+#   List of sets, i.e., matrizes.
 assertListOfPointSets = function(x) {
   assertList(x, types = "matrix")
   n.rows = sapply(x, nrow)

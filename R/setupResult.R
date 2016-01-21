@@ -1,18 +1,41 @@
-#' Single objective result object.
+#' @title
+#' Result object.
 #'
-#' Object returned by \code{\link{doTheEvolution}} in case of the objective function
-#' being single-objective.
+#' @description
+#' S3 object returned by \code{\link{doTheEvolution}} containing the best found
+#' parameter setting and value in the single-objective case and the Pareto-front/-set
+#' in case of a multi-objective optimization problem. Moreover a set of further
+#' information, e.g., reason of termination, the control object etc. are returned.
 #'
-#' The S3 object containts the following members:
+#' The single objective result object contains the following fields:
 #' \describe{
+#'   \item{final.opt.state}{The last optimization state.}
 #'   \item{task}{The \code{ecr_optimization_task}.}
 #'   \item{control}{The \code{ecr_control} object passed to \code{\link{doTheEvolution}}.}
-#'   \item{best.param}{Overall best parameters.}
+#'   \item{best.param}{Overall best parameter setting.}
 #'   \item{best.value}{Overall best objective value.}
 #'   \item{opt.path}{Optimization path \code{\link[ParamHelpers]{OptPath}}.}
+#'   \item{last.population}{Last population.}
 #'   \item{population.storage}{Named list of populations stored during the process.}
 #'   \item{message}{Character string describing the reason of termination.}
 #' }
+#'
+#' In case of a solved multi-objective function the result object contains the
+#' following fields:
+#' \describe{
+#'   \item{final.opt.state}{The last optimization state.}
+#'   \item{task}{The \code{ecr_optimization_task}.}
+#'   \item{control}{The \code{ecr_control} object passed to \code{\link{doTheEvolution}}.}
+#'   \item{pareto.idx}{Indizes of the non-dominated solutions in the last population.}
+#'   \item{pareto.front}{(n x d) matrix of the approximated non-dominated front where n
+#'   is the number of non-dominated points and d is the number of objectives.}
+#'   \item{pareto.set}{Matrix of decision space values resulting with objective values
+#'   given in pareto.front.}
+#'   \item{last.population}{Last population.}
+#'   \item{population.storage}{Named list of populations stored during the process.}
+#'   \item{message}{Character string describing the reason of termination.}
+#' }
+#'
 #' @name ecr_result
 #' @rdname ecr_result
 NULL
@@ -38,6 +61,7 @@ setupResult.ecr_single_objective_opt_state = function(opt.state, stop.object, co
     best.param = opt.state$best.param,
     best.value = opt.state$best.value,
     opt.path = opt.state$opt.path,
+    last.population = opt.state$population,
     population.storage = opt.state$population.storage,
     message = stop.object$message,
     classes = c("ecr_single_objective_result", "ecr_result")
@@ -75,6 +99,7 @@ setupResult.ecr_multi_objective_opt_state = function(opt.state, stop.object, con
     pareto.front = t(fitness[, pareto.idx, drop = FALSE]),
     pareto.set = population[pareto.idx],
     last.population = population,
+    population.storage = opt.state$population.storage,
     message = stop.object$message,
     classes = c("ecr_multi_objective_result", "ecr_result")
   )
@@ -130,9 +155,11 @@ printAdditionalInformation = function(x) {
   catf("Evaluations: %i", x$final.opt.state$n.evals)
 }
 
-#' @title Get number of function evaluations.
+#' @title
+#' Get number of function evaluations.
 #'
-#' @description Determine the number of function evaluations needed by the EA.
+#' @description
+#' Determine the number of function evaluations needed by the EA.
 #'
 #' @param result [\code{ecr_result}]\cr
 #'   \pkg{ecr} result object.
@@ -143,9 +170,11 @@ getEvaluations = function(result) {
   return(result$final.opt.state$n.evals)
 }
 
-#' @title Get number of generations.
+#' @title
+#' Get number of generations.
 #'
-#' @description Determine the number of function evaluations needed by the EA.
+#' @description
+#' Determine the number of function evaluations needed by the EA.
 #'
 #' @param result [\code{ecr_result}]\cr
 #'   \pkg{ecr} result object.

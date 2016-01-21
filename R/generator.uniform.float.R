@@ -35,9 +35,10 @@ makeUniformGenerator = function() {
       constraints = vector("list", n.params)
       names(constraints) = ids
       for (i.param in seq(n.params)) {
-        constraints[[i.param]] = list(low = lower[names(lower) == ids[i.param]]
-                                      , up = upper[names(upper) == ids[i.param]]
-                                      )
+        constraints[[i.param]] = list(
+          low = lower[names(lower) == ids[i.param]],
+          up = upper[names(upper) == ids[i.param]]
+        )
       }
       # create individual from genes
       createInd = function(constr) {

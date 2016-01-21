@@ -15,8 +15,8 @@
 #' @export
 computeAverageHausdorffDistance = function(A, B, p = 1) {
   # sanity check imput
-  assertMatrix(A, mode = "numeric", any.missing = FALSE)
-  assertMatrix(B, mode = "numeric", any.missing = FALSE)
+  assertMatrix(A, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+  assertMatrix(B, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   if (nrow(A) != nrow(B)) {
     stopf("Sets A and B need to have the same dimensionality.")
   }
@@ -30,10 +30,10 @@ computeAverageHausdorffDistance = function(A, B, p = 1) {
 }
 
 #' @title
-#'   Computes Generational Distance.
+#' Computes Generational Distance.
 #'
 #' @description
-#'   Helper to compute the Generational Distance (GD) between two sets of points.
+#' Helper to compute the Generational Distance (GD) between two sets of points.
 #'
 #' @param A [\code{matrix}]\cr
 #'   First point set (each row corresponds to a point).
@@ -45,17 +45,25 @@ computeAverageHausdorffDistance = function(A, B, p = 1) {
 #' @return [\code{numeric(1)}]
 #' @export
 computeGenerationalDistance = function(A, B, p = 1) {
+  assertMatrix(A, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+  assertMatrix(B, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+  if (nrow(A) != nrow(B)) {
+    stopf("Sets A and B need to have the same dimensionality.")
+  }
+  assertNumber(p, lower = 0.0001, na.ok = FALSE)
+
+  # compute distance of each point from A to the point set B
   dists = apply(A, 2L, function(a) computeDistanceFromPointToSetOfPoints(a, B))
   GD = mean(dists^p)^(1 / p)
   return(GD)
 }
 
 #' @title
-#'   Computes Inverted Generational Distance.
+#' Computes Inverted Generational Distance.
 #'
 #' @description
-#'   Helper to compute the Inverted Generational Distance (IGD) between two sets
-#'   of points.
+#' Helper to compute the Inverted Generational Distance (IGD) between two sets
+#' of points.
 #'
 #' @param A [\code{matrix}]\cr
 #'   First point set (each row corresponds to a point).
@@ -71,10 +79,10 @@ computeInvertedGenerationalDistance = function(A, B, p = 1) {
 }
 
 #' @title
-#'   Computes distance between point and set of points.
+#' Computes distance between a single point and set of points.
 #'
 #' @description
-#'   Helper to compute distance between a single point and a point set.
+#' Helper to compute distance between a single point and a point set.
 #'
 #' @param a [\code{numeric(1)}]\cr
 #'   Point given as a numeric vector.

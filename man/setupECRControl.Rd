@@ -6,7 +6,7 @@
 \usage{
 setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
-  survival.strategy = "plus", n.elite = 0L, target.name = "y",
+  survival.strategy = "plus", n.elite = 0L,
   save.population.at = integer(0), monitor = makeConsoleMonitor(),
   stopping.conditions = list(), extras.fun = NULL,
   custom.constants = list(), vectorized.evaluation = FALSE)
@@ -34,9 +34,6 @@ Determines the survival strategy used by the EA. Possible are 'plus' for a class
 Number of fittest individuals of the current generation that shall be copied to the
 next generation without changing. Default is 0. Keep in mind, that the algorithm
 does not care about this option if the \code{survival.strategy} is set to 'plus'.}
-
-\item{target.name}{[\code{character(1)}]\cr
-Name for the objective fun values. Default is \dQuote{y}.}
 
 \item{save.population.at}{[\code{integer}]\cr
 Which populations should be saved? Default is none.}
@@ -78,6 +75,6 @@ S3 object of type \code{ecr_control}.
 \description{
 The ecr package offers a framework for evolutionary computing and therefore offers
 a lot of customization options. The control object is a simple but powerful
-wrapper for all these options and sets convenient default options.
+wrapper for all these options and sets convenient defaults.
 }
 

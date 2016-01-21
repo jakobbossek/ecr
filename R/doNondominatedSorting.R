@@ -15,14 +15,13 @@
 #' @return [\code{list}]
 #'   List with the following components
 #'   \describe{
-#'     \item{ranks}{Integer vector of ranks of length \code{nrow(x)}. The higher
+#'     \item{ranks}{Integer vector of ranks of length \code{ncol(x)}. The higher
 #'     the rank, the higher the domination front the corresponding points is
 #'     located on.}
 #'     \item{dom.counter}{Integer vector of length \code{nrow(x)}. The i-th element
 #'     is the domination number of the i-th point.}
 #'   }
 #' @export
-#FIXME: [later] implement this in C(++)
 doNondominatedSorting = function(x) {
   # initialize domination front wrapper
   fronts = list()
@@ -73,7 +72,7 @@ doNondominatedSorting = function(x) {
   return(
     list(
       ranks = ranks,
-      dom.counter = dom.counter2
+      dom.counter = dom.counter2 # assign the unmodified version
     )
   )
 }

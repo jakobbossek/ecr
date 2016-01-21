@@ -3,7 +3,7 @@
 #'
 #' @description
 #' The generated operator samples uniformally distributed points in the design
-#' space of the target function taking care not to violate bounds.
+#' space of the target function taking care not to violate box constraints.
 #'
 #' @return [\code{ecr_generator}]
 #' @export

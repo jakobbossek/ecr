@@ -22,6 +22,6 @@ for details.}
 }
 \description{
 Helper to compute the Inverted Generational Distance (IGD) between two sets
-  of points.
+of points.
 }
 

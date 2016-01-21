@@ -25,14 +25,14 @@
 #' @export
 computeDominatedHypervolume = function(x, ref.point = NULL) {
   # sanity checks
-  assertMatrix(x, mode = "numeric", any.missing = FALSE)
+  assertMatrix(x, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
 
   if (is.null(ref.point)) {
-    ref.point = apply(x, 1, max)
+    ref.point = apply(x, 1L, max)
   }
 
   if (any(is.infinite(x))) {
-    warningf("Set of points contains infinite %i values.", which(is.infinite(x)))
+    warningf("Set of points contains %i infinite values.", sum(is.infinite(x)))
     return(NaN)
   }
 
@@ -42,7 +42,7 @@ computeDominatedHypervolume = function(x, ref.point = NULL) {
   }
 
   if (any(is.infinite(ref.point))) {
-    warningf("Reference point contains %i infinite values.", length(which(is.infinite(ref.point))))
+    warningf("Reference point contains %i infinite values.", sum(is.infinite(ref.point)))
     return(NaN)
   }
 

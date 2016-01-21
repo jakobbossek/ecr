@@ -41,7 +41,7 @@ isDominated = function(x, y) {
 #' @return [\code{logical}]
 #' @export
 dominated = function(x) {
-  assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE)
+  assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
   n = ncol(x)
   dominated = logical(n)
   for (i in seq.int(n)) {
@@ -58,8 +58,8 @@ dominated = function(x) {
 #'
 #' @description
 #' Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one
-#' point per row the \code{which.dominated} returns the row numbers of the dominated points
-#' and \code{which.nondominated} the row numbers of the nondominated points.
+#' point per row \code{which.dominated} returns the row numbers of the dominated
+#' points and \code{which.nondominated} the row numbers of the nondominated points.
 #'
 #' @keywords optimize
 #'

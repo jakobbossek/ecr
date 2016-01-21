@@ -1,6 +1,6 @@
-context("compute fitness")
+context("evaluate fitness")
 
-test_that("fitness values are computed correctly", {
+test_that("fitness evaluations work the expected way", {
   task = list(par.set = makeParamSet(makeIntegerParam(id = "x")))
   individuals = as.list(1:10)
   population = ecr:::makePopulation(individuals = individuals)
@@ -9,7 +9,7 @@ test_that("fitness values are computed correctly", {
   expect_true(all.equal(as.numeric(fitness), (1:10)^2))
 })
 
-test_that("fitness evaluations works vectorized", {
+test_that("vectorized fitness evaluations works for smoof functions", {
   control = setupECRControl(
     n.population = 10L,
     n.offspring = 10L,
@@ -28,7 +28,7 @@ test_that("fitness evaluations works vectorized", {
   expect_true(abs(res$best.value - getGlobalOptimum(obj.fun)$value) < 0.05)
 })
 
-test_that("fitness evaluations work for custom representations", {
+test_that("vectorized fitness evaluations works for custom representations", {
   control = setupECRControl(
     n.population = 10L,
     n.offspring = 10L,

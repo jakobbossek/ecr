@@ -25,10 +25,14 @@ evaluateFitness = function(population, fitness.fun, task, control) {
         stopf("Vectorized evaluation of fitness function is activated, but fitness
           function '%s' is not vectorized.", getName(fitness.fun))
       }
+      # vectorized smoof function are continuous only and expect a matrix input,
+      # where each column is one input vector
       fitness = fitness.fun(do.call(cbind, population$individuals))
     } else {
+      # otherwise we simply pass the entire population
       fitness = fitness.fun(population$individuals)
     }
+    # internally fitness is always a matrix, even in the single-objective case
     if (!is.matrix(fitness)) {
       fitness = matrix(fitness, nrow = 1L)
     }

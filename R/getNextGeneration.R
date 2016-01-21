@@ -13,19 +13,24 @@
 #   Control object.
 # @return [\code{ecr_population}]
 getNextGeneration = function(opt.state, offspring, control) {
+  # extract info
   n.elite = control$n.elite
   strategy = control$survival.strategy
   n.population = control$n.population
-
   population = opt.state$population
   task = opt.state$task
 
+  # init variables
   elite = NULL
   new.population = NULL
+
+  # we need to distinguish the strategy here
   if (strategy == "plus") {
+    # this is the easy case
     source.population = mergePopulations(population, offspring)
     new.population = selectForSurvival(opt.state, source.population, control)
   } else if (strategy == "comma") {
+    # here we need to invest more effort since elitism might be activated
     source.population = offspring
 
     if (n.elite > 0L) {

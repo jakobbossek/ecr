@@ -14,6 +14,11 @@
 #' \pkg{ecr} interface and offers a more R like interface while still being quite
 #' adaptable.
 #'
+#' @references
+#' Deb, K., Pratap, A., and Agarwal, S. A Fast and Elitist Multiobjective Genetic
+#' Algorithm: NSGA-II. IEEE Transactions on Evolutionary Computation, 6 (8) (2002),
+#' 182-197.
+#'
 #' @keywords optimize
 #'
 #' @template arg_optimization_task

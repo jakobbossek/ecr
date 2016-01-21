@@ -15,16 +15,16 @@
 #' @return [\code{matrix}]
 #' @export
 rescalePoints = function(x, lower = NULL, upper = NULL) {
-  assertMatrix(x, mode = "numeric", any.missing = FALSE)
+  assertMatrix(x, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   n = ncol(x)
   if (is.null(lower)) {
-    lower = apply(x, 1, min)
+    lower = apply(x, 1L, min)
   }
   if (is.null(upper)) {
-    upper = apply(x, 1, max)
+    upper = apply(x, 1L, max)
   }
-  assertNumeric(lower, len = n, any.missing = FALSE)
-  assertNumeric(upper, len = n, any.missing = FALSE)
+  assertNumeric(lower, len = n, any.missing = FALSE, all.missing = FALSE)
+  assertNumeric(upper, len = n, any.missing = FALSE, all.missing = FALSE)
 
   return((x - lower) / (upper - lower))
 }

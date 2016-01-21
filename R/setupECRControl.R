@@ -4,7 +4,7 @@
 #' @description
 #' The ecr package offers a framework for evolutionary computing and therefore offers
 #' a lot of customization options. The control object is a simple but powerful
-#' wrapper for all these options and sets convenient default options.
+#' wrapper for all these options and sets convenient defaults.
 #'
 #' @param n.population [\code{integer(1)}]\cr
 #'   Number of individuals in the population.
@@ -23,8 +23,6 @@
 #'   Number of fittest individuals of the current generation that shall be copied to the
 #'   next generation without changing. Default is 0. Keep in mind, that the algorithm
 #'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
-#' @param target.name [\code{character(1)}]\cr
-#'   Name for the objective fun values. Default is \dQuote{y}.
 #' @param save.population.at [\code{integer}]\cr
 #'   Which populations should be saved? Default is none.
 #' @param monitor [\code{function}]\cr
@@ -63,7 +61,6 @@ setupECRControl = function(
   representation,
   survival.strategy = "plus",
   n.elite = 0L,
-  target.name = "y",
   save.population.at = integer(0),
   monitor = makeConsoleMonitor(),
   stopping.conditions = list(),
@@ -77,7 +74,6 @@ setupECRControl = function(
   assertChoice(representation, choices = getAvailableRepresentations())
   assertChoice(survival.strategy, choices = c("plus", "comma"))
   assertCount(n.elite, na.ok = FALSE)
-  assertCharacter(target.name, len = 1L, any.missing = FALSE)
   assertList(custom.constants, unique = TRUE, any.missing = FALSE, all.missing = FALSE)
   assertFlag(vectorized.evaluation, na.ok = FALSE)
 
@@ -122,9 +118,7 @@ setupECRControl = function(
     representation = representation,
     survival.strategy = survival.strategy,
     n.elite = n.elite,
-    #n.targets = n.targets,
     save.population.at = save.population.at,
-    target.name = target.name,
     stopping.conditions = stopping.conditions,
     monitor = monitor,
     extras.fun = extras.fun,

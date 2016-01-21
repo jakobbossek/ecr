@@ -17,6 +17,8 @@
 #' @return [\code{numeric}] Vector of crowding distance values.
 #' @export
 computeCrowdingDistance = function(x) {
+  assertMatrix(x, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
+
   n = ncol(x)
   d = nrow(x)
   cds = numeric(n)

@@ -16,10 +16,12 @@ generateOffspring = function(opt.state, matingPool, control) {
 
   i.offspring = 1L
   while(i.offspring <= n.offspring) {
+    # select parents for mating
     parents = getParents(matingPool, n.parents = getNumberOfParentsNeededForMating(control))
     children = recombine(parents, task, control)
     # eventually the recombinator returns multiple children
     if (hasAttributes(children, "multiple")) {
+      # maybe we got two children, but we only have place for one left
       max.children = min(length(children), n.offspring - i.offspring + 1L)
       for (j in seq(max.children)) {
         offspring[[i.offspring]] = mutate(children[[j]], task, control)

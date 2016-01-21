@@ -14,7 +14,7 @@ Numeric matrix of points. Each row contains one objective vector.}
 [\code{list}]
   List with the following components
   \describe{
-    \item{ranks}{Integer vector of ranks of length \code{nrow(x)}. The higher
+    \item{ranks}{Integer vector of ranks of length \code{ncol(x)}. The higher
     the rank, the higher the domination front the corresponding points is
     located on.}
     \item{dom.counter}{Integer vector of length \code{nrow(x)}. The i-th element

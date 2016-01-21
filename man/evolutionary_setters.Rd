@@ -28,7 +28,7 @@ The matching ecr operator, e.g., an object of type \code{ecr_mutator} for
 }
 \description{
 This functions can be used to append/set specific evolutionary operators
-  to the control object. However, multiple operators can be set with one function
-  call via \code{\link{setupEvolutionaryOperators}}.
+to the control object. However, multiple operators can be set with one function
+call via \code{\link{setupEvolutionaryOperators}}.
 }
 
