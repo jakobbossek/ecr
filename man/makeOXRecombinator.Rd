@@ -20,6 +20,7 @@ cut point and b) fill the remaining gaps with this trimmed sequence.
 Other recombinators: \code{\link{makeCrossoverRecombinator}},
   \code{\link{makeIntermediateRecombinator}},
   \code{\link{makeNullRecombinator}},
-  \code{\link{makePMXRecombinator}}
+  \code{\link{makePMXRecombinator}},
+  \code{\link{makeSBXRecombinator}}
 }
 

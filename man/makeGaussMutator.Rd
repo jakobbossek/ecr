@@ -22,6 +22,7 @@ Default Gaussian mutation operator known from Evolutionary Algorithms.
 \seealso{
 Other mutators: \code{\link{makeBitFlipMutator}},
   \code{\link{makeInsertionMutator}},
+  \code{\link{makePolynomialMutation}},
   \code{\link{makeScrambleMutator}},
   \code{\link{makeSwapMutator}},
   \code{\link{makeUniformMutator}}

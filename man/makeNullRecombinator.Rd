@@ -17,6 +17,7 @@ first of the passed parents.
 Other recombinators: \code{\link{makeCrossoverRecombinator}},
   \code{\link{makeIntermediateRecombinator}},
   \code{\link{makeOXRecombinator}},
-  \code{\link{makePMXRecombinator}}
+  \code{\link{makePMXRecombinator}},
+  \code{\link{makeSBXRecombinator}}
 }
 

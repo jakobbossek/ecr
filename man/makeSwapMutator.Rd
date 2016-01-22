@@ -16,6 +16,7 @@ Chooses two positions at random and swaps the genes.
 Other mutators: \code{\link{makeBitFlipMutator}},
   \code{\link{makeGaussMutator}},
   \code{\link{makeInsertionMutator}},
+  \code{\link{makePolynomialMutation}},
   \code{\link{makeScrambleMutator}},
   \code{\link{makeUniformMutator}}
 }

@@ -28,6 +28,7 @@ above is applied to each element of the list.
 Other recombinators: \code{\link{makeIntermediateRecombinator}},
   \code{\link{makeNullRecombinator}},
   \code{\link{makeOXRecombinator}},
-  \code{\link{makePMXRecombinator}}
+  \code{\link{makePMXRecombinator}},
+  \code{\link{makeSBXRecombinator}}
 }
 

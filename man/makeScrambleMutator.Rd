@@ -17,6 +17,7 @@ random and randomly intermixes the subsequence between these positions.
 Other mutators: \code{\link{makeBitFlipMutator}},
   \code{\link{makeGaussMutator}},
   \code{\link{makeInsertionMutator}},
+  \code{\link{makePolynomialMutation}},
   \code{\link{makeSwapMutator}},
   \code{\link{makeUniformMutator}}
 }
