@@ -27,12 +27,18 @@ makeConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
     },
     step = function(envir = parent.frame()) {
       opt.state = envir$opt.state
+      fitness.fun = opt.state$task$fitness.fun
       max.iter = envir$control$max.iter
       fitness = opt.state$population$fitness
       iter = opt.state$iter
       if ((iter %% show.info.stepsize) == 0L) {
-        call.format = sprintf("Iter %s | y (min: %s, mean: %s, max: %s)", "%i", num.format, num.format, num.format)
-        catf(call.format, iter, min(fitness), mean(fitness), max(fitness))
+        if (isSingleobjective(fitness.fun)) {
+          call.format = sprintf("Iter %s | y (min: %s, mean: %s, max: %s)", "%i", num.format, num.format, num.format)
+          catf(call.format, iter, min(fitness), mean(fitness), max(fitness))
+        } else {
+          call.format = sprintf("Iter %s | non-dom: %s", "%i", num.format)
+          catf(call.format, iter, sum(!dominated(fitness)))
+        }
       }
     },
     after = function(envir = parent.frame()) {
