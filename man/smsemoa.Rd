@@ -5,8 +5,9 @@
 \title{Implementation of the SMS-EMOA by Emmerich et al.}
 \usage{
 smsemoa(task, n.population = 100L, ref.point = NULL,
-  parent.selector = makeSimpleSelector(), mutator = makeGaussMutator(),
-  recombinator = makeCrossoverRecombinator(), max.iter = NULL,
+  parent.selector = makeSimpleSelector(),
+  mutator = makePolynomialMutation(eta = 25, p = 0.2),
+  recombinator = makeSBXRecombinator(eta = 15, p = 0.7), max.iter = NULL,
   max.evals = NULL, max.time = NULL, ...)
 }
 \arguments{
@@ -56,6 +57,11 @@ the Hypervolume indicator.
 \note{
 This helper function hides the regular \pkg{ecr} interface and offers a more
 R like interface of this state of the art EMOA.
+}
+\references{
+Beume, N., Naujoks, B., Emmerich, M., SMS-EMOA: Multiobjective selection based
+on dominated hypervolume, European Journal of Operational Research, Volume 181,
+Issue 3, 16 September 2007, Pages 1653-1669.
 }
 \keyword{optimize}
 

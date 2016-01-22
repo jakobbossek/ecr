@@ -13,7 +13,11 @@
 #' R like interface of this state of the art EMOA.
 #'
 #' @keywords optimize
-#FIXME: add reference
+#'
+#' @references
+#' Beume, N., Naujoks, B., Emmerich, M., SMS-EMOA: Multiobjective selection based
+#' on dominated hypervolume, European Journal of Operational Research, Volume 181,
+#' Issue 3, 16 September 2007, Pages 1653-1669.
 #'
 #' @template arg_optimization_task
 #' @param n.population [\code{integer(1)}]\cr
@@ -36,8 +40,8 @@ smsemoa = function(
   n.population = 100L,
   ref.point = NULL,
   parent.selector = makeSimpleSelector(),
-  mutator = makeGaussMutator(),
-  recombinator = makeCrossoverRecombinator(),
+  mutator = makePolynomialMutation(eta = 25, p = 0.2),
+  recombinator = makeSBXRecombinator(eta = 15, p = 0.7),
   max.iter = NULL,
   max.evals = NULL,
   max.time = NULL, ...) {
