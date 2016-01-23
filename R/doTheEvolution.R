@@ -22,21 +22,10 @@
 #' @seealso \code{\link{setupECRControl}}
 #' @export
 doTheEvolution = function(task, control, initial.population = NULL) {
-  if (control$representation != "custom") {
-    if (isSmoofFunction(task)) {
-      task = makeOptimizationTask(task)
-    }
-    assertClass(task$fitness.fun, "smoof_function")
-    assertClass(task, "ecr_optimization_task")
-
-    if (control$representation == "float" && !hasFiniteBoxConstraints(task$par.set)) {
-      stopf("Lower and upper box constraints needed for representation type 'float'.")
-    }
+  if (isSmoofFunction(task)) {
+    task = makeOptimizationTask(task)
   }
-  n.objectives = task$n.objectives
-
-  # check compatibility of selectors and #objectives
-  checkSelectorCompatibility(n.objectives, task, control, control$parent.selector, control$survival.selector)
+  doFinalChecks(task, control)
 
   population = buildInitialPopulation(control$n.population, task, control, initial.population)
   population$fitness = evaluateFitness(population, task$fitness.fun, task, control)
@@ -62,6 +51,50 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   fireEvent("onEAFinished", control, opt.state)
 
   return(setupResult(opt.state, stop.object, control))
+}
+
+# @title
+# Do some final checks before EA initialization.
+#
+# @param task [ecr_optimization_task]
+#   Optimization task.
+# @param control [ecr_control]
+#   Control object.
+doFinalChecks = function(task, control) {
+  assertClass(task, "ecr_optimization_task")
+  assertClass(control, "ecr_control")
+
+  if (isSmoofFunction(task$fitness.fun) && control$representation == "custom") {
+    stopf("Custom representations not possible for smoof functions.")
+  }
+
+  if (control$representation == "float" && !hasFiniteBoxConstraints(task$par.set)) {
+    stopf("Lower and upper box constraints needed for representation type 'float'.")
+  }
+
+  # check compatibility of selectors and #objectives
+  checkSelectorCompatibility(task, control, control$parent.selector, control$survival.selector)
+}
+
+# @title
+# Check selectors for compatibility with objectives.
+#
+# @param task [ecr_optimization_task]
+#   Optimization task.
+# @param control [ecr_control]
+#   Control object.
+# @param ... [any]
+#   List of ecr_selector objects.
+# @return Nothing
+checkSelectorCompatibility = function(task, control, ...) {
+  selectors = list(...)
+  desired.obj = if (task$n.objectives == 1L) "single-objective" else "multi-objective"
+  lapply(selectors, function(selector) {
+    if (desired.obj %nin% attr(selector, "supported.objectives")) {
+      stopf("Selector '%s' cannot be applied to problem with %i objectives.",
+        getOperatorName(selector), task$n.objectives)
+    }
+  })
 }
 
 # @title
@@ -131,27 +164,4 @@ buildInitialPopulation = function(n.population, task, control, initial.populatio
     return(makePopulation(c(generated.population$individuals, initial.population)))
   }
   return(generated.population)
-}
-
-# @title
-# Check selectors for compatibility with objectives.
-#
-# @param n.objectives [integer(1)]
-#   Number of objectives of the optimization task.
-# @param task [ecr_optimization_task]
-#   Optimization task.
-# @param control [ecr_control]
-#   Control object.
-# @param ... [any]
-#   List of ecr_selector objects.
-# @return Nothing
-checkSelectorCompatibility = function(n.objectives, task, control, ...) {
-  selectors = list(...)
-  desired.obj = if (n.objectives == 1L) "single-objective" else "multi-objective"
-  lapply(selectors, function(selector) {
-    if (desired.obj %nin% attr(selector, "supported.objectives")) {
-      stopf("Selector '%s' cannot be applied to problem with %i objectives.",
-        getOperatorName(selector), n.objectives)
-    }
-  })
 }
