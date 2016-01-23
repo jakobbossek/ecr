@@ -29,9 +29,10 @@ makeConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
       fitness.fun = opt.state$task$fitness.fun
       max.iter = opt.state$control$max.iter
       fitness = opt.state$population$fitness
+      n.objectives = opt.state$task$n.objectives
       iter = opt.state$iter
       if ((iter %% show.info.stepsize) == 0L) {
-        if (isSingleobjective(fitness.fun)) {
+        if (n.objectives == 1L) {
           call.format = sprintf("Iter %s | y (min: %s, mean: %s, max: %s)", "%i", num.format, num.format, num.format)
           catf(call.format, iter, min(fitness), mean(fitness), max(fitness))
         } else {
