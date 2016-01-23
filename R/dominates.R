@@ -3,7 +3,8 @@
 #'
 #' @description
 #' Check if a vector dominates another (\code{dominates}) or is
-#' dominated by another (\code{isDominated}).
+#' dominated by another (\code{isDominated}). There are corresponding infix
+#' operators \code{dominates} and \code{isDominatedBy}.
 #'
 #' @keywords optimize
 #'
@@ -25,13 +26,26 @@ isDominated = function(x, y) {
   return(dominates(y, x))
 }
 
+#' @rdname dominates
+#' @export
+`%dominates%` = function(x, y) {
+  return(dominates(x, y))
+}
+
+#' @rdname dominates
+#' @export
+`%isDominatedBy%` = function(x, y) {
+  return(dominates(y, x))
+}
+
 #' @title
 #' Check for pareto dominance.
 #'
 #' @description
-#' This function takes a numeric matrix \code{x} where each row corresponds to
-#' a point and returns a logical vector. The i-th position of the latter is
-#' \code{TRUE} if the i-th point is dominated by at least one other point.
+#' This functions takes a numeric matrix \code{x} where each row corresponds to
+#' a point and return a logical vector. The i-th position of the latter is
+#' \code{TRUE} if the i-th point is dominated by at least one other point for
+#' \code{dominated} and \code{FALSE} for \code{nonDominated}.
 #'
 #' @keywords optimize
 #'
@@ -39,6 +53,7 @@ isDominated = function(x, y) {
 #'   Numeric (d x n) matrix where d is the number of objectives and n is the
 #'   number of points.
 #' @return [\code{logical}]
+#' @rdname dominated
 #' @export
 dominated = function(x) {
   assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
@@ -53,8 +68,14 @@ dominated = function(x) {
   return(dominated)
 }
 
+#' @rdname dominated
+#' @export
+nondominated = function(x) {
+  return(!dominated(x))
+}
+
 #' @title
-#' Determine which points of a set are not (non)dominated.
+#' Determine which points of a set are (non)dominated.
 #'
 #' @description
 #' Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one

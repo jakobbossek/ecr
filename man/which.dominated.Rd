@@ -3,7 +3,7 @@
 \name{which.dominated}
 \alias{which.dominated}
 \alias{which.nondominated}
-\title{Determine which points of a set are not (non)dominated.}
+\title{Determine which points of a set are (non)dominated.}
 \usage{
 which.dominated(x)
 

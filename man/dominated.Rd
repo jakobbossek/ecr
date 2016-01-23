@@ -2,9 +2,12 @@
 % Please edit documentation in R/dominates.R
 \name{dominated}
 \alias{dominated}
+\alias{nondominated}
 \title{Check for pareto dominance.}
 \usage{
 dominated(x)
+
+nondominated(x)
 }
 \arguments{
 \item{x}{[\code{matrix}]\cr
@@ -15,9 +18,10 @@ number of points.}
 [\code{logical}]
 }
 \description{
-This function takes a numeric matrix \code{x} where each row corresponds to
-a point and returns a logical vector. The i-th position of the latter is
-\code{TRUE} if the i-th point is dominated by at least one other point.
+This functions takes a numeric matrix \code{x} where each row corresponds to
+a point and return a logical vector. The i-th position of the latter is
+\code{TRUE} if the i-th point is dominated by at least one other point for
+\code{dominated} and \code{FALSE} for \code{nonDominated}.
 }
 \keyword{optimize}
 
