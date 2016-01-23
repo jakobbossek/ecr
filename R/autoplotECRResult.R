@@ -32,16 +32,16 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
     stopf("Cannot plot optimization trace, since obviously no logging took place.")
   }
 
-
-  op = as.data.frame(object$opt.path)
+  op = object$opt.path
+  op.df = as.data.frame(op, strings.as.factors = TRUE)
   # we start with the second dob, since otherwise there is not enough info to plot
-  unique.dobs = unique(op$dob)[-1]
+  unique.dobs = unique(op.df$dob)[-1]
   if (complete.trace) {
     unique.dobs = tail(unique.dobs, 1)
   }
   for (dob in unique.dobs) {
-    pl.trace = plotTrace(op[which(op$dob <= dob), ], xlim, ylim, log.fitness, ...)
-    pl.trace = pl.trace + ggtitle(sprintf("Optimization trace for function '%s'", getName(obj.fun)))
+    pl.trace = plotTrace(op.df[which(op.df$dob <= dob), ], xlim, ylim, log.fitness, ...)
+    pl.trace = pl.trace + ggtitle("Optimization trace")
     if (show.process) {
       if (object$final.opt.state$control$representation == "custom") {
         stopf("Process cannot be visualized if custom representation was used.")
@@ -79,11 +79,10 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
         pl.fun = pl.fun + geom_hline(yintercept = opt.dir.fun(df.points[[y.name]]), linetype = "dashed", colour = "gray")
       }
 
-      #FIXME: this seems to fail!
       BBmisc::requirePackages(c("grid", "gridExtra"), why = "ecr")
       #FIXME: next line returns errors in 'test_autoplot.R'
-      pl = do.call(gridExtra::arrangeGrob, list(pl.fun, pl.trace, ncol = 1))
-      #pl = pl.trace
+      pl = do.call(gridExtra::grid.arrange, list(pl.fun, pl.trace, ncol = 1L))
+      print(pl)
     } else {
       pl = pl.trace
     }

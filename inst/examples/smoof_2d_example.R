@@ -19,21 +19,21 @@ load_all(".", reset = TRUE)
 # Monitoring function. For details on the expected formal parameters
 # see the help pages for makeMonitor and makeConsoleMonitor.
 myMonitorStep = function(opt.state, ...) {
-  control = opt.state$control
-  n.targets = control$n.targets
-  population = opt.state$population
-  task = opt.state$task
+  # control = opt.state$control
+  # n.targets = control$n.targets
+  # population = opt.state$population
+  # task = opt.state$task
 
-  x = seq(-5, 5, by = 0.05)
-  df = expand.grid(x, x)
-  names(df) = paste0("x", 1:2)
-  df.points = as.data.frame(do.call(rbind, population$individuals))
-  names(df.points) = names(df)
-  df$y = apply(df, 1L, task$fitness.fun)
+  # x = seq(-5, 5, by = 0.05)
+  # df = expand.grid(x, x)
+  # names(df) = paste0("x", 1:2)
+  # df.points = as.data.frame(do.call(rbind, population$individuals))
+  # names(df.points) = names(df)
+  # df$y = apply(df, 1L, task$fitness.fun)
 
-  pl = ggplot(data = df, aes(x = x1, y = x2, z = y)) + geom_contour(colour = "gray")
-  pl = pl + geom_point(data = df.points, aes(z = NULL), colour = "tomato")
-  print(pl)
+  # pl = ggplot(data = df, aes(x = x1, y = x2, z = y)) + geom_contour(colour = "gray")
+  # pl = pl + geom_point(data = df.points, aes(z = NULL), colour = "tomato")
+  # print(pl)
 }
 
 myMonitor = makeMonitor(step = myMonitorStep)
@@ -48,6 +48,7 @@ control = setupECRControl(
   survival.strategy = "plus",
   representation = "float",
   monitor = myMonitor,
+  logger = makeOptPathLoggingMonitor(),
   stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
 # use default operators

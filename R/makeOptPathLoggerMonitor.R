@@ -46,48 +46,59 @@ makeOptPathLoggingMonitor = function(step = 1L, log.extras.fun = NULL) {
         minimize = task$minimize,
         include.extra = TRUE, include.exec.time = FALSE
       )
+
+      # now add initial population
+      extras = getListOfExtras(opt.state, log.extras.fun)
+      addIndividualsToOptPath(opt.state, extras)
     },
     step = function(opt.state, ...) {
       iter = opt.state$iter
 
       if ((iter %% step) == 0L) {
-
         # extract data
         task = opt.state$task
-        par.set = task$par.set
-        n.objectives = task$n.objectives
 
         # handle extra logging stuff
         extras = getListOfExtras(opt.state, log.extras.fun)
-
-        # extract relevant data
-        individuals = opt.state$population$individuals
-        fitness = opt.state$population$fitness
-
-        n.population = ncol(fitness)
-        n.pars = length(par.set$pars)
-
-        # now iterate over the population and store all individuals
-        for (i in seq(n.population)) {
-          x = individuals[[i]]
-          if (opt.state$control$representation == "custom") {
-            # serialization of custom represetation
-            x = serializeIndividual(x)
-          }
-          if (n.pars == 1L) {
-            x = list(x)
-          }
-          y = fitness[, i]
-          addOptPathEl(opt.state$opt.path, x = x, y = y, dob = iter,
-            extra = extras, check.feasible = FALSE
-          )
-        }
+        addIndividualsToOptPath(opt.state, extras)
       }
     },
     after = function(opt.state, ...) {
       # nothing to do here
     }
   )
+}
+
+# @title
+# Actually add individuals to OptPath.
+#
+# @param opt.state [\code{ecr_opt_state}]\cr
+#   Current iteration/generation.
+addIndividualsToOptPath = function(opt.state, extras) {
+  par.set = opt.state$task$par.set
+
+  individuals = opt.state$population$individuals
+  fitness = opt.state$population$fitness
+
+  n.population = ncol(fitness)
+  n.pars = length(par.set$pars)
+
+  # now iterate over the population and store all individuals
+  for (i in seq(n.population)) {
+    x = individuals[[i]]
+    if (opt.state$control$representation == "custom") {
+      # serialization of custom represetation
+      x = serializeIndividual(x)
+    }
+    if (n.pars == 1L) {
+      x = list(x)
+    }
+    y = fitness[, i]
+    addOptPathEl(opt.state$opt.path, x = x, y = y, dob = opt.state$iter,
+      extra = extras, check.feasible = FALSE
+    )
+  }
+  invisible()
 }
 
 # @title

@@ -92,7 +92,7 @@ ctrl = setupECRControl(
   survival.strategy = "plus",
   representation = "float",
   logger = makeOptPathLoggingMonitor(),
-  stopping.conditions = setupStoppingConditions(max.iter = 100L)
+  stopping.conditions = setupStoppingConditions(max.iter = 50L)
 )
 
 ctrl = setupEvolutionaryOperators(
