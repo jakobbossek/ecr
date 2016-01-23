@@ -23,8 +23,6 @@
 #'   Number of fittest individuals of the current generation that shall be copied to the
 #'   next generation without changing. Default is 0. Keep in mind, that the algorithm
 #'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
-#' @param save.population.at [\code{integer}]\cr
-#'   Which populations should be saved? Default is none.
 #' @param monitor [\code{function}]\cr
 #'   Monitoring function. Default is \code{consoleMonitor}.
 #' @param stopping.conditions [\code{list}]\cr
@@ -59,7 +57,6 @@ setupECRControl = function(
   representation,
   survival.strategy = "plus",
   n.elite = 0L,
-  save.population.at = integer(0),
   monitor = makeConsoleMonitor(),
   stopping.conditions = list(),
   logger = makeNullMonitor(),
@@ -74,10 +71,6 @@ setupECRControl = function(
   assertCount(n.elite, na.ok = FALSE)
   assertList(custom.constants, unique = TRUE, any.missing = FALSE, all.missing = FALSE)
   assertFlag(vectorized.evaluation, na.ok = FALSE)
-
-  if (length(save.population.at) > 0) {
-    assertIntegerish(save.population.at, lower = 0L, any.missing = FALSE)
-  }
 
   # If the survival strategy is (mu + lambda), than the number of generated offspring in each iteration
   # must greater or equal to the population size
@@ -125,7 +118,6 @@ setupECRControl = function(
     representation = representation,
     survival.strategy = survival.strategy,
     n.elite = n.elite,
-    save.population.at = save.population.at,
     stopping.conditions = stopping.conditions,
     monitor = monitor,
     logger = logger,

@@ -7,9 +7,9 @@
 setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
   survival.strategy = "plus", n.elite = 0L,
-  save.population.at = integer(0), monitor = makeConsoleMonitor(),
-  stopping.conditions = list(), logger = makeNullMonitor(),
-  custom.constants = list(), vectorized.evaluation = FALSE)
+  monitor = makeConsoleMonitor(), stopping.conditions = list(),
+  logger = makeNullMonitor(), custom.constants = list(),
+  vectorized.evaluation = FALSE)
 }
 \arguments{
 \item{n.population}{[\code{integer(1)}]\cr
@@ -34,9 +34,6 @@ Determines the survival strategy used by the EA. Possible are 'plus' for a class
 Number of fittest individuals of the current generation that shall be copied to the
 next generation without changing. Default is 0. Keep in mind, that the algorithm
 does not care about this option if the \code{survival.strategy} is set to 'plus'.}
-
-\item{save.population.at}{[\code{integer}]\cr
-Which populations should be saved? Default is none.}
 
 \item{monitor}{[\code{function}]\cr
 Monitoring function. Default is \code{consoleMonitor}.}

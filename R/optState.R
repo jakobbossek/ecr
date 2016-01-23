@@ -26,13 +26,6 @@ setupOptState = function(task, population, control) {
     opt.state$best.value = best$fitness
   }
 
-  # optional logging of population
-  opt.state$population.storage = namedList(paste0("gen.", control$save.population.at))
-
-  if (0 %in% control$save.population.at) {
-    opt.state$population.storage[[paste0("gen.", as.character(0))]] = population
-  }
-
   # construct opt path
   y.names = paste0("y", seq(task$n.objectives))
 
@@ -65,16 +58,9 @@ updateOptState = function(opt.state, population, control) {
   # update population
   opt.state$population = population
 
-  #FIXME/TODO: handle opt.path update!
-
   # save best-so-far solution in single-objective case
   if (task$n.objectives == 1L) {
     updateOptStateBestIndividual(opt.state)
-  }
-
-  # update populaton storage
-  if (opt.state$iter %in% control$save.population.at) {
-    opt.state$population.storage[[paste0("gen.", as.character(opt.state$iter))]] = population
   }
 
   invisible()

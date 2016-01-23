@@ -58,10 +58,11 @@ ctrl = setupECRControl(
   n.population = 100L,
   n.offspring = 10L,
   survival.strategy = "plus",
-  save.population.at = 0:100L,
   representation = "float",
+  logger = makeOptPathLoggingMonitor(),
   stopping.conditions = setupStoppingConditions(max.iter = 100L)
 )
+
 ctrl = setupEvolutionaryOperators(
  ctrl,
  parent.selector = makeRouletteWheelSelector(),

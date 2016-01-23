@@ -10,13 +10,14 @@ load_all(".", reset = TRUE)
 # objective function
 obj.fn = makeSingleObjectiveFunction(
   name = "Number of Ones",
-  fn = function(x, y) {
-    (length(x) - sum(x)) + sum(y)
+  fn = function(x1, x2) {
+    (length(x1) - sum(x1)) + sum(x2)
   },
   par.set = makeParamSet(
-    makeIntegerVectorParam("x", len = 20L, lower = 0, upper = 1),
-    makeIntegerVectorParam("y", len = 15L, lower = 0, upper = 1)
-  )
+    makeIntegerVectorParam("x1", len = 20L, lower = 0, upper = 1),
+    makeIntegerVectorParam("x2", len = 15L, lower = 0, upper = 1)
+  ),
+  has.simple.signature = FALSE
 )
 
 makeOptimumAppearsStoppingCondition = function(opt.fitness = 0) {
@@ -36,7 +37,7 @@ control = setupECRControl(
   n.offspring = 100L,
   n.mating.pool = 100L,
   representation = "binary",
-  save.population.at = c(0L, 10L, 20L, 30L, 40L, 50L, 60L),
+  logger = makeOptPathLoggingMonitor(step = 10L),
   monitor = makeConsoleMonitor(1L),
   stopping.conditions = list(
     makeOptimumAppearsStoppingCondition()
@@ -55,4 +56,4 @@ control = setupEvolutionaryOperators(
 # names(as.data.frame(res$opt.path))
 res = doTheEvolution(obj.fn, control = control)
 print(res)
-#autoplot(res, complete.trace = TRUE)
+autoplot(res, complete.trace = TRUE)

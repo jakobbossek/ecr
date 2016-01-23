@@ -33,7 +33,6 @@
 #       representation = "float",
 #       survival.strategy = "plus",
 #       # FIXME: Throws an error if not complete population is saved
-#       save.population.at = 0:15,
 #       monitor = makeNullMonitor(),
 #       stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 15L))
 #     )

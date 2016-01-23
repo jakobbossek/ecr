@@ -26,8 +26,12 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
                                , log.fitness = FALSE, complete.trace = FALSE, ...) {
   assertFlag(show.process, na.ok = FALSE)
   assertFlag(complete.trace, na.ok = FALSE)
-  obj.fun = object$task$fitness.fun
-  n.params = getNumberOfParameters(obj.fun)
+  assertFlag(log.fitness, na.ok = FALSE)
+
+  if (is.null(object$opt.path)) {
+    stopf("Cannot plot optimization trace, since obviously no logging took place.")
+  }
+
 
   op = as.data.frame(object$opt.path)
   # we start with the second dob, since otherwise there is not enough info to plot
@@ -39,24 +43,40 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
     pl.trace = plotTrace(op[which(op$dob <= dob), ], xlim, ylim, log.fitness, ...)
     pl.trace = pl.trace + ggtitle(sprintf("Optimization trace for function '%s'", getName(obj.fun)))
     if (show.process) {
-      if (n.params > 2L || isMultiobjective(obj.fun)) {
-        stopf("Visualization not possible for multi-objective functions or functions with greater than 2 parameters.")
+      if (object$final.opt.state$control$representation == "custom") {
+        stopf("Process cannot be visualized if custom representation was used.")
       }
-      if (!length(object$control$save.population.at)) {
-        stopf("Cannot visualize population since no population was stored! Take a glance a the 'save.population.at' control parameter.")
+      obj.fun = object$task$fitness.fun
+      task = object$task
+      par.set = smoof::getParamSet(obj.fun)
+      n.params = getNumberOfParameters(obj.fun)
+
+      if (n.params > 2L) {
+        stopf("Visualization not possible for functions with more than 2 parameters.")
       }
+
+      if (hasDiscrete(par.set)) {
+        stopf("Visualization for mixed/discrete decision spaces not supported at the moment.")
+      }
+
+      if (isMultiobjective(obj.fun)) {
+        stopf("Visualization not possible for multi-objective functions at the moment.")
+      }
+
+      # call smoof plot function
       pl.fun = autoplot(obj.fun)
-      population = object$population.storage[[paste0("gen.", dob)]]
+
+      # get interesting stuff out of opt.path in ggplot2 friendly format
+      df.points = getOptPathX(op, dob = dob)
+      y.name = task$objective.names
+      df.points[[y.name]] = getOptPathY(op, dob = dob)
+      x.names = getParamIds(par.set, with.nr = TRUE, repeated = TRUE)
       if (n.params == 2L) {
-        df.points = as.data.frame(do.call(rbind, population$individuals))
-        colnames(df.points) = paste("x", 1:n.params, sep = "")
-        df.points$y = as.numeric(population$fitness)
-        pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x1", y = "x2"), colour = "tomato")
+        pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = x.names[1L], y = x.names[2L]), colour = "tomato")
       } else {
-        fitness = as.numeric(population$fitness)
-        df.points = data.frame(x = do.call(c, population$individuals), y = fitness)
-        pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = "x", y = "y"), colour = "tomato")
-        pl.fun = pl.fun + geom_hline(yintercept = min(fitness), linetype = "dashed", colour = "gray")
+        pl.fun = pl.fun + geom_point(data = df.points, aes_string(x = x.names, y = y.name), colour = "tomato")
+        opt.dir.fun = if (task$minimkze) min else max
+        pl.fun = pl.fun + geom_hline(yintercept = opt.dir.fun(df.points[[y.name]]), linetype = "dashed", colour = "gray")
       }
 
       #FIXME: this seems to fail!
