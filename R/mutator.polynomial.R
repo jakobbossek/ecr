@@ -11,7 +11,7 @@
 #' @return [\code{ecr_mutator}]
 #' @family mutators
 #' @export
-makePolynomialMutation = function(p = 0.2, eta = 10) {
+makePolynomialMutator = function(p = 0.2, eta = 10) {
   assertNumber(p, lower = 0, upper = 1, na.ok = FALSE)
   assertNumber(eta, lower = 1, finite = TRUE, na.ok = FALSE)
 

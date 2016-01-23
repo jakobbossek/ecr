@@ -16,7 +16,7 @@ a random position.
 \seealso{
 Other mutators: \code{\link{makeBitFlipMutator}},
   \code{\link{makeGaussMutator}},
-  \code{\link{makePolynomialMutation}},
+  \code{\link{makePolynomialMutator}},
   \code{\link{makeScrambleMutator}},
   \code{\link{makeSwapMutator}},
   \code{\link{makeUniformMutator}}

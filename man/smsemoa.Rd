@@ -6,7 +6,7 @@
 \usage{
 smsemoa(task, n.population = 100L, ref.point = NULL,
   parent.selector = makeSimpleSelector(),
-  mutator = makePolynomialMutation(eta = 25, p = 0.2),
+  mutator = makePolynomialMutator(eta = 25, p = 0.2),
   recombinator = makeSBXRecombinator(eta = 15, p = 0.7), max.iter = NULL,
   max.evals = NULL, max.time = NULL, ...)
 }

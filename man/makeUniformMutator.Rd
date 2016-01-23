@@ -22,7 +22,7 @@ necessary, this feature is disadvantegous.
 Other mutators: \code{\link{makeBitFlipMutator}},
   \code{\link{makeGaussMutator}},
   \code{\link{makeInsertionMutator}},
-  \code{\link{makePolynomialMutation}},
+  \code{\link{makePolynomialMutator}},
   \code{\link{makeScrambleMutator}},
   \code{\link{makeSwapMutator}}
 }

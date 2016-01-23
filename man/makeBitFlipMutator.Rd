@@ -20,7 +20,7 @@ with a given probability.
 \seealso{
 Other mutators: \code{\link{makeGaussMutator}},
   \code{\link{makeInsertionMutator}},
-  \code{\link{makePolynomialMutation}},
+  \code{\link{makePolynomialMutator}},
   \code{\link{makeScrambleMutator}},
   \code{\link{makeSwapMutator}},
   \code{\link{makeUniformMutator}}
