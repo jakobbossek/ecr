@@ -57,8 +57,36 @@ setupEventDispatcher = function(name) {
 #' @export
 getAvailableEventNames = function() {
   return(c(
-    "onGeneratedOffspring",
-    "onFinishedOptimization",
-    "onInitializedOptimization")
-  )
+    "onEAInitialized",
+    "onMatingPoolGenerated",
+    "onOffspringGenerated",
+    "onPopulationUpdated",
+    "onEAFinished"
+  ))
+}
+
+fireEvent = function(event.name, control, opt.state, ...) {
+  control$event.dispatcher$fireEvent(event.name, opt.state, ...)
+}
+
+#' @title
+#' Register an action.
+#'
+#' @description
+#' Register an action for a specific event in the EA circle.
+#' See \code{\link{getAvailableEventNames}} for a list of available event names.
+#'
+#' @param control [\code{ecr_control}]\cr
+#'   Control object.
+#' @param event.name [\code{character(1)}]\cr
+#'   Name of the event.
+#' @param fun [\code{function()}]\cr
+#'   Function with arguments \code{opt.state} and \code{...}.
+#' @return [\code{ecr_control}] Updated control object.
+#' @seealso \code{\link{getAvailableEventNames}}
+#' @export
+registerAction = function(control, event.name, fun) {
+  assertClass(control, "ecr_control")
+  control$event.dispatcher$registerAction(event.name, fun)
+  return(control)
 }

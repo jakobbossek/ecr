@@ -124,6 +124,7 @@ setupECRControl = function(
     extras.fun = extras.fun,
     custom.constants = custom.constants,
     vectorized.evaluation = vectorized.evaluation,
+    event.dispatcher = setupEventDispatcher(),
     classes = "ecr_control"
   )
 

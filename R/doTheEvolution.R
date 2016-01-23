@@ -44,14 +44,19 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   population = buildInitialPopulation(control$n.population, task, control, initial.population)
   population$fitness = evaluateFitness(population, task$fitness.fun, task, control)
   opt.state = setupOptState(task, population, control)
+  fireEvent("onEAInitialized", control, opt.state)
 
   monitor$before()
   repeat {
     matingPool = selectForMating(opt.state, control)
-    offspring = generateOffspring(opt.state, matingPool, control)
-    population = getNextGeneration(opt.state, offspring, control)
+    fireEvent("onMatingPoolGenerated", control, opt.state)
 
+    offspring = generateOffspring(opt.state, matingPool, control)
+    fireEvent("onOffspringGenerated", control, opt.state)
+
+    population = getNextGeneration(opt.state, offspring, control)
     updateOptState(opt.state, population, control)
+    fireEvent("onPopulationUpdated", control, opt.state)
 
     monitor$step()
 
@@ -60,9 +65,9 @@ doTheEvolution = function(task, control, initial.population = NULL) {
       break
     }
   }
+  fireEvent("onEAFinished", control, opt.state)
   monitor$after()
-  setupResult(opt.state, stop.object, control)
-  # end of new doTheEvolution
+  return(setupResult(opt.state, stop.object, control))
 }
 
 # @title
