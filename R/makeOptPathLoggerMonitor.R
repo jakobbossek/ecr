@@ -42,7 +42,7 @@ makeOptPathLoggingMonitor = function(step = 1L, log.extras.fun = NULL) {
     before = function(opt.state, ...) {
       task = opt.state$task
       par.set = opt.state$par.set # the task builds the par.set
-      opt.state$log = makeOptPathDF(par.set, y.names = task$objective.names,
+      opt.state$opt.path = makeOptPathDF(par.set, y.names = task$objective.names,
         minimize = task$minimize,
         include.extra = TRUE, include.exec.time = FALSE
       )
@@ -74,9 +74,11 @@ makeOptPathLoggingMonitor = function(step = 1L, log.extras.fun = NULL) {
             # serialization of custom represetation
             x = serializeIndividual(x)
           }
-          x = list(x)
+          if (n.pars == 1L) {
+            x = list(x)
+          }
           y = fitness[, i]
-          addOptPathEl(opt.state$log, x = x, y = y, dob = iter,
+          addOptPathEl(opt.state$opt.path, x = x, y = y, dob = iter,
             extra = extras, check.feasible = FALSE
           )
         }
