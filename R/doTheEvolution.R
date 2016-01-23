@@ -98,42 +98,6 @@ checkSelectorCompatibility = function(task, control, ...) {
 }
 
 # @title
-# Generate 'extras' argument for opt.path.
-#
-# @param iter [integer(1)]
-#   Current iteration/generation.
-# @param n.evals [integer(1)]
-#   Number of function evaluations.
-# @param population [ecr_population]
-#   Current population.
-# @param start.time [POSIXct]
-#   Start time of evolution process.
-# @pram control [ecr_control]
-#   Control object.
-# @return [list] Named list with scalar values to be stored in opt.path.
-getListOfExtras = function(iter, n.evals, population, start.time, control) {
-  fitness = population$fitness
-  extra = list(
-    past.time = as.numeric(Sys.time() - start.time),
-    iter = iter,
-    n.evals = n.evals,
-    pop.min.fitness = min(fitness),
-    pop.mean.fitness = mean(fitness),
-    pop.median.fitness = median(fitness),
-    pop.max.fitness = max(fitness)
-  )
-  # compute and log used defined stuff
-  if (!is.null(control$extras.fun)) {
-    user.extra = control$extras.fun(population)
-    if (!testList(user.extra, names = "strict")) {
-      stopf("Result computed by 'extras.fun' is not a named list!")
-    }
-    extra = c(extra, user.extra)
-  }
-  return(extra)
-}
-
-# @title
 # Helper function to build initial population.
 #
 # @param n.population [integer(1)]

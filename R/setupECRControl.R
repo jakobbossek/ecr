@@ -29,12 +29,10 @@
 #'   Monitoring function. Default is \code{consoleMonitor}.
 #' @param stopping.conditions [\code{list}]\cr
 #'   List of functions of type \code{ecr_stoppingCondition}.
-#' @param extras.fun [\code{function} | \code{NULL}]\cr
-#'   Functin which expects the population and returns a list of scalar quality
-#'   computed based on the individual genomes or the fitness values, e.g., standard
-#'   deviation of the fitness. The function is called once in each generation.
-#'   The results are stored in the optimization path. Default is \code{NULL}, which
-#'   means that no additional stuff is logged.
+#' @param logger [\code{function}]\cr
+#'   Monitoring object used to log stuff. Default is \code{defaultLogger} which
+#'   logs the entire population and additional statistics like the minimal/maximal
+#'   fitness values.
 #' @param custom.constants [\code{list}]\cr
 #'   Additional constants which should be available to all generators and operators.
 #'   Defaults to empty list.
@@ -64,7 +62,7 @@ setupECRControl = function(
   save.population.at = integer(0),
   monitor = makeConsoleMonitor(),
   stopping.conditions = list(),
-  extras.fun = NULL,
+  logger = makeNullMonitor(),
   custom.constants = list(),
   vectorized.evaluation = FALSE) {
   assertCount(n.population, positive = TRUE, na.ok = FALSE)
@@ -79,10 +77,6 @@ setupECRControl = function(
 
   if (length(save.population.at) > 0) {
     assertIntegerish(save.population.at, lower = 0L, any.missing = FALSE)
-  }
-
-  if (!is.null(extras.fun)) {
-    assertFunction(extras.fun, args = "population")
   }
 
   # If the survival strategy is (mu + lambda), than the number of generated offspring in each iteration
@@ -118,6 +112,12 @@ setupECRControl = function(
     event.dispatcher$registerAction("onEAFinished", monitor$after)
   }
 
+  if (!is.null(logger)) {
+    event.dispatcher$registerAction("onEAInitialized", logger$before)
+    event.dispatcher$registerAction("onPopulationUpdated", logger$step)
+    event.dispatcher$registerAction("onEAFinished", logger$after)
+  }
+
   ctrl = makeS3Obj(
     n.population = n.population,
     n.offspring = n.offspring,
@@ -128,7 +128,7 @@ setupECRControl = function(
     save.population.at = save.population.at,
     stopping.conditions = stopping.conditions,
     monitor = monitor,
-    extras.fun = extras.fun,
+    logger = logger,
     custom.constants = custom.constants,
     vectorized.evaluation = vectorized.evaluation,
     event.dispatcher = event.dispatcher,

@@ -8,7 +8,7 @@ setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
   survival.strategy = "plus", n.elite = 0L,
   save.population.at = integer(0), monitor = makeConsoleMonitor(),
-  stopping.conditions = list(), extras.fun = NULL,
+  stopping.conditions = list(), logger = makeNullMonitor(),
   custom.constants = list(), vectorized.evaluation = FALSE)
 }
 \arguments{
@@ -44,12 +44,10 @@ Monitoring function. Default is \code{consoleMonitor}.}
 \item{stopping.conditions}{[\code{list}]\cr
 List of functions of type \code{ecr_stoppingCondition}.}
 
-\item{extras.fun}{[\code{function} | \code{NULL}]\cr
-Functin which expects the population and returns a list of scalar quality
-computed based on the individual genomes or the fitness values, e.g., standard
-deviation of the fitness. The function is called once in each generation.
-The results are stored in the optimization path. Default is \code{NULL}, which
-means that no additional stuff is logged.}
+\item{logger}{[\code{function}]\cr
+Monitoring object used to log stuff. Default is \code{defaultLogger} which
+logs the entire population and additional statistics like the minimal/maximal
+fitness values.}
 
 \item{custom.constants}{[\code{list}]\cr
 Additional constants which should be available to all generators and operators.

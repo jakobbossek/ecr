@@ -34,13 +34,7 @@ setupOptState = function(task, population, control) {
   }
 
   # construct opt path
-  #FIXME: introduce logical use.opt.path control parameter
-  #FIXME: y.names should be paraemter of task
   y.names = paste0("y", seq(task$n.objectives))
-  opt.state$opt.path = makeOptPathDF(
-    task$par.set, y.names = y.names, minimize = task$minimize,
-    include.extra = TRUE, include.exec.time = TRUE
-  )
 
   # EA specific
   opt.state$population = population
