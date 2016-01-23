@@ -8,8 +8,8 @@
 #' @export
 makeNullMonitor = function() {
   makeMonitor(
-    before = function(envir = parent.frame()) {},
-    step = function(envir = parent.frame()) {},
-    after = function(envir = parent.frame()) {}
+    before = function(opt.state, ...) {},
+    step = function(opt.state, ...) {},
+    after = function(opt.state, ...) {}
   )
 }

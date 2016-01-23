@@ -111,6 +111,13 @@ setupECRControl = function(
     stopf("Currently only monitor of type 'ecr_monitor' supported")
   }
 
+  event.dispatcher = setupEventDispatcher()
+  if (!is.null(monitor)) {
+    event.dispatcher$registerAction("onEAInitialized", monitor$before)
+    event.dispatcher$registerAction("onPopulationUpdated", monitor$step)
+    event.dispatcher$registerAction("onEAFinished", monitor$after)
+  }
+
   ctrl = makeS3Obj(
     n.population = n.population,
     n.offspring = n.offspring,
@@ -124,7 +131,7 @@ setupECRControl = function(
     extras.fun = extras.fun,
     custom.constants = custom.constants,
     vectorized.evaluation = vectorized.evaluation,
-    event.dispatcher = setupEventDispatcher(),
+    event.dispatcher = event.dispatcher,
     classes = "ecr_control"
   )
 

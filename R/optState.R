@@ -17,6 +17,7 @@ setupOptState = function(task, population, control) {
   opt.state$task = task
   opt.state$par.set = task$par.set
   opt.state$n.evals = control$n.population
+  opt.state$control = control
 
   # save best-so-far solution in single-objective case
   if (task$n.objectives == 1L) {

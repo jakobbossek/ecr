@@ -18,10 +18,11 @@ load_all(".", reset = TRUE)
 
 # Monitoring function. For details on the expected formal parameters
 # see the help pages for makeMonitor and makeConsoleMonitor.
-myMonitorStep = function(envir = parent.frame()) {
-  n.targets = envir$control$n.targets
-  population = envir$opt.state$population
-  task = envir$opt.state$task
+myMonitorStep = function(opt.state, ...) {
+  control = opt.state$control
+  n.targets = control$n.targets
+  population = opt.state$population
+  task = opt.state$task
 
   x = seq(-5, 5, by = 0.05)
   df = expand.grid(x, x)

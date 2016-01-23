@@ -9,16 +9,16 @@ obj.fn = makeSingleObjectiveFunction(
 )
 
 # Now we define our enhanced monitoring function
-# Monitor functions expect the parent environment as the only parameter
-# This way we can access all the variables saved there.
-monitorStep = function(envir = parent.frame()) {
-  opt.state = envir$opt.state
+# Monitor functions expect the opt.state (optimization state) and ... (not used
+# until now). This way we can access all the variables saved there.
+monitorStep = function(opt.state, ...) {
   iter = opt.state$iter
   best.fitness = opt.state$best.value
   if (iter == 1L) {
-    envir$first.best = best.fitness
+    # manupulate opt.state
+    opt.state$first.best = best.fitness
   }
-  first.best.fitness = envir$first.best
+  first.best.fitness = opt.state$first.best
   cat(sprintf("Best objective value in iteration %i is %.6f
     (overall absolute improvement is: %.6f)\n",
     iter, best.fitness, first.best.fitness - best.fitness)
@@ -26,11 +26,11 @@ monitorStep = function(envir = parent.frame()) {
 }
 
 myFancyConsoleMonitor = makeMonitor(
-  before = function(envir = parent.frame()) {
+  before = function(opt.state, ...) {
     catf("I am starting now buddy!")
   },
   step = monitorStep,
-  after = function(envir = parent.frame()) {
+  after = function(opt.state, ...) {
     catf("Finished!")
   }
 )

@@ -22,13 +22,12 @@ makeConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
   force(num.format)
 
   makeMonitor(
-    before = function(envir = parent.frame()) {
+    before = function(opt.state, ...) {
       cat("Initialization finished! Starting optimization process ...\n")
     },
-    step = function(envir = parent.frame()) {
-      opt.state = envir$opt.state
+    step = function(opt.state, ...) {
       fitness.fun = opt.state$task$fitness.fun
-      max.iter = envir$control$max.iter
+      max.iter = opt.state$control$max.iter
       fitness = opt.state$population$fitness
       iter = opt.state$iter
       if ((iter %% show.info.stepsize) == 0L) {
@@ -41,7 +40,7 @@ makeConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
         }
       }
     },
-    after = function(envir = parent.frame()) {
+    after = function(opt.state, ...) {
       cat("Finished!\n")
     }
   )

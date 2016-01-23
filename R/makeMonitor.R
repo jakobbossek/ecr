@@ -25,7 +25,7 @@ makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
   if (!is.null(before)) assertFunction(before)
   if (!is.null(step)) assertFunction(step)
   if (!is.null(after)) assertFunction(after)
-  dummy = function(...) {}
+  dummy = function(opt.state, ...) {}
   structure(
     list(
       before = coalesce(before, dummy),

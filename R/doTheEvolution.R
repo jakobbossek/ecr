@@ -38,15 +38,11 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   # check compatibility of selectors and #objectives
   checkSelectorCompatibility(n.objectives, task, control, control$parent.selector, control$survival.selector)
 
-  # new doTheEvolution
-  monitor = control$monitor
-
   population = buildInitialPopulation(control$n.population, task, control, initial.population)
   population$fitness = evaluateFitness(population, task$fitness.fun, task, control)
   opt.state = setupOptState(task, population, control)
   fireEvent("onEAInitialized", control, opt.state)
 
-  monitor$before()
   repeat {
     matingPool = selectForMating(opt.state, control)
     fireEvent("onMatingPoolGenerated", control, opt.state)
@@ -58,15 +54,13 @@ doTheEvolution = function(task, control, initial.population = NULL) {
     updateOptState(opt.state, population, control)
     fireEvent("onPopulationUpdated", control, opt.state)
 
-    monitor$step()
-
     stop.object = doTerminate(opt.state, control)
     if (length(stop.object) > 0L) {
       break
     }
   }
   fireEvent("onEAFinished", control, opt.state)
-  monitor$after()
+
   return(setupResult(opt.state, stop.object, control))
 }
 

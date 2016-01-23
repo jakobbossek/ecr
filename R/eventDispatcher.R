@@ -46,7 +46,7 @@ setupEventDispatcher = function(name) {
   }
 
   makeS3Obj(
-    register = registerAction,
+    registerAction = registerAction,
     fireEvent = fireEvent,
     getActionList = getActionList,
     classes = "ecr_event_dispatcher"
