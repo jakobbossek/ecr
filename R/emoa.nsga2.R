@@ -50,7 +50,7 @@ nsga2 = function(
 
   # set up the core of NSGA-II, namely the survival selection
   nsga2SurvivalSelector = makeSelector(
-    selector = function(fitness, n.select, task, control, storage) {
+    selector = function(fitness, n.select, task, control, opt.state) {
       nondom.layers = doNondominatedSorting(fitness)
 
       # storage for indizes of selected individuals

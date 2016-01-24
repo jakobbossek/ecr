@@ -9,7 +9,7 @@
 #' @family selectors
 #' @export
 makeSimpleSelector = function() {
-  selector = function(fitness, n.select, task, control, storage) {
+  selector = function(fitness, n.select, task, control, opt.state) {
     return(1:ncol(fitness))
   }
   makeSelector(

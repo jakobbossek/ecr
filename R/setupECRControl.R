@@ -188,7 +188,7 @@ selectForMating = function(opt.state, control) {
   task = opt.state$task
   fitness = population$fitness
   fitness2 = transformFitness(fitness, task, control$parent.selector)
-  idx.mating = control$parent.selector(fitness2, control$n.mating.pool, task, control, NULL)
+  idx.mating = control$parent.selector(fitness2, control$n.mating.pool, task, control, opt.state)
   subsetPopulation(population, idx = idx.mating)
 }
 
@@ -197,6 +197,6 @@ selectForSurvival = function(opt.state, population, control, n.select = control$
   fitness = population$fitness
   task = opt.state$task
   fitness2 = transformFitness(fitness, task, control$survival.selector)
-  idx.survival = control$survival.selector(fitness2, n.population, task, control, NULL)
+  idx.survival = control$survival.selector(fitness2, n.population, task, control, opt.state)
   subsetPopulation(population, idx = idx.survival)
 }

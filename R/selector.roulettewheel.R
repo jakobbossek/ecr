@@ -32,7 +32,7 @@ makeRouletteWheelSelector = function(offset = 0.1) {
 
   force(offset)
 
-  selector = function(fitness, n.select, task, control, storage) {
+  selector = function(fitness, n.select, task, control, opt.state) {
     fitness = as.numeric(fitness)
     # shift negative values
     if (any(fitness <= 0L)) {

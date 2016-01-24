@@ -82,7 +82,7 @@ asemoa = function(
 
   # Implementation of surival selection operator of the AS-EMOA algorithm.
   asemoaSelector = makeSelector(
-    selector = function(fitness, n.select, task, control, storage) {
+    selector = function(fitness, n.select, task, control, opt.state) {
       all.idx = 1:ncol(fitness)
 
       # filter nondominated points

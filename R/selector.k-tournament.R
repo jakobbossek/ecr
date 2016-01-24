@@ -17,7 +17,7 @@ makeTournamentSelector = function(k = 3L) {
 
   force(k)
 
-  selector = function(fitness, n.select, task, control, storage) {
+  selector = function(fitness, n.select, task, control, opt.state) {
     fitness = as.numeric(fitness)
     pop.idx = seq_along(fitness)
     idx = integer(n.select)

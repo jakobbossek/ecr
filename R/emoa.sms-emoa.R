@@ -47,7 +47,7 @@ smsemoa = function(
   max.time = NULL, ...) {
 
   hypervolumeSelector = makeSelector(
-    selector = function(fitness, n.select, task, control, storage) {
+    selector = function(fitness, n.select, task, control, opt.state) {
       all.idx = 1:ncol(fitness)
 
       # do non-dominated sorting
