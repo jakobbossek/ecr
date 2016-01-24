@@ -17,7 +17,8 @@ Time budget in seconds. Default ist \code{Inf}.}
 Stop the EA after a maximal time budget.
 }
 \seealso{
-Other stopping conditions: \code{\link{makeMaximumEvaluationsStoppingCondition}},
+Other stopping conditions: \code{\link{makeCloseToOptimumStoppingCondition}},
+  \code{\link{makeMaximumEvaluationsStoppingCondition}},
   \code{\link{makeMaximumIterationsStoppingCondition}}
 }
 

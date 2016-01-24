@@ -17,7 +17,8 @@ Maximal number of iterations. Default ist \code{Inf}.}
 Stop the EA after at most \code{max.iter} generations/iterations.
 }
 \seealso{
-Other stopping conditions: \code{\link{makeMaximumEvaluationsStoppingCondition}},
+Other stopping conditions: \code{\link{makeCloseToOptimumStoppingCondition}},
+  \code{\link{makeMaximumEvaluationsStoppingCondition}},
   \code{\link{makeMaximumTimeStoppingCondition}}
 }
 

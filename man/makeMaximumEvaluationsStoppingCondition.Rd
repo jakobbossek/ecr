@@ -17,7 +17,8 @@ Maximal number of function evaluations. Default ist \code{Inf}.}
 Stop the EA after at most \code{max.evals} evaluations of the fitness function.
 }
 \seealso{
-Other stopping conditions: \code{\link{makeMaximumIterationsStoppingCondition}},
+Other stopping conditions: \code{\link{makeCloseToOptimumStoppingCondition}},
+  \code{\link{makeMaximumIterationsStoppingCondition}},
   \code{\link{makeMaximumTimeStoppingCondition}}
 }
 

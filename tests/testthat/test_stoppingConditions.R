@@ -12,13 +12,13 @@ test_that("stopping conditions work", {
 	)
 
 	control = setupECRControl(
-		n.population = 2L,
+		n.population = 50L,
 		n.offspring = 2L,
 		survival.strategy = "plus",
 		n.elite = 1L,
 		representation = "float",
 		monitor = makeNullMonitor(),
-    stopping.conditions = setupStoppingConditions(max.iter = 5L)
+    stopping.conditions = setupStoppingConditions(max.iter = 10L)
 	)
   control = setupEvolutionaryOperators(control)
 
@@ -33,4 +33,8 @@ test_that("stopping conditions work", {
   # check for max evaluations
   control$stopping.conditions = list(makeMaximumEvaluationsStoppingCondition(max.evals = 10L))
   expect_true(grepl("evaluations", doTheEvolution(obj.fn, control)$message))
+
+  # check closeness to optimum
+  control$stopping.conditions = list(makeCloseToOptimumStoppingCondition(eps = 0.05, opt = getGlobalOptimum(obj.fn)$value))
+  expect_true(grepl("optimum", doTheEvolution(obj.fn, control)$message))
 })
