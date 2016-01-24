@@ -22,9 +22,9 @@
 #' @example examples/ex_makeMonitor.R
 #' @export
 makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
-  if (!is.null(before)) assertFunction(before)
-  if (!is.null(step)) assertFunction(step)
-  if (!is.null(after)) assertFunction(after)
+  if (!is.null(before)) assertFunction(before, args = c("opt.state", "..."))
+  if (!is.null(step)) assertFunction(step, args = c("opt.state", "..."))
+  if (!is.null(after)) assertFunction(after, args = c("opt.state", "..."))
   dummy = function(opt.state, ...) {}
   structure(
     list(
@@ -32,5 +32,21 @@ makeMonitor = function(before = NULL, step = NULL, after = NULL, ...) {
       step = coalesce(step, dummy),
       after = coalesce(after, dummy)
     ),
-    class = "ecr_monitor")
+    class = "ecr_monitor"
+  )
+}
+
+# @title
+# Registers monitoring functions to events.
+#
+# @param event.dispatcher [\code{ecr_event_dispatcher}]\cr
+#   Event dispatcher.
+# @param monitor [\code{ecr_monitor}]\cr
+#   Monitoring object.
+installMonitor = function(event.dispatcher, monitor) {
+  assertClass(event.dispatcher, "ecr_event_dispatcher")
+  assertClass(monitor, "ecr_monitor")
+  event.dispatcher$registerAction("onEAInitialized", monitor$before)
+  event.dispatcher$registerAction("onPopulationUpdated", monitor$step)
+  event.dispatcher$registerAction("onEAFinished", monitor$after)
 }
