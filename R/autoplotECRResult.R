@@ -7,23 +7,25 @@
 #'
 #' @param object [\code{ecr_result}]\cr
 #'   ecr result object.
-#' @param xlim [\code{numeric(2)} | NULL]\cr
-#'   Lower and upper bound for generation. If \code{NULL}, this is set automatically.
-#' @param ylim [\code{numeric(2)} | NULL]\cr
-#'   Lower and upper bound for fitness. If \code{NULL}, this is set automatically.
 #' @param show.process [\code{logical(1)}]\cr
-#'   Should the function itself with the population be plotted as well? Default is
-#'   \code{FALSE}.
+#'   Should the function itself with the population be plotted as well? Thinks makes
+#'   in particular sense with \code{complete.trace = FALSE} to see the progress.
+#'   Keep in mind, that this is possible only if the representation is \dQuote{float}
+#'   and the objective function has at most two decision variables.
+#'   Default is \code{FALSE}.
 #' @param log.fitness [\code{logical(1)}]\cr
-#'   Log-transform fitness values? Default is \code{FALSE}.
+#'   Log-transform fitness values?
+#'   Default is \code{FALSE}.
 #' @param complete.trace [\code{logical(1)}]\cr
-#'   Direct show the plot with the fitness for all generations. Default is \code{FALSE}.
+#'   Direct show the plot with the fitness for all generations.
+#'   Default is \code{TRUE}.
 #' @param ... [any]\cr
 #'   Not used.
 #' @return [\code{invisible(TRUE)}]
 #' @export
-autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL, show.process = FALSE
-                               , log.fitness = FALSE, complete.trace = FALSE, ...) {
+autoplot.ecr_single_objective_result = function(
+  object,
+  show.process = FALSE, log.fitness = FALSE, complete.trace = TRUE, ...) {
   assertFlag(show.process, na.ok = FALSE)
   assertFlag(complete.trace, na.ok = FALSE)
   assertFlag(log.fitness, na.ok = FALSE)
@@ -32,14 +34,22 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
     stopf("Cannot plot optimization trace, since obviously no logging took place.")
   }
 
+  # extract OptPath
   op = object$opt.path
   op.df = as.data.frame(op, strings.as.factors = TRUE)
+
   # we start with the second dob, since otherwise there is not enough info to plot
   unique.dobs = unique(op.df$dob)[-1]
   if (complete.trace) {
-    unique.dobs = tail(unique.dobs, 1)
+    unique.dobs = max(unique.dobs)
   }
+
+  # set bounds
+  xlim = c(0, max(unique.dobs))
+  ylim = range(c(op.df$pop.min.fitness, op.df$pop.max.fitness))
+
   for (dob in unique.dobs) {
+    # get trace
     pl.trace = plotTrace(op.df[which(op.df$dob <= dob), ], xlim, ylim, log.fitness, ...)
     pl.trace = pl.trace + ggtitle("Optimization trace")
     if (show.process) {
@@ -88,8 +98,9 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
     }
 
     print(pl)
-    if (dob != tail(unique.dobs, 1))
+    if (dob != tail(unique.dobs, 1)) {
       pause()
+    }
   }
   return(invisible(TRUE))
 }
@@ -97,11 +108,9 @@ autoplot.ecr_single_objective_result = function(object, xlim = NULL, ylim = NULL
 # autoplot function for opt.path used by ecr
 plotTrace = function(df, xlim, ylim, log.fitness, ...) {
   ggdf = df[c("dob", "pop.min.fitness", "pop.mean.fitness", "pop.median.fitness", "pop.max.fitness")]
-  xlim = BBmisc::coalesce(xlim, c(0, max(ggdf$dob)))
-  ylim = BBmisc::coalesce(ylim, c(min(ggdf$pop.min.fitness), max(ggdf$pop.max.fitness)))
   assertNumeric(ylim, len = 2L, any.missing = FALSE)
   assertNumeric(xlim, len = 2L, any.missing = FALSE)
-  assertFlag(log.fitness)
+  assertFlag(log.fitness, na.ok = FALSE)
 
   requirePackages("reshape2", why = "ecr")
   ggdf = melt(ggdf, c("dob"))

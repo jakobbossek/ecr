@@ -37,6 +37,7 @@ control = setupECRControl(
   n.offspring = 1L,
   n.mating.pool = 1L,
   representation = "binary",
+  logger = makeOptPathLoggingMonitor(),
   survival.strategy = "plus",
   stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 1000L))
 )
@@ -53,4 +54,4 @@ res = doTheEvolution(obj.fun, control = control)
 print(res)
 
 # plot optimization trace
-print(autoplot(res, log.fitness = FALSE, complete.trace = TRUE))
+print(autoplot(res, log.fitness = FALSE))

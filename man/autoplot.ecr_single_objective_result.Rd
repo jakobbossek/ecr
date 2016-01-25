@@ -4,29 +4,27 @@
 \alias{autoplot.ecr_single_objective_result}
 \title{Plot optimization trace.}
 \usage{
-\method{autoplot}{ecr_single_objective_result}(object, xlim = NULL,
-  ylim = NULL, show.process = FALSE, log.fitness = FALSE,
-  complete.trace = FALSE, ...)
+\method{autoplot}{ecr_single_objective_result}(object, show.process = FALSE,
+  log.fitness = FALSE, complete.trace = TRUE, ...)
 }
 \arguments{
 \item{object}{[\code{ecr_result}]\cr
 ecr result object.}
 
-\item{xlim}{[\code{numeric(2)} | NULL]\cr
-Lower and upper bound for generation. If \code{NULL}, this is set automatically.}
-
-\item{ylim}{[\code{numeric(2)} | NULL]\cr
-Lower and upper bound for fitness. If \code{NULL}, this is set automatically.}
-
 \item{show.process}{[\code{logical(1)}]\cr
-Should the function itself with the population be plotted as well? Default is
-\code{FALSE}.}
+Should the function itself with the population be plotted as well? Thinks makes
+in particular sense with \code{complete.trace = FALSE} to see the progress.
+Keep in mind, that this is possible only if the representation is \dQuote{float}
+and the objective function has at most two decision variables.
+Default is \code{FALSE}.}
 
 \item{log.fitness}{[\code{logical(1)}]\cr
-Log-transform fitness values? Default is \code{FALSE}.}
+Log-transform fitness values?
+Default is \code{FALSE}.}
 
 \item{complete.trace}{[\code{logical(1)}]\cr
-Direct show the plot with the fitness for all generations. Default is \code{FALSE}.}
+Direct show the plot with the fitness for all generations.
+Default is \code{TRUE}.}
 
 \item{...}{[any]\cr
 Not used.}
