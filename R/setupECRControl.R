@@ -138,21 +138,9 @@ setupECRControl = function(
 #'
 #' @export
 print.ecr_control = function(x, ...) {
-  catf("[ecr CONTROL OBJECT]\n")
+  catf("CONTROL OBJECT\n")
 
-  catf("Objective function:")
-  if (is.null(x$n.targets)) {
-    catf("Optimizing mono-criteria objective function.")
-  } else {
-    catf("Optimizing multi-criteria objective function (%i targets).", x$n.targets)
-  }
-  # catf("Number of parameters         : %i", x$n.params)
-  # if (!is.null(x$n.targets)) {
-  #   catf("Number of targets            : %i", x$n.targets)
-  # }
-  # catf("")
-
-  catf("Evolutionary parameters:")
+  catf("Parameters:")
   catf("Population size              : %i", x$n.population)
   catf("Offspring size               : %i", x$n.offspring)
   catf("Mating pool size             : %i", x$n.mating.pool)
@@ -164,15 +152,15 @@ print.ecr_control = function(x, ...) {
     x$n.elite, as.numeric(x$n.elite)/x$n.population)
   }
 
-  catf("")
-  catf("Evolutionary operators:")
-  catf("Generator object             : %s", getOperatorName(x$generator))
-  catf("Mutation operator            : %s (%s)", getOperatorName(x$mutator),
-    getParametersAsString(getOperatorParameters(x$mutator))
-  )
-  catf("Recombination operator       : %s (%s)", getOperatorName(x$recombinator),
-    getParametersAsString(getOperatorParameters(x$recombinator))
-  )
+  catf("\nOperators:")
+  catf("Generator object             : %s", if (is.null(x$generator)) NA else getOperatorName(x$generator))
+  mut.name = if (is.null(x$mutator)) NA else getOperatorName(x$mutator)
+  mut.params = if (is.null(x$mutator)) NA else getParametersAsString(getOperatorParameters(x$mutator))
+  catf("Mutation operator            : %s (%s)", mut.name, mut.params)
+
+  rec.name = if (is.null(x$recombinator)) NA else getOperatorName(x$recombinator)
+  rec.params = if (is.null(x$recombinator)) NA else getParametersAsString(getOperatorParameters(x$recombinator))
+  catf("Recombination operator       : %s (%s)", rec.name, rec.params)
 }
 
 recombine = function(parents, task, control) {
