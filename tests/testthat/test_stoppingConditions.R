@@ -17,7 +17,7 @@ test_that("stopping conditions work", {
 		survival.strategy = "plus",
 		n.elite = 1L,
 		representation = "float",
-		monitor = makeNullMonitor(),
+		monitor = NULL,
     stopping.conditions = setupStoppingConditions(max.iter = 10L)
 	)
   control = setupEvolutionaryOperators(control)

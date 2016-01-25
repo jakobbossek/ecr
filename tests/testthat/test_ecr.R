@@ -12,7 +12,7 @@ setUpControlObject = function(n.population,
     survival.strategy = survival.strategy,
     n.elite = n.elite,
     representation = "float",
-    monitor = makeNullMonitor(),
+    monitor = NULL,
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
   )
   control = setupEvolutionaryOperators(
@@ -64,7 +64,7 @@ test_that("ecr works for maximization", {
     n.offspring = 10L,
     survival.strategy = "plus",
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L)),
-    monitor = makeNullMonitor(),
+    monitor = NULL,
     representation = "float"
   )
   res = doTheEvolution(obj.fun, control = control)
@@ -84,7 +84,7 @@ test_that("ecr works on binary representations", {
           n.offspring = n.offspring,
           survival.strategy = "plus",
           stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter)),
-          monitor = makeNullMonitor(),
+          monitor = NULL,
           representation = "binary",
         )
         control = setupEvolutionaryOperators(
@@ -133,7 +133,7 @@ test_that("ecr works on permutation genomes", {
     n.offspring = 5L,
     representation = "permutation",
     survival.strategy = "plus",
-    monitor = makeNullMonitor(),
+    monitor = NULL,
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
   )
 
@@ -174,7 +174,7 @@ test_that("ecr finds optimum if is is located on the edge of the search space", 
     n.offspring = 10L,
     survival.strategy = "plus",
     representation = "float",
-    monitor = makeNullMonitor(),
+    monitor = NULL,
     stopping.conditions = setupStoppingConditions(max.iter = 50L)
   )
   control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(sdev = 0.05))
@@ -192,7 +192,7 @@ test_that("ecr can handle initial populations", {
     n.population = 3L,
     n.offspring = 1L,
     representation = "float",
-    monitor = makeNullMonitor(),
+    monitor = NULL,
     stopping.conditions = setupStoppingConditions(max.iter = 1L)
   )
 

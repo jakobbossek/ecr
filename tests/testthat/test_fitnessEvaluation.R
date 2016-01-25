@@ -15,7 +15,7 @@ test_that("vectorized fitness evaluations works for smoof functions", {
     n.offspring = 10L,
     survival.strategy = "plus",
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L)),
-    monitor = makeNullMonitor(),
+    monitor = NULL,
     representation = "float",
     vectorized.evaluation = TRUE
   )
@@ -34,7 +34,7 @@ test_that("vectorized fitness evaluations works for custom representations", {
     n.offspring = 10L,
     survival.strategy = "plus",
     stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L)),
-    monitor = makeNullMonitor(),
+    monitor = NULL,
     representation = "custom",
     vectorized.evaluation = TRUE
   )

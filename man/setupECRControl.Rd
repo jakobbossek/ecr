@@ -8,8 +8,7 @@ setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
   survival.strategy = "plus", n.elite = 0L,
   monitor = makeConsoleMonitor(), stopping.conditions = list(),
-  logger = makeNullMonitor(), custom.constants = list(),
-  vectorized.evaluation = FALSE)
+  logger = NULL, custom.constants = list(), vectorized.evaluation = FALSE)
 }
 \arguments{
 \item{n.population}{[\code{integer(1)}]\cr
@@ -20,31 +19,36 @@ Number of individuals generated in each generation.}
 
 \item{n.mating.pool}{[\code{integer(1)}]\cr
 Number of individuals which can potentially participate in the
-generation of offspring. Default is half of the population size.}
+generation of offspring.
+Default is half of the population size.}
 
 \item{representation}{[\code{character(1)}]\cr
-Genotype representation of the parameters. Available are binary, real,
-permutation and custom.}
+Genotype representation of the parameters. Available are \dQuote{binary},
+\dQuote{float}, \dQuote{permutation} and \dQuote{custom}.}
 
 \item{survival.strategy}{[\code{character(1)}]\cr
-Determines the survival strategy used by the EA. Possible are 'plus' for a classical
-(mu + lambda) strategy and 'comma' for (mu, lambda).}
+Determines the survival strategy used by the EA. Possible are \dQuote{plus} for
+a classical (mu + lambda) strategy and \dQuote{comma} for (mu, lambda).}
 
 \item{n.elite}{[\code{integer(1)}]\cr
 Number of fittest individuals of the current generation that shall be copied to the
-next generation without changing. Default is 0. Keep in mind, that the algorithm
-does not care about this option if the \code{survival.strategy} is set to 'plus'.}
+next generation without changing. Keep in mind, that the algorithm
+does not care about this option if the \code{survival.strategy} is set to 'plus'.
+Default is 0.}
 
 \item{monitor}{[\code{function}]\cr
-Monitoring function. Default is \code{consoleMonitor}.}
+Monitoring function.
+Default is \code{NULL}, i.e. no monitoring.}
 
 \item{stopping.conditions}{[\code{list}]\cr
-List of functions of type \code{ecr_stoppingCondition}.}
+List of functions of type \code{ecr_stoppingCondition}. At least one stopping
+condition needs to be passed.
+Default is the empty list.}
 
 \item{logger}{[\code{function}]\cr
-Monitoring object used to log stuff. Default is \code{defaultLogger} which
-logs the entire population and additional statistics like the minimal/maximal
-fitness values.}
+Monitoring object used to log stuff.
+Default is \code{NULL} which means no logging at all.
+See \code{\link{makeOptPathLoggingMonitor}} for ecr's build-in logger.}
 
 \item{custom.constants}{[\code{list}]\cr
 Additional constants which should be available to all generators and operators.
