@@ -35,7 +35,7 @@ control = setupECRControl(
   representation = "permutation",
   survival.strategy = "plus",
   n.elite = 1L,
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 2000L))
+  stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 2000L))
 )
 # here we select the 100 fittest indiviuals to survive
 control = setupEvolutionaryOperators(control)

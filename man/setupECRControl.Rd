@@ -7,7 +7,7 @@
 setupECRControl(n.population, n.offspring,
   n.mating.pool = floor(n.population/2), representation,
   survival.strategy = "plus", n.elite = 0L,
-  monitor = makeConsoleMonitor(), stopping.conditions = list(),
+  monitor = setupConsoleMonitor(), stopping.conditions = list(),
   logger = NULL, custom.constants = list(), vectorized.evaluation = FALSE)
 }
 \arguments{
@@ -41,14 +41,14 @@ Monitoring function.
 Default is \code{NULL}, i.e. no monitoring.}
 
 \item{stopping.conditions}{[\code{list}]\cr
-List of functions of type \code{ecr_stoppingCondition}. At least one stopping
+List of functions of type \code{ecr_terminator}. At least one stopping
 condition needs to be passed.
 Default is the empty list.}
 
 \item{logger}{[\code{function}]\cr
 Monitoring object used to log stuff.
 Default is \code{NULL} which means no logging at all.
-See \code{\link{makeOptPathLoggingMonitor}} for ecr's build-in logger.}
+See \code{\link{setupOptPathLoggingMonitor}} for ecr's build-in logger.}
 
 \item{custom.constants}{[\code{list}]\cr
 Additional constants which should be available to all generators and operators.

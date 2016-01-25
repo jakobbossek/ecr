@@ -23,9 +23,9 @@ ctrl = setupECRControl(
   n.offspring = 10L,
   representation = "custom", # bypass everything
   survival.strategy = "plus",
-  monitor = makeConsoleMonitor(),
+  monitor = setupConsoleMonitor(),
   custom.constants = list(N = N),
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 1000L))
+  stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 1000L))
 )
 
 myGenerator = makeGenerator(
@@ -61,11 +61,11 @@ myRecombinator = makeRecombinator(
 
 ctrl = setupEvolutionaryOperators(
   ctrl,
-  parent.selector = makeTournamentSelector(),
+  parent.selector = setupTournamentSelector(),
   generator = myGenerator,
   mutator = myMutator,
   recombinator = myRecombinator,
-  survival.selector = makeGreedySelector()
+  survival.selector = setupGreedySelector()
 )
 
 res = doTheEvolution(makeOptimizationTask(fitness, n.objectives = 1L), ctrl)

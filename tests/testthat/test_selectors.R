@@ -9,8 +9,8 @@ test_that("parent selectors work as expected", {
 
   n.mating.pool = 5L
 
-  avialable.selectors = c(makeGreedySelector,
-    makeRouletteWheelSelector, makeTournamentSelector
+  avialable.selectors = c(setupGreedySelector,
+    setupRouletteWheelSelector, setupTournamentSelector
   )
 
   for (selectorGenerator in avialable.selectors) {
@@ -22,7 +22,7 @@ test_that("parent selectors work as expected", {
   }
 
   # simple mating pool selector simply returns the population
-  select = makeSimpleSelector()
+  select = setupSimpleSelector()
   mating.pool.idx = select(fitness, n.mating.pool, NULL, NULL, NULL)
   expect_true(is.integer(mating.pool.idx))
   expect_equal(length(mating.pool.idx), length(fitness))

@@ -40,9 +40,9 @@
 nsga2 = function(
   task,
   n.population = 100L, n.offspring = n.population,
-  parent.selector = makeSimpleSelector(),
-  mutator = makeGaussMutator(),
-  recombinator = makeCrossoverRecombinator(),
+  parent.selector = setupSimpleSelector(),
+  mutator = setupGaussMutator(),
+  recombinator = setupCrossoverRecombinator(),
   max.iter = 100L,
   max.evals = NULL,
   max.time = NULL,
@@ -105,9 +105,9 @@ nsga2 = function(
     n.offspring = n.offspring,
     representation = "float",
     stopping.conditions = list(
-      makeMaximumEvaluationsStoppingCondition(max.evals),
-      makeMaximumTimeStoppingCondition(max.time),
-      makeMaximumIterationsStoppingCondition(max.iter)
+      setupMaximumEvaluationsTerminator(max.evals),
+      setupMaximumTimeTerminator(max.time),
+      setupMaximumIterationsTerminator(max.iter)
     ),
     ...
   )

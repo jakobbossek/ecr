@@ -14,7 +14,7 @@ test_that("vectorized fitness evaluations works for smoof functions", {
     n.population = 10L,
     n.offspring = 10L,
     survival.strategy = "plus",
-    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L)),
+    stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 50L)),
     monitor = NULL,
     representation = "float",
     vectorized.evaluation = TRUE
@@ -33,7 +33,7 @@ test_that("vectorized fitness evaluations works for custom representations", {
     n.population = 10L,
     n.offspring = 10L,
     survival.strategy = "plus",
-    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L)),
+    stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 50L)),
     monitor = NULL,
     representation = "custom",
     vectorized.evaluation = TRUE
@@ -54,19 +54,19 @@ test_that("vectorized fitness evaluations works for custom representations", {
   }
 
   # setup float operators and modify their supported representation
-  myGenerator = makeUniformGenerator()
+  myGenerator = setupUniformGenerator()
   attr(myGenerator, "supported") = "custom"
-  myMutator = makeGaussMutator()
+  myMutator = setupGaussMutator()
   attr(myMutator, "supported") = "custom"
 
   # default stuff
   control = setupEvolutionaryOperators(
     control,
-    parent.selector = makeTournamentSelector(),
+    parent.selector = setupTournamentSelector(),
     generator = myGenerator,
     mutator = myMutator,
-    recombinator = makeNullRecombinator(),
-    survival.selector = makeGreedySelector()
+    recombinator = setupNullRecombinator(),
+    survival.selector = setupGreedySelector()
   )
 
   # since we are custom we need to generate a task by hand

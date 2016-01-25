@@ -18,23 +18,23 @@ test_that("stopping conditions work", {
 		n.elite = 1L,
 		representation = "float",
 		monitor = NULL,
-    stopping.conditions = setupStoppingConditions(max.iter = 10L)
+    stopping.conditions = setupTerminators(max.iter = 10L)
 	)
   control = setupEvolutionaryOperators(control)
 
 	# check for max time budget
-	control$stopping.conditions = list(makeMaximumTimeStoppingCondition(max.time = 2))
+	control$stopping.conditions = list(setupMaximumTimeTerminator(max.time = 2))
 	expect_true(grepl("Time limit", doTheEvolution(obj.fn, control)$message))
 
 	# check for max iterations
-	control$stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 10L))
+	control$stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 10L))
 	expect_true(grepl("iterations", doTheEvolution(obj.fn, control)$message))
 
   # check for max evaluations
-  control$stopping.conditions = list(makeMaximumEvaluationsStoppingCondition(max.evals = 10L))
+  control$stopping.conditions = list(setupMaximumEvaluationsTerminator(max.evals = 10L))
   expect_true(grepl("evaluations", doTheEvolution(obj.fn, control)$message))
 
   # check closeness to optimum
-  control$stopping.conditions = list(makeCloseToOptimumStoppingCondition(eps = 0.05, opt = getGlobalOptimum(obj.fn)$value))
+  control$stopping.conditions = list(setupCloseToOptimumTerminator(eps = 0.05, opt = getGlobalOptimum(obj.fn)$value))
   expect_true(grepl("optimum", doTheEvolution(obj.fn, control)$message))
 })

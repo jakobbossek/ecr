@@ -30,9 +30,9 @@ spea2 = function(
   task,
   n.population = 100L,
   n.archive,
-  parent.selector = makeSimpleSelector(),
-  mutator = makeGaussMutator(),
-  recombinator = makeCrossoverRecombinator(),
+  parent.selector = setupSimpleSelector(),
+  mutator = setupGaussMutator(),
+  recombinator = setupCrossoverRecombinator(),
   max.iter = 100L,
   max.evals = NULL,
   max.time = NULL) {
@@ -61,11 +61,11 @@ spea2 = function(
     n.offspring = 1L,
     representation = "float",
     survival.strategy = "comma",
-    monitor = makeConsoleMonitor(),
+    monitor = setupConsoleMonitor(),
     stopping.conditions = list(
-      makeMaximumEvaluationsStoppingCondition(max.evals),
-      makeMaximumTimeStoppingCondition(max.time),
-      makeMaximumIterationsStoppingCondition(max.iter)
+      setupMaximumEvaluationsTerminator(max.evals),
+      setupMaximumTimeTerminator(max.time),
+      setupMaximumIterationsTerminator(max.iter)
     )
   )
 
@@ -73,7 +73,7 @@ spea2 = function(
     ctrl,
     parent.selector = parent.selector,
     recombinator = recombinator,
-    generator = makeUniformGenerator,
+    generator = setupUniformGenerator,
     mutator = mutator,
     survival.selector = asemoaSelector
   )

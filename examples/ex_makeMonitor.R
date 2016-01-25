@@ -1,7 +1,7 @@
 # We want to find the minimum of the function f(x) = x sin(2x) on the intervall
 # [0, 2pi]. We optimize f here with a simple (10 + 10)
 # evolutionary strategy. We overwrite the default console monitor
-# (see function makeConsoleMonitor) with an enhanced console monitor :-)
+# (see function setupConsoleMonitor) with an enhanced console monitor :-)
 obj.fn = makeSingleObjectiveFunction(
   name = "My obj. function",
   fn = function(x) x * sin(2 * x),
@@ -43,7 +43,7 @@ ctrl = setupECRControl(
   n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
-  stopping.conditions = setupStoppingConditions(max.iter = 30L),
+  stopping.conditions = setupTerminators(max.iter = 30L),
   monitor = myFancyConsoleMonitor
 )
 ctrl = setupEvolutionaryOperators(ctrl)

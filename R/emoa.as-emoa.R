@@ -42,9 +42,9 @@ asemoa = function(
   n.population = 100L,
   aspiration.set = NULL,
   n.archive,
-  parent.selector = makeSimpleSelector(),
-  mutator = makeGaussMutator(),
-  recombinator = makeCrossoverRecombinator(),
+  parent.selector = setupSimpleSelector(),
+  mutator = setupGaussMutator(),
+  recombinator = setupCrossoverRecombinator(),
   max.iter = 100L,
   max.evals = NULL,
   max.time = NULL,
@@ -114,7 +114,7 @@ asemoa = function(
 
   asemoaGenerator = makeGenerator(
     generator = function(size, task, control) {
-      uniformGenerator = makeUniformGenerator()
+      uniformGenerator = setupUniformGenerator()
       population = uniformGenerator(size, task, control)
       #NOTE: here we use the objective function to compute the fitness values
       fitness = evaluateFitness(population, task$fitness.fun, task, control)
@@ -134,9 +134,9 @@ asemoa = function(
     n.offspring = 1L,
     representation = "float",
     stopping.conditions = list(
-      makeMaximumEvaluationsStoppingCondition(max.evals),
-      makeMaximumTimeStoppingCondition(max.time),
-      makeMaximumIterationsStoppingCondition(max.iter)
+      setupMaximumEvaluationsTerminator(max.evals),
+      setupMaximumTimeTerminator(max.time),
+      setupMaximumIterationsTerminator(max.iter)
     ),
     ...
   )

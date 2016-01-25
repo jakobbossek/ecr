@@ -19,7 +19,7 @@ ctrl = setupECRControl(
   n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
-  stopping.conditions = setupStoppingConditions(max.iter = 100L)
+  stopping.conditions = setupTerminators(max.iter = 100L)
 )
 # use the default operators for representation "float"
 ctrl = setupEvolutionaryOperators(ctrl)
@@ -36,7 +36,7 @@ ctrl = setupECRControl(
   survival.strategy = "comma",
   n.elite = 1L,
   representation = "float",
-  stopping.conditions = setupStoppingConditions(max.iter = 100L)
+  stopping.conditions = setupTerminators(max.iter = 100L)
 )
 ctrl = setupEvolutionaryOperators(ctrl)
 
@@ -59,15 +59,15 @@ ctrl = setupECRControl(
   n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
-  logger = makeOptPathLoggingMonitor(),
-  stopping.conditions = setupStoppingConditions(max.iter = 50L)
+  logger = setupOptPathLoggingMonitor(),
+  stopping.conditions = setupTerminators(max.iter = 50L)
 )
 
 ctrl = setupEvolutionaryOperators(
  ctrl,
- parent.selector = makeRouletteWheelSelector(),
- recombinator = makeCrossoverRecombinator(),
- survival.selector = makeGreedySelector()
+ parent.selector = setupRouletteWheelSelector(),
+ recombinator = setupCrossoverRecombinator(),
+ survival.selector = setupGreedySelector()
 )
 res = doTheEvolution(obj.fn, ctrl)
 print(res)

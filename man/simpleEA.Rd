@@ -5,9 +5,9 @@
 \title{Simple (mu + lambda) EA implementation.}
 \usage{
 simpleEA(task, n.population = 10L, n.offspring = 10L,
-  parent.selector = makeSimpleSelector(), mutator = makeGaussMutator(),
-  recombinator = makeCrossoverRecombinator(),
-  survival.selector = makeTournamentSelector(2L), max.iter = NULL,
+  parent.selector = setupSimpleSelector(), mutator = setupGaussMutator(),
+  recombinator = setupCrossoverRecombinator(),
+  survival.selector = setupTournamentSelector(2L), max.iter = NULL,
   max.evals = NULL, max.time = NULL, ...)
 }
 \arguments{

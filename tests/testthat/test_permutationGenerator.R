@@ -2,7 +2,7 @@ context("permutation generator")
 
 test_that("permutation generator works properly", {
 
-  permGen = ecr:::makePermutationGenerator()
+  permGen = ecr:::setupPermutationGenerator()
   par.set = makeNumericParamSet(len = 10L, id = "x", lower = 1, upper = 10L)
   task = list(par.set = par.set)
 

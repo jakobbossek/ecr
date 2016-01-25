@@ -37,15 +37,15 @@ control = setupECRControl(
   n.offspring = 1L,
   n.mating.pool = 1L,
   representation = "binary",
-  logger = makeOptPathLoggingMonitor(),
+  logger = setupOptPathLoggingMonitor(),
   survival.strategy = "plus",
-  stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 1000L))
+  stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 1000L))
 )
 control = setupEvolutionaryOperators(
   control,
-  generator = makeBinaryGenerator(),
-  mutator = makeBitFlipMutator(p = 1 / n.params),
-  recombinator = makeNullRecombinator()
+  generator = setupBinaryGenerator(),
+  mutator = setupBitFlipMutator(p = 1 / n.params),
+  recombinator = setupNullRecombinator()
 )
 print(control)
 

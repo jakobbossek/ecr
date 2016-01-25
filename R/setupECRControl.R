@@ -29,13 +29,13 @@
 #'   Monitoring function.
 #'   Default is \code{NULL}, i.e. no monitoring.
 #' @param stopping.conditions [\code{list}]\cr
-#'   List of functions of type \code{ecr_stoppingCondition}. At least one stopping
+#'   List of functions of type \code{ecr_terminator}. At least one stopping
 #'   condition needs to be passed.
 #'   Default is the empty list.
 #' @param logger [\code{function}]\cr
 #'   Monitoring object used to log stuff.
 #'   Default is \code{NULL} which means no logging at all.
-#'   See \code{\link{makeOptPathLoggingMonitor}} for ecr's build-in logger.
+#'   See \code{\link{setupOptPathLoggingMonitor}} for ecr's build-in logger.
 #' @param custom.constants [\code{list}]\cr
 #'   Additional constants which should be available to all generators and operators.
 #'   Defaults to empty list.
@@ -62,7 +62,7 @@ setupECRControl = function(
   representation,
   survival.strategy = "plus",
   n.elite = 0L,
-  monitor = makeConsoleMonitor(),
+  monitor = setupConsoleMonitor(),
   stopping.conditions = list(),
   logger = NULL,
   custom.constants = list(),
@@ -92,10 +92,10 @@ setupECRControl = function(
     stopf("You need to specify at least one stopping condition.")
   } else {
     valid = sapply(stopping.conditions, function(condition) {
-      inherits(condition, "ecr_stoppingCondition")
+      inherits(condition, "ecr_terminator")
     })
     if (any(!valid)) {
-      stopf("All stopping conditions need to have type 'ecr_stoppingCondition'.")
+      stopf("All stopping conditions need to have type 'ecr_terminator'.")
     }
   }
 

@@ -20,12 +20,12 @@ obj.fn = makeSingleObjectiveFunction(
   has.simple.signature = FALSE
 )
 
-makeOptimumAppearsStoppingCondition = function(opt.fitness = 0) {
+makeOptimumAppearsTerminator = function(opt.fitness = 0) {
   condition.fun = function(opt.state) {
     min.fitness = min(opt.state$population$fitness)
     return(min.fitness == 0)
   }
-  makeStoppingCondition(
+  makeTerminator(
     condition.fun,
     name = "OptimumAppeared",
     message = sprintf("Optimum appeared in population.")
@@ -37,19 +37,19 @@ control = setupECRControl(
   n.offspring = 100L,
   n.mating.pool = 100L,
   representation = "binary",
-  logger = makeOptPathLoggingMonitor(step = 10L),
-  monitor = makeConsoleMonitor(1L),
+  logger = setupOptPathLoggingMonitor(step = 10L),
+  monitor = setupConsoleMonitor(1L),
   stopping.conditions = list(
-    makeOptimumAppearsStoppingCondition()
+    makeOptimumAppearsTerminator()
   )
 )
 
 control = setupEvolutionaryOperators(
   control,
-  parent.selector = makeRouletteWheelSelector(),
-  generator = makeBinaryGenerator(),
-  mutator = makeBitFlipMutator(p = 0.001),
-  recombinator = makeCrossoverRecombinator(p = 0.7)
+  parent.selector = setupRouletteWheelSelector(),
+  generator = setupBinaryGenerator(),
+  mutator = setupBitFlipMutator(p = 0.001),
+  recombinator = setupCrossoverRecombinator(p = 0.7)
 )
 
 # Show all column names in opt.path:

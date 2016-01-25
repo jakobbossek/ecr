@@ -17,7 +17,7 @@ library(BBmisc)
 load_all(".", reset = TRUE)
 
 # Monitoring function. For details on the expected formal parameters
-# see the help pages for makeMonitor and makeConsoleMonitor.
+# see the help pages for makeMonitor and setupConsoleMonitor.
 myMonitorStep = function(opt.state, ...) {
   # control = opt.state$control
   # n.targets = control$n.targets
@@ -48,11 +48,11 @@ control = setupECRControl(
   survival.strategy = "plus",
   representation = "float",
   monitor = myMonitor,
-  logger = makeOptPathLoggingMonitor(),
-  stopping.conditions = setupStoppingConditions(max.iter = 100L)
+  logger = setupOptPathLoggingMonitor(),
+  stopping.conditions = setupTerminators(max.iter = 100L)
 )
 # use default operators
-control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(p = 1, sdev = 0.14))
+control = setupEvolutionaryOperators(control, mutator = setupGaussMutator(p = 1, sdev = 0.14))
 
 # do the evolutionary magic
 set.seed(123)

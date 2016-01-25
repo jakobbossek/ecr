@@ -11,9 +11,9 @@ test_that("logging with ParamHelpers::OptPath works well", {
     n.population = n.population,
     n.offspring = n.offspring,
     representation = "float",
-    logger = makeOptPathLoggingMonitor(),
+    logger = setupOptPathLoggingMonitor(),
     monitor = NULL,
-    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
+    stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = max.iter))
   )
 
   res = doTheEvolution(fn, control = control)
@@ -59,8 +59,8 @@ test_that("user defined extras are stored in OptPath", {
     survival.strategy = "plus",
     representation = "float",
     monitor = NULL,
-    logger = makeOptPathLoggingMonitor(log.extras.fun = log.extras.fun),
-    stopping.conditions = setupStoppingConditions(max.iter = 2L)
+    logger = setupOptPathLoggingMonitor(log.extras.fun = log.extras.fun),
+    stopping.conditions = setupTerminators(max.iter = 2L)
   )
 
   res = doTheEvolution(fn, control)

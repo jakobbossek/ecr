@@ -13,11 +13,11 @@ setUpControlObject = function(n.population,
     n.elite = n.elite,
     representation = "float",
     monitor = NULL,
-    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter))
+    stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = max.iter))
   )
   control = setupEvolutionaryOperators(
     control,
-    survival.selector = makeGreedySelector()
+    survival.selector = setupGreedySelector()
   )
 }
 
@@ -63,7 +63,7 @@ test_that("ecr works for maximization", {
     n.population = 10L,
     n.offspring = 10L,
     survival.strategy = "plus",
-    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L)),
+    stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 50L)),
     monitor = NULL,
     representation = "float"
   )
@@ -78,12 +78,12 @@ test_that("ecr works on binary representations", {
 
   for (n.population in c(10, 15)) {
     for (n.offspring in c(10, 15)) {
-      for (mutator in c(makeBitFlipMutator())) {
+      for (mutator in c(setupBitFlipMutator())) {
         control = setupECRControl(
           n.population = n.population,
           n.offspring = n.offspring,
           survival.strategy = "plus",
-          stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = max.iter)),
+          stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = max.iter)),
           monitor = NULL,
           representation = "binary",
         )
@@ -134,12 +134,12 @@ test_that("ecr works on permutation genomes", {
     representation = "permutation",
     survival.strategy = "plus",
     monitor = NULL,
-    stopping.conditions = list(makeMaximumIterationsStoppingCondition(max.iter = 50L))
+    stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 50L))
   )
 
   # check it for a selection of mutators for permutations
-  for (mutatorGenerator in c(makeSwapMutator, makeInversionMutator, makeInsertionMutator)) {
-    for (recombinatorGenerator in c(makeNullRecombinator, makePMXRecombinator)) {
+  for (mutatorGenerator in c(setupSwapMutator, setupInversionMutator, setupInsertionMutator)) {
+    for (recombinatorGenerator in c(setupNullRecombinator, setupPMXRecombinator)) {
       control = setupEvolutionaryOperators(
         control,
         mutator = mutatorGenerator(),
@@ -175,9 +175,9 @@ test_that("ecr finds optimum if is is located on the edge of the search space", 
     survival.strategy = "plus",
     representation = "float",
     monitor = NULL,
-    stopping.conditions = setupStoppingConditions(max.iter = 50L)
+    stopping.conditions = setupTerminators(max.iter = 50L)
   )
-  control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(sdev = 0.05))
+  control = setupEvolutionaryOperators(control, mutator = setupGaussMutator(sdev = 0.05))
 
   res = doTheEvolution(fn, control = control)
   expect_true(res$best.value < 0.1)
@@ -193,7 +193,7 @@ test_that("ecr can handle initial populations", {
     n.offspring = 1L,
     representation = "float",
     monitor = NULL,
-    stopping.conditions = setupStoppingConditions(max.iter = 1L)
+    stopping.conditions = setupTerminators(max.iter = 1L)
   )
 
   # stop if initial population is to large

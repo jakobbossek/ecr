@@ -33,10 +33,10 @@ simpleEA = function(
   task,
   n.population = 10L,
   n.offspring = 10L,
-  parent.selector = makeSimpleSelector(),
-  mutator = makeGaussMutator(),
-  recombinator = makeCrossoverRecombinator(),
-  survival.selector = makeTournamentSelector(2L),
+  parent.selector = setupSimpleSelector(),
+  mutator = setupGaussMutator(),
+  recombinator = setupCrossoverRecombinator(),
+  survival.selector = setupTournamentSelector(2L),
   max.iter = NULL,
   max.evals = NULL,
   max.time = NULL, ...) {
@@ -59,9 +59,9 @@ simpleEA = function(
     survival.strategy = "plus",
     representation = "float",
     stopping.conditions = list(
-      makeMaximumEvaluationsStoppingCondition(max.evals),
-      makeMaximumTimeStoppingCondition(max.time),
-      makeMaximumIterationsStoppingCondition(max.iter)
+      setupMaximumEvaluationsTerminator(max.evals),
+      setupMaximumTimeTerminator(max.time),
+      setupMaximumIterationsTerminator(max.iter)
     ),
     ...
   )

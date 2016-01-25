@@ -52,14 +52,14 @@ control = setupECRControl(
   survival.strategy = "plus",
   save.population.at = 0:50L,
   stopping.conditions = list(
-    makeMaximumIterationsStoppingCondition(max.iter = 50L)
+    setupMaximumIterationsTerminator(max.iter = 50L)
   )
 )
 
 # Setup the evolutionary toolbox by specifying operators
 control = setupEvolutionaryOperators(
   control,
-  mutator = makeGaussMutator(sdev = 0.005)
+  mutator = setupGaussMutator(sdev = 0.005)
 )
 print(control)
 ```

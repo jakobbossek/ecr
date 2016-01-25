@@ -21,10 +21,10 @@ control = setupECRControl(
   n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
-  stopping.conditions = setupStoppingConditions(max.iter = 50L)
+  stopping.conditions = setupTerminators(max.iter = 50L)
 )
 
-control = setupEvolutionaryOperators(control, mutator = makeGaussMutator(sdev = 0.05))
+control = setupEvolutionaryOperators(control, mutator = setupGaussMutator(sdev = 0.05))
 
 # generate test function
 obj.fun = makeZDT1Function(dimensions = 2L)

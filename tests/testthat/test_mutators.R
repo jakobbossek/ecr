@@ -7,8 +7,8 @@ test_that("mutation operators working on permutation genes create valid offsprin
 
   # gather all mutators for permutation representation
   available.mutators = c(
-    makeSwapMutator, makeInversionMutator,
-    makeInsertionMutator, makeScrambleMutator
+    setupSwapMutator, setupInversionMutator,
+    setupInsertionMutator, setupScrambleMutator
   )
 
   # check validity of produced output for each permutation-based mutator
@@ -31,7 +31,7 @@ test_that("mutation operators working on real-numbered representation create val
   # defs
   n.reps = 5L
 
-  available.mutators = c(makeUniformMutator, makeGaussMutator)
+  available.mutators = c(setupUniformMutator, setupGaussMutator)
 
   for (mutatorGenerator in available.mutators) {
     mutate = mutatorGenerator()

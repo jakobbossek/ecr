@@ -62,9 +62,9 @@ onePlusOneGA = function(
     survival.strategy = "plus",
     representation = "binary",
     stopping.conditions = list(
-      makeMaximumEvaluationsStoppingCondition(max.evals),
-      makeMaximumTimeStoppingCondition(max.time),
-      makeMaximumIterationsStoppingCondition(max.iter)
+      setupMaximumEvaluationsTerminator(max.evals),
+      setupMaximumTimeTerminator(max.time),
+      setupMaximumIterationsTerminator(max.iter)
     ),
     ...
   )
@@ -72,10 +72,10 @@ onePlusOneGA = function(
   # operator setup
   ctrl = setupEvolutionaryOperators(
     ctrl,
-    parent.selector = makeSimpleSelector(),
-    recombinator = makeNullRecombinator(), # no recombination at all
-    mutator = makeBitFlipMutator(p = coalesce(p, 1.0 / n)),
-    survival.selector = makeGreedySelector()
+    parent.selector = setupSimpleSelector(),
+    recombinator = setupNullRecombinator(), # no recombination at all
+    mutator = setupBitFlipMutator(p = coalesce(p, 1.0 / n)),
+    survival.selector = setupGreedySelector()
   )
 
   return(doTheEvolution(task, ctrl))

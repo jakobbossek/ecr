@@ -145,25 +145,25 @@ checkOperatorIsCompatible = function(operator, representation) {
 getDefaultEvolutionaryOperators = function(representation, type) {
   defaults = list(
     "float" = list(
-      "parent.selector" = makeRouletteWheelSelector(),
-      "generator" = makeUniformGenerator(),
-      "mutator" = makeGaussMutator(),
-      "recombinator" = makeIntermediateRecombinator(),
-      "survival.selector" = makeGreedySelector()
+      "parent.selector" = setupRouletteWheelSelector(),
+      "generator" = setupUniformGenerator(),
+      "mutator" = setupGaussMutator(),
+      "recombinator" = setupIntermediateRecombinator(),
+      "survival.selector" = setupGreedySelector()
     ),
     "binary" = list(
-      "parent.selector" = makeRouletteWheelSelector(),
-      "generator" = makeBinaryGenerator(),
-      "mutator" = makeBitFlipMutator(),
-      "recombinator" = makeCrossoverRecombinator(),
-      "survival.selector" = makeGreedySelector()
+      "parent.selector" = setupRouletteWheelSelector(),
+      "generator" = setupBinaryGenerator(),
+      "mutator" = setupBitFlipMutator(),
+      "recombinator" = setupCrossoverRecombinator(),
+      "survival.selector" = setupGreedySelector()
     ),
     "permutation" = list(
-      "parent.selector" = makeRouletteWheelSelector(),
-      "generator" = makePermutationGenerator(),
-      "mutator" = makeSwapMutator(),
-      "recombinator" = makePMXRecombinator(),
-      "survival.selector" = makeGreedySelector()
+      "parent.selector" = setupRouletteWheelSelector(),
+      "generator" = setupPermutationGenerator(),
+      "mutator" = setupSwapMutator(),
+      "recombinator" = setupPMXRecombinator(),
+      "survival.selector" = setupGreedySelector()
     )
   )
 
