@@ -37,6 +37,7 @@ doTheEvolution = function(task, control, initial.population = NULL) {
     fireEvent("onMatingPoolGenerated", control, opt.state)
 
     offspring = generateOffspring(opt.state, matingPool, control)
+    offspring$fitness = evaluateFitness(offspring, task$fitness.fun, task, control)
     fireEvent("onOffspringGenerated", control, opt.state)
 
     population = getNextGeneration(opt.state, offspring, control)
@@ -97,19 +98,24 @@ checkSelectorCompatibility = function(task, control, ...) {
   })
 }
 
-# @title
-# Helper function to build initial population.
-#
-# @param n.population [integer(1)]
-#   Size of the population.
-# @param task [ecr_optimization_task]
-#   Optimization task.
-# @param control [ecr_control]
-#   Control object.
-# @param initial.population [list | NULL]
-#   Eventually a list of initial individuals.
-# @return [ecr_population]
-buildInitialPopulation = function(n.population, task, control, initial.population) {
+#' @title
+#' Helper function to build initial population.
+#'
+#' @description
+#' Generates the initial population of an EA based on a list of initial individuals
+#' and/or the control object and the corresponding population generator.
+#'
+#' @param n.population [\code{integer(1)}]\cr
+#'   Size of the population.
+#' @param task [\code{ecr_optimization_task}]\cr
+#'   Optimization task.
+#' @param control [\code{ecr_control}]\cr
+#'   Control object.
+#' @param initial.population [\code{list} | \code{NULL}]\cr
+#'   Eventually a list of initial individuals.
+#' @return [\code{ecr_population}]
+#' @export
+buildInitialPopulation = function(n.population, task, control, initial.population = NULL) {
   n.to.generate = n.population
   n.initial = 0L
   if (!is.null(initial.population)) {

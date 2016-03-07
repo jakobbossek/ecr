@@ -1,17 +1,19 @@
-# @title
-# Performs survival selection.
-#
-# @description
-# Helper function which selects the individuals of a population which
-# will survive the current generation.
-#
-# @param opt.state [\code{ecr_opt_state}]\cr
-#   Optimization state.
-# @param offspring [\code{ecr_population}]\cr
-#   Generated offspring.
-# @param control [\code{ecr_control}]\cr
-#   Control object.
-# @return [\code{ecr_population}]
+#' @title
+#' Performs survival selection.
+#'
+#' @description
+#' Given the current optimization state and the list of offspring individuals,
+#' the function selects the next generation. The selection type is based on the
+#' parameters given in the control object.
+#'
+#' @param opt.state [\code{ecr_opt_state}]\cr
+#'   Optimization state.
+#' @param offspring [\code{ecr_population}]\cr
+#'   Generated offspring.
+#' @param control [\code{ecr_control}]\cr
+#'   Control object.
+#' @return [\code{ecr_population}]
+#' @export
 getNextGeneration = function(opt.state, offspring, control) {
   # extract info
   n.elite = control$n.elite

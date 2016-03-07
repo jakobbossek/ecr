@@ -172,6 +172,22 @@ mutate = function(parent, task, control) {
   control$mutator(parent, task, control)
 }
 
+#' @title
+#' Generate mating pool.
+#'
+#' @description
+#' Given the current optimization state this function selects a subset of individuals
+#' which form the mating pool, i.e., the set of possible parents for later recombination.
+#'
+#' @note
+#' Basically this is a wrapper for the call to the parent selector of the control
+#' object which occasionally transforms the fitness values (e.g., if maximzation should be
+#' performed, but the selection operator actualy minimizes).
+#'
+#' @template arg_opt_state
+#' @template arg_control
+#' @return [\code{ecr_population}]
+#' @export
 selectForMating = function(opt.state, control) {
   population = opt.state$population
   task = opt.state$task
@@ -181,6 +197,26 @@ selectForMating = function(opt.state, control) {
   subsetPopulation(population, idx = idx.mating)
 }
 
+#' @title
+#' Generate mating pool.
+#'
+#' @description
+#' Given the current optimization state this function selects a subset of individuals
+#' which should survive and form the next generation.
+#'
+#' @note
+#' Basically this is a wrapper for the call to the parent selector of the control
+#' object which occasionally transforms the fitness values (e.g., if maximzation should be
+#' performed, but the selection operator actualy minimizes).
+#'
+#' @template arg_opt_state
+#' @param population [\code{list}]\cr
+#'   Current population.
+#' @template arg_control
+#' @param n.select [\code{integer(1L)}]\cr
+#'   Number of offspring to select for survival.
+#' @return [\code{ecr_population}]
+#' @export
 selectForSurvival = function(opt.state, population, control, n.select = control$n.population) {
   n.population = control$n.population
   fitness = population$fitness

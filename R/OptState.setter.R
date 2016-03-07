@@ -1,15 +1,17 @@
-# @title Generate an optimization state object.
-#
-# @description The optimization task object is a container for all variables
-# regarding the optimization process.
-#
-# @param task [\code{ecr_optimization_task}]\cr
-#   Optimization task.
-# @param population [\code{ecr_population}]\cr
-#   (Initial) population.
-# @param control [\code{ecr_control}]\cr
-#   Control object.
-# @return [\code{ecr_opt_state}]
+#' @title Generate an optimization state object.
+#'
+#' @description
+#' The optimization task object is a container for all variables
+#' regarding the optimization process.
+#'
+#' @param task [\code{ecr_optimization_task}]\cr
+#'   Optimization task.
+#' @param population [\code{ecr_population}]\cr
+#'   (Initial) population.
+#' @param control [\code{ecr_control}]\cr
+#'   Control object.
+#' @return [\code{ecr_opt_state}]
+#' @export
 setupOptState = function(task, population, control) {
   opt.state = new.env()
   opt.state$iter = 0L
@@ -37,17 +39,19 @@ setupOptState = function(task, population, control) {
   return(opt.state)
 }
 
-# @title Update optimization state.
-#
-# @decscription Called once after survival selection to update the optimization
-# state.
-#
-# @param opt.state [\code{ecr_opt_state}]\cr
-#   Optimization state.
-# @param population [\code{ecr_population}]\cr
-#   Current population.
-# @param control [\code{ecr_control}]\cr.
-#   Control object.
+#' @title Update optimization state.
+#'
+#' @description
+#' Called once after survival selection to update the optimization state.
+#'
+#' @param opt.state [\code{ecr_opt_state}]\cr
+#'   Optimization state.
+#' @param population [\code{ecr_population}]\cr
+#'   Current population.
+#' @param control [\code{ecr_control}]\cr.
+#'   Control object.
+#' @return Nothing.
+#' @export
 updateOptState = function(opt.state, population, control) {
   task = opt.state$task
 

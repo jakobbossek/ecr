@@ -1,22 +1,25 @@
-# @title
-# Computes the fitness values for each member of a given population.
-#
-# @description
-# This function expects a population, computes the fitness and
-# returns the matrix of fitness values. This function makes use of
-# \code{\link[parallelMap]{parallelMap}} to allow parallelization of fitness
-# evaluation.
-#
-# @param population [\code{matrix}]\cr
-#   Population.
-# @param fitness.fun [\code{function}]\cr
-#   Fitness function.
-# @param task [\code{ecr_optimization_task}]\cr
-#   Optimization task.
-# @param control [\code{ecr_control}]\cr
-#   Control object containing all operators and further parameters.
-#   See \code{\link{setupECRControl}} and \code{\link{setupEvolutionaryOperators}}.
-# @return [\code{matrix}].
+#' @title
+#' Computes the fitness values for each member of a given population.
+#'
+#' @description
+#' This function expects a population, computes the fitness and
+#' returns the matrix of fitness values. This function makes use of
+#' \code{\link[parallelMap]{parallelMap}} to allow parallelization of fitness
+#' evaluation.
+#' Keep in mind, that the return value is a 1xn matrix in case of single-objective
+#' optimization.
+#'
+#' @param population [\code{list}]\cr
+#'   Population.
+#' @param fitness.fun [\code{function}]\cr
+#'   Fitness function.
+#' @param task [\code{ecr_optimization_task}]\cr
+#'   Optimization task.
+#' @param control [\code{ecr_control}]\cr
+#'   Control object containing all operators and further parameters.
+#'   See \code{\link{setupECRControl}} and \code{\link{setupEvolutionaryOperators}}.
+#' @return [\code{matrix}].
+#' @export
 evaluateFitness = function(population, fitness.fun, task, control) {
   # first check if objective/fitness function accepts lists/vectors
   if (control$vectorized.evaluation) {

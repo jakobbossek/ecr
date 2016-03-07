@@ -53,6 +53,7 @@ setupResult = function(opt.state, stop.object, control) {
   UseMethod("setupResult")
 }
 
+#' @export
 setupResult.ecr_single_objective_opt_state = function(opt.state, stop.object, control) {
   makeS3Obj(
     final.opt.state = opt.state,
@@ -84,6 +85,7 @@ print.ecr_single_objective_result = function(x, ...) {
   printAdditionalInformation(x)
 }
 
+#' @export
 setupResult.ecr_multi_objective_opt_state = function(opt.state, stop.object, control) {
   population = opt.state$population
   fitness = population$fitness

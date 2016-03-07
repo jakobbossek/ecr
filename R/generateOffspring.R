@@ -1,13 +1,19 @@
-# @title
-# Creates offspring from a given mating pool of parents.
-#
-# @param opt.state [\code{ecr_opt_state}]\cr
-#   Optimization state.
-# @param matingPool [\code{ecr_population}]\cr
-#   Mating pool to select individuals from.
-# @param control [\code{ecr_control}]\cr
-#   Control object.
-# @return [\code{setOfIndividuals}] Generated offspring.
+#' @title
+#' Creates offspring from a given mating pool of parents.
+#'
+#' @description
+#' Given and optimization state and a mating pool of individuals this function
+#' generates offspring individuals based on the parameters specified in the
+#' control object.
+#'
+#' @param opt.state [\code{ecr_opt_state}]\cr
+#'   Optimization state.
+#' @param matingPool [\code{ecr_population}]\cr
+#'   Mating pool to select individuals from.
+#' @param control [\code{ecr_control}]\cr
+#'   Control object.
+#' @return [\code{ecr_population}] Generated offspring.
+#' @export
 generateOffspring = function(opt.state, matingPool, control) {
   n.offspring = control$n.offspring
   task = opt.state$task
