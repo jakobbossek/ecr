@@ -57,15 +57,7 @@ isDominated = function(x, y) {
 #' @export
 dominated = function(x) {
   assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE)
-  n = ncol(x)
-  dominated = logical(n)
-  for (i in seq.int(n)) {
-    for (j in seq.int(i, n)) {
-      dominated[i] = dominated[i] || isDominated(x[, i], x[, j])
-      dominated[j] = dominated[j] || isDominated(x[, j], x[, i])
-    }
-  }
-  return(dominated)
+  return(.Call("dominatedC", x))
 }
 
 #' @rdname dominated
