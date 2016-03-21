@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include "macros.h"
 
-
 /*
  * Check dominance relation for two columns of a matrix.
  *
@@ -21,7 +20,7 @@
  *    0 if col1 and col2 are incommensurable
  *    -1 if col2 dominates col1
  */
-static int dominance(double *points, R_len_t col1, R_len_t col2, R_len_t dim) {
+static int getDominance(double *points, R_len_t col1, R_len_t col2, R_len_t dim) {
   int dom1 = 0, dom2 = 0;
 
   // get start of i-th and j-th column
@@ -48,7 +47,7 @@ static int dominance(double *points, R_len_t col1, R_len_t col2, R_len_t dim) {
  *   Numeric matrix.
  * @return [logical(n)]
  */
-SEXP dominatedC(SEXP r_points) {
+SEXP dominated(SEXP r_points) {
   // first unpack R structures
   EXTRACT_NUMERIC_MATRIX(r_points, c_points, dim, n_points);
 
@@ -73,10 +72,10 @@ SEXP dominatedC(SEXP r_points) {
         continue;
       }
       // check if i dominates j or vice verca
-      int isDominated = dominance(c_points, i, j, dim);
-      if (isDominated > 0) {
+      int dominance = getDominance(c_points, i, j, dim);
+      if (dominance > 0) {
         dominated[j] = TRUE;
-      } else if (isDominated < 0) {
+      } else if (dominance < 0) {
         dominated[i] = TRUE;
       }
     }
@@ -98,16 +97,16 @@ SEXP dominatedC(SEXP r_points) {
  *   Numeric (n x m) matrix.
  * @return [list]
  */
-SEXP doNondominatedSortingC(SEXP r_points) {
+SEXP doNondominatedSorting(SEXP r_points) {
   // unwrap R structure into C objects
   EXTRACT_NUMERIC_MATRIX(r_points, c_points, dim, n_points);
 
   // rank, i.e., number of front
-  SEXP r_rank = ALLOC_INTEGER_VECTOR(n_points);
-  int* c_rank = INTEGER(r_rank);
+  SEXP r_ranks = ALLOC_INTEGER_VECTOR(n_points);
+  int* c_ranks = INTEGER(r_ranks);
 
   for (int i = 0; i < n_points; ++i) {
-    c_rank[i] = 0;
+    c_ranks[i] = 0;
   }
 
   // count how many points are already correctly sorted
@@ -123,21 +122,25 @@ SEXP doNondominatedSortingC(SEXP r_points) {
 
   for (unsigned int i = 0; i < n_points; ++i) {
     for (unsigned int j = (i + 1); j < n_points; ++j) {
-      int isDominated = dominance(c_points, i, j, dim);
-      if (isDominated > 0) {
+      int dominance = getDominance(c_points, i, j, dim);
+      if (dominance > 0) {
         //FIXME: save which point(s) are dominated by which
         ++c_domcounter[j];
-      } else if (isDominated < 0) {
+      } else if (dominance < 0) {
         ++c_domcounter[i];
       }
     }
 
     // assign rank 1 to all points that are nondominated
     if (c_domcounter[i] == 0) {
-      c_rank[i] = 1;
+      c_ranks[i] = 1;
       ++n_sorted;
     }
   }
+
+  // we want to return the "getDominance counter" as well. Since
+  // c_domcounter is manipulated in the next lines, we make a copy first.
+  SEXP r_domcounter2 = PROTECT(duplicate(r_domcounter));
 
   unsigned int cur_rank = 1;
   while (n_sorted < n_points) {
@@ -145,16 +148,16 @@ SEXP doNondominatedSortingC(SEXP r_points) {
     // iterate over all points and search for the ones with the currently
     // "active" rank
     for (int i = 0; i < n_points; ++i) {
-      if (c_rank[i] != cur_rank) {
+      if (c_ranks[i] != cur_rank) {
         continue;
       }
       // otherwise check if current point dominates another one
       for (int j = 0; j < n_points; ++j) {
-        //FIXME: replace with non-redundant dominance check
-        if (dominance(c_points, i, j, dim) > 0) { // i dominates j
+        //FIXME: replace with non-redundant getDominance check
+        if (getDominance(c_points, i, j, dim) > 0) { // i dominates j
           --c_domcounter[j];
           if (c_domcounter[j] == 0) { /* now on first front */
-            c_rank[j] = (cur_rank + 1);
+            c_ranks[j] = (cur_rank + 1);
             ++n_sorted;
           }
         }
@@ -163,9 +166,13 @@ SEXP doNondominatedSortingC(SEXP r_points) {
     ++cur_rank;
   }
 
-  //FIXME: make copy of c_domcounter
-  UNPROTECT(1);
-  //Free(n_sorted);
-  //Free(c_domcounter);
-  return(r_rank);
+  // now build return value (named list of two elements)
+  // See http://adv-r.had.co.nz/C-interface.html for details
+  const char *names[] = {"ranks", "dom.counter", ""};
+  SEXP res = PROTECT(mkNamed(VECSXP, names));
+  SET_VECTOR_ELT(res, 0, r_ranks);
+  SET_VECTOR_ELT(res, 1, r_domcounter2);
+
+  UNPROTECT(4); // res, r_domcounter, r_domcounter2, r_ranks
+  return(res);
 }
