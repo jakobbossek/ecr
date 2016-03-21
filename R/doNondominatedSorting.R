@@ -23,6 +23,14 @@
 #'   }
 #' @export
 doNondominatedSorting = function(x) {
+  assertMatrix(x, min.rows = 2L, min.cols = 2L, any.missing = FALSE, all.missing = FALSE, mode = "numeric")
+  ranks = .Call("doNondominatedSortingC", x)
+  #FIXME: return ranks also
+  return(list(ranks = ranks, dom.counter = rep(1L, ncol(x))))
+}
+
+# Old pure R implementation
+doNondominatedSortingR = function(x) {
   # initialize domination front wrapper
   fronts = list()
   fronts[[1L]] = list()
