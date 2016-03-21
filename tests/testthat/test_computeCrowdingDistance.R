@@ -10,15 +10,19 @@ test_that("crowding distance computation works well", {
   ), byrow = TRUE, ncol = 2L))
 
   # compute crowding distances
-  cds = computeCrowdingDistance(x)
+  fns = c(computeCrowdingDistance, computeCrowdingDistanceR)
+  for (fn in fns) {
+    cds = fn(x)
 
-  expect_true(is.numeric(cds))
+    expect_true(is.numeric(cds))
 
-  # the "extreme" points have infinite crowding distance
-  expect_true(is.infinite(cds[1]))
-  expect_true(is.infinite(cds[4]))
+    # the "extreme" points have infinite crowding distance
+    expect_true(is.infinite(cds[1]))
+    expect_true(is.infinite(cds[4]))
 
-  # the remaining points have a crowding distance of 3
-  expect_equal(cds[2], 3)
-  expect_equal(cds[3], 3)
+    # the remaining points have a crowding distance of 3
+    expect_equal(cds[2], 3)
+    expect_equal(cds[3], 3)
+  }
+
 })
