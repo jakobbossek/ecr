@@ -18,8 +18,7 @@
 #' @export
 computeCrowdingDistance = function(x) {
   assertMatrix(x, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
-  return(computeCrowdingDistanceR(x))
-  #return(.Call("computeCrowdingDistanceC", x))
+  return(.Call("computeCrowdingDistanceC", x))
 }
 
 # Old pure R function
