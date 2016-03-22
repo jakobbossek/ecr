@@ -8,13 +8,13 @@
 #'
 #' @param opt.state [\code{ecr_opt_state}]\cr
 #'   Optimization state.
-#' @param matingPool [\code{ecr_population}]\cr
+#' @param mating.pool [\code{ecr_population}]\cr
 #'   Mating pool to select individuals from.
 #' @param control [\code{ecr_control}]\cr
 #'   Control object.
 #' @return [\code{ecr_population}] Generated offspring.
 #' @export
-generateOffspring = function(opt.state, matingPool, control) {
+generateOffspring = function(opt.state, mating.pool, control) {
   n.offspring = control$n.offspring
   task = opt.state$task
   fitness.fun = task$fitness.fun
@@ -23,7 +23,7 @@ generateOffspring = function(opt.state, matingPool, control) {
   i.offspring = 1L
   while(i.offspring <= n.offspring) {
     # select parents for mating
-    parents = getParents(matingPool, n.parents = getNumberOfParentsNeededForMating(control))
+    parents = getParents(mating.pool, n.parents = getNumberOfParentsNeededForMating(control))
     children = recombine(parents, task, control)
     # eventually the recombinator returns multiple children
     if (hasAttributes(children, "multiple")) {
@@ -47,13 +47,13 @@ generateOffspring = function(opt.state, matingPool, control) {
 # @title
 # Helper method to extract two parents from the mating pool
 #
-# @param matingPool [\code{ecr_population}]
+# @param mating.pool [\code{ecr_population}]
 #   Set of individuals selected for reproduction.
 # @param n.parents [\code{integer(1)}]
 #   Number of individuals to select.
 # @return [\code{list}]
-getParents = function(matingPool, n.parents = 2L) {
-  inds = matingPool$individuals
+getParents = function(mating.pool, n.parents = 2L) {
+  inds = mating.pool$individuals
   n = length(inds)
   # if we have only one individual, return it twice
   if (n == 1L) {

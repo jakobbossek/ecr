@@ -33,10 +33,10 @@ doTheEvolution = function(task, control, initial.population = NULL) {
   fireEvent("onEAInitialized", control, opt.state)
 
   repeat {
-    matingPool = selectForMating(opt.state, control)
+    mating.pool = selectForMating(opt.state, control)
     fireEvent("onMatingPoolGenerated", control, opt.state)
 
-    offspring = generateOffspring(opt.state, matingPool, control)
+    offspring = generateOffspring(opt.state, mating.pool, control)
     offspring$fitness = evaluateFitness(offspring, task$fitness.fun, task, control)
     fireEvent("onOffspringGenerated", control, opt.state)
 

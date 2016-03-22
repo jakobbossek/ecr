@@ -4,13 +4,13 @@
 \alias{generateOffspring}
 \title{Creates offspring from a given mating pool of parents.}
 \usage{
-generateOffspring(opt.state, matingPool, control)
+generateOffspring(opt.state, mating.pool, control)
 }
 \arguments{
 \item{opt.state}{[\code{ecr_opt_state}]\cr
 Optimization state.}
 
-\item{matingPool}{[\code{ecr_population}]\cr
+\item{mating.pool}{[\code{ecr_population}]\cr
 Mating pool to select individuals from.}
 
 \item{control}{[\code{ecr_control}]\cr

@@ -37,10 +37,10 @@ opt.state = setupOptState(task, population, ctrl)
 # now start the evolutionary cycle
 repeat {
   # first select some individuals for mating
-  matingPool = selectForMating(opt.state, ctrl)
+  mating.pool = selectForMating(opt.state, ctrl)
 
   # then generate the offspring
-  offspring = generateOffspring(opt.state, matingPool, ctrl)
+  offspring = generateOffspring(opt.state, mating.pool, ctrl)
   offspring$fitness = evaluateFitness(offspring, task$fitness.fun, task, ctrl)
 
   # apply the survival selection
