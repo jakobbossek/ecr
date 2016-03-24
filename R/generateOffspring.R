@@ -21,27 +21,29 @@ generateOffspring = function(opt.state, mating.pool, control) {
   offspring = vector(mode = "list", length = n.offspring)
   recombinator = control$recombinator
 
-  i.offspring = 1L
-  while(i.offspring <= n.offspring) {
-    # select parents for mating
+  n.children = getNumberOfChildren(recombinator)
+  n.recomb.calls = ceiling(as.numeric(n.offspring) / n.children)
+
+  # actually generate offspring
+  offspring = parallelMap(function(i) {
     parents = getParents(mating.pool, n.parents = getNumberOfParentsNeededForMating(recombinator))
     children = recombine(parents, task, control)
-    # eventually the recombinator returns multiple children
-    if (getNumberOfChildren(recombinator) > 1L && hasAttributes(children, "multiple")) {
-      # maybe we got two children, but we only have place for one left
-      max.children = min(length(children), n.offspring - i.offspring + 1L)
-      for (j in seq(max.children)) {
-        offspring[[i.offspring]] = mutate(children[[j]], task, control)
-        i.offspring = i.offspring + 1L
-      }
-    } else {
-      offspring[[i.offspring]] = mutate(children, task, control)
-      i.offspring = i.offspring + 1L
-    }
+    off = if (hasAttributes(children, "multiple")) children else list(children)
+    off = lapply(off, function(x) {
+      mutate(x, task, control)
+    })
+    return(off)
+  }, seq(n.recomb.calls), level = "ecr.generateOffspring")
+
+  # we need to "unwrap" one listing layer here
+  offspring = unlist(offspring, recursive = FALSE)
+
+  # if n.children is odd/even and n.offspring is even/odd we need to remove one child
+  if (length(offspring) > n.offspring) {
+    offspring = offspring[-sample(1:length(offspring), 1L)]
   }
 
   offspring.fitness = evaluateFitness(makePopulation(offspring), fitness.fun, task, control)
-
   return(makePopulation(offspring, offspring.fitness))
 }
 
