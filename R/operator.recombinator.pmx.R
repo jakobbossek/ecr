@@ -62,6 +62,7 @@ setupPMXRecombinator = function() {
     name = "PMX recombinator",
     description = "Performs partially mapped crossover on permutations.",
     supported = "permutation",
-    n.parents = 2L
+    n.parents = 2L,
+    n.children = 2L
   )
 }

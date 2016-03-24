@@ -19,6 +19,6 @@ setupNullRecombinator = function() {
     description = "Does not perform any recombination.",
     supported = getAvailableRepresentations(),
     n.parents = 10L,
-    multiple.children = FALSE
+    n.children = 1L
   )
 }

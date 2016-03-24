@@ -61,6 +61,7 @@ setupOXRecombinator = function() {
     name = "OX recombinator",
     description = "Performs Ordered-Crossover on permutations.",
     supported = "permutation",
-    n.parents = 2L
+    n.parents = 2L,
+    n.children = 2L
   )
 }

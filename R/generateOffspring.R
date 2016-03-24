@@ -19,14 +19,15 @@ generateOffspring = function(opt.state, mating.pool, control) {
   task = opt.state$task
   fitness.fun = task$fitness.fun
   offspring = vector(mode = "list", length = n.offspring)
+  recombinator = control$recombinator
 
   i.offspring = 1L
   while(i.offspring <= n.offspring) {
     # select parents for mating
-    parents = getParents(mating.pool, n.parents = getNumberOfParentsNeededForMating(control))
+    parents = getParents(mating.pool, n.parents = getNumberOfParentsNeededForMating(recombinator))
     children = recombine(parents, task, control)
     # eventually the recombinator returns multiple children
-    if (hasAttributes(children, "multiple")) {
+    if (getNumberOfChildren(recombinator) > 1L && hasAttributes(children, "multiple")) {
       # maybe we got two children, but we only have place for one left
       max.children = min(length(children), n.offspring - i.offspring + 1L)
       for (j in seq(max.children)) {

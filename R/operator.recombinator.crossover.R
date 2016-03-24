@@ -68,6 +68,7 @@ setupCrossoverRecombinator = function(p = 1) {
     description = "Performs classical one-point crossover.",
     n.parents = 2L,
     supported = c("float", "binary"),
-    params = list(p = p)
+    params = list(p = p),
+    n.children = 2L
   )
 }

@@ -6,7 +6,7 @@
 \usage{
 makeRecombinator(recombinator, name, description,
   supported = getAvailableRepresentations(), params = list(),
-  n.parents = 2L, multiple.children = TRUE)
+  n.parents = 2L, n.children = NULL)
 }
 \arguments{
 \item{recombinator}{[\code{function}]\cr
@@ -29,8 +29,9 @@ Default is the empty list.}
 \item{n.parents}{[\code{integer(1)}]\cr
 Number of parents supported.}
 
-\item{multiple.children}{[\code{logical(1)}]\cr
-Does the recombinator return more than one child? Default is \code{TRUE}.}
+\item{n.children}{[\code{integer(1)}]\cr
+How many children does the recombinator produce?
+Default is \code{1}.}
 }
 \value{
 [\code{ecr_recombinator}]

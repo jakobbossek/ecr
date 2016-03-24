@@ -23,8 +23,9 @@
 #'   Default is the empty list.
 #' @param n.parents [\code{integer(1)}]\cr
 #'   Number of parents supported.
-#' @param multiple.children [\code{logical(1)}]\cr
-#'   Does the recombinator return more than one child? Default is \code{TRUE}.
+#' @param n.children [\code{integer(1)}]\cr
+#'   How many children does the recombinator produce?
+#'   Default is \code{1}.
 #' @return [\code{ecr_recombinator}]
 #'   Recombinator object.
 #' @export
@@ -33,14 +34,14 @@ makeRecombinator = function(
   supported = getAvailableRepresentations(),
   params = list(),
   n.parents = 2L,
-  multiple.children = TRUE) {
+  n.children = NULL) {
   assertFunction(recombinator, args = c("inds", "task", "control"), ordered = TRUE)
-  assertInteger(n.parents, len = 1L, lower = 2L, any.missing = FALSE)
-  assertFlag(multiple.children)
+  assertInt(n.parents, lower = 2L)
+  assertInt(n.children, lower = 1L)
 
   recombinator = makeOperator(recombinator, name, description, supported, params)
   attr(recombinator, "n.parents") = n.parents
-  attr(recombinator, "multiple.children") = multiple.children
+  attr(recombinator, "n.children") = n.children
 
   recombinator = addClasses(recombinator, c("ecr_recombinator"))
 
@@ -52,9 +53,21 @@ generatesMultipleChildren = function(recombinator) {
 }
 
 generatesMultipleChildren.ecr_recombinator = function(recombinator) {
-  return(attr(recombinator, "multiple.children"))
+  return(attr(recombinator, "n.children") > 0L)
 }
 
-getNumberOfParentsNeededForMating = function(control) {
-  return(attr(control$recombinator, "n.parents"))
+getNumberOfParentsNeededForMating = function(recombinator) {
+  UseMethod("getNumberOfParentsNeededForMating")
+}
+
+getNumberOfParentsNeededForMating.ecr_recombinator = function(recombinator) {
+  return(attr(recombinator, "n.parents"))
+}
+
+getNumberOfChildren = function(recombinator) {
+  UseMethod("getNumberOfChildren")
+}
+
+getNumberOfChildren.ecr_recombinator = function(recombinator) {
+  return(attr(recombinator, "n.children"))
 }

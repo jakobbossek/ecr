@@ -30,7 +30,7 @@ setupIntermediateRecombinator = function(k = 2L) {
     description = "Performs intermediate recombination.",
     supported = "float",
     n.parents = k,
-    multiple.children = FALSE,
+    n.children = 1L,
     params = list(k = k)
   )
 }

@@ -40,6 +40,7 @@ setupSBXRecombinator = function(eta = 5, p = 1.0) {
     description = "Performs simulated binary crossover.",
     n.parents = 2L,
     supported = c("float"),
-    params = list(p = p, eta = eta)
+    params = list(p = p, eta = eta),
+    n.children = 2L
   )
 }
