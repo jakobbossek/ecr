@@ -20,6 +20,7 @@
 #' @param survival.strategy [\code{character(1)}]\cr
 #'   Determines the survival strategy used by the EA. Possible are \dQuote{plus} for
 #'   a classical (mu + lambda) strategy and \dQuote{comma} for (mu, lambda).
+#'   Default is \dQuote{plus}.
 #' @param n.elite [\code{integer(1)}]\cr
 #'   Number of fittest individuals of the current generation that shall be copied to the
 #'   next generation without changing. Keep in mind, that the algorithm
