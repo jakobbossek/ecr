@@ -21,6 +21,7 @@ for the mating pool is reached.
 }
 \seealso{
 Other selectors: \code{\link{setupGreedySelector}},
+  \code{\link{setupNondomSelector}},
   \code{\link{setupRouletteWheelSelector}},
   \code{\link{setupSimpleSelector}}
 }

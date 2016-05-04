@@ -15,6 +15,7 @@ entire population to form the mating pool.
 }
 \seealso{
 Other selectors: \code{\link{setupGreedySelector}},
+  \code{\link{setupNondomSelector}},
   \code{\link{setupRouletteWheelSelector}},
   \code{\link{setupTournamentSelector}}
 }

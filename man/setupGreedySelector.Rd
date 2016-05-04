@@ -14,7 +14,8 @@ Sorts the individuals according to their fitness value in increasing order
 and selects the best ones.
 }
 \seealso{
-Other selectors: \code{\link{setupRouletteWheelSelector}},
+Other selectors: \code{\link{setupNondomSelector}},
+  \code{\link{setupRouletteWheelSelector}},
   \code{\link{setupSimpleSelector}},
   \code{\link{setupTournamentSelector}}
 }

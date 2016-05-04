@@ -36,6 +36,7 @@ positive constant \code{offset} is added (see parameters).
 }
 \seealso{
 Other selectors: \code{\link{setupGreedySelector}},
+  \code{\link{setupNondomSelector}},
   \code{\link{setupSimpleSelector}},
   \code{\link{setupTournamentSelector}}
 }
