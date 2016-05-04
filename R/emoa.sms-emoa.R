@@ -46,31 +46,6 @@ smsemoa = function(
   max.evals = NULL,
   max.time = NULL, ...) {
 
-  hypervolumeSelector = makeSelector(
-    selector = function(fitness, n.select, task, control, opt.state) {
-      all.idx = 1:ncol(fitness)
-
-      # do non-dominated sorting
-      nds.res = doNondominatedSorting(fitness)
-      ranks = nds.res$ranks
-      idx.max = which(ranks == max(ranks))
-
-      # there is exactly one individual that is "maximally" dominated
-      if (length(idx.max) == 1L) {
-        return(setdiff(all.idx, idx.max))
-      }
-
-      # compute exclusive hypervolume contributions and remove the one with the smallest
-      hvctrbs = computeHypervolumeContribution(fitness[, idx.max, drop = FALSE], ref.point = control$ref.point)
-      die.idx = idx.max[getMinIndex(hvctrbs)]
-
-      return(setdiff(all.idx, die.idx))
-    },
-    supported.objectives = "multi-objective",
-    name = "Hypervolume contribution selector",
-    description = "description"
-  )
-
   if (isSmoofFunction(task)) {
     task = makeOptimizationTask(task)
   }
@@ -93,7 +68,7 @@ smsemoa = function(
     parent.selector = parent.selector,
     recombinator = recombinator,
     mutator = mutator,
-    survival.selector = hypervolumeSelector
+    survival.selector = setupDominatedHypervolumeSelector()
   )
 
   ctrl$ref.point = ref.point

@@ -20,7 +20,8 @@ the mating pool. This process is repeated until the desired number of individual
 for the mating pool is reached.
 }
 \seealso{
-Other selectors: \code{\link{setupGreedySelector}},
+Other selectors: \code{\link{setupDominatedHypervolumeSelector}},
+  \code{\link{setupGreedySelector}},
   \code{\link{setupNondomSelector}},
   \code{\link{setupRouletteWheelSelector}},
   \code{\link{setupSimpleSelector}}

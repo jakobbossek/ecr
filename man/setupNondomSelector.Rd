@@ -15,7 +15,8 @@ criterion to select a subset of individuals. This is the selector used by the
 NSGA-II EMOA (see \code{\link{nsga2}}).
 }
 \seealso{
-Other selectors: \code{\link{setupGreedySelector}},
+Other selectors: \code{\link{setupDominatedHypervolumeSelector}},
+  \code{\link{setupGreedySelector}},
   \code{\link{setupRouletteWheelSelector}},
   \code{\link{setupSimpleSelector}},
   \code{\link{setupTournamentSelector}}

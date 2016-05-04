@@ -35,7 +35,8 @@ value to be zero and thus have a zero probability of being selected an additiona
 positive constant \code{offset} is added (see parameters).
 }
 \seealso{
-Other selectors: \code{\link{setupGreedySelector}},
+Other selectors: \code{\link{setupDominatedHypervolumeSelector}},
+  \code{\link{setupGreedySelector}},
   \code{\link{setupNondomSelector}},
   \code{\link{setupSimpleSelector}},
   \code{\link{setupTournamentSelector}}
