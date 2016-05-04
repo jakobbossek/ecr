@@ -145,21 +145,21 @@ checkOperatorIsCompatible = function(operator, representation) {
 getDefaultEvolutionaryOperators = function(representation, type) {
   defaults = list(
     "float" = list(
-      "parent.selector" = setupRouletteWheelSelector(),
+      "parent.selector" = setupTournamentSelector(k = 2L),
       "generator" = setupUniformGenerator(),
       "mutator" = setupGaussMutator(),
       "recombinator" = setupIntermediateRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "binary" = list(
-      "parent.selector" = setupRouletteWheelSelector(),
+      "parent.selector" = setupTournamentSelector(k = 2L),
       "generator" = setupBinaryGenerator(),
       "mutator" = setupBitFlipMutator(),
       "recombinator" = setupCrossoverRecombinator(),
       "survival.selector" = setupGreedySelector()
     ),
     "permutation" = list(
-      "parent.selector" = setupRouletteWheelSelector(),
+      "parent.selector" = setupTournamentSelector(k = 2L),
       "generator" = setupPermutationGenerator(),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
