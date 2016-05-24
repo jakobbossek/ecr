@@ -22,9 +22,17 @@
 #' @seealso \code{\link{setupECRControl}}
 #' @export
 doTheEvolution = function(task, control, initial.population = NULL) {
-  if (isSmoofFunction(task)) {
-    task = makeOptimizationTask(task)
-  }
+  UseMethod("doTheEvolution")
+}
+
+#' @export
+doTheEvolution.smoof_function = function(task, control, initial.population = NULL) {
+  task = makeOptimizationTask(task)
+  doTheEvolution(task, control, initial.population)
+}
+
+#' @export
+doTheEvolution.ecr_optimization_task = function(task, control, initial.population = NULL) {
   doFinalChecks(task, control)
 
   population = buildInitialPopulation(control$n.population, task, control, initial.population)
