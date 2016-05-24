@@ -219,3 +219,27 @@ test_that("ecr can handle initial populations", {
   # stop if initial population is to large
   expect_error(doTheEvolution(fn, control, c(initial.population, c(2, 2.5))), "exceeds", ignore.case = TRUE)
 })
+
+test_that("ecr(...) shortcut function works as expected for floating point representation", {
+  fn = function(x) {
+    sum(x^2)
+  }
+
+  res = ecr(fn, n.dim = 2L, lower = c(-5, -5), upper = c(5, 5),
+    representation = "float", n.population = 20L, n.offspring = 10L, max.iter = 30L,
+    monitor = NULL)
+  expect_true(abs(res$best.value) < 0.01)
+  expect_true(all(res$best.param < 0.01))
+})
+
+test_that("ecr(...) shortcut function works as expected for binary point representation", {
+  fn = function(x) {
+    sum(x)
+  }
+
+  res = ecr(fn, n.dim = 15L, n.bits = 15L,
+    representation = "binary", n.population = 20L, n.offspring = 10L, max.iter = 30L,
+    monitor = NULL)
+  expect_true(res$best.value == 0)
+  expect_true(all(res$best.param == 0))
+})

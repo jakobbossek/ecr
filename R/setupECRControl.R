@@ -3,56 +3,23 @@
 #'
 #' @description
 #' The ecr package offers a framework for evolutionary computing and therefore offers
-#' a lot of customization options. The control object is a simple but powerful
+#' a lot of customization options. The control object is a simple
 #' wrapper for all these options and sets convenient defaults.
 #'
-#' @param n.population [\code{integer(1)}]\cr
-#'   Number of individuals in the population.
-#' @param n.offspring [\code{integer(1)}]\cr
-#'   Number of individuals generated in each generation.
-#' @param n.mating.pool [\code{integer(1)}]\cr
-#'   Number of individuals which can potentially participate in the
-#'   generation of offspring.
-#'   Default is half of the population size.
-#' @param representation [\code{character(1)}]\cr
-#'   Genotype representation of the parameters. Available are \dQuote{binary},
-#'   \dQuote{float}, \dQuote{permutation} and \dQuote{custom}.
-#' @param survival.strategy [\code{character(1)}]\cr
-#'   Determines the survival strategy used by the EA. Possible are \dQuote{plus} for
-#'   a classical (mu + lambda) strategy and \dQuote{comma} for (mu, lambda).
-#'   Default is \dQuote{plus}.
-#' @param n.elite [\code{integer(1)}]\cr
-#'   Number of fittest individuals of the current generation that shall be copied to the
-#'   next generation without changing. Keep in mind, that the algorithm
-#'   does not care about this option if the \code{survival.strategy} is set to 'plus'.
-#'   Default is 0.
-#' @param monitor [\code{function}]\cr
-#'   Monitoring function.
-#'   Default is \code{NULL}, i.e. no monitoring.
+#' @template arg_n_population
+#' @template arg_n_offspring
+#' @template arg_n_mating_pool
+#' @template arg_representation
+#' @template arg_survival_strategy
+#' @template arg_n_elite
+#' @template arg_monitor
 #' @param stopping.conditions [\code{list}]\cr
 #'   List of functions of type \code{ecr_terminator}. At least one stopping
 #'   condition needs to be passed.
 #'   Default is the empty list.
-#' @param logger [\code{function}]\cr
-#'   Monitoring object used to log stuff.
-#'   Default is \code{NULL} which means no logging at all.
-#'   See \code{\link{setupOptPathLoggingMonitor}} for ecr's build-in logger.
-#' @param custom.constants [\code{list}]\cr
-#'   Additional constants which should be available to all generators and operators.
-#'   Defaults to empty list.
-#' @param vectorized.evaluation [\code{logical(1L)}]\cr
-#'   Is the fitness/objective function vectorized? I.e., does the fitness function accept
-#'   a list? This allows for faster execution or parallelization by hand.
-#'   If \code{TRUE} the following destinction on the type of the objective function is made:
-#'   \describe{
-#'     \item{Is \code{smoof_function}}{If the objective function is of type \code{smoof_function} from package \pkg{smoof}
-#'     and the smoof function is vectorized, the population - which is a list internally -
-#'     is reduced to a matrix and passed to the smoof function (vectorization in smoof
-#'     is allowed for continuous functions only).}
-#'     \item{Is not a \code{smoof_function}}{In this case the individuals of
-#'     the population are passed entirely as a list to the objective function.}
-#'   }
-#'   Default is \code{FALSE}.
+#' @template arg_logger
+#' @template arg_custom_constants
+#' @template arg_vectorized_evaluation
 #' @return
 #'   S3 object of type \code{ecr_control}.
 #' @export

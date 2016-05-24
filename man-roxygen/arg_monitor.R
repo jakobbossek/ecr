@@ -1,3 +1,3 @@
-#' @param monitor [\code{ecr_monitor}]\cr
+#' @param monitor [\code{function}]\cr
 #'   Monitoring function.
-#'   Default is the console monitor (see \code{\link{setupConsoleMonitor}}).
+#'   Default is \code{NULL}, i.e. no monitoring.
