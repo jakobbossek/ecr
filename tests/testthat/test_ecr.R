@@ -107,6 +107,26 @@ test_that("ecr works on binary representations", {
   }
 })
 
+test_that("ecr works with additional arguments", {
+  obj.fun = makeSingleObjectiveFunction(
+    fn = function(x, shift = 100L) {
+      sum(x^2) + shift
+    },
+    par.set = makeNumericParamSet("x", lower = -10, upper = 10, len = 1L)
+  )
+  control = setupECRControl(
+    n.population = 10L,
+    n.offspring = 5L,
+    representation = "float",
+    survival.strategy = "plus",
+    monitor = NULL,
+    stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 50L))
+  )
+  res = doTheEvolution(obj.fun, control, more.args = list(shift = 1000))
+  expect_true(res$best.value < 1000.1)
+  expect_true(res$best.param < 0.1)
+})
+
 test_that("ecr works on permutation genomes", {
   # defs
   n.params = 5L

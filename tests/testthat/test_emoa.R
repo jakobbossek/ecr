@@ -23,7 +23,7 @@ test_that("preimplemented EMOAs work well", {
     zdt1 = smoof::makeZDT1Function(dimensions = 2L),
     zdt2 = smoof::makeZDT2Function(dimensions = 3L)
   )
-  max.evals = 70L
+  max.evals = 200L
 
   # test NSGA-II
   for (n.pop in c(5, 10, 15)) {

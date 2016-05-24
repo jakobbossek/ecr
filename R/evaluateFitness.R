@@ -30,10 +30,10 @@ evaluateFitness = function(population, fitness.fun, task, control) {
       }
       # vectorized smoof function are continuous only and expect a matrix input,
       # where each column is one input vector
-      fitness = fitness.fun(do.call(cbind, population$individuals))
+      fitness = do.call(fitness.fun, c(list(do.call(cbind, population$individuals)), task$more.args))
     } else {
       # otherwise we simply pass the entire population
-      fitness = fitness.fun(population$individuals)
+      fitness = do.call(fitness.fun, c(list(population$individuals), task$more.args))
     }
     # internally fitness is always a matrix, even in the single-objective case
     if (!is.matrix(fitness)) {
@@ -42,14 +42,13 @@ evaluateFitness = function(population, fitness.fun, task, control) {
     return(fitness)
   }
 
-  # otherwise do or do not parallelization
-  if (getParamNr(task$par.set) == 1L) {
-    # one parameter
-    fitness = parallelMap(fitness.fun, population$individuals, level = "ecr.evaluateFitness")
-  } else {
-    # many parameters, which are explicit defined in function
-    fitness = parallelMap(function(ind) do.call(fitness.fun, ind), population$individuals, level = "ecr.evaluateFitness")
-  }
+  # otherwise do or do not parallelization via parallelMap
+  # We need this wrapper to distinguish between functions of signature
+  # fun(x, ...) where x is a list of parameters of the parameter set and
+  # fun(x, y, z, ...) where each parameter corresponds to an argument.
+  wrapFun = if (getParamNr(task$par.set) == 1L) list else identity
+  fitness = parallelMap(function(x) do.call(fitness.fun, c(wrapFun(x), task$more.args)),
+    population$individuals, level = "ecr.evaluateFitness")
   # force fitness to be stored in a matrix (be consistent for single and
   # multi-objective fitness funs)
   fitness = do.call(cbind, fitness)
