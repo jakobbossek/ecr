@@ -95,6 +95,7 @@ autoplot.ecr_single_objective_result = function(
       print(pl)
     } else {
       pl = pl.trace
+      return(pl)
     }
 
     print(pl)
