@@ -6,6 +6,8 @@
 #' @import parallelMap
 #' @import reshape2
 #' @import gridExtra
+#' @importFrom stats median rnorm runif
+#' @importFrom utils tail
 #' @useDynLib ecr
 NULL
 
