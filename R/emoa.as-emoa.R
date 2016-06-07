@@ -43,8 +43,8 @@ asemoa = function(
   aspiration.set = NULL,
   n.archive,
   parent.selector = setupSimpleSelector(),
-  mutator = setupGaussMutator(),
-  recombinator = setupCrossoverRecombinator(),
+  mutator = setupPolynomialMutator(eta = 25, p = 0.2),
+  recombinator = setupSBXRecombinator(eta = 15, p = 0.7),
   max.iter = 100L,
   max.evals = NULL,
   max.time = NULL,
@@ -104,7 +104,6 @@ asemoa = function(
 
       #FIXME: here we need to check if there are multiple elements with this distance
       tmp = getMinIndex(hausdorffDistances)
-
       return(setdiff(all.idx, tmp))
     },
     supported.objectives = "multi-objective",
