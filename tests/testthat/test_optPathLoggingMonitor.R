@@ -31,10 +31,10 @@ test_that("logging with ParamHelpers::OptPath works well", {
 
   # check plots
   pl = autoplot(res, complete.trace = TRUE)
-  expect_true(pl)
+  expect_is(pl, "ggplot")
 
   pl = autoplot(res, complete.trace = TRUE, log.fitness = TRUE)
-  expect_true(pl)
+  expect_is(pl, "ggplot")
 
   pl = autoplot(res, complete.trace = TRUE, show.process = TRUE)
   expect_true(pl)
