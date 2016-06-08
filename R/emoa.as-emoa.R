@@ -32,6 +32,8 @@
 #'   before computation of the average Hausdorff distance.
 #'   The function must have the formal arguments \dQuote{set} and \dQuote{aspiration.set}.
 #'   Default is the normalization introduced in [1].
+#' @param p [\code{numeric(1)}]\cr
+#'   Parameter \eqn{p} for the average Hausdorff metric. Default is 1.
 #' @template arg_parent_selector
 #' @template arg_mutator
 #' @template arg_recombinator
@@ -48,6 +50,7 @@ asemoa = function(
   aspiration.set = NULL,
   n.archive,
   normalize.fun = asemoaNormalize1,
+  p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
   recombinator = setupSBXRecombinator(eta = 15, p = 0.7),
@@ -67,14 +70,15 @@ asemoa = function(
   if (is.null(n.archive)) {
     n.archive = ncol(aspiration.set)
   }
-  assertInt(n.archive, na.ok = FALSE, lower = 2L)
+  assertInt(n.archive, lower = 2L)
   assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
+  assertNumber(p, lower = 0.001)
 
   # This is the main selection mechanism of the AS-EMOA.
   # Remove the point which leads to highest
   deltaOneUpdate = function(set, aspiration.set) {
     set = normalize.fun(set, aspiration.set)
-    return(computeAverageHausdorffDistance(set, aspiration.set))
+    return(computeAverageHausdorffDistance(set, aspiration.set, p = p))
   }
 
   # Implementation of surival selection operator of the AS-EMOA algorithm.
@@ -110,7 +114,7 @@ asemoa = function(
       # to minimal generational distance if removed
       if (length(astar) > 1L) {
         generationalDistances = lapply(astar, function(idx) {
-          computeGenerationalDistance(fitness[, -idx, drop = FALSE], aspiration.set)
+          computeGenerationalDistance(fitness[, -idx, drop = FALSE], aspiration.set, p = p)
         })
         # determine which is minimal
         min.idx = getMinIndex(generationalDistances)

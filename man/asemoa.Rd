@@ -5,6 +5,7 @@
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
 asemoa(task, n.population = 100L, aspiration.set = NULL, n.archive,
+  normalize.fun = asemoaNormalize1, p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
   recombinator = setupSBXRecombinator(eta = 15, p = 0.7), max.iter = 100L,
@@ -24,6 +25,15 @@ The aspiration set. Each column contains one point of the set.}
 \item{n.archive}{[\code{integer(1)}]\cr
 Size of the pareto archive, i.e., the number of nondominated points which we
 aim to generate. Default is \code{ncol(aspiration.set)}.}
+
+\item{normalize.fun}{[\code{function}]\cr
+Function used to normalize fitness values of the individuals
+before computation of the average Hausdorff distance.
+The function must have the formal arguments \dQuote{set} and \dQuote{aspiration.set}.
+Default is the normalization introduced in [1].}
+
+\item{p}{[\code{numeric(1)}]\cr
+Parameter \eqn{p} for the average Hausdorff metric. Default is 1.}
 
 \item{parent.selector}{[\code{ecr_selector}]\cr
 Selection operator which implements a procedure to copy individuals from a
@@ -54,7 +64,7 @@ Further arguments passed to \code{\link{setupECRControl}}.}
 The AS-EMOA, short for aspiration set evolutionary multi-objective
 algorithm aims to incorporate expert knowledge into multi-objective optimization [1].
 The algorithm expects an aspiration set, i.e., a set of reference points. It
-then creates an appriximation of the pareto front close to the aspiration set
+then creates an approximation of the pareto front close to the aspiration set
 utilizing the average Hausdorff distance.
 }
 \note{
@@ -63,8 +73,8 @@ This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
 adaptable.
 }
 \references{
-Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
-  EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.
+[1] Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
+EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.
 }
 \keyword{optimize}
 
