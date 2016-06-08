@@ -52,19 +52,20 @@
 #' @template arg_max_evals
 #' @template arg_max_time
 #' @template arg_more_args
+#' @template arg_initial_population
 #' @template arg_parent_selector
 #' @template arg_survival_selector
 #' @template arg_generator
 #' @template arg_mutator
 #' @template arg_recombinator
 #' @return [\code{\link{ecr_result}}]
-#' @example
+#' @examples
 #' fn = function(x) {
 #'    sum(x^2)
 #'  }
 #'
-#'  res = ecr(fn, n.dim = 2L, lower = c(-5, -5), upper = c(5, 5),
-#'    representation = "float", n.population = 20L, n.offspring = 10L, max.iter = 30L)
+#' res = ecr(fn, n.dim = 2L, lower = c(-5, -5), upper = c(5, 5),
+#'  representation = "float", n.population = 20L, n.offspring = 10L, max.iter = 30L)
 #' @export
 ecr = function(
   obj.fun, n.dim, lower = NULL, upper = NULL, n.bits,
