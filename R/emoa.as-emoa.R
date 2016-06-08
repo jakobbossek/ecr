@@ -83,6 +83,10 @@ asemoa = function(
   # Implementation of surival selection operator of the AS-EMOA algorithm.
   asemoaSelector = makeSelector(
     selector = function(fitness, n.select, task, control, opt.state) {
+      n.archive = control$n.archive
+      aspiration.set = control$aspiration.set
+
+      # get offspring
       all.idx = 1:ncol(fitness)
 
       # filter nondominated points
@@ -90,7 +94,6 @@ asemoa = function(
       pop.idx = all.idx[nondom.idx]
       fitness = fitness[, nondom.idx, drop = FALSE]
 
-      n.archive = control$n.archive
       # if maximal number of individuals is not exceeded yet
       # simply return
       if (length(pop.idx) <= n.archive) {
@@ -98,13 +101,28 @@ asemoa = function(
       }
 
       # Otherwise we need to do the computationally more expensive part
-      hausdorffDistances = lapply(all.idx, function(idx) {
-        deltaOneUpdate(fitness[, -idx, drop = FALSE], control$aspiration.set)
+      has = lapply(pop.idx, function(idx) {
+        deltaOneUpdate(fitness[, -idx, drop = FALSE], aspiration.set)
       })
 
-      #FIXME: here we need to check if there are multiple elements with this distance
-      tmp = getMinIndex(hausdorffDistances)
-      return(setdiff(all.idx, tmp))
+      # set of elements whose deletion from archive leads to
+      # highest decrese of delta_p
+      astar = which.min(has)
+
+      # if there are multiple points, choose the one which leads
+      # to minimal generational distance if removed
+      if (length(astar) > 1L) {
+        generationalDistances = lapply(astar, function(idx) {
+          computeGenerationalDistance(fitness[, -idx, drop = FALSE], aspiration.set)
+        })
+        # determine which is minimal
+        min.idx = getMinIndex(generationalDistances)
+        astar = astar[min.idx]
+      } else {
+        astar = getMinIndex(has)
+      }
+
+      return(setdiff(pop.idx, astar))
     },
     supported.objectives = "multi-objective",
     name = "AS-EMOA selector",
@@ -132,6 +150,7 @@ asemoa = function(
     n.population = n.population,
     n.offspring = 1L,
     representation = "float",
+    survival.strategy = "plus",
     stopping.conditions = list(
       setupMaximumEvaluationsTerminator(max.evals),
       setupMaximumTimeTerminator(max.time),

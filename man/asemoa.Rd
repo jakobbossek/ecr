@@ -5,8 +5,9 @@
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
 asemoa(task, n.population = 100L, aspiration.set = NULL, n.archive,
-  parent.selector = setupSimpleSelector(), mutator = setupGaussMutator(),
-  recombinator = setupCrossoverRecombinator(), max.iter = 100L,
+  parent.selector = setupSimpleSelector(),
+  mutator = setupPolynomialMutator(eta = 25, p = 0.2),
+  recombinator = setupSBXRecombinator(eta = 15, p = 0.7), max.iter = 100L,
   max.evals = NULL, max.time = NULL, ...)
 }
 \arguments{
