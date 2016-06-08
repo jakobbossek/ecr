@@ -5,7 +5,7 @@
 #' The AS-EMOA, short for aspiration set evolutionary multi-objective
 #' algorithm aims to incorporate expert knowledge into multi-objective optimization [1].
 #' The algorithm expects an aspiration set, i.e., a set of reference points. It
-#' then creates an appriximation of the pareto front close to the aspiration set
+#' then creates an approximation of the pareto front close to the aspiration set
 #' utilizing the average Hausdorff distance.
 #'
 #' @note
@@ -16,8 +16,8 @@
 #' @keywords optimize
 #'
 #' @references
-#'   Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
-#'   EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.
+#' [1] Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
+#' EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.
 #'
 #' @template arg_optimization_task
 #' @param n.population [\code{integer(1)}]\cr
@@ -27,6 +27,11 @@
 #' @param n.archive [\code{integer(1)}]\cr
 #'   Size of the pareto archive, i.e., the number of nondominated points which we
 #'   aim to generate. Default is \code{ncol(aspiration.set)}.
+#' @param normalize.fun [\code{function}]\cr
+#'   Function used to normalize fitness values of the individuals
+#'   before computation of the average Hausdorff distance.
+#'   The function must have the formal arguments \dQuote{set} and \dQuote{aspiration.set}.
+#'   Default is the normalization introduced in [1].
 #' @template arg_parent_selector
 #' @template arg_mutator
 #' @template arg_recombinator
@@ -42,6 +47,7 @@ asemoa = function(
   n.population = 100L,
   aspiration.set = NULL,
   n.archive,
+  normalize.fun = asemoaNormalize1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
   recombinator = setupSBXRecombinator(eta = 15, p = 0.7),
@@ -62,21 +68,12 @@ asemoa = function(
     n.archive = ncol(aspiration.set)
   }
   assertInt(n.archive, na.ok = FALSE, lower = 2L)
+  assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
 
   # This is the main selection mechanism of the AS-EMOA.
   # Remove the point which leads to highest
   deltaOneUpdate = function(set, aspiration.set) {
-    # here we need to apply this strange information. See the reference for details
-    # yeah, I could use range here but it is more readable this way
-    min1 = min(aspiration.set[1L, ])
-    min2 = min(aspiration.set[2L, ])
-    max1 = max(aspiration.set[1L, ])
-    max2 = max(aspiration.set[2L, ])
-
-    # transform
-    set[1L, ] = (set[1L, ] - min1) / (max2 - min2)
-    set[2L, ] = (set[2L, ] - min2) / (max1 - min1)
-
+    set = normalize.fun(set, aspiration.set)
     return(computeAverageHausdorffDistance(set, aspiration.set))
   }
 
@@ -174,4 +171,24 @@ asemoa = function(
   ctrl$aspiration.set = aspiration.set
 
   return(doTheEvolution(task, ctrl))
+}
+
+# @title
+# Normalization function introduced in [1].
+#
+# @param set [\code{matrix}]\cr
+#   Fitness values of the candidate solutions.
+# @param aspiration.set [\code{matrix}]\cr
+#   Aspiration set.
+# @return [\code{matrix}]
+asemoaNormalize1 = function(set, aspiration.set) {
+  min1 = min(aspiration.set[1L, ])
+  min2 = min(aspiration.set[2L, ])
+  max1 = max(aspiration.set[1L, ])
+  max2 = max(aspiration.set[2L, ])
+
+  # transform
+  set[1L, ] = (set[1L, ] - min1) / (max2 - min2)
+  set[2L, ] = (set[2L, ] - min2) / (max1 - min1)
+  return(set)
 }
