@@ -24,7 +24,7 @@ computeAverageHausdorffDistance = function(A, B, p = 1) {
 
   # ac
   GD = computeGenerationalDistance(A, B, p)
-  IGD = computeGenerationalDistance(B, A, p)
+  IGD = computeInvertedGenerationalDistance(A, B, p)
   delta = max(GD, IGD)
   return(delta)
 }
@@ -94,8 +94,8 @@ computeDistanceFromPointToSetOfPoints = function(a, B) {
   # to avoid loops here we construct a matrix and make use of R's vector
   # computation qualities
   tmp = matrix(rep(a, each = ncol(B)), nrow = nrow(B), byrow = TRUE)
-  dist = min(apply(tmp - B, 2L, function(x) {
+  dists = apply(tmp - B, 2L, function(x) {
     sqrt(sum(x^2))
-  }))
-  return(dist)
+  })
+  return(min(dists))
 }
