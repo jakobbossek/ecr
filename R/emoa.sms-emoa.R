@@ -33,7 +33,7 @@
 #' @template arg_max_time
 #' @param ... [any]\cr
 #'   Further arguments passed to \code{\link{setupECRControl}}.
-#' @return [\code{ecr_ecr_multi_objective_result}]
+#' @return [\code{ecr_smsemoa_result, ecr_multi_objective_result}]
 #' @export
 smsemoa = function(
   task,
@@ -79,5 +79,7 @@ smsemoa = function(
     stopf("Reference point ref.point needs to have as many components as objectives.")
   }
 
-  return(doTheEvolution(task, ctrl))
+  res = doTheEvolution(task, ctrl)
+  res = BBmisc::addClasses(res, "ecr_smsemoa_result")
+  return(res)
 }

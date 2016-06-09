@@ -44,7 +44,7 @@ Time budget in seconds. Default ist \code{Inf}.}
 Further arguments passed to \code{\link{setupECRControl}}.}
 }
 \value{
-[\code{ecr_ecr_multi_objective_result}]
+[\code{ecr_nsga2_result, ecr_multi_objective_result}]
 }
 \description{
 The NSGA-II merges the current population and the generated offspring and

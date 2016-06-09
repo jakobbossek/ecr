@@ -42,7 +42,7 @@
 #' @template arg_max_time
 #' @param ... [any]\cr
 #'   Further arguments passed to \code{\link{setupECRControl}}.
-#' @return [\code{ecr_ecr_multi_objective_result}]
+#' @return [\code{ecr_asemoa_result, ecr_multi_objective_result}]
 #' @export
 asemoa = function(
   task,
@@ -174,7 +174,9 @@ asemoa = function(
   ctrl$n.archive = n.archive
   ctrl$aspiration.set = aspiration.set
 
-  return(doTheEvolution(task, ctrl))
+  res = doTheEvolution(task, ctrl)
+  res = BBmisc::addClasses(res, "ecr_asemoa_result")
+  return(res)
 }
 
 # @title

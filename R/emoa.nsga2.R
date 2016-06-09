@@ -35,7 +35,7 @@
 #' @template arg_max_time
 #' @param ... [any]\cr
 #'   Further arguments passed to \code{\link{setupECRControl}}.
-#' @return [\code{ecr_ecr_multi_objective_result}]
+#' @return [\code{ecr_nsga2_result, ecr_multi_objective_result}]
 #' @export
 nsga2 = function(
   task,
@@ -73,5 +73,7 @@ nsga2 = function(
     survival.selector = setupNondomSelector()
   )
 
-  return(doTheEvolution(task, ctrl))
+  res = doTheEvolution(task, ctrl)
+  res = BBmisc::addClasses(res, "ecr_nsga2_result")
+  return(res)
 }

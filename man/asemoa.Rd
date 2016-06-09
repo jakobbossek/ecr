@@ -58,7 +58,7 @@ Time budget in seconds. Default ist \code{Inf}.}
 Further arguments passed to \code{\link{setupECRControl}}.}
 }
 \value{
-[\code{ecr_ecr_multi_objective_result}]
+[\code{ecr_asemoa_result, ecr_multi_objective_result}]
 }
 \description{
 The AS-EMOA, short for aspiration set evolutionary multi-objective

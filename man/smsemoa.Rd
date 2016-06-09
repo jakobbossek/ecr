@@ -45,7 +45,7 @@ Time budget in seconds. Default ist \code{Inf}.}
 Further arguments passed to \code{\link{setupECRControl}}.}
 }
 \value{
-[\code{ecr_ecr_multi_objective_result}]
+[\code{ecr_smsemoa_result, ecr_multi_objective_result}]
 }
 \description{
 Pure R implementation of the SMS-EMOA. This algorithm belongs to the group
