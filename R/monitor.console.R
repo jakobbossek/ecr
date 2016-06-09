@@ -37,7 +37,8 @@ setupConsoleMonitor = function(show.info.stepsize = 5L, num.format = "%g") {
           catf(call.format, iter, min(fitness), mean(fitness), max(fitness))
         } else {
           call.format = sprintf("Iter %s | non-dom: %s", "%i", num.format)
-          catf(call.format, iter, sum(!dominated(fitness)))
+          n = if (ncol(fitness) == 1L) 1L else sum(!dominated(fitness))
+          catf(call.format, iter, n)
         }
       }
     },
