@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>ecr by jakobbossek</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>ecr</h1>
+        <p>Evolutionary Computing in R.</p>
+
+        <p class="view"><a href="https://github.com/jakobbossek/ecr">View the Project on GitHub <small>jakobbossek/ecr</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/jakobbossek/ecr/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jakobbossek/ecr/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jakobbossek/ecr">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="ecr-evolutionary-computing-in-r" class="anchor" href="#ecr-evolutionary-computing-in-r" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ecr: Evolutionary Computing in R</h1>
+
+<p><a href="http://cran.r-project.org/web/packages/ecr"><img src="http://www.r-pkg.org/badges/version/ecr" alt="CRAN Status Badge"></a>
+<a href="http://cran.rstudio.com/web/packages/ecr/index.html"><img src="http://cranlogs.r-pkg.org/badges/ecr" alt="CRAN Downloads"></a>
+<a href="https://travis-ci.org/jakobbossek/ecr"><img src="https://travis-ci.org/jakobbossek/ecr.svg?branch=master" alt="Build Status"></a>
+<a href="https://ci.appveyor.com/project/jakobbossek/ecr/branch/master"><img src="https://ci.appveyor.com/api/projects/status/eu0nns2dsgocwntw/branch/master?svg=true" alt="Build status"></a>
+<a href="https://coveralls.io/r/jakobbossek/ecr"><img src="https://coveralls.io/repos/jakobbossek/ecr/badge.svg" alt="Coverage Status"></a></p>
+
+<p>The <strong>ecr</strong> package provides a powerful framework for implementing both single- and multi-objective <strong>evolutionary algorithms</strong> in R. It has build-in support for standard genotypes like real-valued vectors, binary strings and permutations. Beside, different pre-defined <strong>building blocks</strong> in form of evolutionary operators (selectors, mutators, recombinators), e.g., k-tournament selection, uniform mutation, crossover and many helper functions frequently needed in evolutionary algorithms are provided. The possibility to extend the available toolbox by defining new operators and even operate on non-standard representations makes the package very flexible.</p>
+
+<h2>
+<a id="overview-of-features" class="anchor" href="#overview-of-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview of Features</h2>
+
+<ul>
+<li>Optimization of single and multi-objective functions.</li>
+<li>Build-in genotypes <em>float</em>, <em>binary</em>, <em>permutation</em>.</li>
+<li>Possibility to create <em>custom</em> representations/genotypes.</li>
+<li>Large collection of predefined evolutionary operators for standard representations.</li>
+<li>Powerful and flexible monitoring/logging.</li>
+<li>Event dispatching mechanism. For instance the user can register actions which should be called each time the population is updated.</li>
+</ul>
+
+<h2>
+<a id="installation-instructions" class="anchor" href="#installation-instructions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation Instructions</h2>
+
+<p>The package will be available in a first version at <a href="http://cran.r-project.org">CRAN</a> soon. If you are interested in trying out and playing around with the current github developer version use the <a href="https://github.com/hadley/devtools">devtools</a> package and type the following command in R:</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-e">devtools</span><span class="pl-k">::</span>install_github(<span class="pl-s"><span class="pl-pds">"</span>jakobbossek/ecr<span class="pl-pds">"</span></span>)</pre></div>
+
+<h2>
+<a id="example-the-flexible-approach" class="anchor" href="#example-the-flexible-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example (The flexible approach)</h2>
+
+<p>In this section we want to optimize a one dimensional function with an evolutionary algorithm using just the evolutionary operators shipped with the package. A more in-depth introduction will be available soon.</p>
+
+<p>The <a href="https://github.com/jakobbossek/smoof">smoof</a> R package provides a large collection of continuous single-objective test functions commonly used in benchmarking algorithms. As an example we are going to search for the global optimum of the one-dimensional <em>Rastrigin</em> function.</p>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">smoof</span>)
+library(<span class="pl-smi">ggplot2</span>)
+library(<span class="pl-smi">ecr</span>)
+
+<span class="pl-v">obj.fun</span> <span class="pl-k">=</span> makeRastriginFunction(<span class="pl-v">dimensions</span> <span class="pl-k">=</span> <span class="pl-c1">1L</span>)
+autoplot(<span class="pl-smi">obj.fun</span>, <span class="pl-v">show.optimum</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)</pre></div>
+
+<p>As a next step we generate an ecr <em>control object</em>, which holds all the neccessary parameters for the evolutionary algorithm. The construction of this object consists of generating the object itself and kind of decorating it with some evolutionary operators.</p>
+
+<p>For our setup we choose the <em>natural</em> representation with real-valued numbers as the genotype, a population size of 20 individuals with 5 individuals being created by recombination and mutation in each generation. Furthermore we decide to use a 'plus' survival strategy, i. e., the current population and the offspring will be merged before survival selection takes place. Gaussian mutation with a standard deviance of 0.005 serves as the mutation operator and we keep the intermediate recombination operator (which is the default for the real-valued representation). Moreover we define a maximal number of 50 generations and activate the build-in logging which is needed in order to visualize the results afterwards.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Generate the control object (set basic parameters)</span>
+<span class="pl-v">control</span> <span class="pl-k">=</span> setupECRControl(
+  <span class="pl-v">n.population</span> <span class="pl-k">=</span> <span class="pl-c1">20L</span>,
+  <span class="pl-v">n.offspring</span> <span class="pl-k">=</span> <span class="pl-c1">10L</span>,
+  <span class="pl-v">representation</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>float<span class="pl-pds">"</span></span>,
+  <span class="pl-v">survival.strategy</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>plus<span class="pl-pds">"</span></span>,
+  <span class="pl-v">logger</span> <span class="pl-k">=</span> setupOptPathLoggingMonitor(),
+  <span class="pl-v">stopping.conditions</span> <span class="pl-k">=</span> <span class="pl-k">list</span>(
+    setupMaximumIterationsTerminator(<span class="pl-v">max.iter</span> <span class="pl-k">=</span> <span class="pl-c1">50L</span>)
+  )
+)
+
+<span class="pl-c"># Setup the evolutionary toolbox by specifying operators</span>
+<span class="pl-v">control</span> <span class="pl-k">=</span> setupEvolutionaryOperators(
+  <span class="pl-smi">control</span>,
+  <span class="pl-v">mutator</span> <span class="pl-k">=</span> setupGaussMutator(<span class="pl-v">sdev</span> <span class="pl-k">=</span> <span class="pl-c1">0.005</span>)
+)
+print(<span class="pl-smi">control</span>)</pre></div>
+
+<p>Now lets start the optimization process and print the result object, which contains the optimization path, the best parameters, the best fitness value and some additional information.</p>
+
+<div class="highlight highlight-source-r"><pre>set.seed(<span class="pl-c1">123</span>)
+<span class="pl-v">res</span> <span class="pl-k">=</span> doTheEvolution(<span class="pl-smi">obj.fun</span>, <span class="pl-v">control</span> <span class="pl-k">=</span> <span class="pl-smi">control</span>)
+print(<span class="pl-smi">res</span>)
+print(head(as.data.frame(<span class="pl-smi">res</span><span class="pl-k">$</span><span class="pl-smi">opt.path</span>)))
+print(autoplot(<span class="pl-smi">res</span>, <span class="pl-v">complete.trace</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>, <span class="pl-v">log.fitness</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>))</pre></div>
+
+<h2>
+<a id="example-r-like-interface" class="anchor" href="#example-r-like-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example (R like interface)</h2>
+
+<p>This example above demonstrated the most flexible way of creating an EA in ecr:
+1) Create optimization problem, i.e., the objective function to optimize.
+2) Set up an cntrol object with all the evolutionary parameters and operators attached to it.
+3) Pass both to the <code>doTheEvolutionFunction</code> function.</p>
+
+<p>Although this approach is highly flexible in practise a R user often aims
+to optimize a single-objective R function at hand. In this scenario the upper
+low-level proceeding is cumbersome and a lot of code needs to be written.
+The <strong>ecr</strong> package thus provides a more R like interface (similar to <code>optim</code>).
+Alternative code for solving the Rastrigin function is shown below.</p>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">smoof</span>)
+library(<span class="pl-smi">ggplot2</span>)
+library(<span class="pl-smi">ecr</span>)
+
+<span class="pl-v">obj.fun</span> <span class="pl-k">=</span> makeRastriginFunction(<span class="pl-v">dimensions</span> <span class="pl-k">=</span> <span class="pl-c1">1L</span>)
+<span class="pl-v">res</span> <span class="pl-k">=</span> ecr(<span class="pl-smi">obj.fun</span>, <span class="pl-v">n.dim</span> <span class="pl-k">=</span> <span class="pl-c1">1L</span>, <span class="pl-v">lower</span> <span class="pl-k">=</span> <span class="pl-k">-</span><span class="pl-c1">10</span>, <span class="pl-v">upper</span> <span class="pl-k">=</span> <span class="pl-c1">10</span>, 
+    <span class="pl-v">n.population</span> <span class="pl-k">=</span> <span class="pl-c1">20L</span>, <span class="pl-v">n.offspring</span> <span class="pl-k">=</span> <span class="pl-c1">10L</span>, <span class="pl-v">representation</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>float<span class="pl-pds">"</span></span>, 
+    <span class="pl-v">max.iter</span> <span class="pl-k">=</span> <span class="pl-c1">100L</span>, <span class="pl-v">mutator</span> <span class="pl-k">=</span> setupGaussMutator(<span class="pl-v">sdev</span> <span class="pl-k">=</span> <span class="pl-c1">0.005</span>)
+)</pre></div>
+
+<h2>
+<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact</h2>
+
+<p>Please address questions and missing features about the <strong>ecr package</strong> to the author Jakob Bossek <a href="mailto:j.bossek@gmail.com">j.bossek@gmail.com</a>. Found some nasty bugs? Please use the <a href="https://github.com/jakobbossek/ecr/issues">issue tracker</a> for this. Pay attention to explain the problem as good as possible. At its best you provide an example, so I can reproduce your problem quickly.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jakobbossek">jakobbossek</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
