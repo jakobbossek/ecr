@@ -37,3 +37,6 @@ legend(x = 0.8, y = 3,
   lty = c(3,2), col = c("black", "red")
 )
 dev.off()
+
+library(ggplot2)
+pl = qplot(x, binwidth = 0.2)
