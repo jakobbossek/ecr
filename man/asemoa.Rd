@@ -5,7 +5,8 @@
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
 asemoa(task, n.population = 10L, aspiration.set = NULL, n.archive = NULL,
-  normalize.fun = NULL, p = 1, parent.selector = setupSimpleSelector(),
+  normalize.fun = NULL, dist.fun = ecr:::computeEuclideanDistance, p = 1,
+  parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
   recombinator = setupSBXRecombinator(eta = 15, p = 0.7), max.iter = 100L,
   max.evals = NULL, max.time = NULL, ...)
@@ -30,6 +31,12 @@ Function used to normalize fitness values of the individuals
 before computation of the average Hausdorff distance.
 The function must have the formal arguments \dQuote{set} and \dQuote{aspiration.set}.
 Default is \code{NULL}, i.e., no normalization at all.}
+
+\item{dist.fun}{[\code{function}]\cr
+Distance function used internally by Hausdorff metric to compute distance
+between two points. Expects a single vector of coordinate-wise differences
+between points.
+Default is \code{computeEuclideanDistance}.}
 
 \item{p}{[\code{numeric(1)}]\cr
 Parameter \eqn{p} for the average Hausdorff metric. Default is 1.}

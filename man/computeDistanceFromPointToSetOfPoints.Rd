@@ -4,7 +4,8 @@
 \alias{computeDistanceFromPointToSetOfPoints}
 \title{Computes distance between a single point and set of points.}
 \usage{
-computeDistanceFromPointToSetOfPoints(a, B)
+computeDistanceFromPointToSetOfPoints(a, B,
+  dist.fun = computeEuclideanDistance)
 }
 \arguments{
 \item{a}{[\code{numeric(1)}]\cr
@@ -12,6 +13,11 @@ Point given as a numeric vector.}
 
 \item{B}{[\code{matrix}]\cr
 Point set (each row corresponds to a point).}
+
+\item{dist.fun}{[\code{matrix}]\cr
+Distance function to compute distance between points x and y. Expects a single
+numeric vector d with the coordinate-wise differences di = (xi - yi).
+Default is \code{computeEuclideanDist}.}
 }
 \value{
 [\code{numeric(1)}]

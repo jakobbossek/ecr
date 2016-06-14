@@ -37,6 +37,11 @@
 #'   before computation of the average Hausdorff distance.
 #'   The function must have the formal arguments \dQuote{set} and \dQuote{aspiration.set}.
 #'   Default is \code{NULL}, i.e., no normalization at all.
+#' @param dist.fun [\code{function}]\cr
+#'   Distance function used internally by Hausdorff metric to compute distance
+#'   between two points. Expects a single vector of coordinate-wise differences
+#'   between points.
+#'   Default is \code{computeEuclideanDistance}.
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter \eqn{p} for the average Hausdorff metric. Default is 1.
 #' @template arg_parent_selector
@@ -56,6 +61,7 @@ asemoa = function(
   aspiration.set = NULL,
   n.archive = NULL,
   normalize.fun = NULL,
+  dist.fun = ecr:::computeEuclideanDistance,
   p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
@@ -81,6 +87,7 @@ asemoa = function(
   if (!is.null(normalize.fun)) {
     assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
   }
+  assertFunction(dist.fun)
   assertNumber(p, lower = 0.001)
 
   # This is the main selection mechanism of the AS-EMOA.
@@ -89,7 +96,7 @@ asemoa = function(
     if (!is.null(normalize.fun)) {
       set = normalize.fun(set, aspiration.set)
     }
-    return(computeAverageHausdorffDistance(set, aspiration.set, p = p))
+    return(computeAverageHausdorffDistance(set, aspiration.set, p = p, dist.fun = dist.fun))
   }
 
   # Implementation of surival selection operator of the AS-EMOA algorithm.
@@ -125,7 +132,7 @@ asemoa = function(
       # to minimal generational distance if removed
       if (length(astar) > 1L) {
         generationalDistances = lapply(astar, function(idx) {
-          computeGenerationalDistance(fitness[, -idx, drop = FALSE], aspiration.set, p = p)
+          computeGenerationalDistance(fitness[, -idx, drop = FALSE], aspiration.set, p = p, dist.fun = dist.fun)
         })
         # determine which is minimal
         min.idx = getMinIndex(generationalDistances)

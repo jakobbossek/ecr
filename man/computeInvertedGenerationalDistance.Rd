@@ -4,7 +4,8 @@
 \alias{computeInvertedGenerationalDistance}
 \title{Computes Inverted Generational Distance.}
 \usage{
-computeInvertedGenerationalDistance(A, B, p = 1)
+computeInvertedGenerationalDistance(A, B, p = 1,
+  dist.fun = computeEuclideanDistance)
 }
 \arguments{
 \item{A}{[\code{matrix}]\cr
@@ -16,6 +17,11 @@ Second point set (each row corresponds to a point).}
 \item{p}{[\code{numeric(1)}]\cr
 Parameter p of the average Hausdoff metrix. Default is 1. See the description
 for details.}
+
+\item{dist.fun}{[\code{matrix}]\cr
+Distance function to compute distance between points x and y. Expects a single
+numeric vector d with the coordinate-wise differences di = (xi - yi).
+Default is \code{computeEuclideanDist}.}
 }
 \value{
 [\code{numeric(1)}]

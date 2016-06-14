@@ -11,9 +11,10 @@
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
+#' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}] Average Hausdorff distance of sets \code{A} and \code{B}.
 #' @export
-computeAverageHausdorffDistance = function(A, B, p = 1) {
+computeAverageHausdorffDistance = function(A, B, p = 1, dist.fun = computeEuclideanDistance) {
   # sanity check imput
   assertMatrix(A, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertMatrix(B, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
@@ -23,10 +24,14 @@ computeAverageHausdorffDistance = function(A, B, p = 1) {
   assertNumber(p, lower = 0.0001, na.ok = FALSE)
 
   # ac
-  GD = computeGenerationalDistance(A, B, p)
-  IGD = computeInvertedGenerationalDistance(A, B, p)
+  GD = computeGenerationalDistance(A, B, p, dist.fun)
+  IGD = computeInvertedGenerationalDistance(A, B, p, dist.fun)
   delta = max(GD, IGD)
   return(delta)
+}
+
+computeEuclideanDistance = function(x) {
+  sqrt(sum(x^2))
 }
 
 #' @title
@@ -42,9 +47,10 @@ computeAverageHausdorffDistance = function(A, B, p = 1) {
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
+#' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}]
 #' @export
-computeGenerationalDistance = function(A, B, p = 1) {
+computeGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanDistance) {
   assertMatrix(A, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   assertMatrix(B, mode = "numeric", any.missing = FALSE, all.missing = FALSE)
   if (nrow(A) != nrow(B)) {
@@ -72,9 +78,10 @@ computeGenerationalDistance = function(A, B, p = 1) {
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
+#' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}]
 #' @export
-computeInvertedGenerationalDistance = function(A, B, p = 1) {
+computeInvertedGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanDistance) {
   return(computeGenerationalDistance(B, A, p))
 }
 
@@ -88,14 +95,15 @@ computeInvertedGenerationalDistance = function(A, B, p = 1) {
 #'   Point given as a numeric vector.
 #' @param B [\code{matrix}]\cr
 #'   Point set (each row corresponds to a point).
+#' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}]
 #' @export
-computeDistanceFromPointToSetOfPoints = function(a, B) {
+computeDistanceFromPointToSetOfPoints = function(a, B, dist.fun = computeEuclideanDistance) {
   # to avoid loops here we construct a matrix and make use of R's vector
   # computation qualities
   tmp = matrix(rep(a, each = ncol(B)), nrow = nrow(B), byrow = TRUE)
   dists = apply(tmp - B, 2L, function(x) {
-    sqrt(sum(x^2))
+    dist.fun(x)
   })
   return(min(dists))
 }
