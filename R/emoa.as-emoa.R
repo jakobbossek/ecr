@@ -36,7 +36,7 @@
 #'   Function used to normalize fitness values of the individuals
 #'   before computation of the average Hausdorff distance.
 #'   The function must have the formal arguments \dQuote{set} and \dQuote{aspiration.set}.
-#'   Default is the normalization introduced in [1].
+#'   Default is \code{NULL}, i.e., no normalization at all.
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter \eqn{p} for the average Hausdorff metric. Default is 1.
 #' @template arg_parent_selector
@@ -55,7 +55,7 @@ asemoa = function(
   n.population = 10L,
   aspiration.set = NULL,
   n.archive = NULL,
-  normalize.fun = asemoaNormalize1,
+  normalize.fun = NULL,
   p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
@@ -78,13 +78,17 @@ asemoa = function(
   }
   assertInt(n.population, lower = 5L)
   assertInt(n.archive, lower = 5L)
-  assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
+  if (!is.null(normalize.fun)) {
+    assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
+  }
   assertNumber(p, lower = 0.001)
 
   # This is the main selection mechanism of the AS-EMOA.
   # Remove the point which leads to highest
   deltaOneUpdate = function(set, aspiration.set) {
-    set = normalize.fun(set, aspiration.set)
+    if (!is.null(normalize.fun)) {
+      set = normalize.fun(set, aspiration.set)
+    }
     return(computeAverageHausdorffDistance(set, aspiration.set, p = p))
   }
 

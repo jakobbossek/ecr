@@ -5,8 +5,7 @@
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
 asemoa(task, n.population = 10L, aspiration.set = NULL, n.archive = NULL,
-  normalize.fun = asemoaNormalize1, p = 1,
-  parent.selector = setupSimpleSelector(),
+  normalize.fun = NULL, p = 1, parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
   recombinator = setupSBXRecombinator(eta = 15, p = 0.7), max.iter = 100L,
   max.evals = NULL, max.time = NULL, ...)
@@ -30,7 +29,7 @@ aim to generate. Default is \code{n.population}.}
 Function used to normalize fitness values of the individuals
 before computation of the average Hausdorff distance.
 The function must have the formal arguments \dQuote{set} and \dQuote{aspiration.set}.
-Default is the normalization introduced in [1].}
+Default is \code{NULL}, i.e., no normalization at all.}
 
 \item{p}{[\code{numeric(1)}]\cr
 Parameter \eqn{p} for the average Hausdorff metric. Default is 1.}
