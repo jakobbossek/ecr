@@ -18,15 +18,20 @@
 #' @references
 #' [1] Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
 #' EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.
+#' [2] G. Rudolph, O. Schuetze, C. Grimme, and H. Trautmann: A Multiobjective
+#' Evolutionary Algorithm Guided by Averaged Hausdorff Distance to Aspiration
+#' Sets, pp. 261-273 in A.-A. Tantar et al. (eds.): Proceedings of EVOLVE - A
+#' bridge between Probability, Set Oriented Numerics and Evolutionary Computation
+#' V, Springer: Berlin Heidelberg 2014.
 #'
 #' @template arg_optimization_task
 #' @param n.population [\code{integer(1)}]\cr
-#'   Population size. Default is \code{100}.
+#'   Population size. Default is \code{10}.
 #' @param aspiration.set [\code{matrix}]\cr
 #'   The aspiration set. Each column contains one point of the set.
 #' @param n.archive [\code{integer(1)}]\cr
 #'   Size of the pareto archive, i.e., the number of nondominated points which we
-#'   aim to generate. Default is \code{ncol(aspiration.set)}.
+#'   aim to generate. Default is \code{n.population}.
 #' @param normalize.fun [\code{function}]\cr
 #'   Function used to normalize fitness values of the individuals
 #'   before computation of the average Hausdorff distance.
@@ -46,9 +51,9 @@
 #' @export
 asemoa = function(
   task,
-  n.population = 100L,
+  n.population = 10L,
   aspiration.set = NULL,
-  n.archive,
+  n.archive = NULL,
   normalize.fun = asemoaNormalize1,
   p = 1,
   parent.selector = setupSimpleSelector(),
@@ -68,9 +73,10 @@ asemoa = function(
       but %i <> %i.", nrow(aspiration.set), task$n.objectives)
   }
   if (is.null(n.archive)) {
-    n.archive = ncol(aspiration.set)
+    n.archive = n.population
   }
-  assertInt(n.archive, lower = 2L)
+  assertInt(n.population, lower = 5L)
+  assertInt(n.archive, lower = 5L)
   assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
   assertNumber(p, lower = 0.001)
 

@@ -4,7 +4,7 @@
 \alias{asemoa}
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
-asemoa(task, n.population = 100L, aspiration.set = NULL, n.archive,
+asemoa(task, n.population = 10L, aspiration.set = NULL, n.archive = NULL,
   normalize.fun = asemoaNormalize1, p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
@@ -17,14 +17,14 @@ Optimization task. If a \code{smoof_function} is passed it is automatically
 converted into a task.}
 
 \item{n.population}{[\code{integer(1)}]\cr
-Population size. Default is \code{100}.}
+Population size. Default is \code{10}.}
 
 \item{aspiration.set}{[\code{matrix}]\cr
 The aspiration set. Each column contains one point of the set.}
 
 \item{n.archive}{[\code{integer(1)}]\cr
 Size of the pareto archive, i.e., the number of nondominated points which we
-aim to generate. Default is \code{ncol(aspiration.set)}.}
+aim to generate. Default is \code{n.population}.}
 
 \item{normalize.fun}{[\code{function}]\cr
 Function used to normalize fitness values of the individuals
@@ -75,6 +75,11 @@ adaptable.
 \references{
 [1] Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
 EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.
+[2] G. Rudolph, O. Schuetze, C. Grimme, and H. Trautmann: A Multiobjective
+Evolutionary Algorithm Guided by Averaged Hausdorff Distance to Aspiration
+Sets, pp. 261-273 in A.-A. Tantar et al. (eds.): Proceedings of EVOLVE - A
+bridge between Probability, Set Oriented Numerics and Evolutionary Computation
+V, Springer: Berlin Heidelberg 2014.
 }
 \keyword{optimize}
 
