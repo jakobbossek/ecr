@@ -72,6 +72,28 @@ This is a pure R implementation of the AS-EMOA algorithm. It hides the regular
 \pkg{ecr} interface and offers a more R like interface while still being quite
 adaptable.
 }
+\examples{
+library(smoof)
+
+obj.fn = makeDTLZ2Function(dimensions = 2L, n.objectives = 2L)
+
+# define the aspiration set, i.e., a set of reference points
+aspiration.set = matrix(
+  c(0.1531, 0.1594, 0.1656, 0.1719, 0.1781, 0.1844, 0.1906, 0.1969, 0.2031, 0.2094,
+    0.2094, 0.2031, 0.1969, 0.1906, 0.1844, 0.1781, 0.1719, 0.1656, 0.1594, 0.1531),
+  byrow = TRUE,
+  nrow = 2L
+)
+
+\dontrun{
+res = asemoa(
+  task = obj.fn,
+  n.population = 10L,
+  aspiration.set = aspiration.set,
+  max.evals = 1000L
+)
+}
+}
 \references{
 [1] Rudolph, G., Schuetze, S., Grimme, C., Trautmann, H: An Aspiration Set
 EMOA Based on Averaged Hausdorff Distances. LION 2014: 153-156.

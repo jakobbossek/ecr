@@ -48,6 +48,7 @@
 #' @param ... [any]\cr
 #'   Further arguments passed to \code{\link{setupECRControl}}.
 #' @return [\code{ecr_asemoa_result, ecr_multi_objective_result}]
+#' @example examples/ex_asemoa.R
 #' @export
 asemoa = function(
   task,
