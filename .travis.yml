@@ -8,7 +8,7 @@ os:
 
 r_github_packages:
   - jimhester/covr
-  - berndbisch/ParamHelpers
+  - berndbischl/ParamHelpers
   - jakobbossek/smoof
 
 after_success:
