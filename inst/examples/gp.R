@@ -1,9 +1,11 @@
 library(ecr)
 library(BBmisc)
 library(devtools)
+library(rpn)
 
 load_all()
-load_all("../rpn/")
+
+set.seed(123)
 
 # polynomial we aim to approximate
 target.fun = function(x) {
@@ -14,25 +16,25 @@ target.fun = function(x) {
 lower = -5
 upper = 5
 
-obj.fun = function(obj, lower, upper) {
+# generate design points for regression
+xs = jitter(seq(lower + 0.2, upper - 0.2, by = 1), amount = 0.2)
+design = data.frame(x = xs, y = target.fun(xs))
+print(design)
+
+obj.fun = function(obj, lower, upper, design) {
   force(obj)
 
-  ob = length(which(obj == "("))
-  cb = length(which(obj == ")"))
-  if (ob != cb) {
-    print(obj)
-    stopf("Unequal!!! %i != %i", ob, cb)
-  }
-
   approx.fun = function(x) {
+    # call rpn interpreter to get infix notation
     infix = rpn(obj, eval = FALSE)$infix
     eval(parse(text = infix))
   }
 
-  fn = function(x) {
-    abs(target.fun(x) - approx.fun(x))
-  }
-  return(integrate(fn, lower = lower, upper = upper)$value)
+  # residual sum of squares
+  rss = sum((design$y - sapply(design$x, function(x) {
+    approx.fun(x)
+  }))^2)
+  return(rss)
 }
 
 makeRandomExpression = function(depth = 1L) {
@@ -50,9 +52,9 @@ generator = makeGenerator(
   generator = function(size, task, control) {
     makePopulation(lapply(1:size, function(x) makeRandomExpression()))
   },
-  name = "Blub",
-  supported = "custom",
-  description = "..."
+  name = "RPN creator",
+  description = "Randomly generates RPN expressions.",
+  supported = "custom"
 )
 
 mutator = makeMutator(
@@ -92,7 +94,7 @@ mutator = makeMutator(
   },
   supported = "custom",
   name = "Expression Mutation",
-  description = "..."
+  description = "Randomly replace "
 )
 
 control = setupECRControl(
@@ -101,8 +103,7 @@ control = setupECRControl(
   n.elite = 1L,
   representation = "custom",
   survival.strategy = "comma",
-  logger = setupOptPathLoggingMonitor(),
-  stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 200L))
+  stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 100L))
 )
 
 control = setupEvolutionaryOperators(
@@ -114,20 +115,26 @@ control = setupEvolutionaryOperators(
   survival.selector = setupGreedySelector()
 )
 
-task = makeOptimizationTask(fun = obj.fun, n.objectives = 1L, minimize = TRUE, objective.names = "abs dist")
+task = makeOptimizationTask(fun = obj.fun, n.objectives = 1L, minimize = TRUE, objective.names = "RSS")
 
+# run the EA
 set.seed(123)
-res = doTheEvolution(task, control, more.args = list(lower = lower, upper = upper))
+res = doTheEvolution(task, control, more.args = list(lower = lower, upper = upper, design = design))
 
-lapply(res$last.population$individuals, function(x) rpn(x)$infix)
 print(rpn(res$best.param))
-
-curve(target.fun(x), lower, upper, ylim = c(-100, 1000))
 
 approx.fun = function(x) {
   sapply(x, function(y) rpn(res$best.param, vars = list(x = y))$value)
 }
 
+# visualize true function and approximation
+pdf("symbolic_regression.pdf", width = 8, height = 5)
+curve(target.fun(x), lower, upper, ylim = c(-100, 1000))
 curve(approx.fun(x), lower, upper, add = TRUE, col = "blue")
+points(design$x, design$y, col = "black")
+legend(x = -4.8, y = 1000,
+  legend = c(expression(f(x)), expression(hat(f)(x))),
+  col = c("black", "blue"), lty = c(1, 1)
+)
+dev.off()
 
-autoplot(res) + ylim(c(0, 100))
