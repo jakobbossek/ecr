@@ -58,7 +58,7 @@ autoplot.ecr_single_objective_result = function(
       }
       obj.fun = object$task$fitness.fun
       task = object$task
-      par.set = smoof::getParamSet(obj.fun)
+      par.set = getParamSet(obj.fun)
       n.params = getNumberOfParameters(obj.fun)
 
       if (n.params > 2L) {
