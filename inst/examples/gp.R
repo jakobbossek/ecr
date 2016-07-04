@@ -16,11 +16,17 @@ target.fun = function(x) {
 lower = -5
 upper = 5
 
-# generate design points for regression
+# We do regression here. Thus we need a set of points and its values (x_i, y_i),
+# i = 1, ..., n. Here we generate an initial design by creating a equidistant
+# sequence of x values with subsequent noise addition.
 xs = jitter(seq(lower + 0.2, upper - 0.2, by = 1), amount = 0.2)
 design = data.frame(x = xs, y = target.fun(xs))
 print(design)
 
+# The objective function expects an individual, lower and upper bounds of the
+# interval we aim to find a nice approximation in and the design itself.
+# The objective function computes the sum of squared distances between the
+# true function values f(x_i) and the model approximations m(x_i).
 obj.fun = function(obj, lower, upper, design) {
   force(obj)
 
@@ -37,6 +43,7 @@ obj.fun = function(obj, lower, upper, design) {
   return(rss)
 }
 
+# Recursively generated a random expression in reverse polish notation.
 makeRandomExpression = function(depth = 1L) {
   nonterm = c("+", "-", "*")
   if (runif(1) < 0.3 || depth == 4) {
@@ -48,6 +55,7 @@ makeRandomExpression = function(depth = 1L) {
   return(ex)
 }
 
+# Initializes a population by generating random reverse polish notation expressions.
 generator = makeGenerator(
   generator = function(size, task, control) {
     makePopulation(lapply(1:size, function(x) makeRandomExpression()))
@@ -57,6 +65,8 @@ generator = makeGenerator(
   supported = "custom"
 )
 
+# Generates a mutator, which randomly selects non-terminal elements and replaces
+# them with random reverse polish notation expressions.
 mutator = makeMutator(
   mutator = function(ind, task, control) {
     if (runif(1L) < 1) {
@@ -121,6 +131,7 @@ task = makeOptimizationTask(fun = obj.fun, n.objectives = 1L, minimize = TRUE, o
 set.seed(123)
 res = doTheEvolution(task, control, more.args = list(lower = lower, upper = upper, design = design))
 
+# Get the infix notation of the best parameter found.
 print(rpn(res$best.param))
 
 approx.fun = function(x) {
