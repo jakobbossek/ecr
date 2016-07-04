@@ -5,20 +5,7 @@
 #' The \pkg{ecr} package offers a comprehensive collection of building blocks for
 #' both single- and multi-objective evolutionary algorithms.
 #'
-#' A Few Words on Optimization
-#' The task in global optimization is, given a set of objectives
-#' \eqn{\mathcal{F} = \{f_1, \ldots, f_m\}} with \eqn{f_i : S \subseteq \mathbf{R}
-#' \to \mathbf{R}}, \eqn{S} the region of feasible solutions, to find a solution
-#' vector \eqn{\mathbf{x}^* \in S} with
-#' \deqn{\mathbf{x}^* = arg\,min_{\mathbf{x}} (f_1(\mathbf{x}), \ldots, f_m(\mathbf{x}))}.
-#' The defintion of \eqn{arg\,min} depends on the number of objectives in this
-#' context. For a single objective, i.e., \eqn{m = 1} we are simply interested
-#' in minimizing the function value, but in the case where \eqn{m \geq 2}, we need
-#' another term of optimality, termed the Pareto-optimality. We do not want to
-#' dive in to deeply in multi-objecitve optimization formalities here and refer the interested reader to
-#' the literature.
-#'
-#' Problems in Optimization
+#' \strong{Problems in Optimization}
 #' Practisioners we are frequently faced with optimization problems. Unfortunately
 #' these problems often consist of a variety of undesirable characteristics, e.g.,
 #' nondifferentiability or noisyness. Besides, in particular in engineering, objective
@@ -28,7 +15,7 @@
 #' methods from mathematical optimization, e.g., Newton-Method or gradient descent
 #' algorithms, often cannot be appied for solving.
 #'
-#' Evolutionary Optimization
+#' \strong{Evolutionary Optimization}
 #' Evolutionary Algorithms (EAs)
 #' have proven very successful in a wide variety of real-world problems and they
 #' can handle objective functions with one or more of the aforementioned properties
@@ -55,7 +42,7 @@
 #' different evolutionary operators and/or parametrizations.
 #'
 #' @seealso \code{\link{setupECRControl}}, \code{\link{setupEvolutionaryOperators}},
-#' \code{\link{doTheEvolution}}
+#' \code{\link{makeOptimizationTask}}, \code{\link{doTheEvolution}}
 #'
 #' @docType package
 #' @name ecrpackage
