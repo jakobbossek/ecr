@@ -2,8 +2,18 @@
 #' Generator of the Simulated Binary Crossover (SBX) recombinator.
 #'
 #' @description
-#' ...
-#FIXME: add docs
+#' The Simulated Binary Crossover was first proposed by [1]. It i suited for
+#' float representation only and creates two offspring. Given parents \eqn{p_1, p_2}
+#' the offspring are generated as \eqn{c_{1/2} = \bar{x} \pm \frac{1}{2}\beta(p_2 - p_1)}
+#' where \eqn{\bar{x} = \frac{1}{2}(p_1 + p_2), p_2 > p_1}. This way \eqn{\bar{c} = \bar{x}}
+#' is assured.
+#'
+#' @note
+#' This is the default recombination operator used in the NSGA-II EMOA (see \code{\link{nsga2}}).
+#'
+#' @references
+#' [1] Deb, K. and Agrawal, R. B. (1995). Simulated binary crossover for continuous
+#' search space. Complex Systems 9(2), 115-148.
 #'
 #' @param eta [\code{numeric(1)}]\cr
 #'   Parameter eta, i.e., the distance parameters of the crossover distribution.

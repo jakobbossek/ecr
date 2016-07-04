@@ -1,8 +1,12 @@
 #' @title
-#' Generator of the Gauss mutation operator.
+#' Generator of the Gaussian mutation operator.
 #'
 #' @description
 #' Default Gaussian mutation operator known from Evolutionary Algorithms.
+#' This mutator is applicable only for \code{representation="float"}. Given
+#' an individual \eqn{\mathbf{x} \in R^l} this mutator adds a Gaussian
+#' distributed random value to each component of \eqn{\mathbf{x}}, i.~e.,
+#' \eqn{\tilde{\mathbf{x}}_i = \mathbf{x}_i + \sigma \mathcal{N}(0, 1)}.
 #'
 #' @param p [\code{numeric(1)}]\cr
 #'   Probability of mutation for the gauss mutation operator.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.mutator.gauss.R
 \name{setupGaussMutator}
 \alias{setupGaussMutator}
-\title{Generator of the Gauss mutation operator.}
+\title{Generator of the Gaussian mutation operator.}
 \usage{
 setupGaussMutator(p = 1L, sdev = 0.05)
 }
@@ -18,6 +18,10 @@ Standard deviance of the Gauss mutation, i. e., the mutation strength.}
 }
 \description{
 Default Gaussian mutation operator known from Evolutionary Algorithms.
+This mutator is applicable only for \code{representation="float"}. Given
+an individual \eqn{\mathbf{x} \in R^l} this mutator adds a Gaussian
+distributed random value to each component of \eqn{\mathbf{x}}, i.~e.,
+\eqn{\tilde{\mathbf{x}}_i = \mathbf{x}_i + \sigma \mathcal{N}(0, 1)}.
 }
 \seealso{
 Other mutators: \code{\link{setupBitFlipMutator}},

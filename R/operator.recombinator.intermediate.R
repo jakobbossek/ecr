@@ -3,7 +3,7 @@
 #'
 #' @description
 #' Intermediate recombination computes the component-wise mean value of the
-#' \code{k} given parents. It is applicable only to float representation.
+#' \code{k} given parents. It is applicable only for float representation.
 #'
 #' @param k [integer(1)]\cr
 #'   Number of parents required for mating. Default is \code{2}.

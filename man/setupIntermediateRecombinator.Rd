@@ -15,7 +15,7 @@ Number of parents required for mating. Default is \code{2}.}
 }
 \description{
 Intermediate recombination computes the component-wise mean value of the
-\code{k} given parents. It is applicable only to float representation.
+\code{k} given parents. It is applicable only for float representation.
 }
 \seealso{
 Other recombinators: \code{\link{setupCrossoverRecombinator}},

@@ -2,20 +2,23 @@
 % Please edit documentation in R/operator.mutator.bitflip.R
 \name{setupBitFlipMutator}
 \alias{setupBitFlipMutator}
-\title{Generator of a simple bitplip mutation operator.}
+\title{Generator of the Bitplip mutation operator.}
 \usage{
 setupBitFlipMutator(p = 0.1)
 }
 \arguments{
 \item{p}{[\code{numeric(1)}]\cr
-Probability to flip a single bit. Default is \code{0.1}.}
+Probability to flip a single bit.
+Default is \code{0.1}.}
 }
 \value{
 [\code{ecr_mutator}]
 }
 \description{
 This operator works only on binary representation and flips each bit
-with a given probability.
+with a given probability \eqn{p \in (0, 1)}. Usually it is recommended to
+set \eqn{p = \frac{1}{n}} where \eqn{n} is the number of bits in the
+representation.
 }
 \seealso{
 Other mutators: \code{\link{setupGaussMutator}},
