@@ -7,14 +7,14 @@ library(microbenchmark)
 # objective function to show the effect of parallel function evaluation.
 fn = makeSingleObjectiveFunction(
   fn = function(x) {
-    Sys.sleep(0.1) # delay execution by two seconds
+    Sys.sleep(runif(1, min = 0.03, max = 0.1)) # delay execution a bit
     return(sum(x^2))
   },
   par.set = makeNumericParamSet("x", len = 2L, lower = -5, upper = 5)
 )
 
 control = setupECRControl(
-  n.population = 30L, n.offspring = 30L,
+  n.population = 10L, n.offspring = 10L,
   survival.strategy = "plus",
   representation = "float",
   stopping.conditions = list(setupMaximumIterationsTerminator(max.iter = 30L))
@@ -33,6 +33,7 @@ EApar = function() {
   parallelStop()
 }
 
+set.seed(1)
 # Use the microbenchmark package to repeat both sequential and parallel EA
 # each 10 times.
 bench = microbenchmark(
@@ -43,7 +44,9 @@ bench = microbenchmark(
 
 # We see a speedup of about factor 3
 print(bench, unit = "relative")
+pl = autoplot(bench, log = FALSE) + ylim(c(0, 50)) + ylab("Time [seconds]")
+print(pl)
 # Unit: relative
-#    expr   min    lq  mean median    uq   max neval cld
-# EAseq() 3.031 3.032 3.032  3.032 3.032 3.032    10   b
-# EApar() 1.000 1.000 1.000  1.000 1.000 1.000    10   a
+#     expr   min    lq  mean median    uq  max neval cld
+#  EAseq() 2.429 2.349 2.379   2.36 2.346 2.42    10   b
+#  EApar() 1.000 1.000 1.000   1.00 1.000 1.00    10  a
