@@ -36,8 +36,8 @@ test_that("logging with ParamHelpers::OptPath works well", {
   pl = autoplot(res, complete.trace = TRUE, log.fitness = TRUE)
   expect_is(pl, "ggplot")
 
-  pl = autoplot(res, complete.trace = TRUE, show.process = TRUE)
-  expect_true(pl)
+  # pl = autoplot(res, complete.trace = TRUE, show.process = TRUE)
+  # expect_true(pl)
 })
 
 test_that("user defined extras are stored in OptPath", {

@@ -38,12 +38,12 @@ test_that("calculation of dominated hypervolume works as expected", {
   points2 = points
   points2[1L, 1L] = Inf
   expect_warning(computeDominatedHypervolume(points2, ref.point), "point", ignore.case = TRUE)
-  expect_true(is.nan(computeDominatedHypervolume(points2, ref.point)))
+  expect_true(suppressWarnings(is.nan(computeDominatedHypervolume(points2, ref.point))))
 
   ref.point2 = ref.point
   ref.point2[2L] = Inf
   expect_warning(computeDominatedHypervolume(points, ref.point2), "Reference point", ignore.case = TRUE)
-  expect_true(is.nan(computeDominatedHypervolume(points, ref.point2)))
+  expect_true(suppressWarnings(is.nan(computeDominatedHypervolume(points, ref.point2))))
 
   # now check the hypervolume contributions
   hv.contribs = computeHypervolumeContribution(points, ref.point)
