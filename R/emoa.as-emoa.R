@@ -99,11 +99,78 @@ asemoa = function(
     return(computeAverageHausdorffDistance(set, aspiration.set, p = p, dist.fun = dist.fun))
   }
 
+  fastASEMOASelector = makeSelector(
+    selector = function(fitness, n.select, task, control, opt.state) {
+      aspiration.set = control$aspiration.set
+      n.archive = control$n.archive
+
+      # get nondominated points
+      nondom.idx = which.nondominated(fitness)
+      fitness.pop = fitness[, nondom.idx, drop = FALSE]
+      if (!is.null(normalize.fun)) {
+        fitness.pop = normalize.fun(fitness.pop, aspiration.set)
+      }
+      n.pop = length(nondom.idx)
+
+      # archive size exceeded! We need to drop one individual from the population
+      if (n.pop <= control$n.archive) {
+        return(nondom.idx)
+      }
+
+      GDp = 0
+      IGDp = 0
+
+      GDps = numeric(n.pop)
+      IGDps = numeric(n.pop)
+
+      # initialize for later use
+      IGDp1s = rep(0.0, n.pop)
+      IGDp2s = rep(0.0, n.pop)
+
+      for (i in seq_len(n.pop)) {
+        # GP_p contribution of archive point a
+        GDps[i] = computeDistanceFromPointToSetOfPoints(fitness.pop[, i], aspiration.set)
+        # add GD_p contribution of a
+        GDp = GDp + GDps[i]
+      }
+
+      for (i in seq_len(n.archive)) {
+        r = aspiration.set[, i]
+        # if (!is.null(normalize.fun)) {
+        #   fitness.pop2 = normalize.fun(fitness.pop, aspiration.set)
+        # }
+        rdists = computeDistancesFromPointToSetOfPoints(r, fitness.pop)
+        astar.idx = which.min(rdists)
+        d1 = rdists[astar.idx] # distance to closest population point
+        d2 = min(rdists[-astar.idx]) # distance to 2nd closest population point
+        IGDp = IGDp + d1 # add IGD_p contribution of r
+        IGDp1s[astar.idx] = IGDp1s[astar.idx] + d1 # sum IGD_p contributions with a* involved
+        IGDp2s[astar.idx] = IGDp2s[astar.idx] + d2 # sum IGD_p contributions without a*
+      }
+      dpmin = Inf
+      gdpmin = Inf
+      for (i in seq_len(n.pop)) {
+        gdp = GDp - GDps[i] # value of GD_p if a deleted
+        igdp = IGDp - IGDp1s[i] + IGDp2s[i] # value of IGD_p if a deleted
+        dp = max(gdp / (n.pop - 1), igdp / n.archive) # delta_1 if a deleted
+        if (dp < dpmin | (dp == dpmin & gdp < gdpmin)) {
+          dpmin = dp # store smallest delta_1 seen so far
+          gdpmin = gdp # store smallest gdp since last improvement
+          astar.idx = i
+        }
+      }
+      return(nondom.idx[-astar.idx])
+    },
+    supported.objectives = "multi-objective",
+    name = "Fast AS-EMOA selector",
+    description = "Uses sped up delta-p update."
+  )
+
   # Implementation of surival selection operator of the AS-EMOA algorithm.
   asemoaSelector = makeSelector(
     selector = function(fitness, n.select, task, control, opt.state) {
-      n.archive = control$n.archive
       aspiration.set = control$aspiration.set
+      n.archive = ncol(aspiration.set)
 
       # get offspring
       all.idx = 1:ncol(fitness)
@@ -184,7 +251,7 @@ asemoa = function(
     recombinator = recombinator,
     generator = asemoaGenerator,
     mutator = mutator,
-    survival.selector = asemoaSelector
+    survival.selector = fastASEMOASelector
   )
 
   #FIXME: this is rather ugly. We simply add some more args to the control object

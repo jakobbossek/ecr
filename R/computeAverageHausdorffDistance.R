@@ -99,11 +99,16 @@ computeInvertedGenerationalDistance = function(A, B, p = 1, dist.fun = computeEu
 #' @return [\code{numeric(1)}]
 #' @export
 computeDistanceFromPointToSetOfPoints = function(a, B, dist.fun = computeEuclideanDistance) {
+  dists = computeDistancesFromPointToSetOfPoints(a, B, dist.fun)
+  return(min(dists))
+}
+
+computeDistancesFromPointToSetOfPoints = function(a, B, dist.fun = computeEuclideanDistance) {
   # to avoid loops here we construct a matrix and make use of R's vector
   # computation qualities
   tmp = matrix(rep(a, each = ncol(B)), nrow = nrow(B), byrow = TRUE)
   dists = apply(tmp - B, 2L, function(x) {
     dist.fun(x)
   })
-  return(min(dists))
+  return(dists)
 }
