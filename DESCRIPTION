@@ -12,7 +12,7 @@ Description: This R package provides a powerful framework for evolutionary
     there are various comfort functions, like monitoring, logging and more.
 Version: 1.0
 Encoding: UTF-8
-Date: 2015-12-09
+Date: 2016-08-22
 Authors@R: c(person("Jakob", "Bossek", email = "j.bossek@gmail.com", role =
     c("aut", "cre")), person("Dirk", "Surmann", email = "surmann@statistik.tu-dortmund.de", role = "ctb"))
 Maintainer: Jakob Bossek <j.bossek@gmail.com>
@@ -20,9 +20,9 @@ License: BSD_2_clause + file LICENSE
 URL: https://github.com/jakobbossek/ecr
 BugReports: https://github.com/jakobbossek/ecr/issues
 Depends:
-    ParamHelpers (>= 1.6),
+    ParamHelpers (>= 1.8),
     BBmisc (>= 1.6),
-    smoof (>= 1.1),
+    smoof (>= 1.4),
     ggplot2 (>= 1.0.0)
 Imports:
     checkmate (>= 1.1),
