@@ -65,9 +65,9 @@ test_that("preimplemented EMOAs work well", {
         0.18, 0.4), ncol = 3L, byrow = FALSE
     )
     res = asemoa(task, n.population = n.pop, max.evals = max.evals,
-      aspiration.set = aspiration.set, n.archive = 10L, monitor = NULL)
+      aspiration.set = aspiration.set, monitor = NULL)
     expect_is_pareto_approximation(res$pareto.front, 2L, "asemoa", "ZDT3",
-      list(n.pop = n.pop, n.archive = 10L))
+      list(n.pop = n.pop, n.archive = 3L))
   }
 })
 

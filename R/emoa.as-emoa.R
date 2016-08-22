@@ -29,9 +29,6 @@
 #'   Population size. Default is \code{10}.
 #' @param aspiration.set [\code{matrix}]\cr
 #'   The aspiration set. Each column contains one point of the set.
-#' @param n.archive [\code{integer(1)}]\cr
-#'   Size of the pareto archive, i.e., the number of nondominated points which we
-#'   aim to generate. Default is \code{n.population}.
 #' @param normalize.fun [\code{function}]\cr
 #'   Function used to normalize fitness values of the individuals
 #'   before computation of the average Hausdorff distance.
@@ -59,7 +56,6 @@ asemoa = function(
   task,
   n.population = 10L,
   aspiration.set = NULL,
-  n.archive = NULL,
   normalize.fun = NULL,
   dist.fun = ecr:::computeEuclideanDistance,
   p = 1,
@@ -79,11 +75,10 @@ asemoa = function(
     stopf("AS-EMAO: Dimension of the aspiration set needs to be equal to the number of objectives,
       but %i <> %i.", nrow(aspiration.set), task$n.objectives)
   }
-  if (is.null(n.archive)) {
-    n.archive = n.population
-  }
+  n.archive = ncol(aspiration.set)
+
   assertInt(n.population, lower = 5L)
-  assertInt(n.archive, lower = 5L)
+  assertInt(n.archive, lower = 3L)
   if (!is.null(normalize.fun)) {
     assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
   }
@@ -102,7 +97,7 @@ asemoa = function(
   fastASEMOASelector = makeSelector(
     selector = function(fitness, n.select, task, control, opt.state) {
       aspiration.set = control$aspiration.set
-      n.archive = control$n.archive
+      n.archive = ncol(aspiration.set)
 
       # get nondominated points
       nondom.idx = which.nondominated(fitness)
@@ -113,7 +108,7 @@ asemoa = function(
       n.pop = length(nondom.idx)
 
       # archive size exceeded! We need to drop one individual from the population
-      if (n.pop <= control$n.archive) {
+      if (n.pop <= n.archive) {
         return(nondom.idx)
       }
 
@@ -256,7 +251,6 @@ asemoa = function(
 
   #FIXME: this is rather ugly. We simply add some more args to the control object
   # without sanity checks and stuff like that.
-  ctrl$n.archive = n.archive
   ctrl$aspiration.set = aspiration.set
 
   res = doTheEvolution(task, ctrl)

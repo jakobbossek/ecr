@@ -4,7 +4,7 @@
 \alias{asemoa}
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
-asemoa(task, n.population = 10L, aspiration.set = NULL, n.archive = NULL,
+asemoa(task, n.population = 10L, aspiration.set = NULL,
   normalize.fun = NULL, dist.fun = ecr:::computeEuclideanDistance, p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
@@ -21,10 +21,6 @@ Population size. Default is \code{10}.}
 
 \item{aspiration.set}{[\code{matrix}]\cr
 The aspiration set. Each column contains one point of the set.}
-
-\item{n.archive}{[\code{integer(1)}]\cr
-Size of the pareto archive, i.e., the number of nondominated points which we
-aim to generate. Default is \code{n.population}.}
 
 \item{normalize.fun}{[\code{function}]\cr
 Function used to normalize fitness values of the individuals
