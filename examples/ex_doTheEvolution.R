@@ -69,8 +69,8 @@ ctrl = setupEvolutionaryOperators(
  recombinator = setupCrossoverRecombinator(),
  survival.selector = setupGreedySelector()
 )
-res = doTheEvolution(obj.fn, ctrl)
-print(res)
 \dontrun{
+  res = doTheEvolution(obj.fn, ctrl)
+  print(res)
   autoplot(res, show.process = TRUE)
 }
