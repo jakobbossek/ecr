@@ -1,4 +1,4 @@
-ecr v1.0.1 (Release date: 2015-08-23):
+ecr v1.0.1 (Release date: 2015-09-10):
 ==========
 
 * Fixed docs for doNondominatedSorting, dominates, which.dominated, computeAverageHausdorffDistance,
