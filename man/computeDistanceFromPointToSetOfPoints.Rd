@@ -12,7 +12,7 @@ computeDistanceFromPointToSetOfPoints(a, B,
 Point given as a numeric vector.}
 
 \item{B}{[\code{matrix}]\cr
-Point set (each row corresponds to a point).}
+Point set (each column corresponds to a point).}
 
 \item{dist.fun}{[\code{matrix}]\cr
 Distance function to compute distance between points x and y. Expects a single

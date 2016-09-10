@@ -8,7 +8,7 @@ doNondominatedSorting(x)
 }
 \arguments{
 \item{x}{[\code{matrix}]\cr
-Numeric matrix of points. Each row contains one objective vector.}
+Numeric matrix of points. Each column contains one objective vector.}
 }
 \value{
 [\code{list}]
@@ -17,7 +17,7 @@ Numeric matrix of points. Each row contains one objective vector.}
     \item{ranks}{Integer vector of ranks of length \code{ncol(x)}. The higher
     the rank, the higher the domination front the corresponding point is
     located on.}
-    \item{dom.counter}{Integer vector of length \code{nrow(x)}. The i-th element
+    \item{dom.counter}{Integer vector of length \code{ncol(x)}. The i-th element
     is the domination number of the i-th point.}
   }
 }

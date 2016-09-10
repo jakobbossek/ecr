@@ -4,10 +4,8 @@
 #' @description
 #' Computes the average Hausdroff distance measure between two point sets.
 #'
-#' @param A [\code{matrix}]\cr
-#'   First point set (each column corresponds to a point).
-#' @param B [\code{matrix}]\cr
-#'   Second point set (each column corresponds to a point).
+#' @template arg_pointset_A
+#' @template arg_pointset_B
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
@@ -40,10 +38,8 @@ computeEuclideanDistance = function(x) {
 #' @description
 #' Helper to compute the Generational Distance (GD) between two sets of points.
 #'
-#' @param A [\code{matrix}]\cr
-#'   First point set (each row corresponds to a point).
-#' @param B [\code{matrix}]\cr
-#'   Second point set (each row corresponds to a point).
+#' @template arg_pointset_A
+#' @template arg_pointset_B
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
@@ -71,10 +67,8 @@ computeGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanD
 #' Helper to compute the Inverted Generational Distance (IGD) between two sets
 #' of points.
 #'
-#' @param A [\code{matrix}]\cr
-#'   First point set (each row corresponds to a point).
-#' @param B [\code{matrix}]\cr
-#'   Second point set (each row corresponds to a point).
+#' @template arg_pointset_A
+#' @template arg_pointset_B
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
@@ -94,7 +88,7 @@ computeInvertedGenerationalDistance = function(A, B, p = 1, dist.fun = computeEu
 #' @param a [\code{numeric(1)}]\cr
 #'   Point given as a numeric vector.
 #' @param B [\code{matrix}]\cr
-#'   Point set (each row corresponds to a point).
+#'   Point set (each column corresponds to a point).
 #' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}]
 #' @export

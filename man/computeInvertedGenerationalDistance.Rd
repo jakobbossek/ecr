@@ -9,10 +9,10 @@ computeInvertedGenerationalDistance(A, B, p = 1,
 }
 \arguments{
 \item{A}{[\code{matrix}]\cr
-First point set (each row corresponds to a point).}
+First point set (each column corresponds to a point).}
 
 \item{B}{[\code{matrix}]\cr
-Second point set (each row corresponds to a point).}
+Second point set (each column corresponds to a point).}
 
 \item{p}{[\code{numeric(1)}]\cr
 Parameter p of the average Hausdoff metrix. Default is 1. See the description

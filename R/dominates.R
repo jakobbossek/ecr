@@ -42,8 +42,8 @@ isDominated = function(x, y) {
 #' Check for pareto dominance.
 #'
 #' @description
-#' This functions takes a numeric matrix \code{x} where each row corresponds to
-#' a point and return a logical vector. The i-th position of the latter is
+#' This functions takes a numeric matrix \code{x} where each column corresponds to
+#' a point and returns a logical vector. The i-th position of the latter is
 #' \code{TRUE} if the i-th point is dominated by at least one other point for
 #' \code{dominated} and \code{FALSE} for \code{nonDominated}.
 #'
@@ -71,8 +71,8 @@ nondominated = function(x) {
 #'
 #' @description
 #' Simple wrapper functions around \code{\link{dominated}}. Given a matrix with one
-#' point per row \code{which.dominated} returns the row numbers of the dominated
-#' points and \code{which.nondominated} the row numbers of the nondominated points.
+#' point per column \code{which.dominated} returns the row numbers of the dominated
+#' points and \code{which.nondominated} the column numbers of the nondominated points.
 #'
 #' @keywords optimize
 #'
