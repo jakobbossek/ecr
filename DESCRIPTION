@@ -10,7 +10,7 @@ Description: Provides a powerful framework for evolutionary
     permutations or binary strings? No problem, 'ecr' has been developed with that in
     mind. Extending the framework with own operators is also possible. Additionally
     there are various comfort functions, like monitoring, logging and more.
-Version: 1.0.1
+Version: 1.1
 Encoding: UTF-8
 Date: 2016-09-10
 Authors@R: c(person("Jakob", "Bossek", email = "j.bossek@gmail.com", role =
