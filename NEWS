@@ -1,0 +1,12 @@
+ecr v1.0.1 (Release date: 2015-08-23):
+==========
+
+* Fixed docs for doNondominatedSorting, dominates, which.dominated, computeAverageHausdorffDistance,
+  computeInvertedGenerationalDistance, computeDistanceFromPointToSetOfPoints: fitness matrices
+  in ecr always contain one point per column (not one per row!)
+
+
+ecr v1.0 (Release date: 2015-08-23):
+========
+
+* First submission to CRAN.
