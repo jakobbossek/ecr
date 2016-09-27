@@ -55,7 +55,7 @@ computeGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanD
   assertNumber(p, lower = 0.0001, na.ok = FALSE)
 
   # compute distance of each point from A to the point set B
-  dists = apply(A, 2L, function(a) computeDistanceFromPointToSetOfPoints(a, B))
+  dists = apply(A, 2L, function(a) computeDistanceFromPointToSetOfPoints(a, B, dist.fun))
   GD = mean(dists^p)^(1 / p)
   return(GD)
 }
@@ -76,7 +76,7 @@ computeGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanD
 #' @return [\code{numeric(1)}]
 #' @export
 computeInvertedGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanDistance) {
-  return(computeGenerationalDistance(B, A, p))
+  return(computeGenerationalDistance(B, A, p, dist.fun))
 }
 
 #' @title
