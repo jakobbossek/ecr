@@ -23,7 +23,7 @@ setupTournamentSelector = function(k = 3L) {
     idx = integer(n.select)
     for (i in seq(n.select)) {
       # choose k individuals at random ...
-      competitor.idx = sample(pop.idx, size = k)
+      competitor.idx = sample(pop.idx, size = k, replace = TRUE)
       # ... and store the best
       idx[i] = competitor.idx[which.min(fitness[competitor.idx])]
     }
