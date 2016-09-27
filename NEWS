@@ -1,13 +1,15 @@
 ecr v1.x.x (Release date: xxxx-xx-xx):
 ==========
 
+* Fixed docs of makeMonitor function
+* Fixed inst/examples/smoof_example.R
+
 ecr v1.0.1 (Release date: 2015-09-10):
 ==========
 
 * Fixed docs for doNondominatedSorting, dominates, which.dominated, computeAverageHausdorffDistance,
   computeInvertedGenerationalDistance, computeDistanceFromPointToSetOfPoints: fitness matrices
   in ecr always contain one point per column (not one per row!)
-
 
 ecr v1.0 (Release date: 2015-08-23):
 ==========
