@@ -26,8 +26,8 @@ Not used.}
 \description{
 Monitor objects serve for monitoring the optimization process. Each monitor
 object expects the parameters \code{before}, \code{step} and \code{after},
-each being a function and expecting \code{envir = parent.frame()} as the
-only parameter. This way one can access all the variables used within the
+each being a function and expecting \code{opt.state} and \code{...} as the
+only parameters. This way one can access all the variables used within the
 evolutionary cycle.
 }
 \examples{
