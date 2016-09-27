@@ -19,7 +19,11 @@ The **ecr** package provides a powerful framework for implementing both single- 
 
 ## Installation Instructions
 
-The package will be available in a first version at [CRAN](http://cran.r-project.org) soon. If you are interested in trying out and playing around with the current github developer version use the [devtools](https://github.com/hadley/devtools) package and type the following command in R:
+The package is available at [CRAN](http://cran.r-project.org) soon. Install the release version via:
+```splus
+install.packages("ecr")
+```
+If you are interested in trying out and playing around with the current github developer version use the [devtools](https://github.com/hadley/devtools) package and type the following command in R:
 
 ```splus
 devtools::install_github("jakobbossek/ecr")
