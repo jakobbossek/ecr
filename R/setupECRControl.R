@@ -91,9 +91,7 @@ setupECRControl = function(
   )
 
   # set defaults if one of the standard representations is used
-  if (representation != "custom") {
-    ctrl = setupEvolutionaryOperators(ctrl)
-  }
+  ctrl = setupEvolutionaryOperators(ctrl)
 
   return(ctrl)
 }

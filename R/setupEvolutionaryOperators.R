@@ -8,6 +8,9 @@
 #' @note
 #' Keep in mind, that all of the provided operators need to be compatible
 #' with the \dQuote{representation} stored in the \code{control} object.
+#' There are reasonable default operators in almost any cases. Only in the
+#' case of a \dQuote{custom} representation, mutator, recombintor and generator
+#' need to be set explicitly.
 #'
 #' @template arg_control
 #' @template arg_generator
@@ -25,6 +28,7 @@ setupEvolutionaryOperators = function(
   mutator = getDefaultEvolutionaryOperators(control$representation, "mutator"),
   recombinator = getDefaultEvolutionaryOperators(control$representation, "recombinator")) {
   assertClass(control, "ecr_control")
+
 
   control = setupParentSelector(control, parent.selector)
   control = setupSurvivalSelector(control, survival.selector)
@@ -93,8 +97,10 @@ setupRecombinator = function(control, operator) {
 # @return [ecr_control]
 setupOperator = function(control, operator, type, description, field) {
   assertClass(control, "ecr_control")
-  checkCorrectOperatorType(operator, type, description)
-  checkOperatorIsCompatible(operator, control$representation)
+  if (control$representation != "custom") {
+    checkCorrectOperatorType(operator, type, description)
+    checkOperatorIsCompatible(operator, control$representation)
+  }
   control[[field]] = operator
   return(control)
 }
@@ -163,6 +169,13 @@ getDefaultEvolutionaryOperators = function(representation, type) {
       "generator" = setupPermutationGenerator(),
       "mutator" = setupSwapMutator(),
       "recombinator" = setupPMXRecombinator(),
+      "survival.selector" = setupGreedySelector()
+    ),
+    "custom" = list(
+      "parent.selector" = setupTournamentSelector(k = 2L),
+      "generator" = NULL,
+      "mutator" = NULL,
+      "recombinator" = NULL,
       "survival.selector" = setupGreedySelector()
     )
   )

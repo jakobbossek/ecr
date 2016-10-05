@@ -48,5 +48,8 @@ your problem.
 \note{
 Keep in mind, that all of the provided operators need to be compatible
 with the \dQuote{representation} stored in the \code{control} object.
+There are reasonable default operators in almost any cases. Only in the
+case of a \dQuote{custom} representation, mutator, recombintor and generator
+need to be set explicitly.
 }
 

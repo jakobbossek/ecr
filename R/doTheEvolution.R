@@ -71,6 +71,10 @@ doFinalChecks = function(task, control, more.args) {
   assertClass(control, "ecr_control")
   assertList(more.args)
 
+  if (is.null(control$mutator) || is.null(control$recombinator)) {
+    stopf("You need to set at least a mutator or a recombinator.")
+  }
+
   if (isSmoofFunction(task$fitness.fun) && control$representation == "custom") {
     stopf("Custom representations not possible for smoof functions.")
   }
@@ -135,6 +139,9 @@ buildInitialPopulation = function(n.population, task, control, initial.populatio
     }
   }
   populationGenerator = control$generator
+  if (is.null(populationGenerator))
+    stopf("You need to set a generator in case a) no initial population is provided or b)
+  the initial population is smaller than n.population.")
   generated.population = populationGenerator(n.population - n.initial, task, control)
   if (n.initial > 0L) {
     return(makePopulation(c(generated.population$individuals, initial.population)))
