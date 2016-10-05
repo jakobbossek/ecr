@@ -44,39 +44,24 @@ setupStringMutator = function(p) {
   )
 }
 
-# generator function. Creates an initial population of random strings.
-stringGenerator = makeGenerator(
-  generator = function(size, task, control) {
-    # extract neccessary information
-    char.set = control$custom.constants$char.set
-    n = length(control$custom.constants$target)
-    makePopulation(lapply(seq(size), function(i) {
-      sample(char.set, length(target), replace = TRUE)
-    }))
-  },
-  name = "String generator",
-  description = "Generates random strings from a character set",
-  supported = "custom"
-)
-
 control = setupECRControl(
-  n.population = 1L, n.mating.pool = 1L, n.offspring = 100L,
+  n.population = 1L, n.offspring = 100L,
   representation = "custom",
   # variables needed by some of the operators
   custom.constants = list(char.set = char.set, target = target),
-  stopping.conditions = list(setupMaximumIterationsTerminator(100L))
+  stopping.conditions = list(setupMaximumIterationsTerminator(150L))
 )
+
+# here we generate the initial population by hand (no generator object)
+initial.population = list(sample(char.set, length(target), replace = TRUE))
 
 control = setupEvolutionaryOperators(
   control,
-  generator = stringGenerator,
   mutator = setupStringMutator(p = 0.05),
-  recombinator = setupNullRecombinator(),
-  survival.selector = setupGreedySelector(),
-  parent.selector = setupGreedySelector()
+  recombinator = setupNullRecombinator()
 )
 
-res = doTheEvolution(task, control, more.args = list(target))
+res = doTheEvolution(task, control, more.args = list(target), initial.population = initial.population)
 
 print("Best parameter found:")
 print(paste(res$best.param, collapse = ""))
