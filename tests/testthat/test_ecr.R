@@ -243,3 +243,21 @@ test_that("ecr(...) shortcut function works as expected for binary point represe
   expect_true(res$best.value == 0)
   expect_true(all(res$best.param == 0))
 })
+
+# address github #176
+test_that("ecr sets n.mating.pool appropriately if n.population equals 1", {
+  fn = makeSphereFunction(1L)
+
+  control = setupECRControl(
+    n.population = 1L,
+    n.offspring = 1L,
+    survival.strategy = "plus",
+    representation = "float",
+    monitor = NULL,
+    stopping.conditions = setupTerminators(max.iter = 3L)
+  )
+  control = setupEvolutionaryOperators(control)
+
+  res = doTheEvolution(fn, control = control)
+  expect_true(is.numeric(res$best.value))
+})

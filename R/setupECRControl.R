@@ -26,7 +26,7 @@
 setupECRControl = function(
   n.population,
   n.offspring,
-  n.mating.pool = floor(n.population / 2),
+  n.mating.pool = ceiling(n.population / 2),
   representation,
   survival.strategy = "plus",
   n.elite = 0L,

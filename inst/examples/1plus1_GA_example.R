@@ -35,7 +35,6 @@ obj.fun = makeSingleObjectiveFunction(
 control = setupECRControl(
   n.population = 1L,
   n.offspring = 1L,
-  n.mating.pool = 1L,
   representation = "binary",
   logger = setupOptPathLoggingMonitor(),
   survival.strategy = "plus",
