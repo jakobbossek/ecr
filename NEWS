@@ -5,6 +5,7 @@ ecr v1.x.x (Release date: xxxx-xx-xx):
 * Fixed inst/examples/smoof_example.R
 * Fixed issue with k-tournament selector if n.select was geater than the popultion size
 * Fixed issue where custom distance function was not propagated for compute{Inverted}GenerationalDistance
+* Fixed more.arge not passed down correctly in case one passes a smoof function to doTheEvolution
 
 ecr v1.0.1 (Release date: 2015-09-10):
 ==========

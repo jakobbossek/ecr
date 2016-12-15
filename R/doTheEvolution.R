@@ -22,7 +22,7 @@ doTheEvolution = function(task, control, initial.population = NULL, more.args = 
 #' @export
 doTheEvolution.smoof_function = function(task, control, initial.population = NULL, more.args = list()) {
   task = makeOptimizationTask(task)
-  doTheEvolution(task, control, initial.population)
+  doTheEvolution(task, control, initial.population, more.args)
 }
 
 #' @export
