@@ -42,6 +42,8 @@ evaluateFitness = function(population, fitness.fun, task, control) {
     return(fitness)
   }
 
+
+
   # otherwise do or do not parallelization via parallelMap
   # We need this wrapper to distinguish between functions of signature
   # fun(x, ...) where x is a list of parameters of the parameter set and

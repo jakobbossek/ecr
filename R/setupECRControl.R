@@ -188,6 +188,7 @@ selectForSurvival = function(opt.state, population, control, n.select = control$
   fitness = population$fitness
   task = opt.state$task
   fitness2 = transformFitness(fitness, task, control$survival.selector)
+  opt.state$source.population = population
   idx.survival = control$survival.selector(fitness2, n.population, task, control, opt.state)
   subsetPopulation(population, idx = idx.survival)
 }
