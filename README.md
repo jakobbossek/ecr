@@ -6,6 +6,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/eu0nns2dsgocwntw/branch/master?svg=true)](https://ci.appveyor.com/project/jakobbossek/ecr/branch/master)
 [![Coverage Status](https://coveralls.io/repos/jakobbossek/ecr/badge.svg)](https://coveralls.io/r/jakobbossek/ecr)
 
+**INFO:** *A follow-up package named [ecr2](https://github.com/jakobbossek/ecr2) is currently under heavy developement. There are various substantial interface changes and the package benefits from better performance as well as the possibility to prototype non-standard EAs by offering many more helper functions and make stuff much more explicit.*
+
 The **ecr** package provides a powerful framework for implementing both single- and multi-objective **evolutionary algorithms** in R. It has build-in support for standard genotypes like real-valued vectors, binary strings and permutations. Beside, different pre-defined **building blocks** in form of evolutionary operators (selectors, mutators, recombinators), e.g., k-tournament selection, uniform mutation, crossover and many helper functions frequently needed in evolutionary algorithms are provided. The possibility to extend the available toolbox by defining new operators and even operate on non-standard representations makes the package very flexible.
 
 ## Overview of Features
