@@ -22,8 +22,8 @@ computeAverageHausdorffDistance = function(A, B, p = 1, dist.fun = computeEuclid
   assertNumber(p, lower = 0.0001, na.ok = FALSE)
 
   # ac
-  GD = computeGenerationalDistance(A, B, p, dist.fun)
-  IGD = computeInvertedGenerationalDistance(A, B, p, dist.fun)
+  GD = computeGenerationalDistance(A, B, p, dist.fun = dist.fun)
+  IGD = computeInvertedGenerationalDistance(A, B, p, dist.fun = dist.fun)
   delta = max(GD, IGD)
   return(delta)
 }
@@ -108,11 +108,14 @@ normalizeFront = function(A, min.value = NULL, max.value = NULL) {
 #' @param p [\code{numeric(1)}]\cr
 #'   Parameter p of the average Hausdoff metrix. Default is 1. See the description
 #'   for details.
+#' @param normalize [\code{logical(1)}]\cr
+#'   Should the front be normalized on basis of \code{B}?
+#'   Default is \code{FALSE}.
 #' @template arg_asemoa_dist_fun
 #' @return [\code{numeric(1)}]
 #' @export
-computeInvertedGenerationalDistance = function(A, B, p = 1, dist.fun = computeEuclideanDistance) {
-  return(computeGenerationalDistance(B, A, p, dist.fun))
+computeInvertedGenerationalDistance = function(A, B, p = 1, normalize = FALSE, dist.fun = computeEuclideanDistance) {
+  return(computeGenerationalDistance(B, A, p, normalize, dist.fun))
 }
 
 #' @title
