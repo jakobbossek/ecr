@@ -43,8 +43,7 @@ generateOffspring = function(opt.state, mating.pool, control) {
     offspring = offspring[-sample(1:length(offspring), 1L)]
   }
 
-  offspring.fitness = evaluateFitness(makePopulation(offspring), fitness.fun, task, control)
-  return(makePopulation(offspring, offspring.fitness))
+  return(makePopulation(offspring))
 }
 
 # @title
