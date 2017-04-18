@@ -26,4 +26,3 @@ Eventually a list of initial individuals.}
 Generates the initial population of an EA based on a list of initial individuals
 and/or the control object and the corresponding population generator.
 }
-

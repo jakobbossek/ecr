@@ -26,4 +26,3 @@ See \code{\link{getAvailableEventNames}} for a list of available event names.
 \seealso{
 \code{\link{getAvailableEventNames}}
 }
-

@@ -29,4 +29,3 @@ Default is \code{computeEuclideanDist}.}
 \description{
 Computes the average Hausdroff distance measure between two point sets.
 }
-

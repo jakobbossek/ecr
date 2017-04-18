@@ -84,4 +84,3 @@ ctrl = setupEvolutionaryOperators(ctrl)
 res = doTheEvolution(obj.fn, ctrl)
 print(res)
 }
-

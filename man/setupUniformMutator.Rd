@@ -26,4 +26,3 @@ Other mutators: \code{\link{setupBitFlipMutator}},
   \code{\link{setupScrambleMutator}},
   \code{\link{setupSwapMutator}}
 }
-

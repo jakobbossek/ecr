@@ -21,4 +21,3 @@ Other stopping conditions: \code{\link{setupCloseToOptimumTerminator}},
   \code{\link{setupMaximumEvaluationsTerminator}},
   \code{\link{setupMaximumIterationsTerminator}}
 }
-

@@ -23,4 +23,3 @@ This is the default monitoring function used by ecr. It simply outputs
 the iteration as well as minimal, mean and maximal target values from the current
 population.
 }
-

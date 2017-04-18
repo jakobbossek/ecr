@@ -16,4 +16,3 @@ getGenerations(result)
 \description{
 Determine the number of function evaluations needed by the EA.
 }
-

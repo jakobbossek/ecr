@@ -77,4 +77,3 @@ The ecr package offers a framework for evolutionary computing and therefore offe
 a lot of customization options. The control object is a simple
 wrapper for all these options and sets convenient defaults.
 }
-

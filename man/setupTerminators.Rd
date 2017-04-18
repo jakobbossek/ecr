@@ -22,4 +22,3 @@ Setting up stopping conditions is flexible and straight-forward, but
 it needs a lot of writing. This function generates a list of frequently
 used stopping conditions with just a single function call.
 }
-

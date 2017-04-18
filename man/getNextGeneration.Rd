@@ -24,4 +24,3 @@ Given the current optimization state and the list of offspring individuals,
 the function selects the next generation. The selection type is based on the
 parameters given in the control object.
 }
-

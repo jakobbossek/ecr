@@ -24,4 +24,3 @@ Rescales a cloud of points so that all the point are located within the
 bounds given by \code{lower} and \code{upper}. If both parameters are missing
 the minimal/maximal values per dimension are extracted.
 }
-

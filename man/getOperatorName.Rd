@@ -17,4 +17,3 @@ Operator object.}
 \description{
 Returns the name of the passed operator.
 }
-

@@ -32,4 +32,3 @@ Basically this is a wrapper for the call to the parent selector of the control
 object which occasionally transforms the fitness values (e.g., if maximzation should be
 performed, but the selection operator actualy minimizes).
 }
-

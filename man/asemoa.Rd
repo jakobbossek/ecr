@@ -4,7 +4,7 @@
 \alias{asemoa}
 \title{Implementation of the NSGA-II EMOA algorithm by Deb.}
 \usage{
-asemoa(task, n.population = 10L, aspiration.set = NULL,
+asemoa(task, n.population = 10L, n.archive = NULL, aspiration.set = NULL,
   normalize.fun = NULL, dist.fun = ecr:::computeEuclideanDistance, p = 1,
   parent.selector = setupSimpleSelector(),
   mutator = setupPolynomialMutator(eta = 25, p = 0.2),
@@ -18,6 +18,10 @@ converted into a task.}
 
 \item{n.population}{[\code{integer(1)}]\cr
 Population size. Default is \code{10}.}
+
+\item{n.archive}{[\code{integer(1)}]\cr
+Archive size.
+Default is the number of points in the \code{aspiration.set}.}
 
 \item{aspiration.set}{[\code{matrix}]\cr
 The aspiration set. Each column contains one point of the set.}
@@ -106,4 +110,3 @@ bridge between Probability, Set Oriented Numerics and Evolutionary Computation
 V, Springer: Berlin Heidelberg 2014.
 }
 \keyword{optimize}
-

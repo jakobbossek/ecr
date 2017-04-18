@@ -12,4 +12,3 @@ setupPermutationGenerator()
 \description{
 This generator generates a population of permutations.
 }
-

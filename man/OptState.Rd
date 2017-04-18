@@ -24,4 +24,3 @@ state object contains the following slots:
 }
 The final optimization state object is returned by the EA (see \code{\link{ecr_result}}).
 }
-

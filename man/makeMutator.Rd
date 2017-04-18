@@ -32,4 +32,3 @@ Default is the empty list.}
 \description{
 Helper function which constructs a mutator, i. e., a mutation operator.
 }
-

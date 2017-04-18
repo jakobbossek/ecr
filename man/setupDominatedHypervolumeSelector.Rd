@@ -20,4 +20,3 @@ Other selectors: \code{\link{setupGreedySelector}},
   \code{\link{setupSimpleSelector}},
   \code{\link{setupTournamentSelector}}
 }
-

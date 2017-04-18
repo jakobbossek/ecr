@@ -9,4 +9,3 @@ getAvailableEventNames()
 \description{
 Receive a character vector of all valid event names.
 }
-

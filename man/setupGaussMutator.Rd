@@ -31,4 +31,3 @@ Other mutators: \code{\link{setupBitFlipMutator}},
   \code{\link{setupSwapMutator}},
   \code{\link{setupUniformMutator}}
 }
-

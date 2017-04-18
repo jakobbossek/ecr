@@ -24,4 +24,3 @@ lightning-fast, may result in higher computation time. However, if the function
 evaluations are computationally more expensive, parallelization leads to
 impressive running time benefits.
 }
-

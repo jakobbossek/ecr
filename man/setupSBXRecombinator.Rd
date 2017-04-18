@@ -37,4 +37,3 @@ Other recombinators: \code{\link{setupCrossoverRecombinator}},
   \code{\link{setupOXRecombinator}},
   \code{\link{setupPMXRecombinator}}
 }
-

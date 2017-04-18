@@ -24,4 +24,3 @@ Given and optimization state and a mating pool of individuals this function
 generates offspring individuals based on the parameters specified in the
 control object.
 }
-

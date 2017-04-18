@@ -17,4 +17,3 @@ Operator object.}
 \description{
 Return a named list of parameters the operator was initialized with.
 }
-

@@ -31,4 +31,3 @@ evaluation.
 Keep in mind, that the return value is a 1xn matrix in case of single-objective
 optimization.
 }
-

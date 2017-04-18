@@ -27,6 +27,9 @@
 #' @template arg_optimization_task
 #' @param n.population [\code{integer(1)}]\cr
 #'   Population size. Default is \code{10}.
+#' @param n.archive [\code{integer(1)}]\cr
+#'   Archive size.
+#'   Default is the number of points in the \code{aspiration.set}.
 #' @param aspiration.set [\code{matrix}]\cr
 #'   The aspiration set. Each column contains one point of the set.
 #' @param normalize.fun [\code{function}]\cr
@@ -55,6 +58,7 @@
 asemoa = function(
   task,
   n.population = 10L,
+  n.archive = NULL,
   aspiration.set = NULL,
   normalize.fun = NULL,
   dist.fun = ecr:::computeEuclideanDistance,
@@ -75,10 +79,11 @@ asemoa = function(
     stopf("AS-EMAO: Dimension of the aspiration set needs to be equal to the number of objectives,
       but %i <> %i.", nrow(aspiration.set), task$n.objectives)
   }
-  n.archive = ncol(aspiration.set)
+  if (is.null(n.archive))
+    n.archive = ncol(aspiration.set)
 
-  assertInt(n.population, lower = 5L)
-  assertInt(n.archive, lower = 3L)
+  n.population = asInt(n.population, lower = 5L)
+  n.archive = asInt(n.archive, lower = 3L)
   if (!is.null(normalize.fun)) {
     assertFunction(normalize.fun, args = c("set", "aspiration.set"), ordered = TRUE)
   }
@@ -97,7 +102,7 @@ asemoa = function(
   fastASEMOASelector = makeSelector(
     selector = function(fitness, n.select, task, control, opt.state) {
       aspiration.set = control$aspiration.set
-      n.archive = ncol(aspiration.set)
+      n.archive = control$n.archive
 
       # get nondominated points
       nondom.idx = which.nondominated(fitness)
@@ -165,7 +170,7 @@ asemoa = function(
   asemoaSelector = makeSelector(
     selector = function(fitness, n.select, task, control, opt.state) {
       aspiration.set = control$aspiration.set
-      n.archive = ncol(aspiration.set)
+      n.archive = control$n.archive
 
       # get offspring
       all.idx = 1:ncol(fitness)
@@ -251,6 +256,7 @@ asemoa = function(
 
   #FIXME: this is rather ugly. We simply add some more args to the control object
   # without sanity checks and stuff like that.
+  ctrl$n.archive = n.archive
   ctrl$aspiration.set = aspiration.set
 
   res = doTheEvolution(task, ctrl)

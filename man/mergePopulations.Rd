@@ -16,4 +16,3 @@ List of objects of type \code{setOfIndividuals}.}
 \description{
 Make one population out of multiple.
 }
-

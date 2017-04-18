@@ -2,16 +2,16 @@
 % Please edit documentation in R/OptState.getter.R
 \name{OptStateGetter}
 \alias{OptStateGetter}
-\alias{getOptStateBestIndividual}
-\alias{getOptStateControl}
-\alias{getOptStateCurrentEvaluations}
 \alias{getOptStateCurrentIter}
-\alias{getOptStateFitness}
-\alias{getOptStateOptPath}
-\alias{getOptStateParamSet}
-\alias{getOptStatePopulation}
 \alias{getOptStateTask}
+\alias{getOptStateParamSet}
+\alias{getOptStateCurrentEvaluations}
+\alias{getOptStateControl}
+\alias{getOptStateBestIndividual}
+\alias{getOptStatePopulation}
+\alias{getOptStateFitness}
 \alias{getOptStateTimePassed}
+\alias{getOptStateOptPath}
 \title{Optimization state getter functions.}
 \usage{
 getOptStateCurrentIter(opt.state)
@@ -48,4 +48,3 @@ stopping conditions get the current \code{\link{OptState}} passed as an argument
 The following collection of simple getter functions helps to access the
 properties of the optimization state.
 }
-

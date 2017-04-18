@@ -22,4 +22,3 @@ Wrap individuals in a \code{setOfIndividuals}. This function is of particular
 interest when one wants to write population generators for non-standard
 representations.
 }
-

@@ -11,7 +11,7 @@ setupMaximumEvaluationsTerminator(max.evals = NULL)
 Maximal number of function evaluations. Default ist \code{Inf}.}
 }
 \value{
-[\code{function}]
+[\code{ecr2_terminator}]
 }
 \description{
 Stop the EA after at most \code{max.evals} evaluations of the fitness function.
@@ -21,4 +21,3 @@ Other stopping conditions: \code{\link{setupCloseToOptimumTerminator}},
   \code{\link{setupMaximumIterationsTerminator}},
   \code{\link{setupMaximumTimeTerminator}}
 }
-

@@ -62,4 +62,3 @@ R like interface to a simple evolutionary algorithm which works on real valued
 vectors.
 }
 \keyword{optimize}
-

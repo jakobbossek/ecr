@@ -38,4 +38,3 @@ in favour of low fitness values.}
 Helper function which defines a selector method, i. e., an operator which
 takes the population and returns a part of it for mating or survival.
 }
-

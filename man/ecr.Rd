@@ -165,4 +165,3 @@ res = ecr(fn, n.dim = 2L, lower = c(-5, -5), upper = c(5, 5),
 \code{\link{doTheEvolution}} for the main working horse of \pkg{ecr}.
 }
 \keyword{optimize}
-

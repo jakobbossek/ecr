@@ -22,4 +22,3 @@ Nothing.
 \description{
 Called once after survival selection to update the optimization state.
 }
-

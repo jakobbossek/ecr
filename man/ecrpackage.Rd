@@ -49,4 +49,3 @@ different evolutionary operators and/or parametrizations.
 \code{\link{setupECRControl}}, \code{\link{setupEvolutionaryOperators}},
 \code{\link{makeOptimizationTask}}, \code{\link{doTheEvolution}}
 }
-

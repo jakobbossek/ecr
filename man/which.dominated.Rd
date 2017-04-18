@@ -31,4 +31,3 @@ points and \code{which.nondominated} the column numbers of the nondominated poin
   print(mtcars[idxs, ])
 }
 \keyword{optimize}
-

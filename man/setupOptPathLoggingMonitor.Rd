@@ -37,4 +37,3 @@ stored in the \code{\link[ParamHelpers]{OptPath}} by default since the
 individuals are more complex than normal parameters, the serialized individuals
 are stored in the \code{\link[ParamHelpers]{OptPath}}.
 }
-

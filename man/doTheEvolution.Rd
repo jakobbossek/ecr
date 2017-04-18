@@ -114,4 +114,3 @@ ctrl = setupEvolutionaryOperators(
 \code{\link{setupECRControl}}
 }
 \keyword{optimize}
-

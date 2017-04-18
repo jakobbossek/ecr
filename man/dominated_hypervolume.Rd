@@ -35,4 +35,3 @@ If no reference point is given the nadir point of the set \code{x} is
 determined and a positive offset with default 1 is added. This is to ensure
 that the reference point dominates all of the points in the reference set.
 }
-

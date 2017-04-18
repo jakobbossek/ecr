@@ -31,4 +31,3 @@ Other recombinators: \code{\link{setupIntermediateRecombinator}},
   \code{\link{setupPMXRecombinator}},
   \code{\link{setupSBXRecombinator}}
 }
-

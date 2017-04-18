@@ -24,4 +24,3 @@ Furhter parameters passed to R\{1,2,3\} computation functions. See e.g.
 \description{
 Computes a table of EMOA indicators based on a multi-objective ecr result object.
 }
-

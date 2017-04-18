@@ -34,4 +34,3 @@ Default is the empty list.}
 Helper function which constructs a generator, i. e., a function which generates
 an initial population.
 }
-

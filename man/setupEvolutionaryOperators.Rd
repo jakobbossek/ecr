@@ -52,4 +52,3 @@ There are reasonable default operators in almost any cases. Only in the
 case of a \dQuote{custom} representation, mutator, recombintor and generator
 need to be set explicitly.
 }
-

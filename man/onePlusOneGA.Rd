@@ -47,4 +47,3 @@ R like interface to a simple evolutionary algorithm which works on binary valued
 vectors.
 }
 \keyword{optimize}
-

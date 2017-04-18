@@ -23,4 +23,3 @@ Control object.}
 The optimization task object is a container for all variables
 regarding the optimization process.
 }
-

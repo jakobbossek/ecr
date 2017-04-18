@@ -6,7 +6,7 @@
 #'
 #' @param max.evals [\code{integer(1)}]\cr
 #'   Maximal number of function evaluations. Default ist \code{Inf}.
-#' @return [\code{function}]
+#' @return [\code{ecr2_terminator}]
 #' @family stopping conditions
 #' @export
 setupMaximumEvaluationsTerminator = function(max.evals = NULL) {
