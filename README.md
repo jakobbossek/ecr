@@ -1,4 +1,4 @@
-**IMPORTANT:** *This repository is outdated. Visit the official repository of See [ecr2](https://github.com/jakobbossek/ecr2) for the current state of development. There are various substantial interface changes and the package benefits from better performance as well as the possibility to prototype non-standard EAs by offering many more helper functions and make stuff much more explicit.*
+**IMPORTANT:** *This repository is outdated. Visit the official repository of  [ecr2](https://github.com/jakobbossek/ecr2) for the current state of development. There are various substantial interface changes and the package benefits from better performance as well as the possibility to prototype non-standard EAs by offering many more helper functions and make stuff much more explicit.*
 
 # ecr: Evolutionary Computing in R
 
